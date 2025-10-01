@@ -393,7 +393,7 @@
     <div class="product-detail-container">
         <div class="product-detail-grid">
             <div class="product-detail-image">
-                <img id="productImage" src="" alt="">
+                <div id="productGallery"></div>
             </div>
             
             <div class="product-detail-info">
@@ -548,6 +548,7 @@
     <script src="./js/products.js"></script>
     <script src="./js/reviews.js"></script>
     <script src="./js/cart.js"></script>
+    <script src="./js/product-gallery.js"></script>
     <script>
         let currentProduct = null;
         let currentQuantity = 1;
@@ -568,8 +569,14 @@
                 return;
             }
             
-            document.getElementById('productImage').src = currentProduct.image;
-            document.getElementById('productImage').alt = currentProduct.name;
+            // 初始化圖片輪播
+            if (currentProduct.images && currentProduct.images.length > 0) {
+                initProductGallery(currentProduct.id, currentProduct.images);
+            } else {
+                // 如果沒有多張圖片，使用單張圖片
+                initProductGallery(currentProduct.id, [currentProduct.image]);
+            }
+            
             document.getElementById('productCategory').textContent = currentProduct.category;
             document.getElementById('productName').textContent = currentProduct.name;
             document.getElementById('productPrice').textContent = currentProduct.price;

@@ -29,7 +29,7 @@ if exist "js\products.js" (echo    OK - products.js) else (echo    ERROR - produ
 echo.
 echo Step 4: Upload to GitHub...
 git add .
-git commit -m "Final: About page redesign, order tracking, contact form, full GAS integration"
+git commit -m "Complete: Navigation menu fixed, product gallery, order tracking, all features ready"
 git push origin main
 
 if %errorlevel% neq 0 (

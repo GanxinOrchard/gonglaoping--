@@ -6,6 +6,13 @@ const products = [
         category: '優質水果',
         price: 680,
         image: 'images/商品一(椪柑果實).jpg',
+        images: [
+            'images/商品一(椪柑果實).jpg',
+            'images/商品一(椪柑果實).jpg',
+            'images/商品一(椪柑果實).jpg',
+            'images/商品一(椪柑果實).jpg',
+            'images/商品一(椪柑果實).jpg'
+        ],
         description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
         badge: '熱銷',
         salesCount: 1250,
@@ -16,17 +23,23 @@ const products = [
             { id: '25A', name: '25A', diameter: '7.6-7.8 cm', price: 780 },
             { id: '27A', name: '27A', diameter: '7.9-8.1 cm', price: 880 },
             { id: '30A', name: '30A', diameter: '8.2-8.5 cm', price: 980 }
-        ]
     },
     {
         id: 2,
         name: '東勢茂谷柑',
         category: '優質水果',
-        price: 950,
+        price: 850,
         image: 'images/商品二(茂谷柑).png',
-        description: '皮薄多汁、細嫩飽滿、色澤橙亮。4刀6塊，好吃不沾手',
-        badge: '新品',
-        salesCount: 856,
+        images: [
+            'images/商品二(茂谷柑).png',
+            'images/商品二(茂谷柑).png',
+            'images/商品二(茂谷柑).png',
+            'images/商品二(茂谷柑).png',
+            'images/商品二(茂谷柑).png'
+        ],
+        description: '果肉飽滿、香氣濃郴、甜度高。送禮自用兩相宜',
+        badge: '推薦',
+        salesCount: 980,
         shippingType: 'normal',
         hasSpecs: true,
         specs: [
