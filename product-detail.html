@@ -403,10 +403,7 @@
                 <div class="product-detail-features">
                     <h3>商品特色</h3>
                     <ul id="productFeatures">
-                        <li>產地直送，新鮮保證</li>
-                        <li>通過安全驗證，品質有保障</li>
-                        <li>冷藏宅配，維持最佳風味</li>
-                        <li>24小時內拍照反應，協助退換貨</li>
+                        <!-- 動態載入 -->
                     </ul>
                 </div>
                 
@@ -506,6 +503,9 @@
             document.getElementById('productDescription').textContent = currentProduct.description;
             document.getElementById('salesCount').textContent = currentProduct.salesCount || 0;
             
+            // 載入商品特色
+            loadProductFeatures(currentProduct);
+            
             // 如果有規格選項
             if (currentProduct.hasSpecs && currentProduct.specs) {
                 document.getElementById('specSelector').style.display = 'block';
@@ -557,6 +557,36 @@
                     已選擇：<strong>${spec.name}</strong> (單顆直徑約 ${spec.diameter})
                 </div>
             `;
+        }
+        
+        // 載入商品特色
+        function loadProductFeatures(product) {
+            const featuresEl = document.getElementById('productFeatures');
+            if (!featuresEl) return;
+            
+            let features = [];
+            
+            if (product.id >= 3 && product.id <= 5) {
+                // 菱角仁特色
+                features = [
+                    '新鮮菱角仁，口感綿密香甜',
+                    '營養豐富，含蛋白質、維生素B群、膳食纖維',
+                    '冷凍保存12個月，-18°C保存',
+                    '可煮湯、炒菜、煮粥、燉品，用途多樣',
+                    '產地直送，品質保證',
+                    '冷凍宅配，新鮮到府'
+                ];
+            } else {
+                // 水果類特色
+                features = [
+                    '產地直送，新鮮保證',
+                    '通過安全驗證，品質有保障',
+                    '冷藏宅配，維持最佳風味',
+                    '24小時內拍照反應，協助退換貨'
+                ];
+            }
+            
+            featuresEl.innerHTML = features.map(f => `<li>${f}</li>`).join('');
         }
         
         // 改變數量

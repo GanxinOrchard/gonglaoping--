@@ -39,12 +39,44 @@ function closeCheckoutModal() {
     }
 }
 
+// 計算運費（依商品類型）
+function calculateShipping(subtotal, cartItems) {
+    // 滿1800免運
+    if (subtotal >= 1800) return 0;
+    
+    // 檢查購物車中的商品類型，取最高運費
+    let maxShippingFee = 0;
+    
+    if (typeof cart !== 'undefined' && cart.length > 0) {
+        cart.forEach(item => {
+            const product = products.find(p => p.id === item.id);
+            if (!product) return;
+            
+            let fee = 150; // 預設常溫
+            if (product.shippingType === 'cold') {
+                fee = 180; // 冷藏
+            } else if (product.shippingType === 'frozen') {
+                fee = 200; // 冷凍
+            }
+            
+            if (fee > maxShippingFee) {
+                maxShippingFee = fee;
+            }
+        });
+    }
+    
+    return maxShippingFee || 150;
+}
+
 // 更新結帳摘要
 function updateCheckoutSummary() {
     const checkoutSummary = document.getElementById('checkoutSummary');
     const checkoutTotal = document.getElementById('checkoutTotal');
     
     if (!checkoutSummary || !checkoutTotal) return;
+    
+    const subtotal = calculateSubtotal();
+    const shipping = calculateShipping(subtotal, cart);
     
     // 渲染訂單項目
     checkoutSummary.innerHTML = cart.map(item => `
@@ -54,9 +86,24 @@ function updateCheckoutSummary() {
         </div>
     `).join('');
     
+    // 顯示小計
+    checkoutSummary.innerHTML += `
+        <div class="checkout-summary-item">
+            <span>小計</span>
+            <span>NT$ ${subtotal}</span>
+        </div>
+    `;
+    
+    // 顯示運費
+    checkoutSummary.innerHTML += `
+        <div class="checkout-summary-item">
+            <span>運費 ${shipping === 0 ? '(滿1800免運)' : ''}</span>
+            <span>${shipping === 0 ? '免運' : 'NT$ ' + shipping}</span>
+        </div>
+    `;
+    
     // 顯示折扣
     if (appliedDiscount) {
-        const subtotal = calculateSubtotal();
         const discount = calculateDiscount(subtotal);
         
         checkoutSummary.innerHTML += `
@@ -68,7 +115,7 @@ function updateCheckoutSummary() {
     }
     
     // 更新總計
-    const total = calculateTotal();
+    const total = calculateTotal() + shipping;
     checkoutTotal.textContent = `NT$ ${total}`;
 }
 

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關於我們 - 柑心果園</title>
+    <title>關於我們 - 柑心果園 | 公老坪椪柑百年果園傳承</title>
+    <meta name="description" content="柑心果園來自台中公老坪與東勢，百年果園傳承。專營公老坪椪柑、東勢茂谷柑，尊重季節、不急催熟，產地直送新鮮水果。">
+    <meta name="keywords" content="柑心果園,公老坪,椪柑,茂谷柑,百年果園,台中水果,豐原,產地直送">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -123,15 +125,29 @@
                             <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園">
                         </a>
                     </div>
-                    <div class="nav-icons">
-                        <a href="index.html" style="margin-right: 20px; font-weight: 600; color: var(--text-dark);">
-                            <i class="fas fa-arrow-left"></i> 返回首頁
-                        </a>
-                    </div>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="index.html#products">全部商品</a></li>
+                        <li><a href="about.html" class="active">關於我們</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li><a href="knowledge.html">蔬果知識+</a></li>
+                        <li><a href="index.html#contact">聯絡我們</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
+    <script>
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+    </script>
 
     <!-- Hero Section -->
     <section class="about-hero">
@@ -206,7 +222,7 @@
                     <h4>聯絡我們</h4>
                     <ul class="contact-list">
                         <li><i class="fas fa-phone"></i> 0933-721-978</li>
-                        <li><i class="fas fa-envelope"></i> service@ganxin-orchard.com</li>
+                        <li><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank" rel="noopener noreferrer">Facebook 粉絲專頁</a></li>
                         <li><i class="fas fa-map-marker-alt"></i> 台灣豐原公老坪</li>
                         <li><i class="fas fa-clock"></i> 週一至週五 09:00-18:00</li>
                     </ul>
@@ -214,7 +230,6 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 柑心果園 Ganxin Orchard. All rights reserved.</p>
-            </div>
         </div>
     </footer>
 </body>

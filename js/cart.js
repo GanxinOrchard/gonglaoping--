@@ -173,6 +173,36 @@ function renderCartItems() {
     `).join('');
 }
 
+// 計算運費（依商品類型）
+function calculateShippingFee(cartItems) {
+    const subtotal = calculateSubtotal();
+    
+    // 滿1800免運
+    if (subtotal >= 1800) return 0;
+    
+    // 檢查購物車中的商品類型
+    let maxShippingFee = 0;
+    
+    cartItems.forEach(item => {
+        const product = products.find(p => p.id === item.id);
+        if (!product) return;
+        
+        let fee = 150; // 預設常溫
+        if (product.shippingType === 'cold') {
+            fee = 180; // 冷藏
+        } else if (product.shippingType === 'frozen') {
+            fee = 200; // 冷凍
+        }
+        
+        // 取最高運費
+        if (fee > maxShippingFee) {
+            maxShippingFee = fee;
+        }
+    });
+    
+    return maxShippingFee;
+}
+
 // 更新購物車總計
 function updateCartTotal() {
     const subtotalEl = document.getElementById('subtotal');
@@ -182,9 +212,33 @@ function updateCartTotal() {
     
     const subtotal = calculateSubtotal();
     const discount = calculateDiscount(subtotal);
-    const total = calculateTotal();
+    const shipping = calculateShippingFee(cart);
+    const total = calculateTotal() + shipping;
     
     if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal}`;
+    
+    // 顯示運費資訊
+    let shippingHTML = '';
+    if (shipping === 0) {
+        shippingHTML = '<div class="shipping-info" style="color: #10b981; font-size: 14px; margin: 10px 0;">✓ 已達免運門檻（滿1800免運）</div>';
+    } else {
+        const remaining = 1800 - subtotal;
+        let shippingType = '常溫150';
+        if (shipping === 180) shippingType = '冷藏180';
+        if (shipping === 200) shippingType = '冷凍200';
+        shippingHTML = `<div class="shipping-info" style="color: #f59e0b; font-size: 14px; margin: 10px 0;">運費 NT$ ${shipping} (${shippingType}) | 再消費 NT$ ${remaining} 即可免運</div>`;
+    }
+    
+    // 插入運費資訊
+    if (subtotalEl && subtotalEl.parentElement) {
+        let shippingInfoEl = subtotalEl.parentElement.querySelector('.shipping-info');
+        if (!shippingInfoEl) {
+            subtotalEl.parentElement.insertAdjacentHTML('afterend', shippingHTML);
+        } else {
+            shippingInfoEl.outerHTML = shippingHTML;
+        }
+    }
+    
     if (totalEl) totalEl.textContent = `NT$ ${total}`;
     
     if (discount > 0 && discountAmountEl && discountValueEl) {

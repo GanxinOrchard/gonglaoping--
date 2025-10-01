@@ -9,6 +9,7 @@ const products = [
         description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
         badge: '熱銷',
         salesCount: 1250,
+        shippingType: 'cold',
         hasSpecs: true,
         specs: [
             { id: '23A', name: '23A', diameter: '7.3-7.5 cm', price: 680 },
@@ -26,6 +27,7 @@ const products = [
         description: '皮薄多汁、細嫩飽滿、色澤橙亮。4刀6塊，好吃不沾手',
         badge: '新品',
         salesCount: 856,
+        shippingType: 'cold',
         hasSpecs: true,
         specs: [
             { id: '23A', name: '23A', diameter: '7.3-7.5 cm', price: 850 },
@@ -33,6 +35,45 @@ const products = [
             { id: '27A', name: '27A', diameter: '7.9-8.1 cm', price: 1050 },
             { id: '30A', name: '30A', diameter: '8.2-8.5 cm', price: 1150 }
         ]
+    },
+    {
+        id: 3,
+        name: '菱角仁（整件）',
+        category: '冷凍加工食品',
+        price: 3500,
+        image: 'https://via.placeholder.com/400x300/8B4513/ffffff?text=菱角仁整件',
+        description: '3公斤 / 4包 / 1件｜效期：冷凍12個月｜保存：-18°C 冷凍',
+        badge: '批發',
+        salesCount: 95,
+        shippingType: 'frozen',
+        weight: '3公斤x4包',
+        hasSpecs: false
+    },
+    {
+        id: 4,
+        name: '菱角仁（單品項）',
+        category: '冷凍加工食品',
+        price: 990,
+        image: 'https://via.placeholder.com/400x300/8B4513/ffffff?text=菱角仁單包',
+        description: '3公斤 / 1包｜效期：冷凍12個月｜保存：-18°C 冷凍',
+        badge: '熱銷',
+        salesCount: 210,
+        shippingType: 'frozen',
+        weight: '3公斤',
+        hasSpecs: false
+    },
+    {
+        id: 5,
+        name: '菱角仁(斤)（單品項）',
+        category: '冷凍加工食品',
+        price: 240,
+        image: 'https://via.placeholder.com/400x300/8B4513/ffffff?text=菱角仁散裝',
+        description: '每斤（約600g）｜效期：冷凍12個月｜保存：-18°C 冷凍',
+        badge: '經濟',
+        salesCount: 1066,
+        shippingType: 'frozen',
+        weight: '600g',
+        hasSpecs: false
     },
 ];
 
@@ -87,8 +128,8 @@ function renderCategoryCarousel() {
     const frozenProducts = products.filter(p => p.category === '冷凍加工食品');
     
     renderCarouselProducts('fruitCarousel', fruitProducts);
-    renderCarouselProducts('vegetableCarousel', vegetableProducts.length > 0 ? vegetableProducts : fruitProducts);
-    renderCarouselProducts('frozenCarousel', frozenProducts.length > 0 ? frozenProducts : fruitProducts);
+    renderCarouselProducts('vegetableCarousel', vegetableProducts.length > 0 ? vegetableProducts : []);
+    renderCarouselProducts('frozenCarousel', frozenProducts);
 }
 
 function renderCarouselProducts(containerId, productsToRender) {
