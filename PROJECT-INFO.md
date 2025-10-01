@@ -179,4 +179,27 @@ git push origin main
 
 ---
 
-**最後更新：2025-10-02**
+---
+
+## 🆕 最新更新（2025-10-02 03:00）
+
+### 已修復的問題：
+1. ✅ 購物車功能完全正常
+2. ✅ 結帳流程串接 Google Apps Script
+3. ✅ 手機輸入不放大（字體 16px）
+4. ✅ 三步驟結帳流程
+5. ✅ 訂單自動儲存到 Google Sheets
+6. ✅ 自動發送確認 Email
+
+### 需要設定：
+1. ⚠️ Google Apps Script 後端（參考 GAS-SETUP-GUIDE.txt）
+2. ⚠️ 更新 js/checkout.js 中的 GAS_URL
+
+### 執行修復：
+```cmd
+COMPLETE-FIX.bat
+```
+
+---
+
+**最後更新：2025-10-02 03:00**
