@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>知識詳情 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .article-detail {
+            padding: 100px 0 60px;
+            min-height: 70vh;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .article-tag-detail {
+            display: inline-block;
+            background: #d1fae5;
+            color: #10b981;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .article-title {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: #666;
+            font-size: 15px;
+        }
+        
+        .article-meta i {
+            color: #10b981;
+            margin-right: 8px;
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            color: #333;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #10b981;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            color: #333;
+            margin: 30px 0 15px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 12px;
+        }
+        
+        .article-content strong {
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #f9fafb;
+            color: #333;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .back-btn:hover {
+            background: #10b981;
+            color: white;
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 客服專線：0933-721-978</span>
+                        <span><i class="fas fa-clock"></i> 服務時間：週一至週五 09:00-18:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園">
+                        </a>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <a href="#" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="index.html#products">商品</a></li>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                        <li><a href="order-tracking.html">訂單查詢</a></li>
+                        <li><a href="knowledge.html" class="active">蔬果知識+</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 文章內容 -->
+    <section class="article-detail">
+        <div class="container">
+            <a href="knowledge.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回蔬果知識+
+            </a>
+            
+            <div id="articleContent">
+                <!-- 內容將由 JavaScript 動態載入 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="#faq">常見問題</a></li>
+                        <li><a href="#shipping">配送說明</a></li>
+                        <li><a href="#return">退換貨政策</a></li>
+                        <li><a href="#privacy">隱私權政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>購物指南</h4>
+                    <ul>
+                        <li><a href="#how-to-order">如何訂購</a></li>
+                        <li><a href="#payment">付款方式</a></li>
+                        <li><a href="order-tracking.html">訂單查詢</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
+                        <li><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank">Facebook 粉絲專頁</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台灣豐原公老坪</li>
+                        <li><i class="fas fa-clock"></i> 週一至週五 09:00-18:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/cart.js"></script>
+    <script>
+        // 手機選單切換
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+
+        // 知識文章資料庫
+        const knowledgeArticles = {
+            '2025-01-20': {
+                tag: '保存技巧',
+                title: '椪柑如何保存最新鮮？',
+                date: '2025.01.20',
+                content: `
+                    <div class="article-header">
+                        <span class="article-tag-detail">保存技巧</span>
+                        <h1 class="article-title">椪柑如何保存最新鮮？</h1>
+                        <div class="article-meta">
+                            <span><i class="fas fa-calendar"></i> 2025.01.20</span>
+                            <span><i class="fas fa-user"></i> 柑心果園</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p>椪柑是冬季最受歡迎的水果之一，但許多人不知道如何正確保存。掌握正確的保存方法，可以讓椪柑維持最佳風味長達2-3週。</p>
+                        
+                        <h2>冷藏保存（推薦）</h2>
+                        <ul>
+                            <li>收到椪柑後，先檢查是否有損傷的果實，挑出另外處理</li>
+                            <li>將椪柑放入冰箱冷藏室（約4-8°C）</li>
+                            <li>可用保鮮袋或紙箱包裝，避免水分流失</li>
+                            <li>冷藏後的椪柑風味更清爽，口感更佳</li>
+                            <li>建議在2-3週內食用完畢</li>
+                        </ul>
+                        
+                        <h2>常溫保存</h2>
+                        <ul>
+                            <li>放置於陰涼通風處，避免陽光直射</li>
+                            <li>不要堆疊過高，以免底層果實受壓損傷</li>
+                            <li>每天檢查，發現軟化或損傷的果實要立即取出</li>
+                            <li>常溫下建議在1週內食用完畢</li>
+                        </ul>
+                        
+                        <p><strong>小提醒：</strong>椪柑不適合冷凍保存，會破壞果肉結構，影響口感。</p>
+                    </div>
+                `
+            },
+            '2025-01-18': {
+                tag: '食用方法',
+                title: '茂谷柑4刀6塊切法',
+                date: '2025.01.18',
+                content: `
+                    <div class="article-header">
+                        <span class="article-tag-detail">食用方法</span>
+                        <h1 class="article-title">茂谷柑4刀6塊切法</h1>
+                        <div class="article-meta">
+                            <span><i class="fas fa-calendar"></i> 2025.01.18</span>
+                            <span><i class="fas fa-user"></i> 柑心果園</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p>茂谷柑皮薄多汁，直接剝皮容易弄得滿手果汁。使用「4刀6塊切法」，可以輕鬆享用美味，完全不沾手！</p>
+                        
+                        <h2>切法步驟</h2>
+                        <ul>
+                            <li><strong>第一刀：</strong>將茂谷柑橫放，從中間切一刀，分成上下兩半</li>
+                            <li><strong>第二刀：</strong>將上半部再從中間切一刀，變成2塊</li>
+                            <li><strong>第三刀：</strong>將下半部也從中間切一刀，變成2塊</li>
+                            <li><strong>第四刀：</strong>將其中一塊再切一刀，最後得到6塊</li>
+                        </ul>
+                        
+                        <h2>享用技巧</h2>
+                        <p>切好後的茂谷柑，可以直接用手拿著吃，果肉會自然從果皮上分離。如果想更優雅，也可以用叉子享用。</p>
+                        <p>這個切法特別適合招待客人，既美觀又方便，讓大家都能輕鬆品嚐茂谷柑的美味！</p>
+                    </div>
+                `
+            },
+            '2025-01-15': {
+                tag: '營養知識',
+                title: '柑橘類的營養價值',
+                date: '2025.01.15',
+                content: `
+                    <div class="article-header">
+                        <span class="article-tag-detail">營養知識</span>
+                        <h1 class="article-title">柑橘類的營養價值</h1>
+                        <div class="article-meta">
+                            <span><i class="fas fa-calendar"></i> 2025.01.15</span>
+                            <span><i class="fas fa-user"></i> 柑心果園</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p>柑橘類水果不僅美味，更富含多種營養素，是冬季最佳的健康水果選擇。</p>
+                        
+                        <h2>主要營養成分</h2>
+                        <ul>
+                            <li><strong>維生素C：</strong>增強免疫力，預防感冒</li>
+                            <li><strong>膳食纖維：</strong>促進消化，維持腸道健康</li>
+                            <li><strong>類黃酮：</strong>抗氧化，延緩衰老</li>
+                            <li><strong>鉀：</strong>調節血壓，維持心臟健康</li>
+                        </ul>
+                        
+                        <h2>健康益處</h2>
+                        <p>每天食用1-2顆柑橘類水果，可以幫助：</p>
+                        <ul>
+                            <li>提升免疫系統功能</li>
+                            <li>促進膠原蛋白生成，養顏美容</li>
+                            <li>降低心血管疾病風險</li>
+                            <li>改善消化系統健康</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        // 載入文章內容
+        function loadArticle() {
+            const params = new URLSearchParams(window.location.search);
+            const articleId = params.get('id');
+            
+            if (articleId && knowledgeArticles[articleId]) {
+                document.getElementById('articleContent').innerHTML = knowledgeArticles[articleId].content;
+                document.title = knowledgeArticles[articleId].title + ' - 柑心果園';
+            } else {
+                document.getElementById('articleContent').innerHTML = `
+                    <div class="article-header">
+                        <h1 class="article-title">文章不存在</h1>
+                    </div>
+                    <div class="article-content">
+                        <p>抱歉，您要查看的文章不存在或已被移除。</p>
+                        <a href="knowledge.html" class="back-btn">返回蔬果知識+</a>
+                    </div>
+                `;
+            }
+        }
+
+        // 頁面載入時執行
+        loadArticle();
+    </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>文章詳情 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .article-detail {
+            padding: 100px 0 60px;
+            min-height: 70vh;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .article-tag-detail {
+            display: inline-block;
+            background: #fff7ed;
+            color: #ff8c42;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .article-title {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: #666;
+            font-size: 15px;
+        }
+        
+        .article-meta i {
+            color: #ff8c42;
+            margin-right: 8px;
+        }
+        
+        .article-image-large {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            color: #333;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ff8c42;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            color: #333;
+            margin: 30px 0 15px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 12px;
+        }
+        
+        .article-content strong {
+            color: #ff8c42;
+            font-weight: 600;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #f9fafb;
+            color: #333;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .back-btn:hover {
+            background: #ff8c42;
+            color: white;
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 16px;
+            }
+            
+            .article-content h2 {
+                font-size: 24px;
+            }
+            
+            .article-content h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 客服專線：0933-721-978</span>
+                        <span><i class="fas fa-clock"></i> 服務時間：週一至週五 09:00-18:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園">
+                        </a>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <a href="#" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="index.html#products">商品</a></li>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                        <li><a href="order-tracking.html">訂單查詢</a></li>
+                        <li><a href="news.html" class="active">最新消息</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 文章內容 -->
+    <section class="article-detail">
+        <div class="container">
+            <a href="news.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回最新消息
+            </a>
+            
+            <div id="articleContent">
+                <!-- 內容將由 JavaScript 動態載入 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="#faq">常見問題</a></li>
+                        <li><a href="#shipping">配送說明</a></li>
+                        <li><a href="#return">退換貨政策</a></li>
+                        <li><a href="#privacy">隱私權政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>購物指南</h4>
+                    <ul>
+                        <li><a href="#how-to-order">如何訂購</a></li>
+                        <li><a href="#payment">付款方式</a></li>
+                        <li><a href="order-tracking.html">訂單查詢</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
+                        <li><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank">Facebook 粉絲專頁</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台灣豐原公老坪</li>
+                        <li><i class="fas fa-clock"></i> 週一至週五 09:00-18:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/cart.js"></script>
+    <script>
+        // 手機選單切換
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+
+        // 文章資料庫
+        const newsArticles = {
+            '2025-01-15': {
+                tag: '產季公告',
+                title: '公老坪椪柑產季開始！',
+                date: '2025.01.15',
+                icon: '🍊',
+                content: `
+                    <div class="article-header">
+                        <span class="article-tag-detail">產季公告</span>
+                        <h1 class="article-title">公老坪椪柑產季開始！</h1>
+                        <div class="article-meta">
+                            <span><i class="fas fa-calendar"></i> 2025.01.15</span>
+                            <span><i class="fas fa-user"></i> 柑心果園</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p>今年的椪柑品質極佳，經過充足的日照與適當的雨水滋潤，每一顆都飽滿多汁。甜度穩定在12-14度之間，酸甜比例完美平衡。</p>
+                        
+                        <h2>今年椪柑的特色</h2>
+                        <p>我們堅持在最佳採收期進行手摘，確保每顆椪柑都達到最佳風味。產季限定，售完為止，歡迎提早預購！</p>
+                        
+                        <ul>
+                            <li><strong>皮薄好剝：</strong>輕輕一剝就能享用，不沾手</li>
+                            <li><strong>果肉細緻：</strong>口感細膩，汁多味美</li>
+                            <li><strong>香氣濃郁：</strong>獨特的柑橘香氣，令人回味</li>
+                            <li><strong>冷藏更佳：</strong>冷藏後風味更清爽，口感更好</li>
+                        </ul>
+                        
+                        <h2>保存方法</h2>
+                        <p>收到椪柑後，建議放入冰箱冷藏保存，可維持最佳風味2-3週。冷藏後的椪柑風味更清爽，是最佳的享用方式。</p>
+                        
+                        <h2>立即訂購</h2>
+                        <p>產季限定，數量有限，售完為止。現在訂購，新鮮直送到府！</p>
+                    </div>
+                `
+            },
+            '2025-01-10': {
+                tag: '新品上市',
+                title: '東勢茂谷柑即將上市',
+                date: '2025.01.10',
+                icon: '🍊',
+                content: `
+                    <div class="article-header">
+                        <span class="article-tag-detail">新品上市</span>
+                        <h1 class="article-title">東勢茂谷柑即將上市</h1>
+                        <div class="article-meta">
+                            <span><i class="fas fa-calendar"></i> 2025.01.10</span>
+                            <span><i class="fas fa-user"></i> 柑心果園</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p>皮薄多汁的茂谷柑預計1月底開始出貨，現正開放預購中。東勢地區得天獨厚的氣候條件，造就了茂谷柑獨特的風味。</p>
+                        
+                        <h2>茂谷柑的特色</h2>
+                        <p>茂谷柑富含維生素C，果肉細嫩飽滿，色澤橙亮誘人。建議使用4刀6塊切法，好吃不沾手，是過年送禮的最佳選擇！</p>
+                        
+                        <h3>營養價值</h3>
+                        <ul>
+                            <li>富含維生素C，增強免疫力</li>
+                            <li>膳食纖維豐富，促進消化</li>
+                            <li>天然抗氧化物，養顏美容</li>
+                            <li>低熱量，健康無負擔</li>
+                        </ul>
+                        
+                        <h2>預購優惠</h2>
+                        <p><strong>現在預購享早鳥價，數量有限，欲購從速！</strong></p>
+                        <p>預購期間：即日起至1月25日</p>
+                        <p>出貨時間：1月底開始陸續出貨</p>
+                    </div>
+                `
+            },
+            '2025-01-05': {
+                tag: '優惠活動',
+                title: '春節禮盒優惠開跑',
+                date: '2025.01.05',
+                icon: '🎁',
+                content: `
+                    <div class="article-header">
+                        <span class="article-tag-detail">優惠活動</span>
+                        <h1 class="article-title">春節禮盒優惠開跑</h1>
+                        <div class="article-meta">
+                            <span><i class="fas fa-calendar"></i> 2025.01.05</span>
+                            <span><i class="fas fa-user"></i> 柑心果園</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p>精選水果禮盒，送禮自用兩相宜。我們特別為春節準備了多款精美禮盒，內含當季最優質的柑橘類水果。</p>
+                        
+                        <h2>禮盒內容</h2>
+                        <p>每個禮盒都經過嚴格挑選，確保果實大小一致、品質優良。搭配精美包裝，讓您送禮更有面子。</p>
+                        
+                        <h3>禮盒選擇</h3>
+                        <ul>
+                            <li><strong>經典禮盒：</strong>精選椪柑，適合送禮</li>
+                            <li><strong>豪華禮盒：</strong>椪柑+茂谷組合，雙重享受</li>
+                            <li><strong>尊爵禮盒：</strong>頂級果品，送禮首選</li>
+                        </ul>
+                        
+                        <h2>早鳥優惠</h2>
+                        <p><strong>1月底前訂購享9折優惠，滿額再送精美提袋！</strong></p>
+                        <p>優惠期限：即日起至1月31日</p>
+                        <p>配送時間：春節前保證送達</p>
+                    </div>
+                `
+            }
+        };
+
+        // 載入文章內容
+        function loadArticle() {
+            const params = new URLSearchParams(window.location.search);
+            const articleId = params.get('id');
+            
+            if (articleId && newsArticles[articleId]) {
+                document.getElementById('articleContent').innerHTML = newsArticles[articleId].content;
+                document.title = newsArticles[articleId].title + ' - 柑心果園';
+            } else {
+                document.getElementById('articleContent').innerHTML = `
+                    <div class="article-header">
+                        <h1 class="article-title">文章不存在</h1>
+                    </div>
+                    <div class="article-content">
+                        <p>抱歉，您要查看的文章不存在或已被移除。</p>
+                        <a href="news.html" class="back-btn">返回最新消息</a>
+                    </div>
+                `;
+            }
+        }
+
+        // 頁面載入時執行
+        loadArticle();
+    </script>
+</body>
+</html>

@@ -193,8 +193,19 @@
     </section>
     
     <style>
+        .season-timeline-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
         .season-timeline-scroll::-webkit-scrollbar {
             display: none;
+        }
+        
+        .season-month-h {
+            flex-shrink: 0;
         }
         
         @media (max-width: 768px) {
