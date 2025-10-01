@@ -10,36 +10,56 @@
 <body>
     <!-- 導航列 -->
     <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 客服專線：0933-721-978</span>
+                        <span><i class="fas fa-clock"></i> 服務時間：週一至週五 09:00-18:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <nav class="navbar">
-            <div class="container nav-container">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="images/柑心果園LOGO.png" alt="柑心果園" style="height: 50px;">
-                    </a>
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園">
+                        </a>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <a href="#" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
                 
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <ul class="nav-menu" id="mainMenu">
-                    <li><a href="index.html">首頁</a></li>
-                    <li><a href="index.html#products">商品</a></li>
-                    <li><a href="about.html">關於我們</a></li>
-                    <li><a href="news.html">最新消息</a></li>
-                    <li><a href="knowledge.html">蔬果知識+</a></li>
-                    <li><a href="order-tracking.html" class="active">訂單查詢</a></li>
-                </ul>
-                
-                <div class="nav-icons">
-                    <a href="#" class="cart-icon" id="cartIcon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </a>
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="index.html#products">商品</a></li>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                        <li><a href="order-tracking.html" class="active">訂單查詢</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li><a href="knowledge.html">蔬果知識+</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
+    <script>
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+    </script>
 
     <!-- 訂單查詢區塊 -->
     <section class="order-tracking-section" style="padding: 80px 0; min-height: 70vh; background: #f9fafb;">

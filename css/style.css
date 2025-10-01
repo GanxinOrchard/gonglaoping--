@@ -181,7 +181,7 @@ ul {
 }
 
 .logo img {
-    height: 60px;
+    height: 80px;
     width: auto;
 }
 
@@ -2044,7 +2044,7 @@ ul {
 
 @media (max-width: 768px) {
     .logo img {
-        height: 50px;
+        height: 65px;
     }
     
     .hero-slider {
