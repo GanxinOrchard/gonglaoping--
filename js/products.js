@@ -2,30 +2,37 @@
 const products = [
     {
         id: 1,
-        name: '公老坪椪柑 10斤裝',
-        category: '優質水果',
-        price: 880,
-        image: 'images/10斤產品圖片.png',
-        description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
-        badge: '熱銷'
-    },
-    {
-        id: 2,
-        name: '公老坪椪柑（果實）',
+        name: '公老坪椪柑',
         category: '優質水果',
         price: 680,
         image: 'images/商品一(椪柑果實).jpg',
-        description: '百年果園傳承，甜度穩、風味正、放心給家人吃',
-        badge: '推薦'
+        description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
+        badge: '熱銷',
+        salesCount: 1250,
+        hasSpecs: true,
+        specs: [
+            { id: '23A', name: '23A', diameter: '7.3-7.5 cm', price: 680 },
+            { id: '25A', name: '25A', diameter: '7.6-7.8 cm', price: 780 },
+            { id: '27A', name: '27A', diameter: '7.9-8.1 cm', price: 880 },
+            { id: '30A', name: '30A', diameter: '8.2-8.5 cm', price: 980 }
+        ]
     },
     {
-        id: 3,
+        id: 2,
         name: '東勢茂谷柑',
         category: '優質水果',
         price: 950,
         image: 'images/商品二(茂谷柑).png',
         description: '皮薄多汁、細嫩飽滿、色澤橙亮。4刀6塊，好吃不沾手',
-        badge: '新品'
+        badge: '新品',
+        salesCount: 856,
+        hasSpecs: true,
+        specs: [
+            { id: '23A', name: '23A', diameter: '7.3-7.5 cm', price: 850 },
+            { id: '25A', name: '25A', diameter: '7.6-7.8 cm', price: 950 },
+            { id: '27A', name: '27A', diameter: '7.9-8.1 cm', price: 1050 },
+            { id: '30A', name: '30A', diameter: '8.2-8.5 cm', price: 1150 }
+        ]
     },
 ];
 

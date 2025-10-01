@@ -148,6 +148,78 @@
             transform: translateY(-2px);
         }
         
+        .spec-selector {
+            margin: 30px 0;
+            padding: 25px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .spec-selector h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .spec-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .spec-btn {
+            padding: 15px;
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .spec-btn:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .spec-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .spec-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .spec-diameter {
+            font-size: 13px;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+        
+        .spec-price {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .selected-spec-info {
+            padding: 15px;
+            background: #ecfdf5;
+            border-radius: 8px;
+            color: #065f46;
+            font-size: 15px;
+        }
+        
+        .selected-spec-info i {
+            color: #10b981;
+            margin-right: 8px;
+        }
+        
         @media (max-width: 768px) {
             .product-detail-grid {
                 grid-template-columns: 1fr;
@@ -161,6 +233,108 @@
             .product-actions {
                 flex-direction: column;
             }
+            
+            .spec-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* 評論區 */
+        .reviews-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .reviews-summary {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .average-rating {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .rating-stars {
+            font-size: 24px;
+            color: #fbbf24;
+        }
+        
+        .review-count {
+            color: var(--text-light);
+        }
+        
+        .review-item {
+            background: var(--white);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .review-user i {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .review-rating {
+            color: #fbbf24;
+            font-size: 18px;
+        }
+        
+        .review-date {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        
+        .review-content {
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+        
+        .btn-load-more {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 40px;
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-load-more:hover {
+            background: var(--primary-color);
+            color: var(--white);
         }
     </style>
 </head>
@@ -212,7 +386,19 @@
                     <span id="productPrice"></span>
                 </div>
                 
+                <div class="sales-info">
+                    <i class="fas fa-fire" style="color: #f59e0b;"></i>
+                    已售出 <strong id="salesCount" style="color: var(--primary-color);">0</strong> 件
+                </div>
+                
                 <div class="product-detail-description" id="productDescription"></div>
+                
+                <!-- 規格選擇 -->
+                <div class="spec-selector" id="specSelector" style="display:none;">
+                    <h3>規格選擇</h3>
+                    <div class="spec-buttons" id="specButtons"></div>
+                    <div class="spec-info" id="specInfo"></div>
+                </div>
                 
                 <div class="product-detail-features">
                     <h3>商品特色</h3>
@@ -275,12 +461,27 @@
         </div>
     </div>
 
+    <!-- 評論區 -->
+    <div class="reviews-section">
+        <div class="reviews-header">
+            <h2>顧客評價</h2>
+            <div class="reviews-summary">
+                <span class="average-rating" id="averageRating">5.0</span>
+                <span class="rating-stars">★★★★★</span>
+                <span class="review-count">(100則評論)</span>
+            </div>
+        </div>
+        <div id="reviewsList"></div>
+        <button class="btn-load-more" onclick="loadMoreReviews()">載入更多評論</button>
+    </div>
+
     <script src="./js/products.js"></script>
+    <script src="./js/reviews.js"></script>
     <script src="./js/cart.js"></script>
     <script>
         let currentProduct = null;
         let currentQuantity = 1;
-        
+        let selectedSpec = null;
         // 從 URL 取得商品 ID
         function getProductIdFromURL() {
             const params = new URLSearchParams(window.location.search);
@@ -303,8 +504,59 @@
             document.getElementById('productName').textContent = currentProduct.name;
             document.getElementById('productPrice').textContent = currentProduct.price;
             document.getElementById('productDescription').textContent = currentProduct.description;
+            document.getElementById('salesCount').textContent = currentProduct.salesCount || 0;
+            
+            // 如果有規格選項
+            if (currentProduct.hasSpecs && currentProduct.specs) {
+                document.getElementById('specSelector').style.display = 'block';
+                renderSpecs();
+            }
             
             document.title = `${currentProduct.name} - 柑心果園`;
+        }
+        
+        // 渲染規格選項
+        function renderSpecs() {
+            const specButtons = document.getElementById('specButtons');
+            const specs = currentProduct.specs;
+            
+            specButtons.innerHTML = specs.map((spec, index) => `
+                <button class="spec-btn ${index === 0 ? 'active' : ''}" onclick="selectSpec('${spec.id}')">
+                    <div class="spec-name">${spec.name}</div>
+                    <div class="spec-diameter">${spec.diameter}</div>
+                    <div class="spec-price">NT$ ${spec.price}</div>
+                </button>
+            `).join('');
+            
+            // 預設選第一個
+            if (specs.length > 0) {
+                selectSpec(specs[0].id);
+            }
+        }
+        
+        // 選擇規格
+        function selectSpec(specId) {
+            const spec = currentProduct.specs.find(s => s.id === specId);
+            if (!spec) return;
+            
+            selectedSpec = spec;
+            
+            // 更新價格
+            document.getElementById('productPrice').textContent = spec.price;
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.spec-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.spec-btn').classList.add('active');
+            
+            // 顯示規格資訊
+            document.getElementById('specInfo').innerHTML = `
+                <div class="selected-spec-info">
+                    <i class="fas fa-check-circle"></i>
+                    已選擇：<strong>${spec.name}</strong> (單顆直徑約 ${spec.diameter})
+                </div>
+            `;
         }
         
         // 改變數量
@@ -324,11 +576,26 @@
             // 重置數量
             currentQuantity = 1;
             document.getElementById('quantity').textContent = 1;
+            
+            // 顯示提示
+            alert(`已加入 ${currentQuantity} 件到購物車！`);
+        }
+        
+        // 載入更多評論
+        let currentReviewLimit = 10;
+        function loadMoreReviews() {
+            currentReviewLimit += 10;
+            renderReviews(currentProduct.id, currentReviewLimit);
+            if (currentReviewLimit >= 100) {
+                document.querySelector('.btn-load-more').style.display = 'none';
+            }
         }
         
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             loadProductDetail();
+            renderReviews(1, 10);
+            document.getElementById('averageRating').textContent = getAverageRating();
         });
     </script>
 </body>

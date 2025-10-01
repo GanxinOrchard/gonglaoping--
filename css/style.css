@@ -411,15 +411,19 @@ ul {
 /* 手機版封面字體修正 */
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 28px !important;
-        line-height: 1.4;
-        padding: 0 10px;
+        font-size: 24px !important;
+        line-height: 1.5;
+        padding: 0 15px;
+        word-break: keep-all;
+        white-space: normal;
     }
     
     .hero-subtitle {
-        font-size: 16px !important;
-        line-height: 1.6;
-        padding: 0 10px;
+        font-size: 14px !important;
+        line-height: 1.8;
+        padding: 0 15px;
+        margin-top: 15px;
+        word-break: keep-all;
     }
 }
 
@@ -515,11 +519,11 @@ ul {
 
 .timeline-item {
     flex: 1;
-    min-width: 100px;
+    min-width: 80px;
     text-align: center;
-    padding: 20px 10px;
+    padding: 15px 8px;
     background: var(--bg-light);
-    border-radius: 12px;
+    border-radius: 10px;
     border: 2px solid var(--border-color);
     transition: all 0.3s ease;
     position: relative;
@@ -527,9 +531,9 @@ ul {
 
 .timeline-item::before {
     content: "🍊";
-    font-size: 32px;
+    font-size: 28px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     filter: grayscale(100%) brightness(1.5);
     transition: all 0.5s ease;
 }
@@ -586,19 +590,25 @@ ul {
 @media (max-width: 768px) {
     .timeline {
         flex-wrap: wrap;
+        gap: 8px;
     }
     
     .timeline-item {
-        min-width: calc(25% - 10px);
-        padding: 15px 5px;
+        min-width: calc(25% - 8px);
+        padding: 12px 5px;
+    }
+    
+    .timeline-item::before {
+        font-size: 24px;
+        margin-bottom: 5px;
     }
     
     .timeline-month {
-        font-size: 14px;
+        font-size: 12px;
     }
     
     .timeline-stage {
-        font-size: 12px;
+        font-size: 11px;
     }
 }
 
@@ -688,6 +698,25 @@ ul {
     gap: 15px;
 }
 
+@media (max-width: 768px) {
+    .category-buttons {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 10px 0;
+    }
+    
+    .category-buttons::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .category-btn {
+        flex-shrink: 0;
+    }
+}
+
 .category-btn {
     padding: 10px 25px;
     background: var(--white);
@@ -720,6 +749,26 @@ ul {
     gap: 15px;
     margin-bottom: 40px;
     flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .category-tabs {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 10px 0;
+    }
+    
+    .category-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .tab-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
 }
 
 .tab-btn {
@@ -922,10 +971,10 @@ ul {
     right: -400px;
     width: 400px;
     height: 100vh;
-    background: var(--white);
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
     box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-    z-index: 2000;
     transition: right 0.3s ease;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
 }
@@ -939,7 +988,13 @@ ul {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
+    background: var(--primary-color);
+    color: var(--white);
     border-bottom: 1px solid var(--border-color);
+}
+
+.cart-header h3 {
+    color: var(--white);
 }
 
 .cart-header h3 {
