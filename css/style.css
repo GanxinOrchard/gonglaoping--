@@ -964,6 +964,50 @@ ul {
     transform: scale(1.05);
 }
 
+/* ===== Floating Cart Button ===== */
+.floating-cart {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 140, 66, 0.4);
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.floating-cart:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 140, 66, 0.6);
+}
+
+.floating-cart i {
+    font-size: 24px;
+    color: var(--white);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ef4444;
+    color: var(--white);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
 /* ===== Cart Sidebar ===== */
 .cart-sidebar {
     position: fixed;

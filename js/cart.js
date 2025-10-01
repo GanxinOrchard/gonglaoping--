@@ -180,7 +180,6 @@ function calculateShippingFee(cartItems) {
     // 滿1800免運
     if (subtotal >= 1800) return 0;
     
-    // 檢查購物車中的商品類型
     let maxShippingFee = 0;
     
     cartItems.forEach(item => {
@@ -188,10 +187,16 @@ function calculateShippingFee(cartItems) {
         if (!product) return;
         
         let fee = 150; // 預設常溫
-        if (product.shippingType === 'cold') {
-            fee = 180; // 冷藏
-        } else if (product.shippingType === 'frozen') {
-            fee = 200; // 冷凍
+        switch (product.shippingType) {
+            case 'normal':
+                fee = 150; // 常溫
+                break;
+            case 'cold':
+                fee = 180; // 冷藏
+                break;
+            case 'frozen':
+                fee = 200; // 冷凍
+                break;
         }
         
         // 取最高運費
@@ -199,7 +204,6 @@ function calculateShippingFee(cartItems) {
             maxShippingFee = fee;
         }
     });
-    
     return maxShippingFee;
 }
 

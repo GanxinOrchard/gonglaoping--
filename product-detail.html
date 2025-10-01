@@ -336,6 +336,24 @@
             background: var(--primary-color);
             color: var(--white);
         }
+        
+        /* 推薦商品 */
+        .recommended-section {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+        
+        .recommended-section .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .recommended-section .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -471,6 +489,14 @@
         <div id="reviewsList"></div>
         <button class="btn-load-more" onclick="loadMoreReviews()">載入更多評論</button>
     </div>
+    
+    <!-- 推薦商品 -->
+    <section class="recommended-section">
+        <div class="container">
+            <h2 class="section-title">推薦商品</h2>
+            <div class="products-grid" id="recommendedProducts"></div>
+        </div>
+    </section>
 
     <script src="./js/products.js"></script>
     <script src="./js/reviews.js"></script>
@@ -621,11 +647,39 @@
             }
         }
         
+        // 載入推薦商品
+        function loadRecommendedProducts() {
+            const currentId = getProductIdFromURL();
+            const recommended = products.filter(p => p.id !== currentId).slice(0, 3);
+            
+            const container = document.getElementById('recommendedProducts');
+            if (!container) return;
+            
+            container.innerHTML = recommended.map(product => `
+                <div class="product-card">
+                    <a href="product-detail.html?id=${product.id}">
+                        <div class="product-image">
+                            ${product.badge ? `<span class="badge">${product.badge}</span>` : ''}
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name}</h3>
+                            <div class="product-price">
+                                <span class="currency">NT$</span>
+                                <span class="amount">${product.price}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `).join('');
+        }
+        
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             loadProductDetail();
             renderReviews(1, 10);
             document.getElementById('averageRating').textContent = getAverageRating();
+            loadRecommendedProducts();
         });
     </script>
 </body>
