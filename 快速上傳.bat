@@ -1,26 +1,25 @@
 @echo off
 echo ========================================
-echo   Upload to GitHub
+echo   Ganxin Orchard - Quick Upload
 echo ========================================
 echo.
 
-echo [1/6] Preparing files...
+echo [1/5] Preparing files...
 copy /Y index-github.html index.html >nul 2>&1
 echo Done
 echo.
 
-echo [2/6] Checking Git...
+echo [2/5] Checking Git...
 git --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo Git not installed!
-    echo Please install Git from: https://git-scm.com/download/win
     pause
     exit /b 1
 )
 echo Git OK
 echo.
 
-echo [3/6] Initializing Git...
+echo [3/5] Initializing Git...
 if not exist ".git" (
     git init
     echo Git initialized
@@ -29,26 +28,22 @@ if not exist ".git" (
 )
 echo.
 
-echo [4/6] Setting up repository...
+echo [4/5] Setting up repository...
 git remote remove origin >nul 2>&1
-git remote add origin https://github.com/GanxinOrchard/gonglaoping--.git
-echo Repository: https://github.com/GanxinOrchard/gonglaoping--
+git remote add origin https://github.com/GanxinOrchard/gonglaoping.git
+echo Repository: https://github.com/GanxinOrchard/gonglaoping
 echo.
 
-echo [5/6] Adding files...
+echo [5/5] Uploading to GitHub...
 git add .
-echo Files added
-echo.
-
-echo [6/6] Committing and pushing...
-git commit -m "Ganxin Orchard E-commerce Platform"
+git commit -m "Ganxin Orchard E-commerce Platform - Complete Version"
 git branch -M main
-git push -u origin main
+git push -u origin main --force
 
 if %errorlevel% neq 0 (
     echo.
     echo Upload failed!
-    echo Please check your URL and permissions
+    echo Please check your GitHub login
     pause
     exit /b 1
 )
@@ -58,10 +53,10 @@ echo ========================================
 echo   Upload Success!
 echo ========================================
 echo.
-echo Your website: https://ganxinorchard.github.io/gonglaoping--/
+echo Your website: https://ganxinorchard.github.io/gonglaoping/
 echo.
 echo Next steps:
-echo 1. Go to: https://github.com/GanxinOrchard/gonglaoping--
+echo 1. Go to: https://github.com/GanxinOrchard/gonglaoping
 echo 2. Click Settings - Pages
 echo 3. Source: select main branch
 echo 4. Save and wait 1-2 minutes
