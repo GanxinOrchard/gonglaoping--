@@ -37,7 +37,7 @@ if exist "index.html" (
 echo.
 echo Step 3: Uploading to GitHub...
 git add .
-git commit -m "Final: Cache clear, add to cart fixed, all features complete and ready"
+git commit -m "Final: Images fixed, cart close, 3-step checkout, all features complete"
 git push origin main
 
 if %errorlevel% neq 0 (

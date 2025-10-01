@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>柑心果園 - 公老坪椪柑、東勢茂谷柑 | 產地直送新鮮水果</title>
     <meta name="description" content="柑心果園專營公老坪椪柑、東勢茂谷柑，產地直送新鮮水果。百年果園傳承，甜度穩定，皮薄好剝。提供23A-30A多種規格，滿1800免運。台中豐原公老坪產地直送，品質保證。">
     <meta name="keywords" content="椪柑,公老坪椪柑,茂谷柑,東勢茂谷柑,柑橘,水果宅配,產地直送,台中水果,豐原水果,公老坪,椪柑宅配,茂谷宅配,新鮮水果,柑心果園,椪柑產季,茂谷產季,水果禮盒,柑橘禮盒">
@@ -368,64 +368,117 @@
         </div>
     </div>
 
-    <!-- 結帳彈窗 -->
+    <!-- 結帳彈窗 - 三步驟 -->
     <div class="modal" id="checkoutModal">
-        <div class="modal-content">
+        <div class="modal-content checkout-modal">
             <div class="modal-header">
-                <h3>結帳資訊</h3>
+                <h3>結帳流程</h3>
                 <button class="close-modal" id="closeCheckoutModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+            
+            <!-- 步驟指示器 -->
+            <div class="checkout-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">訂購人資訊</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">收件人資訊</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">確認訂單</div>
+                </div>
+            </div>
+            
             <div class="modal-body">
                 <form id="checkoutForm">
-                    <div class="form-group">
-                        <label for="customerName">姓名 *</label>
-                        <input type="text" id="customerName" placeholder="請輸入收件人姓名" required>
+                    <!-- 步驟 1: 訂購人資訊 -->
+                    <div class="checkout-step-content active" id="step1">
+                        <h4>訂購人資訊</h4>
+                        <div class="form-group">
+                            <label for="buyerName">姓名 *</label>
+                            <input type="text" id="buyerName" placeholder="請輸入訂購人姓名" required style="font-size: 16px;">
+                        </div>
+                        <div class="form-group">
+                            <label for="buyerPhone">電話 *</label>
+                            <input type="tel" id="buyerPhone" placeholder="例如：0933-721-978" required style="font-size: 16px;">
+                        </div>
+                        <div class="form-group">
+                            <label for="buyerEmail">Email *</label>
+                            <input type="email" id="buyerEmail" placeholder="用於接收訂單通知" required style="font-size: 16px;">
+                        </div>
+                        <button type="button" class="btn-next" onclick="goToStep(2)">下一步</button>
                     </div>
-                    <div class="form-group">
-                        <label for="customerPhone">電話 *</label>
-                        <input type="tel" id="customerPhone" placeholder="例如：0933-721-978" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerEmail">Email *</label>
-                        <input type="email" id="customerEmail" placeholder="用於接收訂單通知" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerAddress">配送地址 *</label>
-                        <textarea id="customerAddress" rows="3" placeholder="請填寫完整地址（含郵遞區號）" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerNote">備註</label>
-                        <textarea id="customerNote" rows="2" placeholder="特殊需求或配送時間（選填）"></textarea>
-                    </div>
-                    <div class="order-summary">
-                        <h4>訂單摘要</h4>
-                        <div id="checkoutSummary"></div>
-                        <div class="checkout-total">
-                            <span>總金額：</span>
-                            <span id="checkoutTotal">NT$ 0</span>
+                    
+                    <!-- 步驟 2: 收件人資訊 -->
+                    <div class="checkout-step-content" id="step2">
+                        <h4>收件人資訊</h4>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="sameAsBuyer" onchange="copySameAsBuyer()">
+                                <span>同訂購人資訊</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="receiverName">姓名 *</label>
+                            <input type="text" id="receiverName" placeholder="請輸入收件人姓名" required style="font-size: 16px;">
+                        </div>
+                        <div class="form-group">
+                            <label for="receiverPhone">電話 *</label>
+                            <input type="tel" id="receiverPhone" placeholder="例如：0933-721-978" required style="font-size: 16px;">
+                        </div>
+                        <div class="form-group">
+                            <label for="receiverAddress">配送地址 *</label>
+                            <textarea id="receiverAddress" rows="3" placeholder="請填寫完整地址（含郵遞區號）" required style="font-size: 16px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerNote">備註</label>
+                            <textarea id="customerNote" rows="2" placeholder="特殊需求或配送時間（選填）" style="font-size: 16px;"></textarea>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn-prev" onclick="goToStep(1)">上一步</button>
+                            <button type="button" class="btn-next" onclick="goToStep(3)">下一步</button>
                         </div>
                     </div>
-                    <div class="payment-methods">
-                        <h4>付款方式</h4>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="linepay" checked>
-                            <span><i class="fab fa-line"></i> LINE Pay</span>
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="bank">
-                            <span><i class="fas fa-university"></i> 銀行匯款</span>
-                        </label>
-                        <div class="bank-info" id="bankInfo" style="display: none;">
-                            <p><strong>匯款帳號資訊：</strong></p>
-                            <p>銀行：台灣銀行 豐原分行</p>
-                            <p>戶名：柑心果園</p>
-                            <p>帳號：123-456-789012</p>
-                            <p class="note">※ 匯款後請保留收據，並提供後5碼以便核對</p>
+                    
+                    <!-- 步驟 3: 確認訂單 -->
+                    <div class="checkout-step-content" id="step3">
+                        <h4>確認訂單</h4>
+                        <div class="order-summary">
+                            <h5>訂單摘要</h5>
+                            <div id="checkoutSummary"></div>
+                            <div class="checkout-total">
+                                <span>總金額：</span>
+                                <span id="checkoutTotal">NT$ 0</span>
+                            </div>
+                        </div>
+                        <div class="payment-methods">
+                            <h5>付款方式</h5>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="linepay" checked>
+                                <span><i class="fab fa-line"></i> LINE Pay</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="bank">
+                                <span><i class="fas fa-university"></i> 銀行匯款</span>
+                            </label>
+                            <div class="bank-info" id="bankInfo" style="display: none;">
+                                <p><strong>匯款帳號資訊：</strong></p>
+                                <p>銀行：台灣銀行 豐原分行</p>
+                                <p>戶名：柑心果園</p>
+                                <p>帳號：123-456-789012</p>
+                                <p class="note">※ 匯款後請保留收據，並提供後5碼以便核對</p>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn-prev" onclick="goToStep(2)">上一步</button>
+                            <button type="submit" class="btn-submit-order">確認訂單並付款</button>
                         </div>
                     </div>
-                    <button type="submit" class="btn-submit-order">確認訂單並付款</button>
                 </form>
             </div>
         </div>
@@ -507,6 +560,33 @@
                 originalUpdateCartUI();
                 updateFloatingCartCount();
             };
+        }
+        
+        // 結帳步驟切換
+        function goToStep(stepNumber) {
+            // 隱藏所有步驟
+            document.querySelectorAll('.checkout-step-content').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelectorAll('.checkout-steps .step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // 顯示目標步驟
+            document.getElementById('step' + stepNumber).classList.add('active');
+            document.querySelector('.checkout-steps .step[data-step="' + stepNumber + '"]').classList.add('active');
+        }
+        
+        // 複製訂購人資訊到收件人
+        function copySameAsBuyer() {
+            const checkbox = document.getElementById('sameAsBuyer');
+            if (checkbox.checked) {
+                document.getElementById('receiverName').value = document.getElementById('buyerName').value;
+                document.getElementById('receiverPhone').value = document.getElementById('buyerPhone').value;
+            } else {
+                document.getElementById('receiverName').value = '';
+                document.getElementById('receiverPhone').value = '';
+            }
         }
     </script>
 </body>

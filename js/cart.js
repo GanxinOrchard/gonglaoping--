@@ -340,10 +340,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     if (closeCart && cartSidebar) {
-        closeCart.addEventListener('click', () => {
+        closeCart.addEventListener('click', (e) => {
+            e.stopPropagation();
             cartSidebar.classList.remove('active');
         });
     }
+    
+    // 點擊外部關閉購物車
+    document.addEventListener('click', (e) => {
+        if (cartSidebar && cartSidebar.classList.contains('active')) {
+            if (!cartSidebar.contains(e.target) && !e.target.closest('#cartIcon') && !e.target.closest('#floatingCart')) {
+                cartSidebar.classList.remove('active');
+            }
+        }
+    });
     
     // 點擊側邊欄外部關閉
     if (cartSidebar) {
