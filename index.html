@@ -116,65 +116,39 @@
     </section>
 
     <!-- 產季時間軸 -->
-    <section class="season-section">
+    <section class="season-section" style="padding: 60px 0; background: #fff;">
         <div class="container">
-            <h2 class="section-title">產季時間軸</h2>
-            
-            <!-- 椪柑產季 -->
-            <div class="season-timeline">
-                <h3 class="season-name">椪柑（10–4）</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-month">10月</div>
-                        <div class="timeline-stage">青皮初熟</div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-month">11月</div>
-                        <div class="timeline-stage">高峰</div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-month">12月</div>
-                        <div class="timeline-stage">轉橙</div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-month">1月</div>
-                        <div class="timeline-stage">穩定</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-month">2月</div>
-                        <div class="timeline-stage">甜香</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-month">3月</div>
-                        <div class="timeline-stage">尾聲</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-month">4月</div>
-                        <div class="timeline-stage">儲藏</div>
-                    </div>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">產季時間軸</h2>
+            <div class="season-timeline" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+                <div class="season-month" data-month="10" onclick="highlightMonth(10)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                    <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                    <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">10月</h4>
+                    <p style="color: #666; font-size: 14px;">椪柑開始</p>
                 </div>
-            </div>
-            
-            <!-- 茂谷產季 -->
-            <div class="season-timeline">
-                <h3 class="season-name">茂谷（12–3）</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-month">12月</div>
-                        <div class="timeline-stage">青皮初熟</div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-month">1月</div>
-                        <div class="timeline-stage">高峰</div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-month">2月</div>
-                        <div class="timeline-stage">轉橙</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-month">3月</div>
-                        <div class="timeline-stage">穩定</div>
-                    </div>
+                <div class="season-month" data-month="11" onclick="highlightMonth(11)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                    <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                    <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">11月</h4>
+                    <p style="color: #666; font-size: 14px;">椪柑盛產</p>
+                </div>
+                <div class="season-month" data-month="12" onclick="highlightMonth(12)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                    <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                    <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">12月</h4>
+                    <p style="color: #666; font-size: 14px;">椪柑盛產</p>
+                </div>
+                <div class="season-month" data-month="1" onclick="highlightMonth(1)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                    <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                    <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">1月</h4>
+                    <p style="color: #666; font-size: 14px;">椪柑+茂谷</p>
+                </div>
+                <div class="season-month" data-month="2" onclick="highlightMonth(2)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                    <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                    <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">2月</h4>
+                    <p style="color: #666; font-size: 14px;">茂谷盛產</p>
+                </div>
+                <div class="season-month" data-month="3" onclick="highlightMonth(3)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                    <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                    <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">3月</h4>
+                    <p style="color: #666; font-size: 14px;">茂谷尾聲</p>
                 </div>
             </div>
         </div>
@@ -582,6 +556,39 @@
             } else {
                 document.getElementById('receiverName').value = '';
                 document.getElementById('receiverPhone').value = '';
+            }
+        }
+
+        // 產季時間軸動畫
+        function highlightMonth(month) {
+            // 移除所有高亮
+            document.querySelectorAll('.season-month').forEach(function(el) {
+                el.style.background = '#f9fafb';
+                el.style.transform = 'scale(1)';
+                el.style.boxShadow = 'none';
+                const icon = el.querySelector('.season-icon');
+                icon.style.transform = 'scale(1)';
+                icon.style.filter = 'grayscale(50%)';
+                const h4 = el.querySelector('h4');
+                const p = el.querySelector('p');
+                if (h4) h4.style.color = '#333';
+                if (p) p.style.color = '#666';
+            });
+            
+            // 高亮選中的月份
+            const selected = document.querySelector('.season-month[data-month="' + month + '"]');
+            if (selected) {
+                selected.style.background = 'linear-gradient(135deg, #10b981 0%, #34d399 100%)';
+                selected.style.transform = 'scale(1.1)';
+                selected.style.boxShadow = '0 10px 30px rgba(16, 185, 129, 0.3)';
+                
+                const icon = selected.querySelector('.season-icon');
+                icon.style.transform = 'scale(1.2)';
+                icon.style.filter = 'brightness(1.2) drop-shadow(0 0 10px rgba(255, 215, 0, 0.8))';
+                
+                // 改變文字顏色
+                selected.querySelector('h4').style.color = 'white';
+                selected.querySelector('p').style.color = 'rgba(255, 255, 255, 0.9)';
             }
         }
     </script>

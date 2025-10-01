@@ -220,19 +220,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    // 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Products loaded:', products.length);
+    
+    // 渲染商品
+    renderProducts();
+    
+    // 渲染分類輪播
+    renderCategoryCarousel();
+    
+    // 分類篩選按鈕
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const category = btn.dataset.category;
+            filterByCategory(category);
+        });
+    });
+    
     // 搜尋功能
     const searchBtn = document.getElementById('searchBtn');
-    const searchInput = document.getElementById('searchInput');
-    
-    if (searchBtn && searchInput) {
-        searchBtn.addEventListener('click', () => {
-            searchProducts(searchInput.value);
-        });
-        
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+{{ ... }}
                 searchProducts(searchInput.value);
             }
         });
     }
 });
+
+// 確保函數在全域可用
+window.renderProducts = renderProducts;
+window.filterByCategory = filterByCategory;
+window.searchProducts = searchProducts;
