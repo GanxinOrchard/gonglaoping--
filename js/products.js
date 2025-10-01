@@ -2,148 +2,31 @@
 const products = [
     {
         id: 1,
-        name: '有機文旦禮盒',
-        category: '禮盒專區',
+        name: '公老坪椪柑 10斤裝',
+        category: '優質水果',
         price: 880,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=有機文旦禮盒',
-        description: '精選有機文旦，果肉細緻多汁，送禮自用兩相宜',
+        image: 'images/10斤產品圖片.png',
+        description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
         badge: '熱銷'
     },
     {
         id: 2,
-        name: '椪柑禮盒',
-        category: '禮盒專區',
+        name: '公老坪椪柑（果實）',
+        category: '優質水果',
         price: 680,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=椪柑禮盒',
-        description: '竹崎山區椪柑，渾圓飽滿、鮮甜多汁',
-        badge: '新品'
+        image: 'images/商品一(椪柑果實).jpg',
+        description: '百年果園傳承，甜度穩、風味正、放心給家人吃',
+        badge: '推薦'
     },
     {
         id: 3,
-        name: '金鑽鳳梨',
+        name: '東勢茂谷柑',
         category: '優質水果',
-        price: 450,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=金鑽鳳梨',
-        description: '台灣在地金鑽鳳梨，香甜可口',
-        badge: ''
+        price: 950,
+        image: 'images/商品二(茂谷柑).png',
+        description: '皮薄多汁、細嫩飽滿、色澤橙亮。4刀6塊，好吃不沾手',
+        badge: '新品'
     },
-    {
-        id: 4,
-        name: '無花果',
-        category: '優質水果',
-        price: 380,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=無花果',
-        description: '雲林四湖無花果，營養滿分',
-        badge: ''
-    },
-    {
-        id: 5,
-        name: '有機蔬菜箱',
-        category: '新鮮蔬菜',
-        price: 550,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=有機蔬菜箱',
-        description: '當季有機蔬菜組合，新鮮直送',
-        badge: '推薦'
-    },
-    {
-        id: 6,
-        name: '有機茉莉香米',
-        category: '米、雜糧',
-        price: 320,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=有機茉莉香米',
-        description: '花蓮玉里有機米，清香Q彈',
-        badge: ''
-    },
-    {
-        id: 7,
-        name: '土地之歌有機白米',
-        category: '米、雜糧',
-        price: 480,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=土地之歌有機白米',
-        description: '台粳74號良質香米，口感極佳',
-        badge: ''
-    },
-    {
-        id: 8,
-        name: '青蕉麵',
-        category: '加工食品',
-        price: 180,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=青蕉麵',
-        description: '添加青香蕉澱粉，富含抗性澱粉',
-        badge: '熱銷'
-    },
-    {
-        id: 9,
-        name: '綠蕉薯條',
-        category: '加工食品',
-        price: 150,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=綠蕉薯條',
-        description: '台灣青香蕉製作，健康零食',
-        badge: ''
-    },
-    {
-        id: 10,
-        name: '黑豆方塊酥',
-        category: '加工食品',
-        price: 120,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=黑豆方塊酥',
-        description: '無防腐劑，純素健康點心',
-        badge: ''
-    },
-    {
-        id: 11,
-        name: '阿里山咖啡',
-        category: '茶葉飲品',
-        price: 580,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=阿里山咖啡',
-        description: 'SL34品種，山泉水洗處理',
-        badge: '精選'
-    },
-    {
-        id: 12,
-        name: '台灣高山茶',
-        category: '茶葉飲品',
-        price: 650,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=台灣高山茶',
-        description: '高山茶葉，香氣濃郁',
-        badge: ''
-    },
-    {
-        id: 13,
-        name: '冷凍桑椹',
-        category: '優質水果',
-        price: 280,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=冷凍桑椹',
-        description: '產銷履歷驗證，快速冷凍保鮮',
-        badge: ''
-    },
-    {
-        id: 14,
-        name: '蜂蜜禮盒',
-        category: '禮盒專區',
-        price: 750,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=蜂蜜禮盒',
-        description: '純天然龍眼蜜，香甜濃郁',
-        badge: '推薦'
-    },
-    {
-        id: 15,
-        name: '壺底蔭油禮盒',
-        category: '禮盒專區',
-        price: 890,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=壺底蔭油禮盒',
-        description: '西螺百年釀造技法，日曝一年熟成',
-        badge: ''
-    },
-    {
-        id: 16,
-        name: '有機糙米',
-        category: '米、雜糧',
-        price: 350,
-        image: 'https://via.placeholder.com/300x300/ff8c42/ffffff?text=有機糙米',
-        description: '保留完整營養，健康首選',
-        badge: ''
-    }
 ];
 
 // 渲染商品列表
