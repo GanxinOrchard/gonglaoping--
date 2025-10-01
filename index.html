@@ -71,9 +71,10 @@
                                 <li><a href="#tea-section">茶葉飲品</a></li>
                             </ul>
                         </li>
-                        <li><a href="#about">關於我們</a></li>
+                        <li><a href="about.html">關於我們</a></li>
                         <li><a href="#news">最新消息</a></li>
                         <li><a href="#faq">常見問題</a></li>
+                        <li><a href="#knowledge">蔬果知識+</a></li>
                         <li><a href="#contact">聯絡我們</a></li>
                         <li><a href="#order-search">訂單查詢</a></li>
                     </ul>
@@ -226,11 +227,8 @@
             <div class="category-buttons">
                 <a href="#products" class="category-btn" data-category="全部">全部商品</a>
                 <a href="#products" class="category-btn" data-category="優質水果">優質水果</a>
-                <a href="#products" class="category-btn" data-category="禮盒專區">禮盒專區</a>
                 <a href="#products" class="category-btn" data-category="新鮮蔬菜">新鮮蔬菜</a>
-                <a href="#products" class="category-btn" data-category="米、雜糧">米、雜糧</a>
-                <a href="#products" class="category-btn" data-category="加工食品">加工食品</a>
-                <a href="#products" class="category-btn" data-category="茶葉飲品">茶葉飲品</a>
+                <a href="#products" class="category-btn" data-category="冷凍加工食品">冷凍加工食品</a>
             </div>
         </div>
     </section>
@@ -241,17 +239,17 @@
             <h2 class="section-title">各分類精選</h2>
             <div class="category-tabs">
                 <button class="tab-btn active" data-tab="fruit">優質水果</button>
-                <button class="tab-btn" data-tab="gift">禮盒專區</button>
                 <button class="tab-btn" data-tab="vegetable">新鮮蔬菜</button>
+                <button class="tab-btn" data-tab="frozen">冷凍加工食品</button>
             </div>
             <div class="tab-content active" id="fruit-tab">
                 <div class="products-carousel" id="fruitCarousel"></div>
             </div>
-            <div class="tab-content" id="gift-tab">
-                <div class="products-carousel" id="giftCarousel"></div>
-            </div>
             <div class="tab-content" id="vegetable-tab">
                 <div class="products-carousel" id="vegetableCarousel"></div>
+            </div>
+            <div class="tab-content" id="frozen-tab">
+                <div class="products-carousel" id="frozenCarousel"></div>
             </div>
         </div>
     </section>
@@ -294,7 +292,7 @@
     </section>
 
     <!-- 蔬果知識+ -->
-    <section class="knowledge-section">
+    <section class="knowledge-section" id="knowledge">
         <div class="container">
             <h2 class="section-title">蔬果知識+</h2>
             <div class="knowledge-grid">

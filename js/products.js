@@ -76,12 +76,12 @@ function searchProducts(query) {
 // 渲染分類商品輪播
 function renderCategoryCarousel() {
     const fruitProducts = products.filter(p => p.category === '優質水果');
-    const giftProducts = products.filter(p => p.category === '禮盒專區');
     const vegetableProducts = products.filter(p => p.category === '新鮮蔬菜');
+    const frozenProducts = products.filter(p => p.category === '冷凍加工食品');
     
     renderCarouselProducts('fruitCarousel', fruitProducts);
-    renderCarouselProducts('giftCarousel', giftProducts.length > 0 ? giftProducts : fruitProducts);
     renderCarouselProducts('vegetableCarousel', vegetableProducts.length > 0 ? vegetableProducts : fruitProducts);
+    renderCarouselProducts('frozenCarousel', frozenProducts.length > 0 ? frozenProducts : fruitProducts);
 }
 
 function renderCarouselProducts(containerId, productsToRender) {
