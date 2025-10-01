@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>訂單查詢 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 導航列 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/柑心果園LOGO.png" alt="柑心果園" style="height: 50px;">
+                    </a>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <ul class="nav-menu" id="mainMenu">
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="index.html#products">商品</a></li>
+                    <li><a href="about.html">關於我們</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                    <li><a href="knowledge.html">蔬果知識+</a></li>
+                    <li><a href="order-tracking.html" class="active">訂單查詢</a></li>
+                </ul>
+                
+                <div class="nav-icons">
+                    <a href="#" class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 訂單查詢區塊 -->
+    <section class="order-tracking-section" style="padding: 80px 0; min-height: 70vh; background: #f9fafb;">
+        <div class="container" style="max-width: 800px;">
+            <h1 style="text-align: center; color: #ff8c42; margin-bottom: 20px;">訂單查詢</h1>
+            <p style="text-align: center; color: #666; margin-bottom: 40px;">輸入您的訂單編號和Email查詢訂單狀態</p>
+            
+            <!-- 查詢表單 -->
+            <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                <form id="trackingForm">
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">訂單編號 *</label>
+                        <input type="text" id="orderId" placeholder="例如：GX20251002xxxx" required style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 16px;">
+                        <small style="color: #666; font-size: 14px;">訂單編號可在確認Email中找到</small>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Email *</label>
+                        <input type="email" id="orderEmail" placeholder="訂購時填寫的Email" required style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 16px;">
+                    </div>
+                    
+                    <button type="submit" style="width: 100%; background: #ff8c42; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                        <i class="fas fa-search"></i> 查詢訂單
+                    </button>
+                </form>
+            </div>
+            
+            <!-- 查詢結果 -->
+            <div id="trackingResult" style="display: none;"></div>
+            
+            <!-- 載入中 -->
+            <div id="loadingIndicator" style="display: none; text-align: center; padding: 40px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: #ff8c42;"></i>
+                <p style="margin-top: 20px; color: #666;">查詢中...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="#faq">常見問題</a></li>
+                        <li><a href="#shipping">配送說明</a></li>
+                        <li><a href="#return">退換貨政策</a></li>
+                        <li><a href="#privacy">隱私權政策</a></li>
+                        <li><a href="#terms">服務條款</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>購物指南</h4>
+                    <ul>
+                        <li><a href="#how-to-order">如何訂購</a></li>
+                        <li><a href="#payment">付款方式</a></li>
+                        <li><a href="#member">會員權益</a></li>
+                        <li><a href="#points">點數說明</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
+                        <li><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank" rel="noopener noreferrer">Facebook 粉絲專頁</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台灣豐原公老坪</li>
+                        <li><i class="fas fa-clock"></i> 週一至週五 09:00-18:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/cart.js"></script>
+    <script>
+        // 手機選單切換
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+
+        // GAS URL（與 checkout.js 相同）
+        const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+        // 訂單查詢
+        document.getElementById('trackingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const orderId = document.getElementById('orderId').value.trim();
+            const email = document.getElementById('orderEmail').value.trim();
+            
+            if (!orderId || !email) {
+                alert('請填寫訂單編號和Email');
+                return;
+            }
+            
+            // 顯示載入中
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('trackingResult').style.display = 'none';
+            
+            try {
+                // 查詢訂單
+                const response = await fetch(GAS_URL + '?action=getOrder&orderId=' + encodeURIComponent(orderId) + '&email=' + encodeURIComponent(email));
+                const data = await response.json();
+                
+                // 隱藏載入中
+                document.getElementById('loadingIndicator').style.display = 'none';
+                
+                if (data.success && data.order) {
+                    displayOrderResult(data.order);
+                } else {
+                    displayError('找不到訂單，請確認訂單編號和Email是否正確');
+                }
+            } catch (error) {
+                console.error('查詢錯誤:', error);
+                document.getElementById('loadingIndicator').style.display = 'none';
+                displayError('查詢失敗，請稍後再試');
+            }
+        });
+
+        // 顯示訂單結果
+        function displayOrderResult(order) {
+            const resultDiv = document.getElementById('trackingResult');
+            
+            let html = '<div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
+            html += '<h2 style="color: #ff8c42; margin-bottom: 20px;"><i class="fas fa-check-circle"></i> 訂單資訊</h2>';
+            
+            // 訂單狀態
+            let statusColor = '#666';
+            let statusIcon = 'fa-clock';
+            if (order.出貨狀態 === '已出貨') {
+                statusColor = '#10b981';
+                statusIcon = 'fa-truck';
+            } else if (order.出貨狀態 === '處理中') {
+                statusColor = '#f59e0b';
+                statusIcon = 'fa-box';
+            }
+            
+            html += '<div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">';
+            html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">';
+            html += '<div><strong>訂單編號：</strong>' + order.訂單編號 + '</div>';
+            html += '<div><strong>建立時間：</strong>' + order.建立時間 + '</div>';
+            html += '<div><strong>訂購人：</strong>' + order.姓名 + '</div>';
+            html += '<div><strong>聯絡電話：</strong>' + order.手機 + '</div>';
+            html += '<div style="grid-column: 1 / -1;"><strong>收件地址：</strong>' + order.收件地址 + '</div>';
+            html += '</div>';
+            html += '</div>';
+            
+            // 訂單狀態
+            html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">';
+            html += '<div style="text-align: center; padding: 15px; background: #f9fafb; border-radius: 8px;">';
+            html += '<i class="fas fa-credit-card" style="font-size: 24px; color: ' + (order.款項狀態 === '已付款' ? '#10b981' : '#f59e0b') + '; margin-bottom: 10px;"></i>';
+            html += '<div><strong>款項狀態</strong></div>';
+            html += '<div style="color: ' + (order.款項狀態 === '已付款' ? '#10b981' : '#f59e0b') + ';">' + order.款項狀態 + '</div>';
+            html += '</div>';
+            
+            html += '<div style="text-align: center; padding: 15px; background: #f9fafb; border-radius: 8px;">';
+            html += '<i class="fas ' + statusIcon + '" style="font-size: 24px; color: ' + statusColor + '; margin-bottom: 10px;"></i>';
+            html += '<div><strong>出貨狀態</strong></div>';
+            html += '<div style="color: ' + statusColor + ';">' + order.出貨狀態 + '</div>';
+            html += '</div>';
+            
+            html += '<div style="text-align: center; padding: 15px; background: #f9fafb; border-radius: 8px;">';
+            html += '<i class="fas fa-shipping-fast" style="font-size: 24px; color: #ff8c42; margin-bottom: 10px;"></i>';
+            html += '<div><strong>物流方式</strong></div>';
+            html += '<div>' + order.物流方式 + '</div>';
+            html += '</div>';
+            html += '</div>';
+            
+            // 物流資訊
+            if (order.物流單號) {
+                html += '<div style="background: #fffbeb; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b; margin-bottom: 20px;">';
+                html += '<strong><i class="fas fa-truck"></i> 物流單號：</strong>' + order.物流單號;
+                if (order.出貨日期) {
+                    html += '<br><strong>出貨日期：</strong>' + order.出貨日期;
+                }
+                html += '</div>';
+            }
+            
+            // 訂單金額
+            html += '<div style="background: #fff7ed; padding: 15px; border-radius: 8px; border-left: 4px solid #ff8c42;">';
+            html += '<strong style="font-size: 18px;"><i class="fas fa-dollar-sign"></i> 應付金額：</strong>';
+            html += '<span style="font-size: 24px; color: #ff8c42; font-weight: bold;"> NT$ ' + order.應付金額 + '</span>';
+            html += '</div>';
+            
+            // 備註
+            if (order.備註) {
+                html += '<div style="margin-top: 20px; padding: 15px; background: #f9fafb; border-radius: 8px;">';
+                html += '<strong>備註：</strong>' + order.備註;
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            
+            resultDiv.innerHTML = html;
+            resultDiv.style.display = 'block';
+        }
+
+        // 顯示錯誤
+        function displayError(message) {
+            const resultDiv = document.getElementById('trackingResult');
+            resultDiv.innerHTML = '<div style="background: #fef2f2; padding: 30px; border-radius: 12px; border-left: 4px solid #ef4444; text-align: center;">' +
+                '<i class="fas fa-exclamation-circle" style="font-size: 48px; color: #ef4444; margin-bottom: 15px;"></i>' +
+                '<p style="color: #ef4444; font-size: 18px; margin: 0;">' + message + '</p>' +
+                '</div>';
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -41,11 +41,56 @@ function doPost(e) {
   }
 }
 
-// 處理 GET 請求（測試用）
+// 處理 GET 請求（訂單查詢）
 function doGet(e) {
-  return ContentService
-    .createTextOutput('柑心果園訂單系統 API 運作中')
-    .setMimeType(ContentService.MimeType.TEXT);
+  try {
+    const action = e.parameter.action;
+    
+    if (action === 'getOrder') {
+      const orderId = e.parameter.orderId;
+      const email = e.parameter.email;
+      
+      if (!orderId || !email) {
+        return ContentService
+          .createTextOutput(JSON.stringify({
+            success: false,
+            error: '缺少訂單編號或Email'
+          }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      const order = getOrderByIdAndEmail(orderId, email);
+      
+      if (order) {
+        return ContentService
+          .createTextOutput(JSON.stringify({
+            success: true,
+            order: order
+          }))
+          .setMimeType(ContentService.MimeType.JSON);
+      } else {
+        return ContentService
+          .createTextOutput(JSON.stringify({
+            success: false,
+            error: '找不到訂單'
+          }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    
+    return ContentService
+      .createTextOutput('柑心果園訂單系統 API 運作中')
+      .setMimeType(ContentService.MimeType.TEXT);
+      
+  } catch (error) {
+    Logger.log('GET Error: ' + error.toString());
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: false,
+        error: error.toString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 // 寫入試算表
@@ -59,11 +104,11 @@ function writeToSheet(orderData) {
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
       
-      // 建立標題列
+      // 建立標題列（完整欄位）
       const headers = [
-        '訂單編號', '訂單日期', '訂購人姓名', '訂購人電話', '訂購人Email',
-        '收件人姓名', '收件人電話', '收件地址', '備註',
-        '商品明細', '小計', '運費', '總金額', '付款方式', '訂單狀態'
+        '訂單編號', '姓名', 'Email', '手機', '寄信狀態', '寄信是否成功', 
+        '款項狀態', '出貨狀態', '物流方式', '收件地址', '備註', 
+        '建立時間', '應付金額', '物流單號', '出貨日期', '寄信結果'
       ];
       sheet.appendRow(headers);
       
@@ -75,32 +120,24 @@ function writeToSheet(orderData) {
       headerRange.setHorizontalAlignment('center');
     }
     
-    // 準備商品明細
-    let itemsDetail = '';
-    orderData.items.forEach(function(item, index) {
-      if (index > 0) itemsDetail += '\n';
-      itemsDetail += item.name;
-      if (item.spec) itemsDetail += ' (' + item.spec + ')';
-      itemsDetail += ' x ' + item.quantity + ' = NT$ ' + item.subtotal;
-    });
-    
-    // 準備資料列
+    // 準備資料列（完整欄位）
     const row = [
-      orderData.orderId,
-      orderData.orderDate,
-      orderData.buyer.name,
-      orderData.buyer.phone,
-      orderData.buyer.email,
-      orderData.receiver.name,
-      orderData.receiver.phone,
-      orderData.receiver.address,
-      orderData.note || '',
-      itemsDetail,
-      orderData.subtotal,
-      orderData.shipping,
-      orderData.total,
-      orderData.paymentMethod,
-      orderData.status
+      orderData.orderId,                    // 訂單編號
+      orderData.receiver.name,              // 姓名（收件人）
+      orderData.buyer.email,                // Email
+      orderData.receiver.phone,             // 手機
+      '待寄送',                             // 寄信狀態
+      '',                                   // 寄信是否成功
+      '待付款',                             // 款項狀態
+      '待處理',                             // 出貨狀態
+      orderData.paymentMethod,              // 物流方式
+      orderData.receiver.address,           // 收件地址
+      orderData.note || '',                 // 備註
+      orderData.orderDate,                  // 建立時間
+      orderData.total,                      // 應付金額
+      '',                                   // 物流單號
+      '',                                   // 出貨日期
+      ''                                    // 寄信結果
     ];
     
     // 寫入資料
@@ -269,4 +306,41 @@ function createAdminEmailBody(orderData) {
   html += '</div>';
   
   return html;
+}
+
+// 查詢訂單（依訂單編號和Email）
+function getOrderByIdAndEmail(orderId, email) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    
+    if (!sheet) {
+      return null;
+    }
+    
+    const data = sheet.getDataRange().getValues();
+    const headers = data[0];
+    
+    // 找到對應的欄位索引
+    const orderIdCol = headers.indexOf('訂單編號');
+    const emailCol = headers.indexOf('Email');
+    
+    // 搜尋訂單
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][orderIdCol] === orderId && data[i][emailCol] === email) {
+        // 找到訂單，返回資料
+        const order = {};
+        headers.forEach(function(header, index) {
+          order[header] = data[i][index];
+        });
+        return order;
+      }
+    }
+    
+    return null;
+    
+  } catch (error) {
+    Logger.log('查詢訂單錯誤: ' + error.toString());
+    return null;
+  }
 }
