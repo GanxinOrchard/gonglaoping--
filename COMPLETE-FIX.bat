@@ -41,7 +41,7 @@ if exist "js\products.js" (echo    OK - products.js) else (echo    ERROR - produ
 echo.
 echo Step 4: Upload to GitHub...
 git add .
-git commit -m "COMPLETE: Larger logo, cart on all pages, 100% DONE"
+git commit -m "FINAL: Products fixed, logo larger, cart everywhere, ALL COMPLETE"
 git push origin main
 
 if %errorlevel% neq 0 (
