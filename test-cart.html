@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test Cart</title>
+</head>
+<body>
+    <h1>Testing cart.js loading...</h1>
+    <div id="result"></div>
+    
+    <script src="./js/products.js"></script>
+    <script>
+        console.log('Step 1: products.js loaded');
+        console.log('products exists?', typeof products !== 'undefined');
+        if (typeof products !== 'undefined') {
+            console.log('products length:', products.length);
+        }
+    </script>
+    
+    <script src="./js/cart.js" onerror="console.error('cart.js failed to load!')"></script>
+    <script>
+        console.log('Step 2: After cart.js');
+        console.log('addToCart exists?', typeof addToCart !== 'undefined');
+        console.log('cart exists?', typeof cart !== 'undefined');
+        
+        // Check for errors
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript Error:', e.message, 'at', e.filename, 'line', e.lineno);
+            document.getElementById('result').innerHTML += '<p style="color:red;">ERROR: ' + e.message + '</p>';
+        });
+        
+        setTimeout(function() {
+            let html = '<h2>Results:</h2>';
+            html += '<p>products: ' + (typeof products !== 'undefined' ? '✓ OK' : '✗ MISSING') + '</p>';
+            html += '<p>cart: ' + (typeof cart !== 'undefined' ? '✓ OK' : '✗ MISSING') + '</p>';
+            html += '<p>addToCart: ' + (typeof addToCart !== 'undefined' ? '✓ OK' : '✗ MISSING') + '</p>';
+            html += '<p>updateCartUI: ' + (typeof updateCartUI !== 'undefined' ? '✓ OK' : '✗ MISSING') + '</p>';
+            
+            if (typeof cart !== 'undefined') {
+                html += '<p>Cart length: ' + cart.length + '</p>';
+            }
+            
+            document.getElementById('result').innerHTML = html;
+        }, 1000);
+    </script>
+</body>
+</html>

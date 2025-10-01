@@ -1,7 +1,7 @@
 // 清除快取並重新載入
 (function() {
     // 版本號 - 每次更新時修改這個數字
-    const CURRENT_VERSION = '2.0.0';
+    const CURRENT_VERSION = '2.1.0';
     const VERSION_KEY = 'ganxin_version';
     
     // 檢查版本

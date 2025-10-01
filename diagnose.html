@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnose - Ganxin Orchard</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+        .ok { color: #4ec9b0; }
+        .error { color: #f48771; }
+        .warning { color: #dcdcaa; }
+        h1 { color: #ff8c42; }
+        pre { background: #252526; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        button { 
+            background: #ff8c42; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 10px 5px; 
+            cursor: pointer; 
+            border-radius: 5px;
+        }
+        button:hover { background: #e67a32; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Ganxin Orchard - System Diagnosis</h1>
+    
+    <button onclick="runDiagnosis()">Run Full Diagnosis</button>
+    <button onclick="location.reload()">Refresh Page</button>
+    <button onclick="location.href='index.html'">Go to Main Site</button>
+    
+    <div id="results"></div>
+
+    <script src="./js/products.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/checkout.js"></script>
+    
+    <script>
+        function runDiagnosis() {
+            const results = document.getElementById('results');
+            let output = '<h2>Diagnosis Results:</h2><pre>';
+            
+            // Check 1: Products
+            output += '\n=== PRODUCTS CHECK ===\n';
+            if (typeof products !== 'undefined') {
+                output += '<span class="ok">✓ products array exists</span>\n';
+                output += `  - Total products: ${products.length}\n`;
+                products.forEach(p => {
+                    output += `  - Product ${p.id}: ${p.name} (${p.shippingType})\n`;
+                });
+            } else {
+                output += '<span class="error">✗ products array NOT FOUND</span>\n';
+            }
+            
+            // Check 2: Cart Functions
+            output += '\n=== CART FUNCTIONS CHECK ===\n';
+            if (typeof addToCart === 'function') {
+                output += '<span class="ok">✓ addToCart function exists</span>\n';
+            } else {
+                output += '<span class="error">✗ addToCart function NOT FOUND</span>\n';
+            }
+            
+            if (typeof cart !== 'undefined') {
+                output += '<span class="ok">✓ cart variable exists</span>\n';
+                output += `  - Cart items: ${cart.length}\n`;
+            } else {
+                output += '<span class="error">✗ cart variable NOT FOUND</span>\n';
+            }
+            
+            if (typeof updateCartUI === 'function') {
+                output += '<span class="ok">✓ updateCartUI function exists</span>\n';
+            } else {
+                output += '<span class="error">✗ updateCartUI function NOT FOUND</span>\n';
+            }
+            
+            if (typeof renderCartItems === 'function') {
+                output += '<span class="ok">✓ renderCartItems function exists</span>\n';
+            } else {
+                output += '<span class="error">✗ renderCartItems function NOT FOUND</span>\n';
+            }
+            
+            // Check 3: Checkout Functions
+            output += '\n=== CHECKOUT FUNCTIONS CHECK ===\n';
+            if (typeof openCheckoutModal === 'function') {
+                output += '<span class="ok">✓ openCheckoutModal function exists</span>\n';
+            } else {
+                output += '<span class="error">✗ openCheckoutModal function NOT FOUND</span>\n';
+            }
+            
+            // Check 4: DOM Elements
+            output += '\n=== DOM ELEMENTS CHECK ===\n';
+            const cartIcon = document.getElementById('cartIcon');
+            if (cartIcon) {
+                output += '<span class="ok">✓ cartIcon element exists</span>\n';
+            } else {
+                output += '<span class="warning">⚠ cartIcon element NOT FOUND (normal for this page)</span>\n';
+            }
+            
+            const cartSidebar = document.getElementById('cartSidebar');
+            if (cartSidebar) {
+                output += '<span class="ok">✓ cartSidebar element exists</span>\n';
+            } else {
+                output += '<span class="warning">⚠ cartSidebar element NOT FOUND (normal for this page)</span>\n';
+            }
+            
+            // Check 5: Files Loaded
+            output += '\n=== FILES LOADED CHECK ===\n';
+            const scripts = document.querySelectorAll('script[src]');
+            scripts.forEach(script => {
+                output += `  - ${script.src}\n`;
+            });
+            
+            // Check 6: Console Errors
+            output += '\n=== BROWSER INFO ===\n';
+            output += `  - User Agent: ${navigator.userAgent}\n`;
+            output += `  - Current URL: ${window.location.href}\n`;
+            output += `  - localStorage items: ${localStorage.length}\n`;
+            
+            // Check 7: Try to add to cart
+            output += '\n=== FUNCTIONAL TEST ===\n';
+            try {
+                if (typeof addToCart === 'function' && typeof products !== 'undefined' && products.length > 0) {
+                    output += '<span class="ok">✓ Attempting to add product to cart...</span>\n';
+                    addToCart(products[0].id);
+                    output += '<span class="ok">✓ SUCCESS! Product added to cart</span>\n';
+                    output += `  - Cart now has ${cart.length} items\n`;
+                } else {
+                    output += '<span class="error">✗ Cannot test - functions or products missing</span>\n';
+                }
+            } catch (error) {
+                output += `<span class="error">✗ ERROR: ${error.message}</span>\n`;
+            }
+            
+            output += '\n=== END OF DIAGNOSIS ===\n';
+            output += '</pre>';
+            
+            results.innerHTML = output;
+        }
+        
+        // Auto-run on load
+        window.addEventListener('load', function() {
+            console.log('Diagnosis page loaded');
+            setTimeout(runDiagnosis, 500);
+        });
+    </script>
+</body>
+</html>

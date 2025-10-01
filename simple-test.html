@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Simple Test</title></head>
+<body>
+<h1>Simple Cart Test</h1>
+<button onclick="testAdd()">Test Add to Cart</button>
+<div id="output"></div>
+
+<script>
+// Inline cart code for testing
+let cart = [];
+
+function addToCart(productId) {
+    cart.push({ id: productId, quantity: 1 });
+    console.log('Added to cart:', productId);
+    console.log('Cart:', cart);
+    document.getElementById('output').innerHTML = 'Cart has ' + cart.length + ' items';
+}
+
+function testAdd() {
+    addToCart(1);
+}
+
+console.log('Simple test loaded');
+console.log('addToCart function:', typeof addToCart);
+</script>
+</body>
+</html>

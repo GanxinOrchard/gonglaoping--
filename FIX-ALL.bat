@@ -1,11 +1,10 @@
 @echo off
-chcp 65001 >nul
 echo ========================================
-echo   完整修復並上傳 - 最終版本
+echo   Fix All - Final Version
 echo ========================================
 echo.
 
-echo 步驟 1: 替換 products.js...
+echo Step 1: Replace products.js...
 copy /Y "js\products-new.js" "js\products.js"
 if %errorlevel% neq 0 (
     echo Failed to replace products.js!
