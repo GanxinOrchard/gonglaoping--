@@ -55,11 +55,6 @@
             </div>
         </nav>
     </header>
-    <script>
-        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-            document.getElementById('mainMenu').classList.toggle('active');
-        });
-    </script>
 
     <!-- 訂單查詢區塊 -->
     <section class="order-tracking-section" style="padding: 80px 0; min-height: 70vh; background: #f9fafb;">
@@ -97,6 +92,32 @@
             </div>
         </div>
     </section>
+
+    <!-- 購物車側邊欄 -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>購物車</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- 購物車項目將由 JavaScript 動態載入 -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div class="subtotal">
+                    <span>小計：</span>
+                    <span id="subtotal">NT$ 0</span>
+                </div>
+                <div class="total">
+                    <span>總計：</span>
+                    <span id="total">NT$ 0</span>
+                </div>
+            </div>
+            <a href="index.html#checkout" class="btn-checkout">前往結帳</a>
+        </div>
+    </div>
 
     <!-- 頁尾 -->
     <footer class="footer">
