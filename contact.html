@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>柑心果園｜聯絡我們</title>
+  <meta name="description" content="柑心果園：用心種柑，與你柑心相伴。公老坪椪柑、東勢茂谷，新鮮直送。">
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+</head>
+<body>
+  <div id="site-header"></div>
+  <section class="hero"><div class="container">
+    <div class="breadcrumbs"><a href="index.html">首頁</a></div>
+    <h1>與我們聯繫</h1>
+  </div></section>
+  <main class="page">
+    <div class="container">
+      
+<div class="card"><div class="pad">
+  <h2>聯絡我們</h2>
+  <p>客服時間：週一至週五 9:00–12:30 / 13:30–17:00</p>
+  <p>LINE 官方帳號：<a href="https://lin.ee/RTMwUYu" target="_blank">@柑心果園</a></p>
+  <form onsubmit="event.preventDefault(); alert('已送出，稍後與你聯絡');">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <input placeholder="你的姓名" required style="padding:10px;border:1px solid var(--border);border-radius:10px">
+      <input placeholder="Email" type="email" required style="padding:10px;border:1px solid var(--border);border-radius:10px">
+    </div>
+    <textarea placeholder="留言內容" rows="5" style="margin-top:12px;width:100%;padding:10px;border:1px solid var(--border);border-radius:10px"></textarea>
+    <div style="margin-top:12px"><button class="btn">送出</button></div>
+  </form>
+</div></div>
+
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="assets/js/main.js"></script>
+  <script>
+    loadPartial('site-header','partials/header.html');
+    loadPartial('site-footer','partials/footer.html');
+  </script>
+</body>
+</html>
