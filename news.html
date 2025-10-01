@@ -21,33 +21,141 @@
             margin-bottom: 15px;
         }
         
-        .news-list {
+        .news-section {
             padding: 60px 0;
+            background: #f9fafb;
         }
         
-        .news-item {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary-color);
+        .news-carousel-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
         }
         
-        .news-item:hover {
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .news-meta {
+        .news-carousel {
             display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-            color: var(--text-light);
-            font-size: 14px;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px;
+            cursor: grab;
+            user-select: none;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
         
-        .news-item h2 {
-            font-size: 24px;
+        .news-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .news-carousel.grabbing {
+            cursor: grabbing;
+        }
+        
+        .news-card {
+            flex: 0 0 350px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .news-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+        }
+        
+        .news-card-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ff8c42;
+        }
+        
+        .news-card-content {
+            padding: 25px;
+        }
+        
+        .news-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .news-card-description {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .news-card-tag {
+            display: inline-block;
+            background: #fff7ed;
+            color: #ff8c42;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .carousel-btn {
+            background: white;
+            border: 2px solid #ff8c42;
+            color: #ff8c42;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+        
+        .carousel-btn:hover {
+            background: #ff8c42;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .news-card {
+                flex: 0 0 280px;
+            }
+            
+            .news-hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
             margin-bottom: 15px;
             color: var(--text-dark);
         }
@@ -98,6 +206,64 @@
         document.getElementById('mobileMenuToggle').addEventListener('click', function() {
             document.getElementById('mainMenu').classList.toggle('active');
         });
+
+        // 卡片輪播功能
+        function scrollCarousel(type, direction) {
+            const carousel = document.getElementById(type + 'Carousel');
+            const scrollAmount = 380; // 卡片寬度 + gap
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // 拖曳滑動功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.getElementById('newsCarousel');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.classList.add('grabbing');
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.classList.remove('grabbing');
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.classList.remove('grabbing');
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+
+            // 觸控支援
+            let touchStartX = 0;
+            let touchScrollLeft = 0;
+
+            carousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].pageX;
+                touchScrollLeft = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('touchmove', (e) => {
+                const touchX = e.touches[0].pageX;
+                const walk = (touchStartX - touchX) * 1.5;
+                carousel.scrollLeft = touchScrollLeft + walk;
+            });
+        });
     </script>
 
     <section class="news-hero">
@@ -107,51 +273,105 @@
         </div>
     </section>
 
-    <section class="news-list">
+    <section class="news-section">
         <div class="container">
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar"></i> 2025.01.15</span>
-                    <span><i class="fas fa-tag"></i> 產季公告</span>
+            <h2 style="text-align: center; font-size: 32px; margin-bottom: 40px; color: #333;">最新消息</h2>
+            
+            <div class="news-carousel-container">
+                <div class="news-carousel" id="newsCarousel">
+                    <!-- 2025.01.15 -->
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            🍊
+                            <div class="news-card-date">2025.01.15</div>
+                        </div>
+                        <div class="news-card-content">
+                            <div class="news-card-tag">產季公告</div>
+                            <h3 class="news-card-title">公老坪椪柑產季開始！</h3>
+                            <p class="news-card-description">今年椪柑品質極佳，甜度穩定在12-14度，酸甜比例完美。產季限定，售完為止！</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.10 -->
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            🍊
+                            <div class="news-card-date">2025.01.10</div>
+                        </div>
+                        <div class="news-card-content">
+                            <div class="news-card-tag">新品上市</div>
+                            <h3 class="news-card-title">東勢茂谷柑即將上市</h3>
+                            <p class="news-card-description">皮薄多汁的茂谷柑預計1月底出貨，現正開放預購中。早鳥價優惠中！</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.05 -->
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            🎁
+                            <div class="news-card-date">2025.01.05</div>
+                        </div>
+                        <div class="news-card-content">
+                            <div class="news-card-tag">優惠活動</div>
+                            <h3 class="news-card-title">春節禮盒優惠開跑</h3>
+                            <p class="news-card-description">精選水果禮盒，送禮自用兩相宜。1月底前訂購享9折優惠！</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2024.12.28 -->
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            🌱
+                            <div class="news-card-date">2024.12.28</div>
+                        </div>
+                        <div class="news-card-content">
+                            <div class="news-card-tag">果園動態</div>
+                            <h3 class="news-card-title">冬季果園管理進行中</h3>
+                            <p class="news-card-description">進行修剪枝條、施有機肥等工作，堅持友善環境的栽培方式。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2024.12.20 -->
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            📦
+                            <div class="news-card-date">2024.12.20</div>
+                        </div>
+                        <div class="news-card-content">
+                            <div class="news-card-tag">配送公告</div>
+                            <h3 class="news-card-title">年節配送時間調整</h3>
+                            <p class="news-card-description">春節期間配送時間調整，請提早下單以確保如期收到商品。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2024.12.15 -->
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            ⭐
+                            <div class="news-card-date">2024.12.15</div>
+                        </div>
+                        <div class="news-card-content">
+                            <div class="news-card-tag">品質認證</div>
+                            <h3 class="news-card-title">通過有機認證檢驗</h3>
+                            <p class="news-card-description">我們的果園通過有機認證，讓您吃得更安心健康。</p>
+                        </div>
+                    </div>
                 </div>
-                <h2>公老坪椪柑產季開始！</h2>
-                <p>今年的椪柑品質極佳，經過充足的日照與適當的雨水滋潤，每一顆都飽滿多汁。甜度穩定在12-14度之間，酸甜比例完美平衡。</p>
-                <p>我們堅持在最佳採收期進行手摘，確保每顆椪柑都達到最佳風味。產季限定，售完為止，歡迎提早預購！</p>
-                <p><strong>特色：</strong>皮薄好剝、果肉細緻、香氣濃郁、冷藏後風味更佳</p>
-            </div>
-
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar"></i> 2025.01.10</span>
-                    <span><i class="fas fa-tag"></i> 新品上市</span>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn" onclick="scrollCarousel('news', -1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn" onclick="scrollCarousel('news', 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <h2>東勢茂谷柑即將上市</h2>
-                <p>皮薄多汁的茂谷柑預計1月底開始出貨，現正開放預購中。東勢地區得天獨厚的氣候條件，造就了茂谷柑獨特的風味。</p>
-                <p>茂谷柑富含維生素C，果肉細嫩飽滿，色澤橙亮誘人。建議使用4刀6塊切法，好吃不沾手，是過年送禮的最佳選擇！</p>
-                <p><strong>預購優惠：</strong>現在預購享早鳥價，數量有限，欲購從速</p>
             </div>
+        </div>
+    </section>
 
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar"></i> 2025.01.05</span>
-                    <span><i class="fas fa-tag"></i> 優惠活動</span>
-                </div>
-                <h2>春節禮盒優惠開跑</h2>
-                <p>精選水果禮盒，送禮自用兩相宜。我們特別為春節準備了多款精美禮盒，內含當季最優質的柑橘類水果。</p>
-                <p>每個禮盒都經過嚴格挑選，確保果實大小一致、品質優良。搭配精美包裝，讓您送禮更有面子。</p>
-                <p><strong>早鳥優惠：</strong>1月底前訂購享9折優惠，滿額再送精美提袋</p>
-            </div>
-
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar"></i> 2024.12.28</span>
-                    <span><i class="fas fa-tag"></i> 果園動態</span>
-                </div>
-                <h2>冬季果園管理進行中</h2>
-                <p>進入冬季，我們的果園正進行精心的管理工作。包括修剪枝條、施有機肥、病蟲害防治等，為來年的豐收做好準備。</p>
-                <p>我們堅持使用有機肥料，減少化學藥劑使用，以友善環境的方式栽培，讓每一顆果實都能安心食用。</p>
-            </div>
-
+    <section class="news-list" style="display: none;">
+        <div class="container">
             <div class="news-item">
                 <div class="news-meta">
                     <span><i class="fas fa-calendar"></i> 2024.12.20</span>
