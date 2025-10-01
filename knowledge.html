@@ -21,30 +21,139 @@
             margin-bottom: 15px;
         }
         
-        .articles-list {
+        .knowledge-section {
             padding: 60px 0;
+            background: #f0fdf4;
         }
         
-        .article-card {
-            background: var(--white);
-            border-radius: 12px;
+        .knowledge-carousel-container {
+            position: relative;
             overflow: hidden;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow);
+            padding: 20px 0;
         }
         
-        .article-card:hover {
-            box-shadow: var(--shadow-hover);
+        .knowledge-carousel {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px;
+            cursor: grab;
+            user-select: none;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
         
-        .article-image {
+        .knowledge-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .knowledge-carousel.grabbing {
+            cursor: grabbing;
+        }
+        
+        .knowledge-card {
+            flex: 0 0 350px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .knowledge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .knowledge-card-image {
             width: 100%;
-            height: 300px;
-            object-fit: cover;
+            height: 200px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
         }
         
-        .article-content {
-            padding: 30px;
+        .knowledge-card-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #10b981;
+        }
+        
+        .knowledge-card-content {
+            padding: 25px;
+        }
+        
+        .knowledge-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .knowledge-card-description {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .knowledge-card-tag {
+            display: inline-block;
+            background: #d1fae5;
+            color: #10b981;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .carousel-btn {
+            background: white;
+            border: 2px solid #10b981;
+            color: #10b981;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+        
+        .carousel-btn:hover {
+            background: #10b981;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .knowledge-card {
+                flex: 0 0 280px;
+            }
+            
+            .knowledge-hero h1 {
+                font-size: 32px;
+            }
         }
         
         .article-tag {
@@ -126,6 +235,64 @@
         document.getElementById('mobileMenuToggle').addEventListener('click', function() {
             document.getElementById('mainMenu').classList.toggle('active');
         });
+
+        // 卡片輪播功能
+        function scrollCarousel(type, direction) {
+            const carousel = document.getElementById(type + 'Carousel');
+            const scrollAmount = 380;
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // 拖曳滑動功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.getElementById('knowledgeCarousel');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.classList.add('grabbing');
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.classList.remove('grabbing');
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.classList.remove('grabbing');
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+
+            // 觸控支援
+            let touchStartX = 0;
+            let touchScrollLeft = 0;
+
+            carousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].pageX;
+                touchScrollLeft = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('touchmove', (e) => {
+                const touchX = e.touches[0].pageX;
+                const walk = (touchStartX - touchX) * 1.5;
+                carousel.scrollLeft = touchScrollLeft + walk;
+            });
+        });
     </script>
 
     <section class="knowledge-hero">
@@ -135,7 +302,117 @@
         </div>
     </section>
 
-    <section class="articles-list">
+    <section class="knowledge-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 32px; margin-bottom: 40px; color: #333;">蔬果知識庫</h2>
+            
+            <div class="knowledge-carousel-container">
+                <div class="knowledge-carousel" id="knowledgeCarousel">
+                    <!-- 2025.01.20 -->
+                    <div class="knowledge-card">
+                        <div class="knowledge-card-image">
+                            🍊
+                            <div class="knowledge-card-date">2025.01.20</div>
+                        </div>
+                        <div class="knowledge-card-content">
+                            <div class="knowledge-card-tag">保存技巧</div>
+                            <h3 class="knowledge-card-title">椪柑如何保存最新鮮？</h3>
+                            <p class="knowledge-card-description">掌握正確保存方法，讓椪柑維持最佳風味長達2-3週。冷藏後風味更清爽！</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.18 -->
+                    <div class="knowledge-card">
+                        <div class="knowledge-card-image">
+                            🔪
+                            <div class="knowledge-card-date">2025.01.18</div>
+                        </div>
+                        <div class="knowledge-card-content">
+                            <div class="knowledge-card-tag">食用方法</div>
+                            <h3 class="knowledge-card-title">茂谷柑4刀6塊切法</h3>
+                            <p class="knowledge-card-description">輕鬆享用美味茂谷柑，完全不沾手！招待客人最佳切法教學。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.15 -->
+                    <div class="knowledge-card">
+                        <div class="knowledge-card-image">
+                            💪
+                            <div class="knowledge-card-date">2025.01.15</div>
+                        </div>
+                        <div class="knowledge-card-content">
+                            <div class="knowledge-card-tag">營養知識</div>
+                            <h3 class="knowledge-card-title">柑橘類的營養價值</h3>
+                            <p class="knowledge-card-description">富含維生素C、膳食纖維，增強免疫力，促進消化健康。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.12 -->
+                    <div class="knowledge-card">
+                        <div class="knowledge-card-image">
+                            🌱
+                            <div class="knowledge-card-date">2025.01.12</div>
+                        </div>
+                        <div class="knowledge-card-content">
+                            <div class="knowledge-card-tag">栽培知識</div>
+                            <h3 class="knowledge-card-title">有機栽培的優勢</h3>
+                            <p class="knowledge-card-description">友善環境、減少化學藥劑，讓您吃得更安心健康。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.10 -->
+                    <div class="knowledge-card">
+                        <div class="knowledge-card-image">
+                            🎁
+                            <div class="knowledge-card-date">2025.01.10</div>
+                        </div>
+                        <div class="knowledge-card-content">
+                            <div class="knowledge-card-tag">選購技巧</div>
+                            <h3 class="knowledge-card-title">如何挑選優質椪柑</h3>
+                            <p class="knowledge-card-description">看外觀、摸手感、聞香氣，三招教您挑選最佳椪柑。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.08 -->
+                    <div class="knowledge-card">
+                        <div class="knowledge-card-image">
+                            📖
+                            <div class="knowledge-card-date">2025.01.08</div>
+                        </div>
+                        <div class="knowledge-card-content">
+                            <div class="knowledge-card-tag">品牌故事</div>
+                            <h3 class="knowledge-card-title">百年果園的傳承</h3>
+                            <p class="knowledge-card-description">公老坪椪柑種植歷史，獨特氣候造就完美風味。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025.01.05 -->
+                    <div class="knowledge-card">
+                        <div class="knowledge-card-image">
+                            ⭐
+                            <div class="knowledge-card-date">2025.01.05</div>
+                        </div>
+                        <div class="knowledge-card-content">
+                            <div class="knowledge-card-tag">產季資訊</div>
+                            <h3 class="knowledge-card-title">椪柑與茂谷的產季</h3>
+                            <p class="knowledge-card-description">了解最佳採收期，品嚐當季最美味的柑橘。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn" onclick="scrollCarousel('knowledge', -1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn" onclick="scrollCarousel('knowledge', 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="articles-list" style="display: none;">
         <div class="container">
             <div class="article-card">
                 <img src="images/最近消息(果實進拍1).jpg" alt="椪柑保存方法" class="article-image">
