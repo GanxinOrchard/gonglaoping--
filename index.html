@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="top-bar-content">
                     <div class="contact-info">
-                        <span><i class="fas fa-phone"></i> 客服專線：0800-123-456</span>
+                        <span><i class="fas fa-phone"></i> 客服專線：0933-721-978</span>
                         <span><i class="fas fa-clock"></i> 服務時間：週一至週五 09:00-18:00</span>
                     </div>
                     <div class="user-actions">
@@ -224,23 +224,23 @@
                 <form id="checkoutForm">
                     <div class="form-group">
                         <label for="customerName">姓名 *</label>
-                        <input type="text" id="customerName" required>
+                        <input type="text" id="customerName" placeholder="請輸入收件人姓名" required>
                     </div>
                     <div class="form-group">
                         <label for="customerPhone">電話 *</label>
-                        <input type="tel" id="customerPhone" required>
+                        <input type="tel" id="customerPhone" placeholder="例如：0933-721-978" required>
                     </div>
                     <div class="form-group">
                         <label for="customerEmail">Email *</label>
-                        <input type="email" id="customerEmail" required>
+                        <input type="email" id="customerEmail" placeholder="用於接收訂單通知" required>
                     </div>
                     <div class="form-group">
                         <label for="customerAddress">配送地址 *</label>
-                        <textarea id="customerAddress" rows="3" required></textarea>
+                        <textarea id="customerAddress" rows="3" placeholder="請填寫完整地址（含郵遞區號）" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="customerNote">備註</label>
-                        <textarea id="customerNote" rows="2"></textarea>
+                        <textarea id="customerNote" rows="2" placeholder="特殊需求或配送時間（選填）"></textarea>
                     </div>
                     <div class="order-summary">
                         <h4>訂單摘要</h4>
@@ -257,9 +257,16 @@
                             <span><i class="fab fa-line"></i> LINE Pay</span>
                         </label>
                         <label class="payment-option">
-                            <input type="radio" name="payment" value="cod">
-                            <span><i class="fas fa-money-bill-wave"></i> 貨到付款</span>
+                            <input type="radio" name="payment" value="bank">
+                            <span><i class="fas fa-university"></i> 銀行匯款</span>
                         </label>
+                        <div class="bank-info" id="bankInfo" style="display: none;">
+                            <p><strong>匯款帳號資訊：</strong></p>
+                            <p>銀行：台灣銀行 豐原分行</p>
+                            <p>戶名：柑心果園</p>
+                            <p>帳號：123-456-789012</p>
+                            <p class="note">※ 匯款後請保留收據，並提供後5碼以便核對</p>
+                        </div>
                     </div>
                     <button type="submit" class="btn-submit-order">確認訂單並付款</button>
                 </form>
@@ -303,9 +310,9 @@
                 <div class="footer-section">
                     <h4>聯絡我們</h4>
                     <ul class="contact-list">
-                        <li><i class="fas fa-phone"></i> 0800-123-456</li>
+                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
                         <li><i class="fas fa-envelope"></i> service@ganxin-orchard.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 台灣台北市信義區</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台灣豐原公老坪</li>
                         <li><i class="fas fa-clock"></i> 週一至週五 09:00-18:00</li>
                     </ul>
                 </div>

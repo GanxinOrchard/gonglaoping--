@@ -525,11 +525,28 @@ ul {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
+}
+
+.product-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
+}
+
+.product-actions {
+    padding: 0 20px 20px;
+}
+
+.product-actions .btn-add-cart {
+    width: 100%;
 }
 
 .product-image {
@@ -1027,6 +1044,27 @@ ul {
 
 .payment-option i {
     font-size: 20px;
+}
+
+.bank-info {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff3e0;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.bank-info p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.bank-info .note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--error-color);
+    font-weight: 600;
 }
 
 .btn-submit-order {

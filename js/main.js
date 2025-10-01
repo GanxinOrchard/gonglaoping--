@@ -2,6 +2,22 @@
 
 // 手機選單切換
 document.addEventListener('DOMContentLoaded', () => {
+    // 付款方式切換顯示匯款資訊
+    const paymentOptions = document.querySelectorAll('input[name="payment"]');
+    const bankInfo = document.getElementById('bankInfo');
+    
+    if (paymentOptions && bankInfo) {
+        paymentOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                if (this.value === 'bank') {
+                    bankInfo.style.display = 'block';
+                } else {
+                    bankInfo.style.display = 'none';
+                }
+            });
+        });
+    }
+    
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mainMenu = document.getElementById('mainMenu');
     

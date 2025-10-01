@@ -37,22 +37,26 @@ function renderProducts(productsToRender = products) {
     
     productsGrid.innerHTML = productsToRender.map(product => `
         <div class="product-card" data-id="${product.id}">
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.name}">
-                ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-            </div>
-            <div class="product-info">
-                <div class="product-category">${product.category}</div>
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-                <div class="product-footer">
-                    <div class="product-price">
-                        <span class="currency">NT$</span> ${product.price}
-                    </div>
-                    <button class="btn-add-cart" onclick="addToCart(${product.id})">
-                        <i class="fas fa-cart-plus"></i> 加入購物車
-                    </button>
+            <a href="product-detail.html?id=${product.id}" class="product-link">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
                 </div>
+                <div class="product-info">
+                    <div class="product-category">${product.category}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-footer">
+                        <div class="product-price">
+                            <span class="currency">NT$</span> ${product.price}
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
+                    <i class="fas fa-cart-plus"></i> 加入購物車
+                </button>
             </div>
         </div>
     `).join('');

@@ -177,6 +177,15 @@ async function handleOrderSubmit(formData) {
         throw new Error('訂單提交失敗，請稍後再試');
     }
     
+    // 如果選擇銀行匯款
+    if (formData.paymentMethod === 'bank') {
+        return {
+            success: true,
+            message: '訂單已建立！請於 3 天內完成匯款，並提供匯款後5碼以便核對。',
+            orderId: orderData.orderId
+        };
+    }
+    
     // 如果選擇 LINE Pay，發起付款請求
     if (formData.paymentMethod === 'linepay') {
         const paymentResult = await requestLinePayPayment(orderData);
