@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ganxinorchard.github.io/gonglaoping--/sitemap.xml
+
+# 允許所有搜尋引擎爬取
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# 不允許爬取的路徑（如果有）
+Disallow: /js/
+Disallow: /css/
