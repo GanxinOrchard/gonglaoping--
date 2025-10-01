@@ -147,18 +147,54 @@
         document.getElementById('mobileMenuToggle').addEventListener('click', function() {
             document.getElementById('mainMenu').classList.toggle('active');
         });
+
+        // 產季時間軸動畫
+        function highlightMonth(month) {
+            // 移除所有高亮
+            document.querySelectorAll('.season-month').forEach(function(el) {
+                el.style.background = '#f9fafb';
+                el.style.transform = 'scale(1)';
+                el.style.boxShadow = 'none';
+                const icon = el.querySelector('.season-icon');
+                icon.style.transform = 'scale(1)';
+                icon.style.filter = 'grayscale(50%)';
+            });
+            
+            // 高亮選中的月份
+            const selected = document.querySelector('.season-month[data-month="' + month + '"]');
+            if (selected) {
+                selected.style.background = 'linear-gradient(135deg, #10b981 0%, #34d399 100%)';
+                selected.style.transform = 'scale(1.1)';
+                selected.style.boxShadow = '0 10px 30px rgba(16, 185, 129, 0.3)';
+                
+                const icon = selected.querySelector('.season-icon');
+                icon.style.transform = 'scale(1.2)';
+                icon.style.filter = 'brightness(1.2) drop-shadow(0 0 10px rgba(255, 215, 0, 0.8))';
+                
+                // 改變文字顏色
+                selected.querySelector('h4').style.color = 'white';
+                selected.querySelector('p').style.color = 'rgba(255, 255, 255, 0.9)';
+            }
+        }
+
+        // 聯絡表單提交
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('感謝您的留言！我們會盡快回覆您。');
+            this.reset();
+        });
     </script>
 
     <!-- Hero Section -->
     <section class="about-hero">
         <div class="about-hero-image" style="position: relative; height: 500px; overflow: hidden;">
-            <img src="images/關於我們的封面首頁.png" alt="柑心果園" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7);">
-            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));"></div>
+            <img src="images/關於我們的封面首頁.png" alt="柑心果園" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7));"></div>
             <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; z-index: 2;">
-                <div style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">
-                    <h1 style="font-size: 48px; margin-bottom: 20px; color: white;">柑心手摘 × 產地直送</h1>
-                    <p style="font-size: 24px; margin-bottom: 30px; color: white;">把最自然的好味道，從山頂帶到你心裡</p>
-                    <p style="font-size: 20px; color: #ffd700;">用心種柑，與你柑心相伴</p>
+                <div style="color: white; text-shadow: 3px 3px 10px rgba(0,0,0,0.9);">
+                    <h1 style="font-size: 48px; margin-bottom: 20px; color: white; font-weight: 700;">柑心手摘 × 產地直送</h1>
+                    <p style="font-size: 24px; margin-bottom: 30px; color: white; font-weight: 500;">把最自然的好味道，從山頂帶到你心裡</p>
+                    <p style="font-size: 20px; color: #ffd700; font-weight: 600;">用心種柑，與你柑心相伴</p>
                 </div>
             </div>
         </div>
@@ -212,6 +248,43 @@
                     <i class="fas fa-truck"></i>
                     <h3>產地直送</h3>
                     <p>從果園到餐桌，最短距離、最新鮮風味</p>
+                </div>
+            </div>
+
+            <!-- 產季時間軸 -->
+            <div class="about-section" style="margin-top: 60px;">
+                <h2 style="text-align: center; margin-bottom: 40px;">產季時間軸</h2>
+                <div class="season-timeline" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+                    <div class="season-month" data-month="10" onclick="highlightMonth(10)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                        <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                        <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">10月</h4>
+                        <p style="color: #666; font-size: 14px;">椪柑開始</p>
+                    </div>
+                    <div class="season-month" data-month="11" onclick="highlightMonth(11)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                        <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                        <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">11月</h4>
+                        <p style="color: #666; font-size: 14px;">椪柑盛產</p>
+                    </div>
+                    <div class="season-month" data-month="12" onclick="highlightMonth(12)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                        <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                        <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">12月</h4>
+                        <p style="color: #666; font-size: 14px;">椪柑盛產</p>
+                    </div>
+                    <div class="season-month" data-month="1" onclick="highlightMonth(1)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                        <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                        <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">1月</h4>
+                        <p style="color: #666; font-size: 14px;">椪柑+茂谷</p>
+                    </div>
+                    <div class="season-month" data-month="2" onclick="highlightMonth(2)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                        <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                        <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">2月</h4>
+                        <p style="color: #666; font-size: 14px;">茂谷盛產</p>
+                    </div>
+                    <div class="season-month" data-month="3" onclick="highlightMonth(3)" style="cursor: pointer; text-align: center; padding: 25px; border-radius: 12px; transition: all 0.3s; background: #f9fafb; min-width: 120px;">
+                        <div class="season-icon" style="font-size: 60px; margin-bottom: 10px; transition: all 0.3s; filter: grayscale(50%);">🍊</div>
+                        <h4 style="margin: 10px 0; color: #333; font-size: 18px; font-weight: 600;">3月</h4>
+                        <p style="color: #666; font-size: 14px;">茂谷尾聲</p>
+                    </div>
                 </div>
             </div>
         </div>

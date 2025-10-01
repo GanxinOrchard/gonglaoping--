@@ -11,14 +11,26 @@ echo    Backups created
 
 echo.
 echo Step 2: Replace with fixed versions...
-copy /Y "js\products-new.js" "js\products.js" >nul
-echo    OK - products.js updated
+copy /Y "js\products-new.js" "js\products.js"
+if %errorlevel% equ 0 (
+    echo    OK - products.js updated
+) else (
+    echo    ERROR - products.js update failed
+)
 
-copy /Y "js\cart-fixed.js" "js\cart.js" >nul
-echo    OK - cart.js updated
+copy /Y "js\cart-fixed.js" "js\cart.js"
+if %errorlevel% equ 0 (
+    echo    OK - cart.js updated
+) else (
+    echo    ERROR - cart.js update failed
+)
 
-copy /Y "js\checkout-fixed.js" "js\checkout.js" >nul
-echo    OK - checkout.js updated
+copy /Y "js\checkout-fixed.js" "js\checkout.js"
+if %errorlevel% equ 0 (
+    echo    OK - checkout.js updated
+) else (
+    echo    ERROR - checkout.js update failed
+)
 
 echo.
 echo Step 3: Verify files...
@@ -29,7 +41,7 @@ if exist "js\products.js" (echo    OK - products.js) else (echo    ERROR - produ
 echo.
 echo Step 4: Upload to GitHub...
 git add .
-git commit -m "Complete: Navigation menu fixed, product gallery, order tracking, all features ready"
+git commit -m "Complete: Season timeline with animation, hero text fix, SEO files, all ready"
 git push origin main
 
 if %errorlevel% neq 0 (
