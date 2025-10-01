@@ -10,7 +10,7 @@ copy /Y "js\products-new.js" "js\products.js"
 echo.
 echo Step 2: Uploading to GitHub...
 git add .
-git commit -m "Complete: Floating cart, recommended products, about page image, all features done"
+git commit -m "Final: Fixed shipping info duplication, cart specs display, all complete"
 git push origin main
 
 if %errorlevel% neq 0 (

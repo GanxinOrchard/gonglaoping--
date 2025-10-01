@@ -12,19 +12,39 @@ const discountCodes = {
 let appliedDiscount = null;
 
 // 加入購物車
-function addToCart(productId) {
+function addToCart(productId, specId = null, quantity = 1) {
     const product = products.find(p => p.id === productId);
     
     if (!product) return;
     
-    const existingItem = cart.find(item => item.id === productId);
+    let spec = null;
+    let price = product.price;
+    let specName = null;
+    
+    if (specId && product.hasSpecs && product.specs) {
+        spec = product.specs.find(s => s.id === specId);
+        if (spec) {
+            price = spec.price;
+            specName = spec.name;
+        }
+    }
+    
+    const cartKey = specId ? `${productId}-${specId}` : `${productId}`;
+    const existingItem = cart.find(item => item.cartKey === cartKey);
     
     if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += quantity;
     } else {
         cart.push({
-            ...product,
-            quantity: 1
+            cartKey: cartKey,
+            id: productId,
+            name: product.name,
+            price: price,
+            image: product.image,
+            spec: specName,
+            specId: specId,
+            shippingType: product.shippingType,
+            quantity: quantity
         });
     }
     
@@ -34,15 +54,15 @@ function addToCart(productId) {
 }
 
 // 更新商品數量
-function updateQuantity(productId, change) {
-    const item = cart.find(item => item.id === productId);
+function updateQuantity(cartKey, change) {
+    const item = cart.find(item => item.cartKey === cartKey);
     
     if (!item) return;
     
     item.quantity += change;
     
     if (item.quantity <= 0) {
-        removeFromCart(productId);
+        removeFromCart(cartKey);
         return;
     }
     
@@ -51,8 +71,8 @@ function updateQuantity(productId, change) {
 }
 
 // 移除商品
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
+function removeFromCart(cartKey) {
+    cart = cart.filter(item => item.cartKey !== cartKey);
     saveCart();
     updateCartUI();
     showNotification('已移除商品');
@@ -152,19 +172,25 @@ function renderCartItems() {
                 <img src="${item.image}" alt="${item.name}">
             </div>
             <div class="cart-item-info">
-                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-name">
+                    ${item.name}
+                    ${item.spec ? `<span style="color: var(--primary-color); font-size: 14px; margin-left: 8px;">(${item.spec})</span>` : ''}
+                </div>
                 <div class="cart-item-price">NT$ ${item.price}</div>
+                <div class="cart-item-shipping" style="font-size: 12px; color: #666; margin-top: 4px;">
+                    ${item.shippingType === 'normal' ? '常溫配送' : item.shippingType === 'cold' ? '冷藏配送' : '冷凍配送'}
+                </div>
                 <div class="cart-item-controls">
                     <div class="quantity-control">
-                        <button onclick="updateQuantity(${item.id}, -1)">
+                        <button onclick="updateQuantity('${item.cartKey}', -1)">
                             <i class="fas fa-minus"></i>
                         </button>
                         <span>${item.quantity}</span>
-                        <button onclick="updateQuantity(${item.id}, 1)">
+                        <button onclick="updateQuantity('${item.cartKey}', 1)">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <button class="btn-remove" onclick="removeFromCart(${item.id})">
+                    <button class="btn-remove" onclick="removeFromCart('${item.cartKey}')">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -183,11 +209,9 @@ function calculateShippingFee(cartItems) {
     let maxShippingFee = 0;
     
     cartItems.forEach(item => {
-        const product = products.find(p => p.id === item.id);
-        if (!product) return;
+        let fee = 0;
         
-        let fee = 150; // 預設常溫
-        switch (product.shippingType) {
+        switch (item.shippingType) {
             case 'normal':
                 fee = 150; // 常溫
                 break;
@@ -204,12 +228,13 @@ function calculateShippingFee(cartItems) {
             maxShippingFee = fee;
         }
     });
+    
     return maxShippingFee;
 }
 
 // 更新購物車總計
 function updateCartTotal() {
-    const subtotalEl = document.getElementById('subtotal');
+{{ ... }}
     const totalEl = document.getElementById('total');
     const discountAmountEl = document.getElementById('discountAmount');
     const discountValueEl = document.getElementById('discountValue');
@@ -221,25 +246,28 @@ function updateCartTotal() {
     
     if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal}`;
     
-    // 顯示運費資訊
-    let shippingHTML = '';
-    if (shipping === 0) {
-        shippingHTML = '<div class="shipping-info" style="color: #10b981; font-size: 14px; margin: 10px 0;">✓ 已達免運門檻（滿1800免運）</div>';
-    } else {
-        const remaining = 1800 - subtotal;
-        let shippingType = '常溫150';
-        if (shipping === 180) shippingType = '冷藏180';
-        if (shipping === 200) shippingType = '冷凍200';
-        shippingHTML = `<div class="shipping-info" style="color: #f59e0b; font-size: 14px; margin: 10px 0;">運費 NT$ ${shipping} (${shippingType}) | 再消費 NT$ ${remaining} 即可免運</div>`;
-    }
-    
-    // 插入運費資訊
-    if (subtotalEl && subtotalEl.parentElement) {
-        let shippingInfoEl = subtotalEl.parentElement.querySelector('.shipping-info');
-        if (!shippingInfoEl) {
-            subtotalEl.parentElement.insertAdjacentHTML('afterend', shippingHTML);
+    // 顯示運費資訊（先移除舊的）
+    const cartSummary = document.querySelector('.cart-summary');
+    if (cartSummary) {
+        // 移除所有舊的運費提示
+        const oldShippingInfos = cartSummary.querySelectorAll('.shipping-info');
+        oldShippingInfos.forEach(el => el.remove());
+        
+        // 建立新的運費提示
+        let shippingHTML = '';
+        if (shipping === 0) {
+            shippingHTML = '<div class="shipping-info" style="color: #10b981; font-size: 14px; margin: 10px 0; padding: 8px; background: #f0fdf4; border-radius: 6px;">✓ 已達免運門檻（滿1800免運）</div>';
         } else {
-            shippingInfoEl.outerHTML = shippingHTML;
+            const remaining = 1800 - subtotal;
+            let shippingType = '常溫150';
+            if (shipping === 180) shippingType = '冷藏180';
+            if (shipping === 200) shippingType = '冷凍200';
+            shippingHTML = `<div class="shipping-info" style="color: #f59e0b; font-size: 14px; margin: 10px 0; padding: 8px; background: #fffbeb; border-radius: 6px;">運費 NT$ ${shipping} (${shippingType}) | 再消費 NT$ ${remaining} 即可免運</div>`;
+        }
+        
+        // 在小計後面插入
+        if (subtotalEl && subtotalEl.parentElement) {
+            subtotalEl.parentElement.insertAdjacentHTML('afterend', shippingHTML);
         }
     }
     

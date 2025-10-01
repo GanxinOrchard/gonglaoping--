@@ -625,16 +625,22 @@
         function addToCartFromDetail() {
             if (!currentProduct) return;
             
-            for (let i = 0; i < currentQuantity; i++) {
-                addToCart(currentProduct.id);
+            // 如果有規格但未選擇，提示用戶
+            if (currentProduct.hasSpecs && !selectedSpec) {
+                alert('請先選擇規格！');
+                return;
             }
+            
+            // 加入購物車（傳遞規格ID和數量）
+            addToCart(currentProduct.id, selectedSpec ? selectedSpec.id : null, currentQuantity);
             
             // 重置數量
             currentQuantity = 1;
             document.getElementById('quantity').textContent = 1;
             
             // 顯示提示
-            alert(`已加入 ${currentQuantity} 件到購物車！`);
+            const specText = selectedSpec ? ` (${selectedSpec.name})` : '';
+            alert(`已加入 ${currentQuantity} 件${specText}到購物車！`);
         }
         
         // 載入更多評論
