@@ -359,17 +359,32 @@ ul {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.slide-content h1 {
+.hero-title {
     font-size: 56px;
     font-weight: 700;
     margin-bottom: 20px;
     animation: fadeInUp 1s ease;
 }
 
-.slide-content p {
+.hero-subtitle {
     font-size: 24px;
     margin-bottom: 30px;
     animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+/* 手機版封面字體修正 */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 28px !important;
+        line-height: 1.4;
+        padding: 0 10px;
+    }
+    
+    .hero-subtitle {
+        font-size: 16px !important;
+        line-height: 1.6;
+        padding: 0 10px;
+    }
 }
 
 .slide-content .btn-primary {
@@ -384,6 +399,139 @@ ul {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ===== Intro Card Section ===== */
+.intro-card-section {
+    padding: 60px 0;
+    background: var(--white);
+}
+
+.intro-card {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 50px 40px;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(255, 140, 66, 0.15);
+}
+
+.intro-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: var(--white);
+}
+
+.intro-card h3 {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.intro-card p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.intro-tagline {
+    font-size: 18px !important;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: 25px !important;
+}
+
+/* ===== Season Timeline Section ===== */
+.season-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.season-timeline {
+    margin-bottom: 50px;
+}
+
+.season-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.timeline-item {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    padding: 20px 10px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.timeline-item.active {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+}
+
+.timeline-month {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.timeline-item.active .timeline-month {
+    color: var(--white);
+}
+
+.timeline-stage {
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.timeline-item.active .timeline-stage {
+    color: var(--white);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .timeline {
+        flex-wrap: wrap;
+    }
+    
+    .timeline-item {
+        min-width: calc(25% - 10px);
+        padding: 15px 5px;
+    }
+    
+    .timeline-month {
+        font-size: 14px;
+    }
+    
+    .timeline-stage {
+        font-size: 12px;
     }
 }
 
@@ -578,8 +726,29 @@ ul {
     padding: 0 20px 20px;
 }
 
-.product-actions .btn-add-cart {
+.product-actions .btn-add-cart,
+.product-actions .btn-view-detail {
     width: 100%;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-view-detail {
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-view-detail:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
 }
 
 .product-image {

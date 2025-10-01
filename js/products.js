@@ -54,9 +54,9 @@ function renderProducts(productsToRender = products) {
                 </div>
             </a>
             <div class="product-actions">
-                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                    <i class="fas fa-cart-plus"></i> 加入購物車
-                </button>
+                <a href="product-detail.html?id=${product.id}" class="btn-view-detail">
+                    <i class="fas fa-info-circle"></i> 商品詳情
+                </a>
             </div>
         </div>
     `).join('');
@@ -107,9 +107,9 @@ function renderCarouselProducts(containerId, productsToRender) {
                 </div>
             </a>
             <div class="product-actions">
-                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                    <i class="fas fa-cart-plus"></i> 加入購物車
-                </button>
+                <a href="product-detail.html?id=${product.id}" class="btn-view-detail">
+                    <i class="fas fa-info-circle"></i> 商品詳情
+                </a>
             </div>
         </div>
     `).join('');
