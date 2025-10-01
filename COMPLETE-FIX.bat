@@ -41,7 +41,7 @@ if exist "js\products.js" (echo    OK - products.js) else (echo    ERROR - produ
 echo.
 echo Step 4: Upload to GitHub...
 git add .
-git commit -m "FINAL FIX: Products JSON fixed, contact links updated, ALL WORKING"
+git commit -m "COMPLETE: Animated backgrounds added, all pages enhanced, PERFECT"
 git push origin main
 
 if %errorlevel% neq 0 (

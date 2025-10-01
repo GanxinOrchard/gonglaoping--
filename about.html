@@ -3,11 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關於我們 - 柑心果園 | 公老坪椪柑百年果園傳承</title>
     <meta name="description" content="柑心果園來自台中公老坪與東勢，百年果園傳承。專營公老坪椪柑、東勢茂谷柑，尊重季節、不急催熟，產地直送新鮮水果。">
     <meta name="keywords" content="柑心果園,公老坪,椪柑,茂谷柑,百年果園,台中水果,豐原,產地直送">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 浮動橘子背景動畫 */
+        .floating-oranges {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .orange {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .orange:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 50px; }
+        .orange:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 35px; }
+        .orange:nth-child(3) { left: 40%; animation-delay: 4s; font-size: 45px; }
+        .orange:nth-child(4) { left: 60%; animation-delay: 1s; font-size: 38px; }
+        .orange:nth-child(5) { left: 75%; animation-delay: 3s; font-size: 42px; }
+        .orange:nth-child(6) { left: 90%; animation-delay: 5s; font-size: 48px; }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
     <style>
         .about-hero {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
@@ -107,6 +156,17 @@
     </style>
 </head>
 <body>
+    <!-- 浮動橘子背景 -->
+    <div class="floating-oranges">
+        <div class="orange">🍊</div>
+        <div class="orange">🍊</div>
+        <div class="orange">🍊</div>
+        <div class="orange">🍊</div>
+        <div class="orange">🍊</div>
+        <div class="orange">🍊</div>
+    </div>
+
+    <div class="content-wrapper">
     <!-- 跑馬燈 -->
     <div class="announcement-bar">
         <div class="announcement-content">
@@ -306,5 +366,6 @@
             </div>
         </div>
     </footer>
+    </div><!-- end content-wrapper -->
 </body>
 </html>
