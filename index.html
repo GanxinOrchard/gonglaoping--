@@ -123,7 +123,8 @@
             <!-- 椪柑產季 -->
             <div style="margin-bottom: 40px;">
                 <h3 style="text-align: center; color: #ff8c42; margin-bottom: 20px; font-size: 24px;">🍊 椪柑產季（10月-2月）</h3>
-                <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <div class="season-timeline-scroll" style="overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 10px 0;">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; min-width: max-content;">
                     <div class="season-month-h" data-type="ponkan" data-month="10" onclick="highlightMonthH('ponkan', 10)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
                         <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
                         <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">10月</h4>
@@ -153,13 +154,15 @@
                         <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">2月</h4>
                         <p style="color: #666; font-size: 12px;">尾聲</p>
                     </div>
+                    </div>
                 </div>
             </div>
             
             <!-- 茂谷產季 -->
             <div>
                 <h3 style="text-align: center; color: #ff8c42; margin-bottom: 20px; font-size: 24px;">🍊 茂谷產季（12月-3月）</h3>
-                <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <div class="season-timeline-scroll" style="overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 10px 0;">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; min-width: max-content;">
                     <div class="season-month-h" data-type="maoguu" data-month="12" onclick="highlightMonthH('maoguu', 12)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
                         <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
                         <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">12月</h4>
@@ -183,10 +186,27 @@
                         <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">3月</h4>
                         <p style="color: #666; font-size: 12px;">尾聲</p>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    
+    <style>
+        .season-timeline-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .season-timeline-scroll {
+                cursor: grab;
+            }
+            
+            .season-timeline-scroll:active {
+                cursor: grabbing;
+            }
+        }
+    </style>
 
     <!-- 品牌特色 -->
     <section class="features" style="padding-top: 40px;">

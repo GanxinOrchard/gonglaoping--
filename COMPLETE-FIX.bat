@@ -41,7 +41,7 @@ if exist "js\products.js" (echo    OK - products.js) else (echo    ERROR - produ
 echo.
 echo Step 4: Upload to GitHub...
 git add .
-git commit -m "Complete: Draggable carousels for news and knowledge pages, all done"
+git commit -m "Final: Mobile scrollable season timeline, all carousels complete"
 git push origin main
 
 if %errorlevel% neq 0 (
