@@ -2,39 +2,33 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>柑心果園 - 公老坪椪柑、東勢茂谷柑 | 產地直送新鮮水果</title>
-    <meta name="description" content="柑心果園專營公老坪椪柑、東勢茂谷柑，產地直送新鮮水果。百年果園傳承，甜度穩定，皮薄好剝。提供23A-30A多種規格，滿1800免運。台中豐原公老坪產地直送，品質保證。">
-    <meta name="keywords" content="椪柑,公老坪椪柑,茂谷柑,東勢茂谷柑,柑橘,水果宅配,產地直送,台中水果,豐原水果,公老坪,椪柑宅配,茂谷宅配,新鮮水果,柑心果園,椪柑產季,茂谷產季,水果禮盒,柑橘禮盒">
-    <meta name="author" content="柑心果園">
-    <meta property="og:title" content="柑心果園 - 公老坪椪柑、東勢茂谷柑產地直送">
-    <meta property="og:description" content="百年果園傳承，公老坪椪柑、東勢茂谷柑產地直送。皮薄好剝、甜度穩定、果香乾淨。滿1800免運，品質保證。">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ganxinorchard.github.io/gonglaoping--/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png">
-    <link rel="canonical" href="https://ganxinorchard.github.io/gonglaoping--/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柑心果園 - 優質農產品直銷平台</title>
+    <meta name="description" content="柑心果園提供新鮮優質的台灣在地農產品，產地直送，安心購買">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+    <link rel="preload" href="./css/style.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="./js/main.js" as="script">
+    <link rel="preload" href="./js/products.js" as="script">
+    <link rel="preload" href="./js/cart.js" as="script">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
-    <!-- 跑馬燈 -->
-    <div class="announcement-bar">
-        <div class="announcement-content">
-            <i class="fas fa-truck"></i>
-            <span>📦 滿 NT$1,800 免運｜產地直送</span>
-        </div>
-    </div>
     <!-- 導航欄 -->
     <header class="header">
         <div class="top-bar">
             <div class="container">
                 <div class="top-bar-content">
                     <div class="contact-info">
-                        <span><i class="fas fa-phone"></i> 客服專線：0933-721-978</span>
+                        <span><i class="fas fa-phone"></i> 客服專線：0800-123-456</span>
                         <span><i class="fas fa-clock"></i> 服務時間：週一至週五 09:00-18:00</span>
                     </div>
                     <div class="user-actions">
-                        <!-- 登入註冊功能已移除 -->
+                        <a href="#" class="btn-login"><i class="fas fa-user"></i> 登入</a>
+                        <a href="#" class="btn-register">註冊</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +39,7 @@
                 <div class="nav-content">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園">
+                            <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園" loading="lazy" width="180" height="60" onerror="this.src='./images/logo-placeholder.png'" fetchpriority="high">
                         </a>
                     </div>
                     
@@ -69,18 +63,21 @@
                     <ul>
                         <li><a href="#" class="active">首頁</a></li>
                         <li class="dropdown">
-                            <a href="#products">全部商品 <i class="fas fa-chevron-down"></i></a>
+                            <a href="#">全部商品 <i class="fas fa-chevron-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#products" onclick="filterByCategory('全部')">全部商品</a></li>
-                                <li><a href="#products" onclick="filterByCategory('優質水果')">優質水果</a></li>
-                                <li><a href="#products" onclick="filterByCategory('新鮮蔬菜')">新鮮蔬菜</a></li>
+                                <li><a href="#gift-section">禮盒專區</a></li>
+                                <li><a href="#fruit-section">優質水果</a></li>
+                                <li><a href="#vegetable-section">新鮮蔬菜</a></li>
+                                <li><a href="#grain-section">米、雜糧</a></li>
+                                <li><a href="#processed-section">加工食品</a></li>
+                                <li><a href="#tea-section">茶葉飲品</a></li>
                             </ul>
                         </li>
-                        <li><a href="about.html">關於我們</a></li>
-                        <li><a href="contact.html">聯絡我們</a></li>
-                        <li><a href="order-tracking.html">訂單查詢</a></li>
-                        <li><a href="news.html">最新消息</a></li>
-                        <li><a href="knowledge.html">蔬果知識+</a></li>
+                        <li><a href="#about">關於我們</a></li>
+                        <li><a href="#news">最新消息</a></li>
+                        <li><a href="#faq">常見問題</a></li>
+                        <li><a href="#contact">聯絡我們</a></li>
+                        <li><a href="#order-search">訂單查詢</a></li>
                     </ul>
                 </div>
             </div>
@@ -91,138 +88,20 @@
     <section class="hero-slider">
         <div class="slider-container">
             <div class="slide active">
-                <img src="images/柑心果園販賣所-1.png" alt="柑心果園販賣所">
+                <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92%E8%B2%A9%E8%B3%A3%E6%89%80.png" alt="柑心果園販賣所" onerror="this.src='https://via.placeholder.com/1920x600/ff8c42/ffffff?text=柑心果園'">
                 <div class="slide-content">
-                    <h1 class="hero-title">百年果園 × 產地直送 × 甘心手摘</h1>
-                    <p class="hero-subtitle">公老坪椪柑、東勢茂谷｜甜度穩・風味正・放心給家人吃</p>
+                    <h1>柑心果園</h1>
+                    <p>新鮮優質 · 產地直送 · 安心購買</p>
                     <a href="#products" class="btn-primary">立即選購</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 品牌介紹卡 -->
-    <section class="intro-card-section">
-        <div class="container">
-            <div class="intro-card">
-                <div class="intro-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3>柑心手摘 × 產地直送</h3>
-                <p>柑心果園來自台中公老坪與東勢，我們用最單純的方法種一顆好柑：尊重季節、不急催熟，讓陽光與山風決定風味。每一箱皆清楚標示、來源可追，並提供到貨開箱錄影保障，把安心與甜度一起送到你手上。</p>
-                <p class="intro-tagline">用心種柑，與你柑心相伴。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 產季時間軸 -->
-    <section class="season-section" style="padding: 60px 0; background: #fff;">
-        <div class="container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">產季時間軸</h2>
-            
-            <!-- 椪柑產季 -->
-            <div style="margin-bottom: 40px;">
-                <h3 style="text-align: center; color: #ff8c42; margin-bottom: 20px; font-size: 24px;">🍊 椪柑產季（10月-2月）</h3>
-                <div class="season-timeline-scroll" style="overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 10px 0;">
-                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; min-width: max-content;">
-                    <div class="season-month-h" data-type="ponkan" data-month="10" onclick="highlightMonthH('ponkan', 10)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">10月</h4>
-                        <p style="color: #666; font-size: 12px;">開始</p>
-                    </div>
-                    <div style="color: #ddd; font-size: 24px;">→</div>
-                    <div class="season-month-h" data-type="ponkan" data-month="11" onclick="highlightMonthH('ponkan', 11)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">11月</h4>
-                        <p style="color: #666; font-size: 12px;">盛產</p>
-                    </div>
-                    <div style="color: #ddd; font-size: 24px;">→</div>
-                    <div class="season-month-h" data-type="ponkan" data-month="12" onclick="highlightMonthH('ponkan', 12)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">12月</h4>
-                        <p style="color: #666; font-size: 12px;">盛產</p>
-                    </div>
-                    <div style="color: #ddd; font-size: 24px;">→</div>
-                    <div class="season-month-h" data-type="ponkan" data-month="1" onclick="highlightMonthH('ponkan', 1)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">1月</h4>
-                        <p style="color: #666; font-size: 12px;">穩定</p>
-                    </div>
-                    <div style="color: #ddd; font-size: 24px;">→</div>
-                    <div class="season-month-h" data-type="ponkan" data-month="2" onclick="highlightMonthH('ponkan', 2)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">2月</h4>
-                        <p style="color: #666; font-size: 12px;">尾聲</p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 茂谷產季 -->
-            <div>
-                <h3 style="text-align: center; color: #ff8c42; margin-bottom: 20px; font-size: 24px;">🍊 茂谷產季（12月-3月）</h3>
-                <div class="season-timeline-scroll" style="overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 10px 0;">
-                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; min-width: max-content;">
-                    <div class="season-month-h" data-type="maoguu" data-month="12" onclick="highlightMonthH('maoguu', 12)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">12月</h4>
-                        <p style="color: #666; font-size: 12px;">開始</p>
-                    </div>
-                    <div style="color: #ddd; font-size: 24px;">→</div>
-                    <div class="season-month-h" data-type="maoguu" data-month="1" onclick="highlightMonthH('maoguu', 1)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">1月</h4>
-                        <p style="color: #666; font-size: 12px;">盛產</p>
-                    </div>
-                    <div style="color: #ddd; font-size: 24px;">→</div>
-                    <div class="season-month-h" data-type="maoguu" data-month="2" onclick="highlightMonthH('maoguu', 2)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">2月</h4>
-                        <p style="color: #666; font-size: 12px;">盛產</p>
-                    </div>
-                    <div style="color: #ddd; font-size: 24px;">→</div>
-                    <div class="season-month-h" data-type="maoguu" data-month="3" onclick="highlightMonthH('maoguu', 3)" style="cursor: pointer; text-align: center; padding: 20px 15px; border-radius: 10px; transition: all 0.3s; background: #f9fafb; min-width: 100px;">
-                        <div class="season-icon-h" style="font-size: 40px; margin-bottom: 8px; transition: all 0.3s; filter: grayscale(70%);">🍊</div>
-                        <h4 style="margin: 5px 0; color: #333; font-size: 16px; font-weight: 600;">3月</h4>
-                        <p style="color: #666; font-size: 12px;">尾聲</p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <style>
-        .season-timeline-scroll {
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        
-        .season-timeline-scroll::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .season-month-h {
-            flex-shrink: 0;
-        }
-        
-        @media (max-width: 768px) {
-            .season-timeline-scroll {
-                cursor: grab;
-            }
-            
-            .season-timeline-scroll:active {
-                cursor: grabbing;
-            }
-        }
-    </style>
-
     <!-- 品牌特色 -->
-    <section class="features" style="padding-top: 40px;">
+    <section class="features">
         <div class="container">
-            <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="features-grid">
                 <div class="feature-item">
                     <div class="feature-icon">
                         <i class="fas fa-leaf"></i>
@@ -259,32 +138,31 @@
     <section class="category-section">
         <div class="container">
             <h2 class="section-title">熱門分類</h2>
-            <div class="category-buttons">
-                <a href="#products" class="category-btn" data-category="全部">全部商品</a>
-                <a href="#products" class="category-btn" data-category="優質水果">優質水果</a>
-                <a href="#products" class="category-btn" data-category="新鮮蔬菜">新鮮蔬菜</a>
-                <a href="#products" class="category-btn" data-category="冷凍加工食品">冷凍加工食品</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 分類商品輪播 -->
-    <section class="category-products-section">
-        <div class="container">
-            <h2 class="section-title">各分類精選</h2>
-            <div class="category-tabs">
-                <button class="tab-btn active" data-tab="fruit">優質水果</button>
-                <button class="tab-btn" data-tab="vegetable">新鮮蔬菜</button>
-                <button class="tab-btn" data-tab="frozen">冷凍加工食品</button>
-            </div>
-            <div class="tab-content active" id="fruit-tab">
-                <div class="products-carousel" id="fruitCarousel"></div>
-            </div>
-            <div class="tab-content" id="vegetable-tab">
-                <div class="products-carousel" id="vegetableCarousel"></div>
-            </div>
-            <div class="tab-content" id="frozen-tab">
-                <div class="products-carousel" id="frozenCarousel"></div>
+            <div class="category-grid">
+                <a href="#gift-section" class="category-card">
+                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=禮盒專區" alt="禮盒專區">
+                    <h3>禮盒專區</h3>
+                </a>
+                <a href="#fruit-section" class="category-card">
+                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=優質水果" alt="優質水果">
+                    <h3>優質水果</h3>
+                </a>
+                <a href="#vegetable-section" class="category-card">
+                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=新鮮蔬菜" alt="新鮮蔬菜">
+                    <h3>新鮮蔬菜</h3>
+                </a>
+                <a href="#grain-section" class="category-card">
+                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=米、雜糧" alt="米、雜糧">
+                    <h3>米、雜糧</h3>
+                </a>
+                <a href="#processed-section" class="category-card">
+                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=加工食品" alt="加工食品">
+                    <h3>加工食品</h3>
+                </a>
+                <a href="#tea-section" class="category-card">
+                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=茶葉飲品" alt="茶葉飲品">
+                    <h3>茶葉飲品</h3>
+                </a>
             </div>
         </div>
     </section>
@@ -298,75 +176,6 @@
             </div>
         </div>
     </section>
-
-    <!-- 最新消息 -->
-    <section class="news-section">
-        <div class="container">
-            <h2 class="section-title">最新消息</h2>
-            <div class="news-grid">
-                <div class="news-card">
-                    <div class="news-date">2025.01.15</div>
-                    <h3>公老坪椪柑產季開始！</h3>
-                    <p>今年椪柑品質極佳，甜度穩定，歡迎預購。產季限定，售完為止。</p>
-                    <a href="news.html" class="news-link">閱讀更多 →</a>
-                </div>
-                <div class="news-card">
-                    <div class="news-date">2025.01.10</div>
-                    <h3>東勢茂谷柑即將上市</h3>
-                    <p>皮薄多汁的茂谷柑預計1月底開始出貨，現正開放預購中。</p>
-                    <a href="news.html" class="news-link">閱讀更多 →</a>
-                </div>
-                <div class="news-card">
-                    <div class="news-date">2025.01.05</div>
-                    <h3>春節禮盒優惠開跑</h3>
-                    <p>精選水果禮盒，送禮自用兩相宜。早鳥優惠中，數量有限。</p>
-                    <a href="news.html" class="news-link">閱讀更多 →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 蔬果知識+ -->
-    <section class="knowledge-section" id="knowledge">
-        <div class="container">
-            <h2 class="section-title">蔬果知識+</h2>
-            <div class="knowledge-grid">
-                <div class="knowledge-card">
-                    <img src="images/最近消息(果實進拍1).jpg" alt="椪柑保存方法">
-                    <div class="knowledge-content">
-                        <div class="knowledge-tag">保存技巧</div>
-                        <h3>椪柑如何保存最新鮮？</h3>
-                        <p>椪柑到貨後建議冷藏保存，可維持最佳風味。常溫保存請避免陽光直射與悶熱環境...</p>
-                        <a href="knowledge.html" class="knowledge-link">了解更多 →</a>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <img src="images/隨機的風景圖.png" alt="茂谷柑切法">
-                    <div class="knowledge-content">
-                        <div class="knowledge-tag">食用方法</div>
-                        <h3>茂谷柑4刀6塊切法</h3>
-                        <p>茂谷柑皮薄多汁，使用4刀6塊切法，好吃不沾手。讓您輕鬆享用美味...</p>
-                        <a href="knowledge.html" class="knowledge-link">了解更多 →</a>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <img src="https://via.placeholder.com/400x250/ff8c42/ffffff?text=果園故事" alt="果園故事">
-                    <div class="knowledge-content">
-                        <div class="knowledge-tag">品牌故事</div>
-                        <h3>百年果園的傳承</h3>
-                        <p>公老坪的椪柑傳承了好幾代，修枝、疏果、等待，是祖輩留下的節奏...</p>
-                        <a href="knowledge.html" class="knowledge-link">了解更多 →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 懸浮式購物車按鈕 -->
-    <div class="floating-cart" id="floatingCart">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-badge" id="floatingCartCount">0</span>
-    </div>
 
     <!-- 購物車側邊欄 -->
     <div class="cart-sidebar" id="cartSidebar">
@@ -399,121 +208,61 @@
                     <span id="total">NT$ 0</span>
                 </div>
             </div>
-            <button class="btn-checkout" id="checkoutBtn" onclick="openCheckoutModal()">前往結帳</button>
+            <button class="btn-checkout" id="checkoutBtn">前往結帳</button>
         </div>
     </div>
 
-    <!-- 結帳彈窗 - 三步驟 -->
+    <!-- 結帳彈窗 -->
     <div class="modal" id="checkoutModal">
-        <div class="modal-content checkout-modal">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3>結帳流程</h3>
+                <h3>結帳資訊</h3>
                 <button class="close-modal" id="closeCheckoutModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            
-            <!-- 步驟指示器 -->
-            <div class="checkout-steps">
-                <div class="step active" data-step="1">
-                    <div class="step-number">1</div>
-                    <div class="step-title">訂購人資訊</div>
-                </div>
-                <div class="step" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-title">收件人資訊</div>
-                </div>
-                <div class="step" data-step="3">
-                    <div class="step-number">3</div>
-                    <div class="step-title">確認訂單</div>
-                </div>
-            </div>
-            
             <div class="modal-body">
                 <form id="checkoutForm">
-                    <!-- 步驟 1: 訂購人資訊 -->
-                    <div class="checkout-step-content active" id="step1">
-                        <h4>訂購人資訊</h4>
-                        <div class="form-group">
-                            <label for="buyerName">姓名 *</label>
-                            <input type="text" id="buyerName" placeholder="請輸入訂購人姓名" required style="font-size: 16px;">
-                        </div>
-                        <div class="form-group">
-                            <label for="buyerPhone">電話 *</label>
-                            <input type="tel" id="buyerPhone" placeholder="例如：0933-721-978" required style="font-size: 16px;">
-                        </div>
-                        <div class="form-group">
-                            <label for="buyerEmail">Email *</label>
-                            <input type="email" id="buyerEmail" placeholder="用於接收訂單通知" required style="font-size: 16px;">
-                        </div>
-                        <button type="button" class="btn-next" onclick="goToStep(2)">下一步</button>
+                    <div class="form-group">
+                        <label for="customerName">姓名 *</label>
+                        <input type="text" id="customerName" required>
                     </div>
-                    
-                    <!-- 步驟 2: 收件人資訊 -->
-                    <div class="checkout-step-content" id="step2">
-                        <h4>收件人資訊</h4>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="sameAsBuyer" onchange="copySameAsBuyer()">
-                                <span>同訂購人資訊</span>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="receiverName">姓名 *</label>
-                            <input type="text" id="receiverName" placeholder="請輸入收件人姓名" required style="font-size: 16px;">
-                        </div>
-                        <div class="form-group">
-                            <label for="receiverPhone">電話 *</label>
-                            <input type="tel" id="receiverPhone" placeholder="例如：0933-721-978" required style="font-size: 16px;">
-                        </div>
-                        <div class="form-group">
-                            <label for="receiverAddress">配送地址 *</label>
-                            <textarea id="receiverAddress" rows="3" placeholder="請填寫完整地址（含郵遞區號）" required style="font-size: 16px;"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="customerNote">備註</label>
-                            <textarea id="customerNote" rows="2" placeholder="特殊需求或配送時間（選填）" style="font-size: 16px;"></textarea>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn-prev" onclick="goToStep(1)">上一步</button>
-                            <button type="button" class="btn-next" onclick="goToStep(3)">下一步</button>
+                    <div class="form-group">
+                        <label for="customerPhone">電話 *</label>
+                        <input type="tel" id="customerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email *</label>
+                        <input type="email" id="customerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAddress">配送地址 *</label>
+                        <textarea id="customerAddress" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerNote">備註</label>
+                        <textarea id="customerNote" rows="2"></textarea>
+                    </div>
+                    <div class="order-summary">
+                        <h4>訂單摘要</h4>
+                        <div id="checkoutSummary"></div>
+                        <div class="checkout-total">
+                            <span>總金額：</span>
+                            <span id="checkoutTotal">NT$ 0</span>
                         </div>
                     </div>
-                    
-                    <!-- 步驟 3: 確認訂單 -->
-                    <div class="checkout-step-content" id="step3">
-                        <h4>確認訂單</h4>
-                        <div class="order-summary">
-                            <h5>訂單摘要</h5>
-                            <div id="checkoutSummary"></div>
-                            <div class="checkout-total">
-                                <span>總金額：</span>
-                                <span id="checkoutTotal">NT$ 0</span>
-                            </div>
-                        </div>
-                        <div class="payment-methods">
-                            <h5>付款方式</h5>
-                            <label class="payment-option">
-                                <input type="radio" name="payment" value="linepay" checked>
-                                <span><i class="fab fa-line"></i> LINE Pay</span>
-                            </label>
-                            <label class="payment-option">
-                                <input type="radio" name="payment" value="bank">
-                                <span><i class="fas fa-university"></i> 銀行匯款</span>
-                            </label>
-                            <div class="bank-info" id="bankInfo" style="display: none;">
-                                <p><strong>匯款帳號資訊：</strong></p>
-                                <p>銀行：台灣銀行 豐原分行</p>
-                                <p>戶名：柑心果園</p>
-                                <p>帳號：123-456-789012</p>
-                                <p class="note">※ 匯款後請保留收據，並提供後5碼以便核對</p>
-                            </div>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn-prev" onclick="goToStep(2)">上一步</button>
-                            <button type="submit" class="btn-submit-order">確認訂單並付款</button>
-                        </div>
+                    <div class="payment-methods">
+                        <h4>付款方式</h4>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="linepay" checked>
+                            <span><i class="fab fa-line"></i> LINE Pay</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            <span><i class="fas fa-money-bill-wave"></i> 貨到付款</span>
+                        </label>
                     </div>
+                    <button type="submit" class="btn-submit-order">確認訂單並付款</button>
                 </form>
             </div>
         </div>
@@ -527,7 +276,10 @@
                     <h4>關於柑心果園</h4>
                     <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -552,9 +304,9 @@
                 <div class="footer-section">
                     <h4>聯絡我們</h4>
                     <ul class="contact-list">
-                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
-                        <li><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61581488901343" target="_blank" rel="noopener noreferrer">Facebook 粉絲專頁</a></li>
-                        <li><i class="fas fa-map-marker-alt"></i> 台灣豐原公老坪</li>
+                        <li><i class="fas fa-phone"></i> 0800-123-456</li>
+                        <li><i class="fas fa-envelope"></i> service@ganxin-orchard.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台灣台北市信義區</li>
                         <li><i class="fas fa-clock"></i> 週一至週五 09:00-18:00</li>
                     </ul>
                 </div>
@@ -565,97 +317,64 @@
         </div>
     </footer>
 
-    <script src="./js/cache-clear.js"></script>
-    <script src="./js/products.js"></script>
-    <script src="./js/cart.js"></script>
-    <script src="./js/checkout.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./js/products.js" defer></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/checkout.js" defer></script>
+    <script src="./js/main.js" defer></script>
     <script>
-        // 手機選單切換
-        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-            const mainMenu = document.getElementById('mainMenu');
-            mainMenu.classList.toggle('active');
-        });
+    // 圖片懶加載功能
+    document.addEventListener('DOMContentLoaded', function() {
+        const lazyImages = [].slice.call(document.querySelectorAll('img.lazy'));
         
-        // 懸浮式購物車按鈕
-        document.getElementById('floatingCart').addEventListener('click', function() {
-            document.getElementById('cartSidebar').classList.add('active');
-        });
-        
-        // 更新懸浮按鈕數量
-        function updateFloatingCartCount() {
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
-            document.getElementById('floatingCartCount').textContent = count;
-        }
-        
-        // 監聽購物車更新
-        if (typeof updateCartUI !== 'undefined') {
-            const originalUpdateCartUI = updateCartUI;
-            updateCartUI = function() {
-                originalUpdateCartUI();
-                updateFloatingCartCount();
-            };
-        }
-        
-        // 結帳步驟切換
-        function goToStep(stepNumber) {
-            // 隱藏所有步驟
-            document.querySelectorAll('.checkout-step-content').forEach(step => {
-                step.classList.remove('active');
+        if ('IntersectionObserver' in window) {
+            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        let lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove('lazy');
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
             });
-            document.querySelectorAll('.checkout-steps .step').forEach(step => {
-                step.classList.remove('active');
-            });
-            
-            // 顯示目標步驟
-            document.getElementById('step' + stepNumber).classList.add('active');
-            document.querySelector('.checkout-steps .step[data-step="' + stepNumber + '"]').classList.add('active');
-        }
-        
-        // 複製訂購人資訊到收件人
-        function copySameAsBuyer() {
-            const checkbox = document.getElementById('sameAsBuyer');
-            if (checkbox.checked) {
-                document.getElementById('receiverName').value = document.getElementById('buyerName').value;
-                document.getElementById('receiverPhone').value = document.getElementById('buyerPhone').value;
-            } else {
-                document.getElementById('receiverName').value = '';
-                document.getElementById('receiverPhone').value = '';
-            }
-        }
 
-        // 產季時間軸動畫（橫式）
-        function highlightMonthH(type, month) {
-            // 移除同類型的所有高亮
-            document.querySelectorAll('.season-month-h[data-type="' + type + '"]').forEach(function(el) {
-                el.style.background = '#f9fafb';
-                el.style.transform = 'scale(1)';
-                el.style.boxShadow = 'none';
-                const icon = el.querySelector('.season-icon-h');
-                icon.style.transform = 'scale(1)';
-                icon.style.filter = 'grayscale(70%)';
-                const h4 = el.querySelector('h4');
-                const p = el.querySelector('p');
-                if (h4) h4.style.color = '#333';
-                if (p) p.style.color = '#666';
+            lazyImages.forEach(function(lazyImage) {
+                lazyImageObserver.observe(lazyImage);
             });
-            
-            // 高亮選中的月份
-            const selected = document.querySelector('.season-month-h[data-type="' + type + '"][data-month="' + month + '"]');
-            if (selected) {
-                selected.style.background = 'linear-gradient(135deg, #10b981 0%, #34d399 100%)';
-                selected.style.transform = 'scale(1.15)';
-                selected.style.boxShadow = '0 8px 25px rgba(16, 185, 129, 0.4)';
-                
-                const icon = selected.querySelector('.season-icon-h');
-                icon.style.transform = 'scale(1.3)';
-                icon.style.filter = 'brightness(1.3) drop-shadow(0 0 15px rgba(255, 215, 0, 0.9))';
-                
-                // 改變文字顏色
-                selected.querySelector('h4').style.color = 'white';
-                selected.querySelector('p').style.color = 'rgba(255, 255, 255, 0.95)';
-            }
+        } else {
+            // 不支援 IntersectionObserver 的備用方案
+            let active = false;
+            const lazyLoad = function() {
+                if (active === false) {
+                    active = true;
+                    setTimeout(function() {
+                        lazyImages.forEach(function(lazyImage) {
+                            if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && 
+                                lazyImage.getBoundingClientRect().bottom >= 0) &&
+                                getComputedStyle(lazyImage).display !== 'none') {
+                                lazyImage.src = lazyImage.dataset.src;
+                                lazyImage.classList.remove('lazy');
+                                lazyImages = lazyImages.filter(function(image) {
+                                    return image !== lazyImage;
+                                });
+                                if (lazyImages.length === 0) {
+                                    document.removeEventListener('scroll', lazyLoad);
+                                    window.removeEventListener('resize', lazyLoad);
+                                    window.removeEventListener('orientationchange', lazyLoad);
+                                }
+                            }
+                        });
+                        active = false;
+                    }, 200);
+                }
+            };
+
+            document.addEventListener('scroll', lazyLoad);
+            window.addEventListener('resize', lazyLoad);
+            window.addEventListener('orientationchange', lazyLoad);
+            lazyLoad();
         }
+    });
     </script>
 </body>
 </html>
