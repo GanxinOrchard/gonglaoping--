@@ -22,19 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const floatingMenuBtn = document.getElementById('floatingMenuBtn');
     const mainMenu = document.getElementById('mainMenu');
     
-    // 創建手機選單遮罩
+    // 創建手機選單遮罩（純視覺效果，不阻擋點擊）
     let menuOverlay = document.getElementById('menuOverlay');
     if (!menuOverlay) {
         menuOverlay = document.createElement('div');
         menuOverlay.id = 'menuOverlay';
         menuOverlay.className = 'menu-overlay';
         document.body.appendChild(menuOverlay);
-        
-        // 點擊遮罩關閉選單
-        menuOverlay.addEventListener('click', () => {
-            closeMenu();
-        });
     }
+    
+    // 點擊選單外的區域關閉選單
+    document.addEventListener('click', (e) => {
+        if (mainMenu && mainMenu.classList.contains('active')) {
+            // 如果點擊的不是選單內容，也不是 Menu 按鈕
+            if (!mainMenu.contains(e.target) && 
+                !e.target.closest('#floatingMenuBtn') && 
+                !e.target.closest('#mobileMenuToggle')) {
+                closeMenu();
+            }
+        }
+    });
     
     // 關閉選單的統一函數
     function closeMenu() {

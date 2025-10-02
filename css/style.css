@@ -3148,7 +3148,7 @@ ul {
         margin: 0 !important;
     }
     
-    /* 手機選單背景遮罩 - 完全不阻擋點擊 */
+    /* 手機選單背景遮罩 - 只作為視覺效果，不阻擋點擊 */
     .menu-overlay {
         position: fixed !important;
         top: 0 !important;
@@ -3161,14 +3161,14 @@ ul {
         visibility: hidden !important;
         transition: all 0.3s ease !important;
         display: none !important;
-        pointer-events: auto !important;
+        pointer-events: none !important;
     }
     
     .menu-overlay.active {
         display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
-        pointer-events: auto !important;
+        pointer-events: none !important;
     }
     
     /* 選單在最上層，完全可點選 */
