@@ -76,11 +76,41 @@ ul {
     justify-content: center;
     gap: 10px;
     animation: slideIn 0.5s ease;
+    white-space: nowrap;
 }
 
 .announcement-content i {
     font-size: 16px;
     animation: bounce 2s infinite;
+    flex-shrink: 0;
+}
+
+.announcement-content span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+    .announcement-bar {
+        font-size: 12px;
+        padding: 10px 5px;
+    }
+    
+    .announcement-content {
+        animation: scroll-text 15s linear infinite;
+        justify-content: flex-start;
+        padding-left: 100%;
+    }
+    
+    @keyframes scroll-text {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
 }
 
 @keyframes slideIn {
