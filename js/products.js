@@ -46,14 +46,13 @@ const products = [
         specs: [
             { id: '23A', name: '23A', diameter: 'Ø 6.7-7.3 cm', price: 850 },
             { id: '25A', name: '25A', diameter: 'Ø 7.3-7.9 cm', price: 950 },
-            { id: '27A', name: '27A', diameter: 'Ø 7.9-8.5 cm', price: 1050 },
             { id: '30A', name: '30A', diameter: 'Ø 8.5-9.5 cm', price: 1150 }
         ]
     },
     {
         id: 3,
-        name: '菱角仁（整件）',
-        category: '新鮮蔬菜',
+        name: '冷凍菱角仁（整件）',
+        category: '新鮮蔬果',
         price: 3500,
         image: 'images/新鮮蔬果菱角仁.jpg',
         description: '3公斤 / 4包 / 1件｜效期：冷凍12個月｜保存：-18°C 冷凍',
@@ -65,8 +64,8 @@ const products = [
     },
     {
         id: 4,
-        name: '菱角仁（單品項）',
-        category: '新鮮蔬菜',
+        name: '冷凍菱角仁（單品項）',
+        category: '新鮮蔬果',
         price: 990,
         image: 'images/新鮮蔬果菱角仁.jpg',
         description: '3公斤 / 1包｜效期：冷凍12個月｜保存：-18°C 冷凍',
@@ -78,8 +77,8 @@ const products = [
     },
     {
         id: 5,
-        name: '菱角仁(斤)（單品項）',
-        category: '新鮮蔬菜',
+        name: '冷凍菱角仁(斤)（單品項）',
+        category: '新鮮蔬果',
         price: 240,
         image: 'images/新鮮蔬果菱角仁.jpg',
         description: '每斤（約600g）｜效期：冷凍12個月｜保存：-18°C 冷凍',
@@ -88,8 +87,21 @@ const products = [
         shippingType: 'frozen',
         weight: '600g',
         hasSpecs: false
+    },
+    {
+        id: 6,
+        name: '冷凍大甲芋角',
+        category: '新鮮蔬果',
+        price: 280,
+        image: 'images/新鮮蔔果芋角2CM.jpg',
+        description: '新鮮大甲芋角｜每袋約600g｜效期：冷凍12個月｜保存：-18°C 冷凍',
+        badge: '新品',
+        salesCount: 50,
+        shippingType: 'frozen',
+        weight: '600g',
+        hasSpecs: false
     }
-];
+]
 
 // 渲染商品列表
 function renderProducts(productsToRender = products) {

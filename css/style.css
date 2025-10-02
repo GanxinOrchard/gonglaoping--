@@ -2651,6 +2651,11 @@ ul {
         margin: 0 0 20px 0 !important;
     }
     
+    /* 手機版只顯示前3個商品 */
+    .products-grid .product-card:nth-child(n+4) {
+        display: none !important;
+    }
+    
     .product-image {
         height: 250px;
     }
