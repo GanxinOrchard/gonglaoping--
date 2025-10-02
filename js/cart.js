@@ -461,7 +461,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCheckoutSummary();
             } else {
                 // 如果沒有模態框，跳轉到結帳頁面
-                window.location.href = 'checkout.html';
+                // 先關閉購物車側邊欄
+                closeCartSidebar();
+                // 使用 setTimeout 確保動畫完成後再跳轉
+                setTimeout(() => {
+                    window.location.href = 'checkout.html';
+                }, 300);
             }
         });
     }

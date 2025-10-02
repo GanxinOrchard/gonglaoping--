@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>結帳 - 柑心果園</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -56,7 +56,7 @@
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 16px; /* 防止 iOS 自動放大 */
         }
         
         .form-group textarea {
@@ -206,13 +206,52 @@
             margin-right: 8px;
         }
         
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--secondary-color), #1e7e34);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+        
+        .back-button i {
+            font-size: 18px;
+        }
+        
         @media (max-width: 992px) {
+            .checkout-container {
+                margin-top: 80px;
+                padding: 10px;
+            }
+            
             .checkout-grid {
                 grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column-reverse; /* 訂單摘要在上方 */
             }
             
             .cart-summary {
                 position: static;
+                margin-bottom: 20px;
+            }
+            
+            .checkout-section {
+                padding: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -229,7 +268,10 @@
                     </a>
                 </div>
                 <nav class="main-nav">
-                    <a href="index.html">返回首頁</a>
+                    <a href="index.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                        返回首頁
+                    </a>
                 </nav>
             </div>
         </div>
@@ -563,8 +605,9 @@
             // 這裡可以串接後端 API
             alert('訂單已送出！訂單編號：' + orderData.orderId + '\n\n我們會盡快與您聯繫確認訂單。');
             
-            // 清空購物車
+            // 清空購物車和表單資料
             localStorage.removeItem('cart');
+            localStorage.removeItem('checkoutFormData');
             
             // 跳轉到首頁
             window.location.href = 'index.html';
