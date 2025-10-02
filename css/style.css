@@ -91,31 +91,6 @@ ul {
     text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-    .announcement-bar {
-        font-size: 12px;
-        padding: 10px 5px;
-        display: block !important;
-        visibility: visible !important;
-        z-index: 100 !important;
-    }
-    
-    .announcement-content {
-        display: inline-block !important;
-        animation: scroll-text 20s linear infinite;
-        white-space: nowrap !important;
-        padding-left: 0;
-    }
-    
-    @keyframes scroll-text {
-        0% {
-            transform: translateX(100%);
-        }
-        100% {
-            transform: translateX(-100%);
-        }
-    }
-}
 
 @keyframes slideIn {
     from {
@@ -301,25 +276,6 @@ ul {
     order: 2;
 }
 
-@media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: block;
-        order: 2;
-    }
-    
-    .cart-icon {
-        order: 1;
-    }
-    
-    .nav-icons {
-        gap: 15px;
-    }
-    
-    .main-menu > ul > li > a {
-        padding: 15px 10px;
-        display: block;
-    }
-}
 
 /* ===== Main Menu ===== */
 .main-menu {
@@ -328,18 +284,6 @@ ul {
     padding-top: 15px;
 }
 
-@media (max-width: 768px) {
-    .main-menu {
-        display: none !important;
-        margin-top: 0 !important;
-        border-top: none !important;
-        padding-top: 0 !important;
-    }
-    
-    .main-menu.active {
-        display: block !important;
-    }
-}
 
 .main-menu > ul {
     display: flex;
@@ -408,12 +352,6 @@ ul {
     z-index: 1;
 }
 
-@media (max-width: 768px) {
-    .hero-slider {
-        z-index: 1 !important;
-        position: relative !important;
-    }
-}
 
 .slider-container {
     height: 100%;
@@ -459,24 +397,7 @@ ul {
     animation: fadeInUp 1s ease 0.2s backwards;
 }
 
-/* 手機版封面字體修正 */
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 24px !important;
-        line-height: 1.5;
-        padding: 0 15px;
-        word-break: keep-all;
-        white-space: normal;
-    }
-    
-    .hero-subtitle {
-        font-size: 14px !important;
-        line-height: 1.8;
-        padding: 0 15px;
-        margin-top: 15px;
-        word-break: keep-all;
-    }
-}
+/* 手機版封面字體修正 - 已移至底部統一 @media 區塊 */
 
 .slide-content .btn-primary {
     animation: fadeInUp 1s ease 0.4s backwards;
@@ -638,16 +559,6 @@ ul {
     font-weight: 600;
 }
 
-@media (max-width: 768px) {
-    .timeline {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    
-    .timeline-item {
-        min-width: calc(25% - 8px);
-        padding: 12px 5px;
-    }
     
     .timeline-item::before {
         font-size: 24px;
@@ -1122,27 +1033,7 @@ ul {
     gap: 15px;
 }
 
-@media (max-width: 768px) {
-    .category-buttons {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding: 10px 0;
-    }
-    
-    .category-buttons::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .category-btn {
-        flex-shrink: 0;
-    }
-}
-
 .category-btn {
-    padding: 10px 25px;
     background: var(--white);
     color: var(--text-dark);
     border: 2px solid var(--primary-color);
@@ -1175,25 +1066,7 @@ ul {
     flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-    .category-tabs {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding: 10px 0;
-    }
-    
-    .category-tabs::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .tab-btn {
-        flex-shrink: 0;
-        white-space: nowrap;
-    }
-}
+/* 分類標籤手機版 - 已移至底部統一 @media 區塊 */
 
 .tab-btn {
     padding: 12px 30px;
@@ -1582,31 +1455,14 @@ ul {
     height: 20px;
     cursor: pointer;
 }
-
 .checkout-modal .modal-content {
     max-width: 600px;
 }
 
-@media (max-width: 768px) {
-    .checkout-steps {
-        padding: 15px 10px;
-    }
-    
-    .step-title {
-        font-size: 12px;
-    }
-    
-    .step-number {
-        width: 35px;
-        height: 35px;
-        font-size: 14px;
-    }
-}
-
-/* ===== Product Gallery ===== */
 .product-gallery {
     width: 100%;
 }
+{{ ... }}
 
 .main-image-container {
     position: relative;
@@ -1701,30 +1557,7 @@ ul {
     object-fit: cover;
 }
 
-@media (max-width: 768px) {
-    .main-image-container {
-        height: 300px;
-    }
-    
-    .gallery-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-    }
-    
-    .gallery-nav.prev {
-        left: 10px;
-    }
-    
-    .gallery-nav.next {
-        right: 10px;
-    }
-    
-    .thumbnail {
-        width: 80px;
-        height: 80px;
-    }
-}
+/* 圖片庫手機版 - 已移至底部統一 @media 區塊 */
 
 /* ===== Floating Cart Button ===== */
 .floating-cart {
@@ -2612,10 +2445,27 @@ ul {
         max-width: 150px;
     }
     
+    /* Hero Slider 手機版 */
     .hero-slider {
         height: 250px;
         z-index: 1 !important;
         position: relative !important;
+    }
+    
+    .hero-title {
+        font-size: 24px !important;
+        line-height: 1.5;
+        padding: 0 15px;
+        word-break: keep-all;
+        white-space: normal;
+    }
+    
+    .hero-subtitle {
+        font-size: 14px !important;
+        line-height: 1.8;
+        padding: 0 15px;
+        margin-top: 15px;
+        word-break: keep-all;
     }
     
     .slide-content h1 {
@@ -2624,6 +2474,49 @@ ul {
     
     .slide-content p {
         font-size: 14px;
+    }
+    
+    /* 分類標籤手機版 */
+    .category-tabs {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 10px 0;
+    }
+    
+    .category-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .tab-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    
+    /* 圖片庫手機版 */
+    .main-image-container {
+        height: 300px;
+    }
+    
+    .gallery-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .gallery-nav.prev {
+        left: 10px;
+    }
+    
+    .gallery-nav.next {
+        right: 10px;
+    }
+    
+    .thumbnail {
+        width: 80px;
+        height: 80px;
     }
     
     .features {
