@@ -9,11 +9,20 @@
     <style>
         /* ===== 商品詳情頁專用樣式 ===== */
         
+        /* 全域防溢出 */
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        
         /* 桌面版樣式 */
         .product-detail-container {
             max-width: 1200px;
             margin: 100px auto 50px;
             padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .product-detail-grid {
@@ -21,17 +30,23 @@
             grid-template-columns: 1fr 1fr;
             gap: 50px;
             margin-bottom: 50px;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .product-detail-image {
             position: sticky;
             top: 120px;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .product-detail-image img {
             width: 100%;
+            height: auto;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: block;
         }
         
         .product-detail-info h1 {
@@ -96,10 +111,12 @@
         /* 規格選擇區塊 */
         .spec-selector {
             margin: 30px 0;
-            padding: 25px;
+            padding: 20px;
             background: var(--bg-light);
             border-radius: 12px;
             border: 2px solid var(--primary-color);
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .spec-selector h3 {
@@ -113,10 +130,11 @@
             flex-direction: column;
             gap: 15px;
             margin-bottom: 20px;
+            width: 100%;
         }
         
         .spec-btn {
-            padding: 15px 20px;
+            padding: 15px;
             background: var(--white);
             border: 2px solid var(--border-color);
             border-radius: 10px;
@@ -126,6 +144,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .spec-btn:hover {
@@ -346,20 +366,33 @@
             .product-detail-container {
                 margin: 80px auto 30px;
                 padding: 0 15px;
+                width: 100%;
+                max-width: 100vw;
+                box-sizing: border-box;
             }
             
             .product-detail-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+                width: 100%;
+                padding: 0;
             }
             
             .product-detail-image {
                 position: static;
+                width: 100%;
+                padding: 0;
             }
             
             .product-detail-image img {
+                width: 100%;
                 max-height: 350px;
                 object-fit: cover;
+            }
+            
+            .product-detail-info {
+                width: 100%;
+                padding: 0;
             }
             
             .product-detail-info h1 {
@@ -378,6 +411,8 @@
             .spec-selector {
                 margin: 20px 0;
                 padding: 15px;
+                width: 100%;
+                box-sizing: border-box;
             }
             
             .spec-selector h3 {
@@ -387,6 +422,7 @@
             
             .spec-buttons {
                 gap: 12px;
+                width: 100%;
             }
             
             .spec-btn {
@@ -394,6 +430,8 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 8px;
+                width: 100%;
+                box-sizing: border-box;
             }
             
             .spec-name {
