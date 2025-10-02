@@ -445,11 +445,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutBtn = document.getElementById('checkoutBtn');
     
     if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
+        // 移除舊的事件監聽器（如果有）
+        const newCheckoutBtn = checkoutBtn.cloneNode(true);
+        checkoutBtn.parentNode.replaceChild(newCheckoutBtn, checkoutBtn);
+        
+        newCheckoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
             if (cart.length === 0) {
                 showNotification('購物車是空的！');
                 return;
             }
+            
+            console.log('結帳按鈕被點擊');
             
             // 跳轉到結帳頁面或開啟結帳模態框
             const checkoutModal = document.getElementById('checkoutModal');
@@ -465,10 +474,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCheckoutSummary();
             } else {
                 // 如果沒有模態框，跳轉到結帳頁面
+                console.log('準備跳轉到結帳頁面');
                 // 先關閉購物車側邊欄
                 closeCartSidebar();
                 // 使用 setTimeout 確保動畫完成後再跳轉
                 setTimeout(() => {
+                    console.log('執行跳轉');
                     window.location.href = 'checkout.html';
                 }, 300);
             }

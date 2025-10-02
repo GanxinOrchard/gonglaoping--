@@ -24,38 +24,45 @@
         }
         
         .checkout-header-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 40px;
         }
         
         .checkout-logo {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-shrink: 0;
         }
         
         .checkout-logo img {
-            height: 50px;
+            height: 55px;
             width: auto;
+            object-fit: contain;
         }
         
         .checkout-logo-text {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            white-space: nowrap;
         }
         
         .checkout-steps {
             display: flex;
             align-items: center;
-            gap: 30px;
+            justify-content: center;
+            gap: 40px;
+            flex: 1;
+            max-width: 600px;
         }
         
         .checkout-step {
@@ -360,6 +367,48 @@
         }
         
         @media (max-width: 992px) {
+            .checkout-header-content {
+                padding: 0 15px;
+                gap: 15px;
+            }
+            
+            .checkout-logo img {
+                height: 40px;
+            }
+            
+            .checkout-logo-text {
+                font-size: 18px;
+            }
+            
+            .checkout-steps {
+                gap: 15px;
+                max-width: none;
+            }
+            
+            .checkout-step {
+                font-size: 12px;
+                gap: 5px;
+            }
+            
+            .checkout-step span {
+                display: none;
+            }
+            
+            .checkout-step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            
+            .back-button {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .back-button i {
+                font-size: 14px;
+            }
+            
             .checkout-container {
                 margin-top: 80px;
                 padding: 10px;
@@ -391,8 +440,7 @@
     <header class="checkout-header">
         <div class="checkout-header-content">
             <div class="checkout-logo">
-                <img src="images/logo.png" alt="柑心果園" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                <span class="checkout-logo-text" style="display: none;">柑心果園</span>
+                <img src="images/logo.png" alt="柑心果園" onerror="this.style.display='none';">
                 <div class="checkout-logo-text">柑心果園</div>
             </div>
             <div class="checkout-steps">
