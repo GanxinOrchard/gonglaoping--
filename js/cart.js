@@ -350,6 +350,19 @@ function showNotification(message) {
     }, 2000);
 }
 
+// 全域關閉購物車函數
+function closeCartSidebar() {
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartOverlay = document.getElementById('cartOverlay');
+    if (cartSidebar) {
+        cartSidebar.classList.remove('active');
+    }
+    if (cartOverlay) {
+        cartOverlay.classList.remove('active');
+    }
+    document.body.style.overflow = '';
+}
+
 // 初始化購物車
 document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
@@ -375,15 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
             cartSidebar.classList.add('active');
             cartOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
-    }
-    
-    // 關閉購物車函數
-    function closeCartSidebar() {
-        if (cartSidebar) {
-            cartSidebar.classList.remove('active');
-            cartOverlay.classList.remove('active');
-            document.body.style.overflow = '';
         }
     }
     
