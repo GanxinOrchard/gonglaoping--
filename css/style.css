@@ -1187,13 +1187,20 @@ ul {
 .products-section {
     padding: 80px 0;
     background: var(--bg-light);
+    position: relative;
+}
+
+.products-carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin-top: 40px;
 }
 
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
     gap: 30px;
-    margin-top: 40px;
+    transition: transform 0.5s ease;
+    padding: 10px 0;
 }
 
 .product-card {
@@ -1204,6 +1211,47 @@ ul {
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: 300px;
+}
+
+.products-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.products-nav:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.products-nav.prev {
+    left: -25px;
+}
+
+.products-nav.next {
+    right: -25px;
+}
+
+.products-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 .product-card:hover {

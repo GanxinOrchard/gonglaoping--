@@ -276,8 +276,16 @@
     <section class="products-section" id="products">
         <div class="container">
             <h2 class="section-title">精選商品</h2>
-            <div class="products-grid" id="productsGrid">
-                <!-- 商品將由 JavaScript 動態載入 -->
+            <div class="products-carousel-wrapper">
+                <button class="products-nav prev" id="productsPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-grid" id="productsGrid">
+                    <!-- 商品將由 JavaScript 動態載入 -->
+                </div>
+                <button class="products-nav next" id="productsNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
