@@ -120,7 +120,11 @@ function removeFromCart(productId, specId = null) {
 
 // 計算小計
 function calculateSubtotal() {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cart.reduce((total, item) => {
+        const price = Number(item.price) || 0;
+        const quantity = Number(item.quantity) || 0;
+        return total + (price * quantity);
+    }, 0);
 }
 
 // 計算折扣金額
@@ -253,20 +257,20 @@ function updateCartTotal() {
     const discountAmountEl = document.getElementById('discountAmount');
     const discountValueEl = document.getElementById('discountValue');
     
-    const subtotal = calculateSubtotal();
-    const discount = calculateDiscount(subtotal);
-    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+    const subtotal = calculateSubtotal() || 0;
+    const discount = calculateDiscount(subtotal) || 0;
+    const shipping = (subtotal > 0 && subtotal >= FREE_SHIPPING_THRESHOLD) ? 0 : (subtotal > 0 ? SHIPPING_FEE : 0);
     const total = Math.max(0, subtotal - discount + shipping);
     
-    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal}`;
+    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
     if (shippingEl) {
-        if (shipping === 0) {
+        if (shipping === 0 && subtotal > 0) {
             shippingEl.innerHTML = '<span style="color: #27ae60;">免運費</span>';
         } else {
-            shippingEl.textContent = `NT$ ${shipping}`;
+            shippingEl.textContent = `NT$ ${shipping.toLocaleString()}`;
         }
     }
-    if (totalEl) totalEl.textContent = `NT$ ${total}`;
+    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
     
     if (discount > 0 && discountAmountEl && discountValueEl) {
         discountAmountEl.style.display = 'flex';
