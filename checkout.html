@@ -249,15 +249,18 @@
                     <form id="checkoutForm">
                         <div class="form-group">
                             <label>姓名 <span class="required">*</span></label>
-                            <input type="text" id="buyerName" required>
+                            <input type="text" id="buyerName" required placeholder="請輸入真實姓名">
+                            <small style="color: #666; font-size: 12px;">用於訂單確認及出貨聯絡</small>
                         </div>
                         <div class="form-group">
                             <label>Email <span class="required">*</span></label>
-                            <input type="email" id="buyerEmail" required>
+                            <input type="email" id="buyerEmail" required placeholder="example@email.com">
+                            <small style="color: #666; font-size: 12px;">訂單確認信將寄送至此信箱</small>
                         </div>
                         <div class="form-group">
                             <label>手機 <span class="required">*</span></label>
                             <input type="tel" id="buyerPhone" required placeholder="0912-345-678">
+                            <small style="color: #666; font-size: 12px;">請輸入09開頭的手機號碼，用於配送聯絡</small>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -524,9 +527,10 @@
         function submitOrder(e) {
             e.preventDefault();
             
-            // 驗證必填欄位
-            if (!document.getElementById('agreeTerms').checked) {
-                alert('請先同意退貨退款須知');
+            // 完整驗證
+            const errors = validateForm();
+            if (errors.length > 0) {
+                alert('請修正以下錯誤：\n\n' + errors.map((err, i) => `${i + 1}. ${err}`).join('\n'));
                 return;
             }
             
@@ -566,8 +570,118 @@
             window.location.href = 'index.html';
         }
         
+        // 載入已儲存的表單資料
+        function loadSavedFormData() {
+            const savedData = localStorage.getItem('checkoutFormData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    // 購買人資料
+                    if (data.buyer) {
+                        document.getElementById('buyerName').value = data.buyer.name || '';
+                        document.getElementById('buyerEmail').value = data.buyer.email || '';
+                        document.getElementById('buyerPhone').value = data.buyer.phone || '';
+                        document.getElementById('buyerCity').value = data.buyer.city || '';
+                        document.getElementById('buyerDistrict').value = data.buyer.district || '';
+                        document.getElementById('buyerAddress').value = data.buyer.address || '';
+                    }
+                } catch (e) {
+                    console.error('載入表單資料失敗:', e);
+                }
+            }
+        }
+        
+        // 儲存表單資料
+        function saveFormData() {
+            const formData = {
+                buyer: {
+                    name: document.getElementById('buyerName').value,
+                    email: document.getElementById('buyerEmail').value,
+                    phone: document.getElementById('buyerPhone').value,
+                    city: document.getElementById('buyerCity').value,
+                    district: document.getElementById('buyerDistrict').value,
+                    address: document.getElementById('buyerAddress').value
+                }
+            };
+            localStorage.setItem('checkoutFormData', JSON.stringify(formData));
+        }
+        
+        // 自動儲存表單資料
+        function setupAutoSave() {
+            const inputs = ['buyerName', 'buyerEmail', 'buyerPhone', 'buyerCity', 'buyerDistrict', 'buyerAddress'];
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('blur', saveFormData);
+                }
+            });
+        }
+        
+        // 完整的表單驗證
+        function validateForm() {
+            const errors = [];
+            
+            // 購買人資料驗證
+            const buyerName = document.getElementById('buyerName').value.trim();
+            if (!buyerName) errors.push('請輸入購買人姓名');
+            
+            const buyerEmail = document.getElementById('buyerEmail').value.trim();
+            if (!buyerEmail) {
+                errors.push('請輸入購買人 Email');
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail)) {
+                errors.push('購買人 Email 格式不正確');
+            }
+            
+            const buyerPhone = document.getElementById('buyerPhone').value.trim();
+            if (!buyerPhone) {
+                errors.push('請輸入購買人手機');
+            } else if (!/^09\d{8}$/.test(buyerPhone.replace(/[-\s]/g, ''))) {
+                errors.push('購買人手機格式不正確（請輸入09開頭的10碼手機號碼）');
+            }
+            
+            const buyerCity = document.getElementById('buyerCity').value;
+            if (!buyerCity) errors.push('請選擇購買人縣市');
+            
+            const buyerDistrict = document.getElementById('buyerDistrict').value.trim();
+            if (!buyerDistrict) errors.push('請輸入購買人鄉鎮市區');
+            
+            const buyerAddress = document.getElementById('buyerAddress').value.trim();
+            if (!buyerAddress) errors.push('請輸入購買人地址');
+            
+            // 收件人資料驗證
+            const receiverName = document.getElementById('receiverName').value.trim();
+            if (!receiverName) errors.push('請輸入收件人姓名');
+            
+            const receiverPhone = document.getElementById('receiverPhone').value.trim();
+            if (!receiverPhone) {
+                errors.push('請輸入收件人手機');
+            } else if (!/^09\d{8}$/.test(receiverPhone.replace(/[-\s]/g, ''))) {
+                errors.push('收件人手機格式不正確（請輸入09開頭的10碼手機號碼）');
+            }
+            
+            const receiverCity = document.getElementById('receiverCity').value;
+            if (!receiverCity) errors.push('請選擇收件人縣市');
+            
+            const receiverDistrict = document.getElementById('receiverDistrict').value.trim();
+            if (!receiverDistrict) errors.push('請輸入收件人鄉鎮市區');
+            
+            const receiverAddress = document.getElementById('receiverAddress').value.trim();
+            if (!receiverAddress) errors.push('請輸入收件人地址');
+            
+            // 同意條款驗證
+            if (!document.getElementById('agreeTerms').checked) {
+                errors.push('請先同意退貨退款須知');
+            }
+            
+            return errors;
+        }
+        
         // 頁面載入時執行
-        document.addEventListener('DOMContentLoaded', loadCartSummary);
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartSummary();
+            loadSavedFormData();
+            setupAutoSave();
+        });
     </script>
 </body>
 </html>
