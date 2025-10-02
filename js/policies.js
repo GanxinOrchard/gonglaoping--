@@ -440,9 +440,8 @@ const policiesData = {
             <h2>💳 銀行匯款（ATM 轉帳）</h2>
             <h3>匯款資訊</h3>
             <div class="highlight-box">
-                <p><strong>銀行名稱：</strong>台中商業銀行 豐原分行<br>
-                <strong>銀行代碼：</strong>050<br>
-                <strong>帳號：</strong>123-456-789012<br>
+                <p><strong>銀行代碼：</strong>824<br>
+                <strong>帳號：</strong>111013782313<br>
                 <strong>戶名：</strong>柑心果園</p>
             </div>
             
@@ -486,22 +485,6 @@ const policiesData = {
                 <li>✅ 安全便利，無需輸入銀行帳號</li>
                 <li>✅ 可使用 LINE Points 折抵</li>
                 <li>✅ 自動記錄交易明細</li>
-            </ul>
-            
-            <h2>發票說明</h2>
-            <h3>電子發票</h3>
-            <p>我們提供電子發票服務：</p>
-            <ul>
-                <li>發票會隨商品寄送（紙本）</li>
-                <li>或寄送至您的 Email（電子檔）</li>
-                <li>可設定捐贈發票給指定單位</li>
-            </ul>
-            
-            <h3>統一編號</h3>
-            <p>如需打統編，請在訂購時提供：</p>
-            <ul>
-                <li>公司名稱</li>
-                <li>統一編號</li>
             </ul>
             
             <h2>退款說明</h2>
