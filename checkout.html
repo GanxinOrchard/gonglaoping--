@@ -15,8 +15,9 @@
         
         .checkout-grid {
             display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
+            grid-template-columns: 1fr 420px;
+            gap: 40px;
+            align-items: start;
         }
         
         .checkout-section {
@@ -24,6 +25,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
         
         .section-title {
@@ -73,6 +75,17 @@
         .cart-summary {
             position: sticky;
             top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+        
+        .cart-summary::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .cart-summary::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 3px;
         }
         
         .cart-item-checkout {
