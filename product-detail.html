@@ -598,6 +598,17 @@
                     <ul id="productFeatures"></ul>
                 </div>
                 
+                <!-- 預購提示 -->
+                <div id="preorderNotice" style="display: none; background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-clock" style="color: #856404; font-size: 20px;"></i>
+                        <div>
+                            <strong style="color: #856404;">目前為提前預購</strong>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; color: #856404;">預購商品將於產季到貨後依訂單順序出貨</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="product-actions">
                     <div class="quantity-selector">
                         <button onclick="changeQuantity(-1)">
@@ -608,8 +619,8 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <button class="btn-add-to-cart-large" onclick="addToCartFromDetail()">
-                        <i class="fas fa-cart-plus"></i> 加入購物車
+                    <button class="btn-add-to-cart-large" id="addToCartBtn" onclick="addToCartFromDetail()">
+                        <i class="fas fa-cart-plus"></i> <span id="addToCartText">加入購物車</span>
                     </button>
                 </div>
             </div>
@@ -867,6 +878,15 @@
             document.getElementById('salesCount').textContent = currentProduct.salesCount || 0;
             
             loadProductFeatures(currentProduct);
+            
+            // 顯示預購提示和更改按鈕文字
+            if (currentProduct.isPreorder) {
+                const preorderNotice = document.getElementById('preorderNotice');
+                if (preorderNotice) preorderNotice.style.display = 'block';
+                
+                const addToCartText = document.getElementById('addToCartText');
+                if (addToCartText) addToCartText.textContent = '加入預購';
+            }
             
             // 顯示規格選擇
             if (currentProduct.hasSpecs && currentProduct.specs && currentProduct.specs.length > 0) {

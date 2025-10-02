@@ -14,10 +14,11 @@ const products = [
             'images/椪柑產品圖/椪柑5.png'
         ],
         description: '皮薄好剝、酸甜平衡、果香乾淨｜冷藏後更清爽｜產地直送',
-        badge: '熱銷',
+        badge: '預購',
         salesCount: 1250,
         shippingType: 'normal',
         weight: '10台斤/箱',
+        isPreorder: true,
         hasSpecs: true,
         specs: [
             { id: '23A', name: '23A', diameter: '6.7–7.3 cm', price: 699, description: '入門人氣款，超值體驗' },
@@ -45,10 +46,11 @@ const products = [
             'images/茂谷柑產品圖/茂谷柑5.png'
         ],
         description: '果肉飽滿、香氣濃郁、甜度高｜送禮自用兩相宜｜產地直送',
-        badge: '推薦',
+        badge: '預購',
         salesCount: 980,
         shippingType: 'normal',
         weight: '10台斤/箱',
+        isPreorder: true,
         hasSpecs: true,
         specs: [
             { id: '23A', name: '23A', diameter: 'Ø 6.7-7.3 cm', price: 850 },
