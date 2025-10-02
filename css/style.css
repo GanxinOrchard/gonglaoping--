@@ -311,33 +311,6 @@ ul {
         gap: 15px;
     }
     
-    .main-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--white);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        z-index: 10000 !important;
-        max-height: calc(100vh - 60px);
-        overflow-y: auto;
-    }
-    
-    .main-menu.active {
-        display: block;
-    }
-    
-    .main-menu > ul {
-        flex-direction: column;
-        padding: 20px;
-    }
-    
-    .main-menu > ul > li {
-        width: 100%;
-        border-bottom: 1px solid var(--border-color);
-    }
-    
     .main-menu > ul > li > a {
         padding: 15px 10px;
         display: block;
@@ -2775,20 +2748,21 @@ ul {
         overflow-wrap: break-word;
     }
     
-    /* 導航選單手機版 */
+    /* 導航選單手機版 - 從右側滑入 */
     .main-menu {
         position: fixed !important;
         top: 0 !important;
         right: -100% !important;
-        width: 80% !important;
-        max-width: 350px !important;
+        left: auto !important;
+        width: 75% !important;
+        max-width: 320px !important;
         height: 100vh !important;
         background: var(--white) !important;
         box-shadow: -5px 0 20px rgba(0,0,0,0.3) !important;
         transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
         z-index: 150000 !important;
         overflow-y: auto !important;
-        padding: 80px 0 20px 0 !important;
+        padding: 70px 0 20px 0 !important;
         margin-top: 0 !important;
         border-top: none !important;
         display: block !important;
@@ -2796,6 +2770,12 @@ ul {
     
     .main-menu.active {
         right: 0 !important;
+    }
+    
+    .main-menu > ul {
+        flex-direction: column !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     
     /* 手機選單背景遮罩 */
