@@ -21,9 +21,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mainMenu = document.getElementById('mainMenu');
     
+    // 創建手機選單遮罩
+    let menuOverlay = document.getElementById('menuOverlay');
+    if (!menuOverlay && window.innerWidth <= 768) {
+        menuOverlay = document.createElement('div');
+        menuOverlay.id = 'menuOverlay';
+        menuOverlay.className = 'menu-overlay';
+        document.body.appendChild(menuOverlay);
+        
+        // 點擊遮罩關閉選單
+        menuOverlay.addEventListener('click', () => {
+            mainMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+            document.body.style.overflow = '';
+        });
+    }
+    
     if (mobileMenuToggle && mainMenu) {
         mobileMenuToggle.addEventListener('click', () => {
             mainMenu.classList.toggle('active');
+            
+            // 控制遮罩層
+            if (menuOverlay) {
+                menuOverlay.classList.toggle('active');
+            }
+            
+            // 控制body滾動
+            if (mainMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
             
             // 切換圖示
             const icon = mobileMenuToggle.querySelector('i');
