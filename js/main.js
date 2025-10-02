@@ -216,26 +216,58 @@ function createBackToTopButton() {
     const backToTop = document.createElement('button');
     backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
     backToTop.className = 'back-to-top';
-    backToTop.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        font-size: 20px;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    `;
     
+    // 根據螢幕寬度設定不同位置
+    const updatePosition = () => {
+        if (window.innerWidth <= 768) {
+            // 手機版：底部中間
+            backToTop.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50px;
+                height: 50px;
+                background: var(--secondary-color);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            `;
+        } else {
+            // 桌面版：右下角
+            backToTop.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            `;
+        }
+    };
+    
+    updatePosition();
     document.body.appendChild(backToTop);
+    
+    // 視窗大小改變時更新位置
+    window.addEventListener('resize', updatePosition);
     
     // 顯示/隱藏按鈕
     window.addEventListener('scroll', () => {
@@ -258,13 +290,15 @@ function createBackToTopButton() {
     
     // 懸停效果
     backToTop.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-        this.style.background = 'var(--primary-dark)';
+        const isMobile = window.innerWidth <= 768;
+        this.style.transform = isMobile ? 'translateX(-50%) translateY(-5px)' : 'translateY(-5px)';
+        this.style.background = isMobile ? 'var(--secondary-dark)' : 'var(--primary-dark)';
     });
     
     backToTop.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.background = 'var(--primary-color)';
+        const isMobile = window.innerWidth <= 768;
+        this.style.transform = isMobile ? 'translateX(-50%)' : 'translateY(0)';
+        this.style.background = isMobile ? 'var(--secondary-color)' : 'var(--primary-color)';
     });
 }
 
