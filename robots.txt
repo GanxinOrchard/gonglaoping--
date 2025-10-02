@@ -13,6 +13,10 @@ Allow: /
 User-agent: Slurp
 Allow: /
 
-# 不允許爬取的路徑（如果有）
-Disallow: /js/
-Disallow: /css/
+# 不允許爬取的路徑
+Disallow: /test-*
+Disallow: /*-debug.html
+Disallow: /diagnose.html
+Disallow: /CSS-TEST.html
+Disallow: /simple-test.html
+Disallow: /CLEAR-CACHE-AND-TEST.html
