@@ -208,15 +208,15 @@ function renderCartItems() {
                 <div class="cart-item-price">NT$ ${item.price || 0}</div>
                 <div class="cart-item-controls">
                     <div class="quantity-control">
-                        <button onclick="updateQuantity(${item.id}, -1, '${item.selectedSpecId || ''}')">
+                        <button onclick="updateQuantity(${item.id}, -1, ${item.selectedSpecId ? "'" + item.selectedSpecId + "'" : 'null'})">
                             <i class="fas fa-minus"></i>
                         </button>
                         <span>${item.quantity || 1}</span>
-                        <button onclick="updateQuantity(${item.id}, 1, '${item.selectedSpecId || ''}')">
+                        <button onclick="updateQuantity(${item.id}, 1, ${item.selectedSpecId ? "'" + item.selectedSpecId + "'" : 'null'})">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <button class="btn-remove" onclick="removeFromCart(${item.id}, '${item.selectedSpecId || ''}')">
+                    <button class="btn-remove" onclick="removeFromCart(${item.id}, ${item.selectedSpecId ? "'" + item.selectedSpecId + "'" : 'null'})">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -395,9 +395,123 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            openCheckoutModal();
+            // 跳轉到結帳頁面或開啟結帳模態框
+            const checkoutModal = document.getElementById('checkoutModal');
+            if (checkoutModal) {
+                // 關閉購物車側邊欄
+                closeCartSidebar();
+                
+                // 開啟結帳模態框
+                checkoutModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // 更新結帳摘要
+                updateCheckoutSummary();
+            } else {
+                // 如果沒有模態框，可以跳轉到結帳頁面
+                showNotification('準備前往結帳...');
+                // window.location.href = 'checkout.html';
+            }
         });
     }
+    
+    // 關閉結帳模態框
+    const closeCheckoutModal = document.getElementById('closeCheckoutModal');
+    const checkoutModal = document.getElementById('checkoutModal');
+    
+    if (closeCheckoutModal && checkoutModal) {
+        closeCheckoutModal.addEventListener('click', () => {
+            checkoutModal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+        
+        // 點擊模態框外部關閉
+        checkoutModal.addEventListener('click', (e) => {
+            if (e.target === checkoutModal) {
+                checkoutModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    // 結帳表單提交
+    const checkoutForm = document.getElementById('checkoutForm');
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleCheckout();
+        });
+    }
+});
+
+// 更新結帳摘要
+function updateCheckoutSummary() {
+    const checkoutSummary = document.getElementById('checkoutSummary');
+    const checkoutTotal = document.getElementById('checkoutTotal');
+    
+    if (!checkoutSummary || !checkoutTotal) return;
+    
+    const subtotal = calculateSubtotal();
+    const discount = calculateDiscount(subtotal);
+    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+    const total = Math.max(0, subtotal - discount + shipping);
+    
+    checkoutSummary.innerHTML = cart.map(item => `
+        <div class="checkout-item">
+            <span>${item.name} ${item.selectedSpec ? '(' + item.selectedSpec + ')' : ''} x ${item.quantity}</span>
+            <span>NT$ ${item.price * item.quantity}</span>
+        </div>
+    `).join('') + `
+        <div class="checkout-item">
+            <span>運費</span>
+            <span>${shipping === 0 ? '免運費' : 'NT$ ' + shipping}</span>
+        </div>
+        ${discount > 0 ? `<div class="checkout-item discount"><span>折扣</span><span>-NT$ ${discount}</span></div>` : ''}
+    `;
+    
+    checkoutTotal.textContent = `NT$ ${total}`;
+}
+
+// 處理結帳
+function handleCheckout() {
+    const name = document.getElementById('customerName').value;
+    const phone = document.getElementById('customerPhone').value;
+    const email = document.getElementById('customerEmail').value;
+    const address = document.getElementById('customerAddress').value;
+    const note = document.getElementById('customerNote').value;
+    const payment = document.querySelector('input[name="payment"]:checked').value;
+    
+    // 建立訂單資料
+    const orderData = {
+        orderId: 'ORD' + Date.now(),
+        customer: { name, phone, email, address, note },
+        items: cart,
+        payment: payment,
+        subtotal: calculateSubtotal(),
+        discount: calculateDiscount(calculateSubtotal()),
+        shipping: calculateSubtotal() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE,
+        total: calculateSubtotal() - calculateDiscount(calculateSubtotal()) + (calculateSubtotal() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE),
+        date: new Date().toISOString()
+    };
+    
+    // 這裡可以串接後端 API 或 Google Sheets
+    console.log('訂單資料：', orderData);
+    
+    // 顯示成功訊息
+    showNotification('訂單已送出！訂單編號：' + orderData.orderId);
+    
+    // 清空購物車
+    clearCart();
+    
+    // 關閉模態框
+    const checkoutModal = document.getElementById('checkoutModal');
+    if (checkoutModal) {
+        checkoutModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+    
+    // 重置表單
+    document.getElementById('checkoutForm').reset();
 });
 
 // 添加動畫樣式
