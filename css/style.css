@@ -272,8 +272,9 @@ ul {
 }
 
 .logo img {
-    height: 100px;
+    height: 120px;
     width: auto;
+    max-width: 250px;
 }
 
 .search-bar {
@@ -2838,8 +2839,8 @@ ul {
     }
     
     .logo img {
-        height: 50px;
-        max-width: 150px;
+        height: 65px !important;
+        max-width: 200px !important;
     }
     
     /* Hero Slider 手機版 */
