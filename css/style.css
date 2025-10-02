@@ -3190,19 +3190,18 @@ ul {
         margin: 0 !important;
     }
     
-    /* 手機選單背景遮罩 - 只覆蓋左側，不覆蓋選單 */
+    /* 手機選單背景遮罩 - 不阻擋選單點擊 */
     .menu-overlay {
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
         background: rgba(0, 0, 0, 0.5) !important;
-        z-index: 999998 !important;
+        z-index: 100 !important;
         opacity: 0 !important;
         visibility: hidden !important;
         transition: all 0.3s ease !important;
-        pointer-events: none !important;
         display: none !important;
     }
     
@@ -3212,27 +3211,9 @@ ul {
         visibility: visible !important;
     }
     
-    /* 選單本身的 z-index 更高，確保在遮罩上方且可點選 */
+    /* 選單在最上層，完全可點選 */
     .main-menu {
         z-index: 999999 !important;
-        pointer-events: auto !important;
-    }
-    
-    .main-menu.active {
-        pointer-events: auto !important;
-    }
-    
-    /* 確保選單內所有內容都可以點選 */
-    .main-menu,
-    .main-menu *,
-    .main-menu a,
-    .main-menu button,
-    .main-menu li,
-    .main-menu ul,
-    .main-menu .dropdown,
-    .main-menu .dropdown-menu {
-        pointer-events: auto !important;
-        cursor: pointer !important;
     }
     
     .main-menu > ul {
