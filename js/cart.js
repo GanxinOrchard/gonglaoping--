@@ -1,6 +1,10 @@
 // 購物車資料
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// 運費設定
+const FREE_SHIPPING_THRESHOLD = 1800;
+const SHIPPING_FEE = 150;
+
 // 折扣碼設定
 const discountCodes = {
     'WELCOME10': { type: 'percentage', value: 10, description: '新客戶優惠 10% 折扣' },
@@ -121,11 +125,18 @@ function updateCartUI() {
 // 更新購物車數量顯示
 function updateCartCount() {
     const cartCount = document.getElementById('cartCount');
-    
-    if (!cartCount) return;
+    const floatingCartCount = document.getElementById('floatingCartCount');
     
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    cartCount.textContent = totalItems;
+    
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+    }
+    
+    if (floatingCartCount) {
+        floatingCartCount.textContent = totalItems;
+        floatingCartCount.style.display = totalItems > 0 ? 'block' : 'none';
+    }
 }
 
 // 渲染購物車項目
@@ -151,6 +162,7 @@ function renderCartItems() {
             </div>
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
+                ${item.selectedSpec ? `<div class="cart-item-spec">規格：${item.selectedSpec}</div>` : ''}
                 <div class="cart-item-price">NT$ ${item.price}</div>
                 <div class="cart-item-controls">
                     <div class="quantity-control">
@@ -174,15 +186,24 @@ function renderCartItems() {
 // 更新購物車總計
 function updateCartTotal() {
     const subtotalEl = document.getElementById('subtotal');
+    const shippingEl = document.getElementById('shippingFee');
     const totalEl = document.getElementById('total');
     const discountAmountEl = document.getElementById('discountAmount');
     const discountValueEl = document.getElementById('discountValue');
     
     const subtotal = calculateSubtotal();
     const discount = calculateDiscount(subtotal);
-    const total = calculateTotal();
+    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+    const total = Math.max(0, subtotal - discount + shipping);
     
     if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal}`;
+    if (shippingEl) {
+        if (shipping === 0) {
+            shippingEl.innerHTML = '<span style="color: #27ae60;">免運費</span>';
+        } else {
+            shippingEl.textContent = `NT$ ${shipping}`;
+        }
+    }
     if (totalEl) totalEl.textContent = `NT$ ${total}`;
     
     if (discount > 0 && discountAmountEl && discountValueEl) {
@@ -241,11 +262,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 購物車圖示點擊
     const cartIcon = document.getElementById('cartIcon');
+    const floatingCartBtn = document.getElementById('floatingCartBtn');
     const cartSidebar = document.getElementById('cartSidebar');
     const closeCart = document.getElementById('closeCart');
     
     if (cartIcon && cartSidebar) {
         cartIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            cartSidebar.classList.add('active');
+        });
+    }
+    
+    // 懸浮購物車按鈕點擊
+    if (floatingCartBtn && cartSidebar) {
+        floatingCartBtn.addEventListener('click', (e) => {
             e.preventDefault();
             cartSidebar.classList.add('active');
         });

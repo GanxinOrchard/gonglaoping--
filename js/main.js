@@ -190,6 +190,7 @@ function createBackToTopButton() {
         this.style.background = 'var(--primary-dark)';
     });
     
+    backToTop.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0)';
         this.style.background = 'var(--primary-color)';
     });
