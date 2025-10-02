@@ -84,6 +84,11 @@ const products = [
             { id: 'single-bag', name: '單包裝', weight: '3000克', price: 990 },
             { id: 'whole-box', name: '整件裝', weight: '4入/3公斤', price: 3500 }
         ],
+        cookingImages: [
+            { title: '菱角排骨湯', image: 'images/菱角仁/商品介紹(菱角排骨湯)新鮮蔬果菱角仁1.jpg' },
+            { title: '菱角燴鮮菇', image: 'images/菱角仁/商品介紹(菱角燴鮮菇)新鮮蔬果菱角仁2.jpg' },
+            { title: '蜜汁菱角', image: 'images/菱角仁/商品介紹(蜜汁菱角)新鮮蔬果菱角仁3.jpg' }
+        ],
         detailImages: [
             'images/菱角仁/新鮮蔬果菱角仁1.jpg',
             'images/菱角仁/新鮮蔬果菱角仁2.jpg'
