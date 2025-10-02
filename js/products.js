@@ -23,6 +23,7 @@ const products = [
             { id: '25A', name: '25A', diameter: '7.6-7.8 cm', price: 780 },
             { id: '27A', name: '27A', diameter: '7.9-8.1 cm', price: 880 },
             { id: '30A', name: '30A', diameter: '8.2-8.5 cm', price: 980 }
+        ]
     },
     {
         id: 2,
@@ -37,7 +38,7 @@ const products = [
             'images/商品二(茂谷柑).png',
             'images/商品二(茂谷柑).png'
         ],
-        description: '果肉飽滿、香氣濃郴、甜度高。送禮自用兩相宜',
+        description: '果肉飽滿、香氣濃郁、甜度高。送禮自用兩相宜',
         badge: '推薦',
         salesCount: 980,
         shippingType: 'normal',
@@ -87,14 +88,19 @@ const products = [
         shippingType: 'frozen',
         weight: '600g',
         hasSpecs: false
-    },
+    }
 ];
 
 // 渲染商品列表
 function renderProducts(productsToRender = products) {
     const productsGrid = document.getElementById('productsGrid');
     
-    if (!productsGrid) return;
+    if (!productsGrid) {
+        console.log('productsGrid not found');
+        return;
+    }
+    
+    console.log('Rendering products:', productsToRender.length);
     
     productsGrid.innerHTML = productsToRender.map(product => `
         <div class="product-card" data-id="${product.id}">
@@ -187,7 +193,8 @@ function renderCarouselProducts(containerId, productsToRender) {
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Products loaded:', products.length);
+    console.log('Products script loaded');
+    console.log('Products count:', products.length);
     
     // 渲染商品
     renderProducts();
@@ -204,3 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active');
             const category = btn.dataset.category;
             filterByCategory(category);
+        });
+    });
+});
