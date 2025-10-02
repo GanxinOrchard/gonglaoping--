@@ -53,10 +53,10 @@ const products = [
         isPreorder: true,
         hasSpecs: true,
         specs: [
-            { id: '23A', name: '23A', diameter: 'Ø 6.7-7.3 cm', price: 850 },
-            { id: '25A', name: '25A', diameter: 'Ø 7.3-7.9 cm', price: 950 },
-            { id: '27A', name: '27A', diameter: 'Ø 7.9-8.5 cm', price: 1050 },
-            { id: '30A', name: '30A', diameter: 'Ø 8.5-9.5 cm', price: 1150 }
+            { id: '23A', name: '23A', diameter: '6.7–7.3 cm', price: 880, description: '入門茂谷，香甜體驗款' },
+            { id: '25A', name: '25A', diameter: '7.3–7.9 cm', price: 980, description: '熱銷款，家庭/伴手禮首選' },
+            { id: '27A', name: '27A', diameter: '7.9–8.5 cm', price: 1080, description: '精選大果，送禮有面子' },
+            { id: '30A', name: '30A', diameter: '8.5–9.5 cm', price: 1280, description: '限量稀缺，高端禮盒' }
         ],
         detailImages: [
             'images/茂谷柑產品圖/茂谷柑商品介紹1.png',
