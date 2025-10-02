@@ -67,11 +67,11 @@ const products = [
         name: '冷凍菱角仁',
         category: '新鮮蔬果',
         price: 240,
-        image: 'images/菱角仁/菱角仁1.jpg',
+        image: 'images/菱角仁/新鮮蔬果菱角仁1.jpg',
         images: [
-            'images/菱角仁/菱角仁1.jpg',
-            'images/菱角仁/菱角仁2.jpg',
-            'images/菱角仁/菱角仁3.jpg'
+            'images/菱角仁/新鮮蔬果菱角仁1.jpg',
+            'images/菱角仁/新鮮蔬果菱角仁2.jpg',
+            'images/菱角仁/新鮮蔬果菱角仁3.jpg'
         ],
         description: '新鮮冷凍菱角仁｜效期：冷凍12個月｜保存：-18°C 冷凍｜多種規格可選',
         badge: '熱銷',
@@ -80,13 +80,13 @@ const products = [
         weight: '依規格而定',
         hasSpecs: true,
         specs: [
-            { id: 'single-jin', name: '單斤裝', weight: '約600g/斤', price: 240 },
-            { id: 'single-bag', name: '單包裝', weight: '3公斤/包', price: 990 },
-            { id: 'whole-box', name: '整件裝', weight: '3公斤x4包/件', price: 3500 }
+            { id: 'single-jin', name: '單斤裝', weight: '600克', price: 240 },
+            { id: 'single-bag', name: '單包裝', weight: '3000克', price: 990 },
+            { id: 'whole-box', name: '整件裝', weight: '4入/3公斤', price: 3500 }
         ],
         detailImages: [
-            'images/菱角仁/菱角仁介紹1.jpg',
-            'images/菱角仁/菱角仁介紹2.jpg'
+            'images/菱角仁/新鮮蔬果菱角仁1.jpg',
+            'images/菱角仁/新鮮蔬果菱角仁2.jpg'
         ]
     },
     {

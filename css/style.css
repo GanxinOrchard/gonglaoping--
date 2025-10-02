@@ -1905,9 +1905,9 @@ ul {
 .floating-menu-btn {
     position: fixed !important;
     right: 20px !important;
-    bottom: 95px !important;
-    width: 60px;
-    height: 60px;
+    bottom: 85px !important;
+    width: 50px;
+    height: 50px;
     background: var(--secondary-color);
     border-radius: 50%;
     display: none;
@@ -1925,7 +1925,7 @@ ul {
 }
 
 .floating-menu-btn i {
-    font-size: 24px;
+    font-size: 20px;
     color: var(--white);
 }
 
@@ -2688,8 +2688,8 @@ ul {
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: var(--primary-color);
     border-radius: 50%;
     display: flex;
@@ -2707,21 +2707,21 @@ ul {
 }
 
 .floating-cart-btn i {
-    font-size: 24px;
+    font-size: 20px;
     color: var(--white);
 }
 
 .floating-cart-btn .cart-badge {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -3px;
+    right: -3px;
     background: #e74c3c;
     color: var(--white);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    padding: 2px 6px;
+    padding: 2px 5px;
     border-radius: 10px;
-    min-width: 20px;
+    min-width: 18px;
     text-align: center;
 }
 
