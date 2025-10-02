@@ -1764,7 +1764,6 @@ ul {
     height: 100%;
     object-fit: cover;
 }
-
 .cart-item-info {
     flex: 1;
 }
@@ -1776,11 +1775,8 @@ ul {
     color: var(--text-dark);
 }
 
-.cart-item-price {
-    font-size: 16px;
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 10px;
+.cart-item-spec {
+    font-size: 12px;
 }
 
 .cart-item-controls {
@@ -1912,6 +1908,10 @@ ul {
     color: var(--text-light);
 }
 
+.shipping-row {
+    color: var(--text-light);
+}
+
 .discount-amount {
     color: var(--success-color);
 }
@@ -1922,6 +1922,20 @@ ul {
     color: var(--text-dark);
     padding-top: 10px;
     border-top: 2px solid var(--border-color);
+}
+
+.shipping-notice {
+    text-align: center;
+    padding: 10px;
+    background: #fff7ed;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--primary-color);
+    margin-top: 15px;
+}
+
+.shipping-notice i {
+    margin-right: 5px;
 }
 
 .btn-checkout {
