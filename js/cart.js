@@ -528,7 +528,7 @@ function handleCheckout() {
     
     // 重置表單
     document.getElementById('checkoutForm').reset();
-});
+}
 
 // 添加動畫樣式
 const style = document.createElement('style');
