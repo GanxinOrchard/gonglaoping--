@@ -19,9 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const floatingMenuBtn = document.getElementById('floatingMenuBtn');
     const mainMenu = document.getElementById('mainMenu');
     
-    // 創建手機選單遮罩（只在手機版）
+    // 創建手機選單遮罩
     let menuOverlay = document.getElementById('menuOverlay');
     if (!menuOverlay) {
         menuOverlay = document.createElement('div');
@@ -31,51 +32,74 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 點擊遮罩關閉選單
         menuOverlay.addEventListener('click', () => {
-            if (mainMenu) mainMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            if (mobileMenuToggle) {
-                mobileMenuToggle.classList.remove('active');
-                const icon = mobileMenuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            }
-            document.body.style.overflow = '';
+            closeMenu();
         });
     }
     
+    // 關閉選單的統一函數
+    function closeMenu() {
+        if (mainMenu) mainMenu.classList.remove('active');
+        if (menuOverlay) menuOverlay.classList.remove('active');
+        if (mobileMenuToggle) {
+            mobileMenuToggle.classList.remove('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+        if (floatingMenuBtn) {
+            floatingMenuBtn.classList.remove('active');
+            const icon = floatingMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+        document.body.style.overflow = '';
+    }
+    
+    // 開啟選單的統一函數
+    function openMenu(button) {
+        if (mainMenu) mainMenu.classList.add('active');
+        if (menuOverlay) menuOverlay.classList.add('active');
+        if (button) {
+            button.classList.add('active');
+            const icon = button.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        }
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // 綁定原來的漢堡按鈕（如果存在）
     if (mobileMenuToggle && mainMenu) {
         mobileMenuToggle.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             
             const isActive = mainMenu.classList.contains('active');
-            
             if (isActive) {
-                // 關閉選單
-                mainMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                if (menuOverlay) menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
+                closeMenu();
             } else {
-                // 開啟選單
-                mainMenu.classList.add('active');
-                mobileMenuToggle.classList.add('active');
-                if (menuOverlay) menuOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                openMenu(mobileMenuToggle);
             }
+        });
+    }
+    
+    // 綁定懸浮 Menu 按鈕
+    if (floatingMenuBtn && mainMenu) {
+        floatingMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // 切換圖示
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                if (isActive) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                } else {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                }
+            const isActive = mainMenu.classList.contains('active');
+            if (isActive) {
+                closeMenu();
+            } else {
+                openMenu(floatingMenuBtn);
             }
         });
     }

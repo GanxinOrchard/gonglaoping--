@@ -1904,6 +1904,41 @@ ul {
     opacity: 1;
 }
 
+/* ===== Floating Menu Button ===== */
+.floating-menu-btn {
+    position: fixed !important;
+    right: 20px !important;
+    bottom: 95px !important;
+    width: 60px;
+    height: 60px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(44, 95, 45, 0.4);
+    z-index: 50000 !important;
+    transition: all 0.3s ease;
+}
+
+.floating-menu-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(44, 95, 45, 0.6);
+}
+
+.floating-menu-btn i {
+    font-size: 24px;
+    color: var(--white);
+}
+
+/* 手機版顯示懸浮 Menu 按鈕 */
+@media (max-width: 992px) {
+    .floating-menu-btn {
+        display: flex !important;
+    }
+}
+
 /* ===== Floating Cart Button ===== */
 .floating-cart {
     position: fixed !important;
@@ -2757,22 +2792,9 @@ ul {
         display: block;
     }
     
+    /* 隱藏原來的漢堡按鈕 */
     .mobile-menu-toggle {
-        display: block !important;
-        position: fixed !important;
-        top: 15px !important;
-        right: 15px !important;
-        z-index: 1000000 !important;
-        background: var(--white) !important;
-        border: 2px solid var(--primary-color) !important;
-        border-radius: 8px !important;
-        padding: 10px 12px !important;
-        box-shadow: 0 4px 12px rgba(255, 140, 66, 0.4) !important;
-    }
-    
-    .mobile-menu-toggle.active {
-        background: var(--primary-color) !important;
-        color: var(--white) !important;
+        display: none !important;
     }
     
     .hero-slider {
