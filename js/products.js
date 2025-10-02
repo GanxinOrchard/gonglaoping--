@@ -13,21 +13,22 @@ const products = [
             'images/椪柑產品圖/椪柑4.png',
             'images/椪柑產品圖/椪柑5.png'
         ],
-        detailImages: [
-            'images/椪柑產品圖/椪柑商品介紹1.png',
-            'images/椪柑產品圖/椪柑商品介紹2.png',
-            'images/椪柑產品圖/椪柑商品介紹3.png'
-        ],
-        description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
+        description: '皮薄好剝、酸甜平衡、果香乾淨｜冷藏後更清爽｜產地直送',
         badge: '熱銷',
         salesCount: 1250,
         shippingType: 'normal',
+        weight: '10台斤/箱',
         hasSpecs: true,
         specs: [
             { id: '23A', name: '23A', diameter: 'Ø 6.7-7.3 cm', price: 680 },
             { id: '25A', name: '25A', diameter: 'Ø 7.3-7.9 cm', price: 780 },
             { id: '27A', name: '27A', diameter: 'Ø 7.9-8.5 cm', price: 880 },
             { id: '30A', name: '30A', diameter: 'Ø 8.5-9.5 cm', price: 980 }
+        ],
+        detailImages: [
+            'images/椪柑產品圖/椪柑商品介紹1.png',
+            'images/椪柑產品圖/椪柑商品介紹2.png',
+            'images/椪柑產品圖/椪柑商品介紹3.png'
         ]
     },
     {
@@ -43,21 +44,22 @@ const products = [
             'images/茂谷柑產品圖/茂谷柑4.png',
             'images/茂谷柑產品圖/茂谷柑5.png'
         ],
-        detailImages: [
-            'images/茂谷柑產品圖/茂谷柑商品介紹1.png',
-            'images/茂谷柑產品圖/茂谷柑商品介紹2.png',
-            'images/茂谷柑產品圖/茂谷柑商品介紹3.png'
-        ],
-        description: '果肉飽滿、香氣濃郁、甜度高。送禮自用兩相宜',
+        description: '果肉飽滿、香氣濃郁、甜度高｜送禮自用兩相宜｜產地直送',
         badge: '推薦',
         salesCount: 980,
         shippingType: 'normal',
+        weight: '10台斤/箱',
         hasSpecs: true,
         specs: [
             { id: '23A', name: '23A', diameter: 'Ø 6.7-7.3 cm', price: 850 },
             { id: '25A', name: '25A', diameter: 'Ø 7.3-7.9 cm', price: 950 },
             { id: '27A', name: '27A', diameter: 'Ø 7.9-8.5 cm', price: 1050 },
             { id: '30A', name: '30A', diameter: 'Ø 8.5-9.5 cm', price: 1150 }
+        ],
+        detailImages: [
+            'images/茂谷柑產品圖/茂谷柑商品介紹1.png',
+            'images/茂谷柑產品圖/茂谷柑商品介紹2.png',
+            'images/茂谷柑產品圖/茂谷柑商品介紹3.png'
         ]
     },
     {
