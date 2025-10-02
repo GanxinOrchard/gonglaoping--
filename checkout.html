@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結帳 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 20px;
+        }
+        
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+        
+        .checkout-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group label .required {
+            color: #e74c3c;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .cart-summary {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .cart-item-checkout {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-checkout img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .cart-item-info-checkout {
+            flex: 1;
+        }
+        
+        .cart-item-name-checkout {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-spec-checkout {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price-checkout {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-row.total {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            border-top: 2px solid #333;
+            border-bottom: none;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+        
+        .payment-options {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary-color);
+            background: #fff7ed;
+        }
+        
+        .payment-option input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .payment-option.selected {
+            border-color: var(--primary-color);
+            background: #fff7ed;
+        }
+        
+        .btn-submit-order {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit-order:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        .shipping-info {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .shipping-info i {
+            color: #27ae60;
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 992px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 頁首 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo.png" alt="柑心果園" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display: none;">柑心果園</span>
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <a href="index.html">返回首頁</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="checkout-container">
+        <h1 style="text-align: center; color: var(--primary-color); margin-bottom: 40px;">
+            <i class="fas fa-shopping-bag"></i> 結帳
+        </h1>
+
+        <div class="checkout-grid">
+            <!-- 左側：表單 -->
+            <div>
+                <!-- 購買人資料 -->
+                <div class="checkout-section">
+                    <h2 class="section-title">購買人資料</h2>
+                    <form id="checkoutForm">
+                        <div class="form-group">
+                            <label>姓名 <span class="required">*</span></label>
+                            <input type="text" id="buyerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" id="buyerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>手機 <span class="required">*</span></label>
+                            <input type="tel" id="buyerPhone" required placeholder="0912-345-678">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>縣市 <span class="required">*</span></label>
+                                <select id="buyerCity" required>
+                                    <option value="">請選擇</option>
+                                    <option value="基隆市">基隆市</option>
+                                    <option value="臺北市">臺北市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="桃園市">桃園市</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="臺中市">臺中市</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="臺南市">臺南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="臺東縣">臺東縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                    <option value="金門縣">金門縣</option>
+                                    <option value="連江縣">連江縣</option>
+                                    <option value="澎湖縣">澎湖縣</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>鄉鎮市區 <span class="required">*</span></label>
+                                <input type="text" id="buyerDistrict" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>地址 <span class="required">*</span></label>
+                            <input type="text" id="buyerAddress" required placeholder="請輸入詳細地址">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 收件人資料 -->
+                <div class="checkout-section" style="margin-top: 30px;">
+                    <h2 class="section-title">
+                        收件人資料
+                        <label style="float: right; font-size: 14px; font-weight: normal;">
+                            <input type="checkbox" id="sameAsBuyer" style="width: auto; margin-right: 5px;">
+                            同購買人資料
+                        </label>
+                    </h2>
+                    <div class="form-group">
+                        <label>姓名 <span class="required">*</span></label>
+                        <input type="text" id="receiverName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="receiverEmail">
+                    </div>
+                    <div class="form-group">
+                        <label>手機 <span class="required">*</span></label>
+                        <input type="tel" id="receiverPhone" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>縣市 <span class="required">*</span></label>
+                            <select id="receiverCity" required>
+                                <option value="">請選擇</option>
+                                <option value="基隆市">基隆市</option>
+                                <option value="臺北市">臺北市</option>
+                                <option value="新北市">新北市</option>
+                                <option value="宜蘭縣">宜蘭縣</option>
+                                <option value="新竹市">新竹市</option>
+                                <option value="新竹縣">新竹縣</option>
+                                <option value="桃園市">桃園市</option>
+                                <option value="苗栗縣">苗栗縣</option>
+                                <option value="臺中市">臺中市</option>
+                                <option value="彰化縣">彰化縣</option>
+                                <option value="南投縣">南投縣</option>
+                                <option value="嘉義市">嘉義市</option>
+                                <option value="嘉義縣">嘉義縣</option>
+                                <option value="雲林縣">雲林縣</option>
+                                <option value="臺南市">臺南市</option>
+                                <option value="高雄市">高雄市</option>
+                                <option value="屏東縣">屏東縣</option>
+                                <option value="臺東縣">臺東縣</option>
+                                <option value="花蓮縣">花蓮縣</option>
+                                <option value="金門縣">金門縣</option>
+                                <option value="連江縣">連江縣</option>
+                                <option value="澎湖縣">澎湖縣</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>鄉鎮市區 <span class="required">*</span></label>
+                            <input type="text" id="receiverDistrict" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>地址 <span class="required">*</span></label>
+                        <input type="text" id="receiverAddress" required>
+                    </div>
+                </div>
+
+                <!-- 付款方式 -->
+                <div class="checkout-section" style="margin-top: 30px;">
+                    <h2 class="section-title">付款方式</h2>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="linepay" checked>
+                            <div>
+                                <i class="fab fa-line" style="color: #00B900; font-size: 24px;"></i>
+                                <strong>LINE Pay</strong>
+                            </div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="bank">
+                            <div>
+                                <i class="fas fa-university" style="color: #3498db; font-size: 20px;"></i>
+                                <strong>銀行轉帳/ATM</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 訂單備註 -->
+                <div class="checkout-section" style="margin-top: 30px;">
+                    <h2 class="section-title">訂單備註</h2>
+                    <div class="form-group">
+                        <label>備註內容</label>
+                        <textarea id="orderNote" maxlength="500" placeholder="如有特殊需求請在此註明"></textarea>
+                        <div class="char-count">目前可輸入 <span id="charCount">500</span> 字</div>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">
+                            我已了解並同意 <a href="policies.html?type=return" target="_blank" style="color: var(--primary-color);">網站退貨退款須知</a>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit-order" onclick="submitOrder(event)">
+                    <i class="fas fa-check-circle"></i> 確認送出訂單
+                </button>
+            </div>
+
+            <!-- 右側：訂單摘要 -->
+            <div>
+                <div class="checkout-section cart-summary">
+                    <h2 class="section-title">訂單摘要</h2>
+                    <div id="cartItemsList"></div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="summary-row">
+                            <span>商品總金額</span>
+                            <span id="summarySubtotal">NT$ 0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>運費</span>
+                            <span id="summaryShipping">NT$ 150</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>訂單金額</span>
+                            <span id="summaryTotal">NT$ 0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="shipping-info">
+                        <i class="fas fa-truck"></i>
+                        <strong>運送方式：</strong>宅配
+                        <div id="shippingNotice" style="margin-top: 5px; font-size: 14px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/products.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+        // 載入購物車資料
+        function loadCartSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsList = document.getElementById('cartItemsList');
+            
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '<p style="text-align: center; color: #999;">購物車是空的</p>';
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                return;
+            }
+            
+            // 渲染商品列表
+            cartItemsList.innerHTML = cart.map(item => `
+                <div class="cart-item-checkout">
+                    <img src="${item.image || 'images/placeholder.png'}" alt="${item.name}">
+                    <div class="cart-item-info-checkout">
+                        <div class="cart-item-name-checkout">${item.name}</div>
+                        ${item.selectedSpec ? `<div class="cart-item-spec-checkout">規格：${item.selectedSpec}</div>` : ''}
+                        <div class="cart-item-spec-checkout">數量：${item.quantity}</div>
+                        <div class="cart-item-price-checkout">NT$ ${(item.price * item.quantity).toLocaleString()}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // 計算金額
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal >= 1800 ? 0 : 150;
+            const total = subtotal + shipping;
+            
+            document.getElementById('summarySubtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
+            document.getElementById('summaryShipping').innerHTML = shipping === 0 
+                ? '<span style="color: #27ae60;">免運費</span>' 
+                : `NT$ ${shipping.toLocaleString()}`;
+            document.getElementById('summaryTotal').textContent = `NT$ ${total.toLocaleString()}`;
+            document.getElementById('shippingNotice').textContent = shipping === 0 
+                ? '✓ 已達免運門檻' 
+                : `再消費 NT$ ${(1800 - subtotal).toLocaleString()} 即可免運`;
+        }
+        
+        // 同購買人資料
+        document.getElementById('sameAsBuyer').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('receiverName').value = document.getElementById('buyerName').value;
+                document.getElementById('receiverEmail').value = document.getElementById('buyerEmail').value;
+                document.getElementById('receiverPhone').value = document.getElementById('buyerPhone').value;
+                document.getElementById('receiverCity').value = document.getElementById('buyerCity').value;
+                document.getElementById('receiverDistrict').value = document.getElementById('buyerDistrict').value;
+                document.getElementById('receiverAddress').value = document.getElementById('buyerAddress').value;
+            }
+        });
+        
+        // 字數統計
+        document.getElementById('orderNote').addEventListener('input', function() {
+            const remaining = 500 - this.value.length;
+            document.getElementById('charCount').textContent = remaining;
+        });
+        
+        // 付款方式選擇
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // 提交訂單
+        function submitOrder(e) {
+            e.preventDefault();
+            
+            // 驗證必填欄位
+            if (!document.getElementById('agreeTerms').checked) {
+                alert('請先同意退貨退款須知');
+                return;
+            }
+            
+            const orderData = {
+                orderId: 'ORD' + Date.now(),
+                buyer: {
+                    name: document.getElementById('buyerName').value,
+                    email: document.getElementById('buyerEmail').value,
+                    phone: document.getElementById('buyerPhone').value,
+                    city: document.getElementById('buyerCity').value,
+                    district: document.getElementById('buyerDistrict').value,
+                    address: document.getElementById('buyerAddress').value
+                },
+                receiver: {
+                    name: document.getElementById('receiverName').value,
+                    email: document.getElementById('receiverEmail').value,
+                    phone: document.getElementById('receiverPhone').value,
+                    city: document.getElementById('receiverCity').value,
+                    district: document.getElementById('receiverDistrict').value,
+                    address: document.getElementById('receiverAddress').value
+                },
+                payment: document.querySelector('input[name="payment"]:checked').value,
+                note: document.getElementById('orderNote').value,
+                cart: JSON.parse(localStorage.getItem('cart')) || [],
+                date: new Date().toISOString()
+            };
+            
+            console.log('訂單資料：', orderData);
+            
+            // 這裡可以串接後端 API
+            alert('訂單已送出！訂單編號：' + orderData.orderId + '\n\n我們會盡快與您聯繫確認訂單。');
+            
+            // 清空購物車
+            localStorage.removeItem('cart');
+            
+            // 跳轉到首頁
+            window.location.href = 'index.html';
+        }
+        
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', loadCartSummary);
+    </script>
+</body>
+</html>
