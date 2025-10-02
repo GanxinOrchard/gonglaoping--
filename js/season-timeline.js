@@ -33,46 +33,20 @@ const seasonData = {
 // 初始化產季時間軸
 document.addEventListener('DOMContentLoaded', function() {
     const monthItems = document.querySelectorAll('.month-item');
-    const modal = document.getElementById('monthModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalContent = document.getElementById('modalContent');
-    const closeBtn = document.getElementById('closeMonthModal');
     
     // 月份點擊事件
     monthItems.forEach(item => {
         item.addEventListener('click', function() {
-            const month = parseInt(this.dataset.month);
-            const fruit = this.dataset.fruit;
-            const data = seasonData[fruit][month];
+            // 移除其他項目的 active 狀態
+            monthItems.forEach(i => i.classList.remove('active'));
             
-            if (data) {
-                modalTitle.textContent = data.title;
-                modalContent.innerHTML = `<p>${data.content}</p>`;
-                modal.classList.add('active');
-            }
+            // 添加當前項目的 active 狀態
+            this.classList.add('active');
+            
+            // 3秒後自動移除 active 狀態
+            setTimeout(() => {
+                this.classList.remove('active');
+            }, 3000);
         });
-    });
-    
-    // 關閉彈窗
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-            modal.classList.remove('active');
-        });
-    }
-    
-    // 點擊背景關閉
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-    }
-    
-    // ESC 鍵關閉
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            modal.classList.remove('active');
-        }
     });
 });
