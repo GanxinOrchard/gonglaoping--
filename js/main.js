@@ -459,7 +459,7 @@ function hideLoading() {
 
 // 錯誤處理
 window.addEventListener('error', (e) => {
-    console.error('全域錯誤:', e.error);
+    console.error('全域錯誤:', e.message, 'at', e.filename, 'line', e.lineno);
 });
 
 window.addEventListener('unhandledrejection', (e) => {
