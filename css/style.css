@@ -1187,6 +1187,18 @@ ul {
 .products-section {
     padding: 80px 0;
     background: var(--bg-light);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
@@ -2503,8 +2515,18 @@ ul {
     }
     
     .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .products-grid .product-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .product-image {
+        height: 300px;
     }
     
     .news-grid {
