@@ -792,7 +792,7 @@
                 <button class="spec-btn ${index === 0 ? 'active' : ''}" onclick="selectSpec('${spec.id}')">
                     <div class="spec-info-left">
                         <div class="spec-name">${spec.name}</div>
-                        <div class="spec-diameter">${spec.diameter}</div>
+                        ${spec.weight ? `<div class="spec-diameter">${spec.weight}</div>` : (spec.diameter ? `<div class="spec-diameter">${spec.diameter}</div>` : '')}
                     </div>
                     <div class="spec-price">NT$ ${spec.price}</div>
                 </button>
@@ -815,10 +815,11 @@
             });
             event.target.closest('.spec-btn').classList.add('active');
             
+            const specDetail = spec.weight ? spec.weight : (spec.diameter ? `單顆直徑約 ${spec.diameter}` : '');
             document.getElementById('specInfo').innerHTML = `
                 <div class="selected-spec-info">
                     <i class="fas fa-check-circle"></i>
-                    已選擇：<strong>${spec.name}</strong> (單顆直徑約 ${spec.diameter})
+                    已選擇：<strong>${spec.name}</strong>${specDetail ? ` (${specDetail})` : ''}
                 </div>
             `;
         }

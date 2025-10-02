@@ -47,7 +47,9 @@ function addToCart(productId, specId = null, quantity = 1) {
             selectedSpec = product.specs.find(s => s.id === specId);
             if (selectedSpec) {
                 price = selectedSpec.price;
-                specName = selectedSpec.name + ' (' + selectedSpec.diameter + ')';
+                // 優先顯示 weight，其次顯示 diameter
+                const specDetail = selectedSpec.weight || selectedSpec.diameter || '';
+                specName = selectedSpec.name + (specDetail ? ' (' + specDetail + ')' : '');
             }
         }
         
