@@ -16,18 +16,60 @@ const discountCodes = {
 let appliedDiscount = null;
 
 // 加入購物車
-function addToCart(product) {
-    if (!product) return;
-    
-    const existingItem = cart.find(item => item.id === product.id);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
+function addToCart(productId, specId = null, quantity = 1) {
+    // 如果第一個參數是物件（舊版相容）
+    if (typeof productId === 'object') {
+        const product = productId;
+        const existingItem = cart.find(item => item.id === product.id && item.selectedSpecId === product.selectedSpecId);
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                ...product,
+                quantity: quantity
+            });
+        }
     } else {
-        cart.push({
-            ...product,
-            quantity: 1
-        });
+        // 新版：使用 productId 和 specId
+        const product = products.find(p => p.id === productId);
+        if (!product) {
+            console.error('Product not found:', productId);
+            return;
+        }
+        
+        let selectedSpec = null;
+        let price = product.price;
+        let specName = '';
+        
+        // 如果有規格
+        if (specId && product.specs) {
+            selectedSpec = product.specs.find(s => s.id === specId);
+            if (selectedSpec) {
+                price = selectedSpec.price;
+                specName = selectedSpec.name + ' (' + selectedSpec.diameter + ')';
+            }
+        }
+        
+        // 檢查是否已存在（同商品同規格）
+        const existingItem = cart.find(item => 
+            item.id === productId && item.selectedSpecId === specId
+        );
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: price,
+                image: product.image,
+                selectedSpec: specName,
+                selectedSpecId: specId,
+                shippingType: product.shippingType || 'normal',
+                quantity: quantity
+            });
+        }
     }
     
     saveCart();
@@ -36,15 +78,15 @@ function addToCart(product) {
 }
 
 // 更新商品數量
-function updateQuantity(productId, change) {
-    const item = cart.find(item => item.id === productId);
+function updateQuantity(productId, change, specId = null) {
+    const item = cart.find(item => item.id === productId && item.selectedSpecId === specId);
     
     if (!item) return;
     
     item.quantity += change;
     
     if (item.quantity <= 0) {
-        removeFromCart(productId);
+        removeFromCart(productId, specId);
         return;
     }
     
@@ -53,8 +95,8 @@ function updateQuantity(productId, change) {
 }
 
 // 移除商品
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
+function removeFromCart(productId, specId = null) {
+    cart = cart.filter(item => !(item.id === productId && item.selectedSpecId === specId));
     saveCart();
     updateCartUI();
     showNotification('已移除商品');
@@ -158,23 +200,23 @@ function renderCartItems() {
     cartItems.innerHTML = cart.map(item => `
         <div class="cart-item">
             <div class="cart-item-image">
-                <img src="${item.image}" alt="${item.name}">
+                <img src="${item.image || 'images/placeholder.png'}" alt="${item.name || '商品'}">
             </div>
             <div class="cart-item-info">
-                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-name">${item.name || '未知商品'}</div>
                 ${item.selectedSpec ? `<div class="cart-item-spec">規格：${item.selectedSpec}</div>` : ''}
-                <div class="cart-item-price">NT$ ${item.price}</div>
+                <div class="cart-item-price">NT$ ${item.price || 0}</div>
                 <div class="cart-item-controls">
                     <div class="quantity-control">
-                        <button onclick="updateQuantity(${item.id}, -1)">
+                        <button onclick="updateQuantity(${item.id}, -1, '${item.selectedSpecId || ''}')">
                             <i class="fas fa-minus"></i>
                         </button>
-                        <span>${item.quantity}</span>
-                        <button onclick="updateQuantity(${item.id}, 1)">
+                        <span>${item.quantity || 1}</span>
+                        <button onclick="updateQuantity(${item.id}, 1, '${item.selectedSpecId || ''}')">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <button class="btn-remove" onclick="removeFromCart(${item.id})">
+                    <button class="btn-remove" onclick="removeFromCart(${item.id}, '${item.selectedSpecId || ''}')">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
