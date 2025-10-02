@@ -7,10 +7,107 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        body {
+            background: #f5f7fa;
+        }
+        
+        .checkout-header {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .checkout-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .checkout-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .checkout-logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .checkout-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .checkout-steps {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .checkout-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .checkout-step.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .checkout-step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .checkout-step.active .checkout-step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
         .checkout-container {
             max-width: 1200px;
-            margin: 100px auto 50px;
+            margin: 120px auto 50px;
             padding: 20px;
+        }
+        
+        .checkout-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .checkout-title h1 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .checkout-title p {
+            color: #7f8c8d;
+            font-size: 16px;
         }
         
         .checkout-grid {
@@ -22,18 +119,38 @@
         
         .checkout-section {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin-bottom: 30px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-section:hover {
+            box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
         }
         
         .section-title {
-            color: var(--primary-color);
-            font-size: 20px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary-color);
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, var(--primary-color), var(--secondary-color)) 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+        
+        .section-title i {
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .form-group {
@@ -270,37 +387,50 @@
     </style>
 </head>
 <body>
-    <!-- 頁首 -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="images/logo.png" alt="柑心果園" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <span style="display: none;">柑心果園</span>
-                    </a>
-                </div>
-                <nav class="main-nav">
-                    <a href="index.html" class="back-button">
-                        <i class="fas fa-arrow-left"></i>
-                        返回首頁
-                    </a>
-                </nav>
+    <!-- 專業結帳頁首 -->
+    <header class="checkout-header">
+        <div class="checkout-header-content">
+            <div class="checkout-logo">
+                <img src="images/logo.png" alt="柑心果園" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                <span class="checkout-logo-text" style="display: none;">柑心果園</span>
+                <div class="checkout-logo-text">柑心果園</div>
             </div>
+            <div class="checkout-steps">
+                <div class="checkout-step active">
+                    <div class="checkout-step-number">1</div>
+                    <span>填寫資料</span>
+                </div>
+                <div class="checkout-step">
+                    <div class="checkout-step-number">2</div>
+                    <span>確認訂單</span>
+                </div>
+                <div class="checkout-step">
+                    <div class="checkout-step-number">3</div>
+                    <span>完成</span>
+                </div>
+            </div>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                返回首頁
+            </a>
         </div>
     </header>
 
     <div class="checkout-container">
-        <h1 style="text-align: center; color: var(--primary-color); margin-bottom: 40px;">
-            <i class="fas fa-shopping-bag"></i> 結帳
-        </h1>
+        <div class="checkout-title">
+            <h1><i class="fas fa-shopping-bag"></i> 安全結帳</h1>
+            <p>請填寫以下資料，我們將盡快為您處理訂單</p>
+        </div>
 
         <div class="checkout-grid">
             <!-- 左側：表單 -->
             <div>
                 <!-- 購買人資料 -->
                 <div class="checkout-section">
-                    <h2 class="section-title">購買人資料</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-user-circle"></i>
+                        購買人資料
+                    </h2>
                     <form id="checkoutForm">
                         <div class="form-group">
                             <label>姓名 <span class="required">*</span></label>
@@ -361,8 +491,9 @@
                 <!-- 收件人資料 -->
                 <div class="checkout-section" style="margin-top: 30px;">
                     <h2 class="section-title">
+                        <i class="fas fa-shipping-fast"></i>
                         收件人資料
-                        <label style="float: right; font-size: 14px; font-weight: normal;">
+                        <label style="float: right; font-size: 14px; font-weight: normal; margin-left: auto;">
                             <input type="checkbox" id="sameAsBuyer" style="width: auto; margin-right: 5px;">
                             同購買人資料
                         </label>
@@ -421,7 +552,10 @@
 
                 <!-- 付款方式 -->
                 <div class="checkout-section" style="margin-top: 30px;">
-                    <h2 class="section-title">付款方式</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        付款方式
+                    </h2>
                     <div class="payment-options">
                         <label class="payment-option">
                             <input type="radio" name="payment" value="linepay" checked>
@@ -442,7 +576,10 @@
 
                 <!-- 訂單備註 -->
                 <div class="checkout-section" style="margin-top: 30px;">
-                    <h2 class="section-title">訂單備註</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-comment-dots"></i>
+                        訂單備註
+                    </h2>
                     <div class="form-group">
                         <label>備註內容</label>
                         <textarea id="orderNote" maxlength="500" placeholder="如有特殊需求請在此註明"></textarea>
@@ -464,7 +601,10 @@
             <!-- 右側：訂單摘要 -->
             <div>
                 <div class="checkout-section cart-summary">
-                    <h2 class="section-title">訂單摘要</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-receipt"></i>
+                        訂單摘要
+                    </h2>
                     <div id="cartItemsList"></div>
                     
                     <div style="margin-top: 20px;">
