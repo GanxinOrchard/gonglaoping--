@@ -219,6 +219,13 @@ function initProductCarousel() {
     
     if (!productsGrid || !prevBtn || !nextBtn) return;
     
+    // 如果商品數量 <= 3，不啟動輪播，隱藏按鈕
+    if (products.length <= 3) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        return;
+    }
+    
     // 左右按鈕點擊
     prevBtn.addEventListener('click', () => {
         stopAutoPlay();
@@ -294,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 渲染所有商品（輪播會顯示3個）
     renderProducts();
     
-    // 初始化輪播功能（只在桌面版）
+    // 初始化輪播功能（只在桌面版，且商品數量 > 3 時）
     const isHomePage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
     if (isHomePage && window.innerWidth > 768) {
         initProductCarousel();
