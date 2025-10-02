@@ -109,6 +109,7 @@ ul {
     /* 手機版導航列佈局 */
     .nav-content {
         justify-content: space-between !important;
+        padding-right: 70px !important;
     }
     
     .logo {
@@ -122,6 +123,12 @@ ul {
     .nav-icons {
         order: 2;
         margin-left: auto !important;
+        gap: 10px !important;
+    }
+    
+    /* 隱藏 nav-icons 中的漢堡按鈕，使用固定定位的 */
+    .nav-icons .mobile-menu-toggle {
+        display: none !important;
     }
 }
 
@@ -336,14 +343,23 @@ ul {
 
 .mobile-menu-toggle {
     display: none;
-    background: none;
-    border: none;
+    background: var(--white);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
     font-size: 24px;
     cursor: pointer;
-    color: var(--text-dark);
-    padding: 8px;
+    color: var(--primary-color);
+    padding: 10px 12px;
     z-index: 1000000;
     position: relative;
+    box-shadow: 0 2px 8px rgba(255, 140, 66, 0.3);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: scale(1.05);
 }
 
 
@@ -2742,8 +2758,20 @@ ul {
     
     .mobile-menu-toggle {
         display: block !important;
+        position: fixed !important;
+        top: 15px !important;
+        right: 15px !important;
         z-index: 1000000 !important;
-        position: relative !important;
+        background: var(--white) !important;
+        border: 2px solid var(--primary-color) !important;
+        border-radius: 8px !important;
+        padding: 10px 12px !important;
+        box-shadow: 0 4px 12px rgba(255, 140, 66, 0.4) !important;
+    }
+    
+    .mobile-menu-toggle.active {
+        background: var(--primary-color) !important;
+        color: var(--white) !important;
     }
     
     .hero-slider {
@@ -3114,15 +3142,15 @@ ul {
         top: 0 !important;
         right: -100% !important;
         left: auto !important;
-        width: 75% !important;
-        max-width: 320px !important;
+        width: 80% !important;
+        max-width: 350px !important;
         height: 100vh !important;
         background: var(--white) !important;
         box-shadow: -5px 0 20px rgba(0,0,0,0.3) !important;
         transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
         z-index: 999999 !important;
         overflow-y: auto !important;
-        padding: 20px 0 20px 0 !important;
+        padding: 80px 0 20px 0 !important;
         margin-top: 0 !important;
         border-top: none !important;
         display: block !important;

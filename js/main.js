@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (mainMenu) mainMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             if (mobileMenuToggle) {
+                mobileMenuToggle.classList.remove('active');
                 const icon = mobileMenuToggle.querySelector('i');
                 if (icon) {
                     icon.classList.remove('fa-times');
@@ -54,11 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isActive) {
                 // 關閉選單
                 mainMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
                 if (menuOverlay) menuOverlay.classList.remove('active');
                 document.body.style.overflow = '';
             } else {
                 // 開啟選單
                 mainMenu.classList.add('active');
+                mobileMenuToggle.classList.add('active');
                 if (menuOverlay) menuOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
