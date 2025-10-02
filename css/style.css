@@ -1104,22 +1104,57 @@ ul {
 }
 
 .category-btn {
-    background: var(--white);
+    background: linear-gradient(135deg, #fff 0%, #fff3e0 100%);
     color: var(--text-dark);
     border: 2px solid var(--primary-color);
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
     transition: all 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255, 140, 66, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
-.category-btn:hover,
+.category-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    transition: left 0.5s ease;
+}
+
+.category-btn:hover::before {
+    left: 100%;
+}
+
+.category-btn:hover {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 140, 66, 0.4);
+}
+
 .category-btn.active {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: var(--white);
     transform: translateY(-2px);
-    box-shadow: var(--shadow);
+    box-shadow: 0 6px 20px rgba(255, 140, 66, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 6px 20px rgba(255, 140, 66, 0.5);
+    }
+    50% {
+        box-shadow: 0 6px 25px rgba(255, 140, 66, 0.7);
+    }
 }
 
 /* ===== Category Products Carousel ===== */
@@ -1192,9 +1227,9 @@ ul {
 
 .product-card {
     background: var(--white);
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -1202,6 +1237,7 @@ ul {
     min-width: 300px;
     max-width: 100%;
     box-sizing: border-box;
+    border: 2px solid transparent;
 }
 
 .products-nav {
@@ -1244,8 +1280,9 @@ ul {
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(255, 140, 66, 0.25);
+    border-color: var(--primary-color);
 }
 
 .product-link {
@@ -1287,7 +1324,7 @@ ul {
 .product-image {
     position: relative;
     overflow: hidden;
-    height: 250px;
+    height: 280px;
 }
 
 .product-image img {
@@ -1301,20 +1338,95 @@ ul {
     transform: scale(1.1);
 }
 
+.badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: badgePulse 2s infinite;
+}
+
+.badge:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    border-radius: 20px;
+    animation: shimmer 3s infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* 不同標籤的顏色 */
+.badge[data-type="熱銷"],
+.product-card:has([alt*="椪柑"]) .badge {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+.badge[data-type="推薦"],
+.product-card:has([alt*="茂谷"]) .badge {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+.badge[data-type="批發"] {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+}
+
+.badge[data-type="經濟"] {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.badge[data-type="新品"] {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+}
+
 .product-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    left: 15px;
     background: var(--primary-color);
     color: var(--white);
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .product-info {
     padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-category {
@@ -1354,9 +1466,10 @@ ul {
 }
 
 .product-price {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     color: var(--primary-color);
+    margin-top: auto;
 }
 
 .product-price .currency {
