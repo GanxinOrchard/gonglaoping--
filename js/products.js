@@ -168,7 +168,7 @@ function searchProducts(query) {
 // 渲染分類商品輪播
 function renderCategoryCarousel() {
     const fruitProducts = products.filter(p => p.category === '優質水果');
-    const vegetableProducts = products.filter(p => p.category === '新鮮蔬菜');
+    const vegetableProducts = products.filter(p => p.category === '新鮮蔬果');
     
     renderCarouselProducts('fruitCarousel', fruitProducts);
     renderCarouselProducts('vegetableCarousel', vegetableProducts);
@@ -289,9 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 渲染所有商品（輪播會顯示3個）
     renderProducts();
     
-    // 初始化輪播功能
+    // 初始化輪播功能（只在桌面版）
     const isHomePage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
-    if (isHomePage) {
+    if (isHomePage && window.innerWidth > 768) {
         initProductCarousel();
     }
     
