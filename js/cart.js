@@ -442,9 +442,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 更新結帳摘要
                 updateCheckoutSummary();
             } else {
-                // 如果沒有模態框，可以跳轉到結帳頁面
-                showNotification('準備前往結帳...');
-                // window.location.href = 'checkout.html';
+                // 如果沒有模態框，使用 LINE 聯絡或顯示提示
+                showNotification('請透過 LINE 或電話聯絡我們完成訂購！');
+                
+                // 可選：自動開啟 LINE 或顯示聯絡資訊
+                const lineUrl = 'https://line.me/ti/p/YOUR_LINE_ID'; // 請替換為實際的 LINE ID
+                const phoneNumber = '0933-721-978';
+                
+                // 顯示聯絡選項
+                if (confirm('請選擇聯絡方式：\n\n確定 = LINE 聯絡\n取消 = 撥打電話')) {
+                    // window.open(lineUrl, '_blank');
+                    alert('請加入 LINE 官方帳號或撥打 ' + phoneNumber + ' 完成訂購');
+                } else {
+                    window.location.href = 'tel:' + phoneNumber;
+                }
             }
         });
     }
