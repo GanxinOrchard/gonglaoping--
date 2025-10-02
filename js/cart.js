@@ -203,6 +203,9 @@ function renderCartItems() {
     
     if (!cartItems) return;
     
+    // 清理無效的購物車項目
+    cart = cart.filter(item => item && item.id && item.name);
+    
     if (cart.length === 0) {
         cartItems.innerHTML = `
             <div class="empty-cart">
@@ -210,6 +213,7 @@ function renderCartItems() {
                 <p>購物車是空的</p>
             </div>
         `;
+        saveCart(); // 儲存清理後的購物車
         return;
     }
     
@@ -283,6 +287,16 @@ function clearCart() {
     appliedDiscount = null;
     saveCart();
     updateCartUI();
+    console.log('購物車已清空');
+}
+
+// 全域清除快取函數（供開發者使用）
+window.clearAllCache = function() {
+    localStorage.clear();
+    sessionStorage.clear();
+    cart = [];
+    console.log('所有快取已清除，請重新載入頁面');
+    location.reload();
 }
 
 // 顯示通知
