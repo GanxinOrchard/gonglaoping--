@@ -18,7 +18,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
             overflow: hidden;
         `;
         
@@ -48,7 +48,7 @@
         const left = Math.random() * 100; // 0-100%
         const animationDuration = Math.random() * 20 + 15; // 15-35秒
         const animationDelay = Math.random() * 5; // 0-5秒延遲
-        const opacity = Math.random() * 0.3 + 0.1; // 0.1-0.4
+        const opacity = Math.random() * 0.15 + 0.05; // 0.05-0.2 (更淡)
         
         orange.style.cssText = `
             position: absolute;
@@ -106,7 +106,18 @@
             /* 確保主要內容在動畫之上 */
             body > *:not(.orange-animation-container) {
                 position: relative;
-                z-index: 1;
+                z-index: 2;
+            }
+            
+            /* 卡片元素需要更高的 z-index */
+            .product-card,
+            .category-card,
+            .news-card,
+            .knowledge-card,
+            .feature-item,
+            .timeline-item {
+                position: relative;
+                z-index: 10;
             }
         `;
         
