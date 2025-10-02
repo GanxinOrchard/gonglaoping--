@@ -3190,7 +3190,7 @@ ul {
         margin: 0 !important;
     }
     
-    /* 手機選單背景遮罩 */
+    /* 手機選單背景遮罩 - 只覆蓋左側 */
     .menu-overlay {
         position: fixed !important;
         top: 0 !important;
@@ -3198,7 +3198,7 @@ ul {
         width: 100vw !important;
         height: 100vh !important;
         background: rgba(0, 0, 0, 0.5) !important;
-        z-index: 999997 !important;
+        z-index: 999998 !important;
         opacity: 0 !important;
         visibility: hidden !important;
         transition: all 0.3s ease !important;
@@ -3213,13 +3213,18 @@ ul {
         pointer-events: auto !important;
     }
     
+    /* 選單本身的 z-index 更高，確保在遮罩上方 */
+    .main-menu {
+        z-index: 999999 !important;
+    }
+    
     /* 確保選單內容可以點選 */
+    .main-menu *,
     .main-menu a,
     .main-menu button,
-    .main-menu li {
+    .main-menu li,
+    .main-menu ul {
         pointer-events: auto !important;
-        position: relative !important;
-        z-index: 999999 !important;
     }
     
     .main-menu > ul {
