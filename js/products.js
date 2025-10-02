@@ -2,7 +2,7 @@
 const products = [
     {
         id: 1,
-        name: '公老坪椪柑',
+        name: '公老坪椪柑 10斤裝',
         category: '優質水果',
         price: 680,
         image: 'images/椪柑產品圖/椪柑1.jpg',
@@ -33,7 +33,7 @@ const products = [
     },
     {
         id: 2,
-        name: '東勢茂谷柑',
+        name: '東勢茂谷柑 10斤裝',
         category: '優質水果',
         price: 850,
         image: 'images/茂谷柑產品圖/茂谷柑1.png',
