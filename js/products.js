@@ -19,10 +19,10 @@ const products = [
         shippingType: 'normal',
         hasSpecs: true,
         specs: [
-            { id: '23A', name: '23A', diameter: '7.3-7.5 cm', price: 680 },
-            { id: '25A', name: '25A', diameter: '7.6-7.8 cm', price: 780 },
-            { id: '27A', name: '27A', diameter: '7.9-8.1 cm', price: 880 },
-            { id: '30A', name: '30A', diameter: '8.2-8.5 cm', price: 980 }
+            { id: '23A', name: '23A', diameter: 'Ø 6.7-7.3 cm', price: 680 },
+            { id: '25A', name: '25A', diameter: 'Ø 7.3-7.9 cm', price: 780 },
+            { id: '27A', name: '27A', diameter: 'Ø 7.9-8.5 cm', price: 880 },
+            { id: '30A', name: '30A', diameter: 'Ø 8.5-9.5 cm', price: 980 }
         ]
     },
     {
@@ -44,10 +44,10 @@ const products = [
         shippingType: 'normal',
         hasSpecs: true,
         specs: [
-            { id: '23A', name: '23A', diameter: '7.3-7.5 cm', price: 850 },
-            { id: '25A', name: '25A', diameter: '7.6-7.8 cm', price: 950 },
-            { id: '27A', name: '27A', diameter: '7.9-8.1 cm', price: 1050 },
-            { id: '30A', name: '30A', diameter: '8.2-8.5 cm', price: 1150 }
+            { id: '23A', name: '23A', diameter: 'Ø 6.7-7.3 cm', price: 850 },
+            { id: '25A', name: '25A', diameter: 'Ø 7.3-7.9 cm', price: 950 },
+            { id: '27A', name: '27A', diameter: 'Ø 7.9-8.5 cm', price: 1050 },
+            { id: '30A', name: '30A', diameter: 'Ø 8.5-9.5 cm', price: 1150 }
         ]
     },
     {
