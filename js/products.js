@@ -125,9 +125,13 @@ function renderProducts(productsToRender = products) {
         return;
     }
     
-    console.log('Rendering products:', productsToRender.length);
+    // 首頁只顯示前 3 個商品
+    const isHomePage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
+    const displayProducts = isHomePage ? productsToRender.slice(0, 3) : productsToRender;
     
-    productsGrid.innerHTML = productsToRender.map(product => `
+    console.log('Rendering products:', displayProducts.length);
+    
+    productsGrid.innerHTML = displayProducts.map(product => `
         <div class="product-card" data-id="${product.id}">
             <a href="product-detail.html?id=${product.id}" class="product-link">
                 <div class="product-image">

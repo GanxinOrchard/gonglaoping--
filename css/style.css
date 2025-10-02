@@ -1388,7 +1388,7 @@ ul {
 .badge {
     position: absolute;
     top: 15px;
-    left: 15px;
+    right: 15px;
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 13px;
@@ -1459,7 +1459,7 @@ ul {
 .product-badge {
     position: absolute;
     top: 15px;
-    left: 15px;
+    right: 15px;
     background: var(--primary-color);
     color: var(--white);
     padding: 8px 16px;
@@ -3008,6 +3008,7 @@ ul {
         min-height: 450px !important;
     }
     
+    /* 手機版商品列表 */
     .products-grid {
         display: flex !important;
         flex-direction: column !important;
