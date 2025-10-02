@@ -2700,7 +2700,7 @@ ul {
         background: var(--white) !important;
         box-shadow: -5px 0 20px rgba(0,0,0,0.3) !important;
         transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        z-index: 150000 !important;
+        z-index: 999999 !important;
         overflow-y: auto !important;
         padding: 70px 0 20px 0 !important;
         margin-top: 0 !important;
@@ -2726,7 +2726,7 @@ ul {
         width: 100% !important;
         height: 100% !important;
         background: rgba(0, 0, 0, 0.5) !important;
-        z-index: 149999 !important;
+        z-index: 999998 !important;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
