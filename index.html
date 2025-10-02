@@ -126,35 +126,35 @@
         </div>
     </section>
 
-    <!-- 商品分類區 -->
-    <section class="category-section">
+    <!-- 產季時間軸 -->
+    <section class="season-timeline">
         <div class="container">
-            <h2 class="section-title">熱門分類</h2>
-            <div class="category-grid">
-                <a href="#gift-section" class="category-card">
-                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=禮盒專區" alt="禮盒專區">
-                    <h3>禮盒專區</h3>
-                </a>
-                <a href="#fruit-section" class="category-card">
-                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=優質水果" alt="優質水果">
-                    <h3>優質水果</h3>
-                </a>
-                <a href="#vegetable-section" class="category-card">
-                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=新鮮蔬菜" alt="新鮮蔬菜">
-                    <h3>新鮮蔬菜</h3>
-                </a>
-                <a href="#grain-section" class="category-card">
-                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=米、雜糧" alt="米、雜糧">
-                    <h3>米、雜糧</h3>
-                </a>
-                <a href="#processed-section" class="category-card">
-                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=加工食品" alt="加工食品">
-                    <h3>加工食品</h3>
-                </a>
-                <a href="#tea-section" class="category-card">
-                    <img src="https://via.placeholder.com/300x200/ff8c42/ffffff?text=茶葉飲品" alt="茶葉飲品">
-                    <h3>茶葉飲品</h3>
-                </a>
+            <h2 class="section-title">產季時間軸</h2>
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-month">1-2月</div>
+                    <div class="timeline-product">椪柑、茂谷柑</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">3-4月</div>
+                    <div class="timeline-product">春季蔬菜</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">5-6月</div>
+                    <div class="timeline-product">荔枝、芒果</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">7-8月</div>
+                    <div class="timeline-product">龍眼、菱角</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">9-10月</div>
+                    <div class="timeline-product">文旦、柚子</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">11-12月</div>
+                    <div class="timeline-product">柑橘類</div>
+                </div>
             </div>
         </div>
     </section>
@@ -165,6 +165,88 @@
             <h2 class="section-title">精選商品</h2>
             <div class="products-grid" id="productsGrid">
                 <!-- 商品將由 JavaScript 動態載入 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 最新消息 -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="section-title">最新消息</h2>
+            <div class="news-grid">
+                <a href="news-detail.html?id=2025-01-20" class="news-card">
+                    <div class="news-image">
+                        <img src="https://via.placeholder.com/400x250/ff8c42/ffffff?text=最新消息" alt="最新消息">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">2025.01.20</span>
+                        <h3>春節禮盒預購開跑</h3>
+                        <p>精選優質水果禮盒，送禮自用兩相宜...</p>
+                    </div>
+                </a>
+                <a href="news.html" class="news-card">
+                    <div class="news-image">
+                        <img src="https://via.placeholder.com/400x250/ff8c42/ffffff?text=最新消息" alt="最新消息">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">2025.01.15</span>
+                        <h3>茂谷柑產季到來</h3>
+                        <p>東勢茂谷柑正式上市，果肉飽滿香甜...</p>
+                    </div>
+                </a>
+                <a href="news.html" class="news-card">
+                    <div class="news-image">
+                        <img src="https://via.placeholder.com/400x250/ff8c42/ffffff?text=最新消息" alt="最新消息">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">2025.01.10</span>
+                        <h3>新品上架通知</h3>
+                        <p>冷凍菱角仁現貨供應中...</p>
+                    </div>
+                </a>
+            </div>
+            <div class="section-more">
+                <a href="news.html" class="btn-more">查看更多消息 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 蔬果知識 -->
+    <section class="knowledge-section">
+        <div class="container">
+            <h2 class="section-title">蔬果知識+</h2>
+            <div class="knowledge-grid">
+                <a href="knowledge-detail.html?id=2025-01-18" class="knowledge-card">
+                    <div class="knowledge-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>茂谷柑4刀6塊切法</h3>
+                    <p>輕鬆享用不沾手的切法技巧</p>
+                </a>
+                <a href="knowledge.html" class="knowledge-card">
+                    <div class="knowledge-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>椪柑保存方法</h3>
+                    <p>如何保持椪柑最新鮮的狀態</p>
+                </a>
+                <a href="knowledge.html" class="knowledge-card">
+                    <div class="knowledge-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h3>水果營養價值</h3>
+                    <p>了解各種水果的營養成分</p>
+                </a>
+                <a href="knowledge.html" class="knowledge-card">
+                    <div class="knowledge-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>有機農業介紹</h3>
+                    <p>認識友善環境的耕作方式</p>
+                </a>
+            </div>
+            <div class="section-more">
+                <a href="knowledge.html" class="btn-more">查看更多知識 <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>

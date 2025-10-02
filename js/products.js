@@ -236,22 +236,3 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             categoryBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            const category = btn.dataset.category;
-            filterByCategory(category);
-        });
-    });
-    
-    // 搜尋功能
-    const searchBtn = document.getElementById('searchBtn');
-{{ ... }}
-                searchProducts(searchInput.value);
-            }
-        });
-    }
-});
-
-// 確保函數在全域可用
-window.renderProducts = renderProducts;
-window.filterByCategory = filterByCategory;
-window.searchProducts = searchProducts;
