@@ -95,17 +95,21 @@ ul {
     .announcement-bar {
         font-size: 12px;
         padding: 10px 5px;
+        display: block !important;
+        visibility: visible !important;
+        z-index: 100 !important;
     }
     
     .announcement-content {
-        animation: scroll-text 15s linear infinite;
-        justify-content: flex-start;
-        padding-left: 100%;
+        display: inline-block !important;
+        animation: scroll-text 20s linear infinite;
+        white-space: nowrap !important;
+        padding-left: 0;
     }
     
     @keyframes scroll-text {
         0% {
-            transform: translateX(0);
+            transform: translateX(100%);
         }
         100% {
             transform: translateX(-100%);
@@ -322,6 +326,19 @@ ul {
     margin-top: 15px;
     border-top: 1px solid var(--border-color);
     padding-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .main-menu {
+        display: none !important;
+        margin-top: 0 !important;
+        border-top: none !important;
+        padding-top: 0 !important;
+    }
+    
+    .main-menu.active {
+        display: block !important;
+    }
 }
 
 .main-menu > ul {
