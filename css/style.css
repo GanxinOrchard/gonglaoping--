@@ -13,6 +13,12 @@
     --error-color: #f44336;
     --shadow: 0 2px 8px rgba(0,0,0,0.1);
     --shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+    --z-menu: 999999;
+    --z-menu-overlay: 999998;
+    --z-cart: 99999;
+    --z-cart-overlay: 99998;
+    --z-modal: 9999;
+    --z-header: 1000;
 }
 
 * {
@@ -55,6 +61,50 @@ a {
 
 ul {
     list-style: none;
+}
+
+/* ===== 全域 z-index 優先級（手機版） ===== */
+@media (max-width: 992px) {
+    /* 手機選單必須在最上層 */
+    #mainMenu,
+    .main-menu {
+        z-index: var(--z-menu) !important;
+    }
+    
+    #menuOverlay,
+    .menu-overlay {
+        z-index: var(--z-menu-overlay) !important;
+    }
+    
+    /* 其他元素降低優先級 */
+    .header,
+    header {
+        z-index: var(--z-header) !important;
+    }
+    
+    .cart-sidebar,
+    #cartSidebar {
+        z-index: var(--z-cart) !important;
+    }
+    
+    .cart-overlay,
+    #cartOverlay {
+        z-index: var(--z-cart-overlay) !important;
+    }
+    
+    .modal,
+    [class*="modal"] {
+        z-index: var(--z-modal) !important;
+    }
+    
+    /* 確保內容區域不會遮擋選單 */
+    .content-wrapper,
+    .floating-oranges,
+    .hero-slider,
+    section,
+    main {
+        z-index: auto !important;
+    }
 }
 
 /* ===== 跑馬燈 ===== */
@@ -138,7 +188,7 @@ ul {
     box-shadow: var(--shadow);
     position: sticky;
     top: 0;
-    z-index: 2000;
+    z-index: 1000;
 }
 
 .top-bar {
@@ -2455,6 +2505,19 @@ ul {
 
 /* ===== 響應式設計 ===== */
 @media (max-width: 992px) {
+    /* 確保手機選單在平板也顯示在最前面 */
+    .main-menu {
+        z-index: 999999 !important;
+    }
+    
+    .menu-overlay {
+        z-index: 999998 !important;
+    }
+    
+    .header {
+        z-index: 900 !important;
+    }
+    
     .top-bar-content {
         flex-direction: column;
         gap: 10px;
@@ -2536,6 +2599,36 @@ ul {
     body {
         overflow-x: hidden;
         position: relative;
+    }
+    
+    /* 確保手機選單永遠在最前面 */
+    .main-menu {
+        z-index: 999999 !important;
+    }
+    
+    .menu-overlay {
+        z-index: 999998 !important;
+    }
+    
+    /* 降低其他元素的 z-index */
+    .header {
+        z-index: 900 !important;
+    }
+    
+    .cart-sidebar {
+        z-index: 99999 !important;
+    }
+    
+    .cart-overlay {
+        z-index: 99998 !important;
+    }
+    
+    .modal {
+        z-index: 9999 !important;
+    }
+    
+    .image-lightbox {
+        z-index: 999999 !important;
     }
     
     .container {
