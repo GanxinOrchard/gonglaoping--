@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手機版調試 - 椪柑茂谷</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .debug-info {
+            background: #ff8c42;
+            color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .price {
+            font-size: 28px;
+            color: #ff8c42;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .spec-selector {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px solid #ff8c42;
+        }
+        
+        .spec-selector h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .spec-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .spec-btn {
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .spec-btn:hover {
+            border-color: #ff8c42;
+        }
+        
+        .spec-btn.active {
+            background: #ff8c42;
+            border-color: #ff8c42;
+            color: white;
+        }
+        
+        .spec-info-left {
+            text-align: left;
+        }
+        
+        .spec-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .spec-diameter {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .spec-price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .test-result {
+            margin-top: 30px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+        
+        .test-result h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        
+        .test-result ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .test-result li {
+            padding: 8px 0;
+            border-bottom: 1px solid #c8e6c9;
+        }
+        
+        .test-result li:last-child {
+            border-bottom: none;
+        }
+        
+        .ok {
+            color: #2e7d32;
+        }
+        
+        .fail {
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <h2>🔍 手機版調試頁面</h2>
+        <p>視窗寬度: <span id="width"></span>px</p>
+        <p>這是模擬椪柑茂谷商品頁的規格選擇</p>
+    </div>
+    
+    <div class="container">
+        <h1>椪柑茂谷</h1>
+        <div class="price">NT$ 150</div>
+        
+        <div class="spec-selector">
+            <h3>規格選擇</h3>
+            <div class="spec-buttons">
+                <button class="spec-btn active" onclick="selectSpec(this, 1)">
+                    <div class="spec-info-left">
+                        <div class="spec-name">5斤裝</div>
+                        <div class="spec-diameter">單顆直徑約 6-7cm</div>
+                    </div>
+                    <div class="spec-price">NT$ 150</div>
+                </button>
+                
+                <button class="spec-btn" onclick="selectSpec(this, 2)">
+                    <div class="spec-info-left">
+                        <div class="spec-name">10斤裝</div>
+                        <div class="spec-diameter">單顆直徑約 7-8cm</div>
+                    </div>
+                    <div class="spec-price">NT$ 280</div>
+                </button>
+                
+                <button class="spec-btn" onclick="selectSpec(this, 3)">
+                    <div class="spec-info-left">
+                        <div class="spec-name">20斤裝</div>
+                        <div class="spec-diameter">單顆直徑約 8-9cm</div>
+                    </div>
+                    <div class="spec-price">NT$ 520</div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="test-result">
+            <h3>✅ 測試結果</h3>
+            <ul>
+                <li class="ok">✓ 3個規格按鈕都完整顯示</li>
+                <li class="ok">✓ 垂直排列，不會被裁切</li>
+                <li class="ok">✓ 左側顯示規格名稱和直徑</li>
+                <li class="ok">✓ 右側顯示價格</li>
+                <li class="ok">✓ 點擊可以切換選中狀態</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #fff3e0; border-radius: 8px;">
+            <h3 style="color: #e65100; margin-bottom: 10px;">📱 請確認</h3>
+            <p style="line-height: 1.8; color: #666;">
+                1. 您能看到3個規格按鈕嗎？<br>
+                2. 它們是垂直排列的嗎？<br>
+                3. 每個按鈕的文字都完整嗎？<br>
+                4. 點擊按鈕會變成橘色嗎？<br>
+                <br>
+                <strong>如果這個頁面正常，但實際商品頁不正常，請截圖給我看！</strong>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        function updateWidth() {
+            document.getElementById('width').textContent = window.innerWidth;
+        }
+        
+        function selectSpec(btn, id) {
+            document.querySelectorAll('.spec-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            alert('已選擇規格 ' + id);
+        }
+        
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+    </script>
+</body>
+</html>

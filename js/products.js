@@ -5,13 +5,13 @@ const products = [
         name: '公老坪椪柑',
         category: '優質水果',
         price: 680,
-        image: 'images/商品一(椪柑果實).jpg',
+        image: 'images/椪柑產品圖/椪柑1.jpg',
         images: [
-            'images/商品一(椪柑果實).jpg',
-            'images/商品一(椪柑果實).jpg',
-            'images/商品一(椪柑果實).jpg',
-            'images/商品一(椪柑果實).jpg',
-            'images/商品一(椪柑果實).jpg'
+            'images/椪柑產品圖/椪柑1.jpg',
+            'images/椪柑產品圖/椪柑2.jpg',
+            'images/椪柑產品圖/椪柑3.png',
+            'images/椪柑產品圖/椪柑4.png',
+            'images/椪柑產品圖/椪柑5.png'
         ],
         description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
         badge: '熱銷',
@@ -30,13 +30,13 @@ const products = [
         name: '東勢茂谷柑',
         category: '優質水果',
         price: 850,
-        image: 'images/商品二(茂谷柑).png',
+        image: 'images/茂谷柑產品圖/茂谷柑1.png',
         images: [
-            'images/商品二(茂谷柑).png',
-            'images/商品二(茂谷柑).png',
-            'images/商品二(茂谷柑).png',
-            'images/商品二(茂谷柑).png',
-            'images/商品二(茂谷柑).png'
+            'images/茂谷柑產品圖/茂谷柑1.png',
+            'images/茂谷柑產品圖/茂谷柑2.png',
+            'images/茂谷柑產品圖/茂谷柑3.png',
+            'images/茂谷柑產品圖/茂谷柑4.png',
+            'images/茂谷柑產品圖/茂谷柑5.png'
         ],
         description: '果肉飽滿、香氣濃郁、甜度高。送禮自用兩相宜',
         badge: '推薦',
