@@ -13,6 +13,11 @@ const products = [
             'images/椪柑產品圖/椪柑4.png',
             'images/椪柑產品圖/椪柑5.png'
         ],
+        detailImages: [
+            'images/椪柑產品圖/椪柑商品介紹1.png',
+            'images/椪柑產品圖/椪柑商品介紹2.png',
+            'images/椪柑產品圖/椪柑商品介紹3.png'
+        ],
         description: '皮薄好剝、酸甜平衡、果香乾淨。冷藏後更清爽',
         badge: '熱銷',
         salesCount: 1250,
@@ -37,6 +42,11 @@ const products = [
             'images/茂谷柑產品圖/茂谷柑3.png',
             'images/茂谷柑產品圖/茂谷柑4.png',
             'images/茂谷柑產品圖/茂谷柑5.png'
+        ],
+        detailImages: [
+            'images/茂谷柑產品圖/茂谷柑商品介紹1.png',
+            'images/茂谷柑產品圖/茂谷柑商品介紹2.png',
+            'images/茂谷柑產品圖/茂谷柑商品介紹3.png'
         ],
         description: '果肉飽滿、香氣濃郁、甜度高。送禮自用兩相宜',
         badge: '推薦',

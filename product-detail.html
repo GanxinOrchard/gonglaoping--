@@ -614,6 +614,11 @@
         </div>
     </div>
 
+    <!-- 商品介紹圖片 -->
+    <div class="product-detail-images-section" id="productDetailImages" style="max-width: 1200px; margin: 50px auto; padding: 0 20px;">
+        <!-- 商品介紹圖片將由 JavaScript 動態載入 -->
+    </div>
+
     <!-- 購物車側邊欄 -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
@@ -829,6 +834,24 @@
             }
             
             featuresEl.innerHTML = features.map(f => `<li>${f}</li>`).join('');
+            
+            // 載入商品介紹圖片
+            loadProductDetailImages(product);
+        }
+        
+        function loadProductDetailImages(product) {
+            const detailImagesEl = document.getElementById('productDetailImages');
+            if (!detailImagesEl || !product.detailImages || product.detailImages.length === 0) {
+                if (detailImagesEl) detailImagesEl.style.display = 'none';
+                return;
+            }
+            
+            detailImagesEl.style.display = 'block';
+            detailImagesEl.innerHTML = product.detailImages.map(img => `
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <img src="${img}" alt="${product.name} 商品介紹" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                </div>
+            `).join('');
         }
         
         function changeQuantity(change) {
