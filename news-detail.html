@@ -118,6 +118,40 @@
             transform: translateX(-5px);
         }
         
+        .article-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .btn-orange {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+        }
+        
+        .btn-orange:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.4);
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+        }
+        
+        .btn-orange i {
+            font-size: 18px;
+        }
+        
         @media (max-width: 768px) {
             .article-title {
                 font-size: 28px;
@@ -284,6 +318,15 @@
                         
                         <h2>立即訂購</h2>
                         <p>產季限定，數量有限，售完為止。現在訂購，新鮮直送到府！</p>
+                        
+                        <div class="article-actions">
+                            <a href="news.html" class="btn-orange">
+                                <i class="fas fa-arrow-left"></i> 返回消息列表
+                            </a>
+                            <a href="news.html" class="btn-orange">
+                                <i class="fas fa-newspaper"></i> 查看更多消息
+                            </a>
+                        </div>
                     </div>
                 `
             },
@@ -320,6 +363,15 @@
                         <p><strong>現在預購享早鳥價，數量有限，欲購從速！</strong></p>
                         <p>預購期間：即日起至1月25日</p>
                         <p>出貨時間：1月底開始陸續出貨</p>
+                        
+                        <div class="article-actions">
+                            <a href="news.html" class="btn-orange">
+                                <i class="fas fa-arrow-left"></i> 返回消息列表
+                            </a>
+                            <a href="news.html" class="btn-orange">
+                                <i class="fas fa-newspaper"></i> 查看更多消息
+                            </a>
+                        </div>
                     </div>
                 `
             },
@@ -355,6 +407,15 @@
                         <p><strong>1月底前訂購享9折優惠，滿額再送精美提袋！</strong></p>
                         <p>優惠期限：即日起至1月31日</p>
                         <p>配送時間：春節前保證送達</p>
+                        
+                        <div class="article-actions">
+                            <a href="news.html" class="btn-orange">
+                                <i class="fas fa-arrow-left"></i> 返回消息列表
+                            </a>
+                            <a href="news.html" class="btn-orange">
+                                <i class="fas fa-newspaper"></i> 查看更多消息
+                            </a>
+                        </div>
                     </div>
                 `
             }

@@ -260,16 +260,43 @@ function showNotification(message) {
 document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
     
+    // 創建遮罩層（如果不存在）
+    let cartOverlay = document.getElementById('cartOverlay');
+    if (!cartOverlay) {
+        cartOverlay = document.createElement('div');
+        cartOverlay.id = 'cartOverlay';
+        cartOverlay.className = 'cart-overlay';
+        document.body.appendChild(cartOverlay);
+    }
+    
     // 購物車圖示點擊
     const cartIcon = document.getElementById('cartIcon');
     const floatingCartBtn = document.getElementById('floatingCartBtn');
     const cartSidebar = document.getElementById('cartSidebar');
     const closeCart = document.getElementById('closeCart');
     
+    // 打開購物車函數
+    function openCart() {
+        if (cartSidebar) {
+            cartSidebar.classList.add('active');
+            cartOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    // 關閉購物車函數
+    function closeCartSidebar() {
+        if (cartSidebar) {
+            cartSidebar.classList.remove('active');
+            cartOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+    
     if (cartIcon && cartSidebar) {
         cartIcon.addEventListener('click', (e) => {
             e.preventDefault();
-            cartSidebar.classList.add('active');
+            openCart();
         });
     }
     
@@ -277,22 +304,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (floatingCartBtn && cartSidebar) {
         floatingCartBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            cartSidebar.classList.add('active');
+            openCart();
         });
     }
     
     if (closeCart && cartSidebar) {
         closeCart.addEventListener('click', () => {
-            cartSidebar.classList.remove('active');
+            closeCartSidebar();
         });
     }
     
-    // 點擊側邊欄外部關閉
-    if (cartSidebar) {
-        cartSidebar.addEventListener('click', (e) => {
-            if (e.target === cartSidebar) {
-                cartSidebar.classList.remove('active');
-            }
+    // 點擊遮罩層關閉
+    if (cartOverlay) {
+        cartOverlay.addEventListener('click', () => {
+            closeCartSidebar();
         });
     }
     
