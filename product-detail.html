@@ -221,21 +221,92 @@
         }
         
         @media (max-width: 768px) {
+            .product-detail-container {
+                margin: 80px auto 30px;
+                padding: 0 15px;
+            }
+            
             .product-detail-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 20px;
             }
             
             .product-detail-image {
                 position: static;
+                width: 100%;
+            }
+            
+            .product-detail-image img {
+                width: 100%;
+                height: auto;
+                max-height: 400px;
+                object-fit: cover;
+            }
+            
+            .product-detail-info h1 {
+                font-size: 24px;
+            }
+            
+            .product-detail-price {
+                font-size: 28px;
+            }
+            
+            .product-detail-description {
+                font-size: 15px;
+            }
+            
+            .spec-selector {
+                margin: 20px 0;
+                padding: 20px 15px;
+            }
+            
+            .spec-selector h3 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            .spec-buttons {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .spec-btn {
+                padding: 15px;
+                width: 100%;
+            }
+            
+            .spec-name {
+                font-size: 16px;
+            }
+            
+            .spec-diameter {
+                font-size: 13px;
+            }
+            
+            .spec-price {
+                font-size: 15px;
             }
             
             .product-actions {
                 flex-direction: column;
+                gap: 15px;
+                width: 100%;
             }
             
-            .spec-buttons {
-                grid-template-columns: repeat(2, 1fr);
+            .quantity-selector {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn-add-to-cart-large {
+                width: 100%;
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .selected-spec-info {
+                font-size: 14px;
+                padding: 12px;
             }
         }
         
