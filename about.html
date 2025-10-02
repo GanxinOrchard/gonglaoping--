@@ -236,19 +236,26 @@
     <!-- 跑馬燈 -->
     <div class="announcement-bar">
         <div class="announcement-content">
-            <i class="fas fa-truck"></i>
-            <span>📦 滿 NT$1,800 免運｜產地直送</span>
+            <i class="fas fa-bullhorn"></i>
+            <span>🎉 新春優惠活動開跑！滿 NT$1,800 免運｜產地直送新鮮到府</span>
         </div>
     </div>
-
-    <!-- 導航欄 -->
+    
+    <!-- 導航列 -->
     <header class="header">
         <nav class="navbar">
             <div class="container">
                 <div class="nav-content">
-                    <div class="logo-mobile-wrapper">
-                        <a href="index.html" class="logo">
-                            <img src="./images/柑心果園販賣所-1.png" alt="柑心果園">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園">
+                        </a>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <a href="#" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
                         </a>
                         <button class="mobile-menu-toggle" id="mobileMenuToggle">
                             <i class="fas fa-bars"></i>
@@ -262,8 +269,10 @@
                         <li class="dropdown">
                             <a href="index.html#products">全部商品 <i class="fas fa-chevron-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="index.html#products">所有商品</a></li>
-                                <li><a href="product-detail.html">商品詳情</a></li>
+                                <li><a href="index.html#products" onclick="filterByCategory('全部'); return false;">所有商品</a></li>
+                                <li><a href="index.html#products" onclick="filterByCategory('優質水果'); return false;">優質水果</a></li>
+                                <li><a href="index.html#products" onclick="filterByCategory('新鮮蔬果'); return false;">新鮮蔬果</a></li>
+                                <li><a href="index.html#products" onclick="filterByCategory('冷凍食品'); return false;">冷凍食品</a></li>
                             </ul>
                         </li>
                         <li><a href="about.html" class="active">關於我們</a></li>
