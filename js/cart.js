@@ -1,5 +1,15 @@
+console.log('Cart.js loading...');
+
 // 購物車資料
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cart = [];
+try {
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+} catch (e) {
+    console.error('Failed to load cart from localStorage:', e);
+    cart = [];
+}
+
+console.log('Cart.js loaded successfully');
 
 // 運費設定
 const FREE_SHIPPING_THRESHOLD = 1800;
@@ -32,6 +42,10 @@ function addToCart(productId, specId = null, quantity = 1) {
         }
     } else {
         // 新版：使用 productId 和 specId
+        if (typeof products === 'undefined') {
+            console.error('Products array is not defined');
+            return;
+        }
         const product = products.find(p => p.id === productId);
         if (!product) {
             console.error('Product not found:', productId);
