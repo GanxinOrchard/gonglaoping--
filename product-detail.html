@@ -889,6 +889,7 @@
                     <div class="spec-info-left">
                         <div class="spec-name">${spec.name}</div>
                         ${spec.weight ? `<div class="spec-diameter">${spec.weight}</div>` : (spec.diameter ? `<div class="spec-diameter">${spec.diameter}</div>` : '')}
+                        ${spec.description ? `<div class="spec-description" style="font-size: 12px; color: #666; margin-top: 4px;">${spec.description}</div>` : ''}
                     </div>
                     <div class="spec-price">NT$ ${spec.price}</div>
                 </button>
