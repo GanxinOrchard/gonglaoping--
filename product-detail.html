@@ -700,9 +700,13 @@
             
             loadProductFeatures(currentProduct);
             
-            if (currentProduct.hasSpecs && currentProduct.specs) {
-                document.getElementById('specSelector').style.display = 'block';
-                renderSpecs();
+            // 顯示規格選擇
+            if (currentProduct.hasSpecs && currentProduct.specs && currentProduct.specs.length > 0) {
+                const specSelector = document.getElementById('specSelector');
+                if (specSelector) {
+                    specSelector.style.display = 'block';
+                    renderSpecs();
+                }
             }
             
             document.title = `${currentProduct.name} - 柑心果園`;
