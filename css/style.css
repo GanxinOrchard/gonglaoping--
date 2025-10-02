@@ -391,6 +391,13 @@ ul {
     z-index: 1;
 }
 
+@media (max-width: 768px) {
+    .hero-slider {
+        z-index: 1 !important;
+        position: relative !important;
+    }
+}
+
 .slider-container {
     height: 100%;
 }
@@ -2550,6 +2557,8 @@ ul {
     
     .hero-slider {
         height: 400px;
+        z-index: 1 !important;
+        position: relative !important;
     }
     
     .slide-content h1 {
@@ -2586,6 +2595,8 @@ ul {
     
     .hero-slider {
         height: 250px;
+        z-index: 1 !important;
+        position: relative !important;
     }
     
     .slide-content h1 {
