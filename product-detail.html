@@ -878,7 +878,7 @@
             const specs = currentProduct.specs;
             
             specButtons.innerHTML = specs.map((spec, index) => `
-                <button class="spec-btn ${index === 0 ? 'active' : ''}" onclick="selectSpec('${spec.id}')">
+                <button class="spec-btn ${index === 0 ? 'active' : ''}" onclick="selectSpec('${spec.id}', this)">
                     <div class="spec-info-left">
                         <div class="spec-name">${spec.name}</div>
                         ${spec.weight ? `<div class="spec-diameter">${spec.weight}</div>` : (spec.diameter ? `<div class="spec-diameter">${spec.diameter}</div>` : '')}
@@ -892,7 +892,7 @@
             }
         }
         
-        function selectSpec(specId) {
+        function selectSpec(specId, clickedElement) {
             const spec = currentProduct.specs.find(s => s.id === specId);
             if (!spec) return;
             
@@ -902,7 +902,16 @@
             document.querySelectorAll('.spec-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.closest('.spec-btn').classList.add('active');
+            
+            // 如果有傳入點擊的元素，就設為 active
+            if (clickedElement) {
+                const btn = clickedElement.closest ? clickedElement.closest('.spec-btn') : clickedElement;
+                if (btn) btn.classList.add('active');
+            } else {
+                // 否則根據 specId 找到對應的按鈕
+                const targetBtn = document.querySelector(`.spec-btn[onclick*="${specId}"]`);
+                if (targetBtn) targetBtn.classList.add('active');
+            }
             
             const specDetail = spec.weight ? spec.weight : (spec.diameter ? `單顆直徑約 ${spec.diameter}` : '');
             document.getElementById('specInfo').innerHTML = `
