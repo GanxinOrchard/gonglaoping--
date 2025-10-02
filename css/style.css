@@ -2528,19 +2528,39 @@ ul {
         padding: 30px 0;
     }
     
+    .products-section {
+        padding: 30px 0;
+    }
+    
     .products-grid {
         display: flex;
         flex-direction: column;
         gap: 20px;
+        padding: 0;
+        margin: 0;
     }
     
     .products-grid .product-card {
         width: 100%;
         max-width: 100%;
+        min-width: auto;
+        flex: none;
     }
     
     .product-image {
-        height: 300px;
+        height: 250px;
+    }
+    
+    .product-name {
+        font-size: 16px;
+    }
+    
+    .product-description {
+        font-size: 13px;
+    }
+    
+    .product-price {
+        font-size: 20px;
     }
     
     .news-grid {
