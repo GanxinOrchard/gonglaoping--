@@ -196,8 +196,13 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Products script loaded');
     console.log('Products count:', products.length);
     
-    // 渲染商品
-    renderProducts();
+    // 首頁只顯示前3個商品
+    const isHomePage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
+    if (isHomePage) {
+        renderProducts(products.slice(0, 3));
+    } else {
+        renderProducts();
+    }
     
     // 渲染分類輪播
     renderCategoryCarousel();

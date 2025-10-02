@@ -424,7 +424,18 @@ const policiesData = {
         title: '付款方式',
         content: `
             <h2>付款方式說明</h2>
-            <p>柑心果園提供多種安全便利的付款方式，請選擇最適合您的方式。</p>
+            <p>柑心果園提供安全便利的付款方式。</p>
+            
+            <div class="highlight-box">
+                <p><strong>運費說明</strong><br>
+                全館消費滿 NT$1,800 免運費！<br>
+                未滿 NT$1,800 需加收運費 NT$150</p>
+            </div>
+            
+            <div class="highlight-box">
+                <p><strong>發票說明</strong><br>
+                如需開立發票，需加收 5% 營業稅</p>
+            </div>
             
             <h2>💳 銀行匯款（ATM 轉帳）</h2>
             <h3>匯款資訊</h3>
@@ -477,18 +488,6 @@ const policiesData = {
                 <li>✅ 自動記錄交易明細</li>
             </ul>
             
-            <h2>📦 貨到付款</h2>
-            <h3>使用方式</h3>
-            <p>選擇貨到付款後，商品送達時直接付款給物流司機即可。</p>
-            
-            <h3>注意事項</h3>
-            <ul>
-                <li>💰 需加收手續費 NT$30</li>
-                <li>💵 請準備現金，恕不找零大鈔</li>
-                <li>📝 請當場點收商品並索取收據</li>
-                <li>⚠️ 若無人收件或拒收，需負擔來回運費</li>
-            </ul>
-            
             <h2>發票說明</h2>
             <h3>電子發票</h3>
             <p>我們提供電子發票服務：</p>
@@ -510,7 +509,6 @@ const policiesData = {
             <ul>
                 <li>銀行匯款：退款至您的指定帳戶（3-5 個工作天）</li>
                 <li>LINE Pay：原路退回 LINE Pay 帳戶（1-3 個工作天）</li>
-                <li>貨到付款：以銀行匯款方式退款（需提供帳戶資訊）</li>
             </ul>
             
             <div class="highlight-box">
@@ -521,7 +519,11 @@ const policiesData = {
                 ⏰ 週一至週五 12:00-18:00</p>
             </div>
         `
-    },
+    }
+};
+
+// 移除會員相關內容
+/*
     'membership': {
         title: '會員權益',
         content: `
@@ -758,7 +760,7 @@ const policiesData = {
             </ul>
         `
     }
-};
+*/
 
 // 載入政策內容
 document.addEventListener('DOMContentLoaded', function() {
