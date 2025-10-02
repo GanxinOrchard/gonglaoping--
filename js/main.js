@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mainMenu = document.getElementById('mainMenu');
     
-    // 創建手機選單遮罩
+    // 創建手機選單遮罩（只在手機版）
     let menuOverlay = document.getElementById('menuOverlay');
-    if (!menuOverlay && window.innerWidth <= 768) {
+    if (!menuOverlay) {
         menuOverlay = document.createElement('div');
         menuOverlay.id = 'menuOverlay';
         menuOverlay.className = 'menu-overlay';
@@ -31,42 +31,47 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 點擊遮罩關閉選單
         menuOverlay.addEventListener('click', () => {
-            mainMenu.classList.remove('active');
+            if (mainMenu) mainMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+            if (mobileMenuToggle) {
+                const icon = mobileMenuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             }
             document.body.style.overflow = '';
         });
     }
     
     if (mobileMenuToggle && mainMenu) {
-        mobileMenuToggle.addEventListener('click', () => {
-            mainMenu.classList.toggle('active');
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // 控制遮罩層
-            if (menuOverlay) {
-                menuOverlay.classList.toggle('active');
-            }
+            const isActive = mainMenu.classList.contains('active');
             
-            // 控制body滾動
-            if (mainMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
+            if (isActive) {
+                // 關閉選單
+                mainMenu.classList.remove('active');
+                if (menuOverlay) menuOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+            } else {
+                // 開啟選單
+                mainMenu.classList.add('active');
+                if (menuOverlay) menuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
             
             // 切換圖示
             const icon = mobileMenuToggle.querySelector('i');
             if (icon) {
-                if (mainMenu.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
+                if (isActive) {
                     icon.classList.remove('fa-times');
                     icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
                 }
             }
         });
