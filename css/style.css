@@ -342,7 +342,7 @@ ul {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    z-index: 100;
+    z-index: 10001;
 }
 
 .dropdown:hover .dropdown-menu {
