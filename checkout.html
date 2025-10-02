@@ -607,10 +607,28 @@
                     </h2>
                     <div id="cartItemsList"></div>
                     
+                    <!-- 折扣碼 -->
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <label style="font-weight: 600; margin-bottom: 10px; display: block; color: #2c3e50;">
+                            <i class="fas fa-tag"></i> 折扣碼
+                        </label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="discountCodeInput" placeholder="輸入折扣碼" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;">
+                            <button onclick="applyDiscountCode()" style="padding: 10px 20px; background: var(--secondary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; white-space: nowrap;">
+                                套用
+                            </button>
+                        </div>
+                        <div id="discountMessage" style="margin-top: 10px; font-size: 13px; display: none;"></div>
+                    </div>
+                    
                     <div style="margin-top: 20px;">
                         <div class="summary-row">
                             <span>商品總金額</span>
                             <span id="summarySubtotal">NT$ 0</span>
+                        </div>
+                        <div class="summary-row" id="discountRow" style="display: none; color: #27ae60;">
+                            <span>折扣優惠</span>
+                            <span id="summaryDiscount">-NT$ 0</span>
                         </div>
                         <div class="summary-row">
                             <span>運費</span>
@@ -651,6 +669,159 @@
     <script src="./js/cart.js"></script>
     <script src="./js/main.js"></script>
     <script>
+        // 折扣碼規則（有期限限制）
+        const discountCodes = {
+            'WELCOME2025': {
+                type: 'percentage',
+                value: 10,
+                description: '新春優惠 10% 折扣',
+                minAmount: 500,
+                validFrom: '2025-01-01',
+                validUntil: '2025-03-31'
+            },
+            'FRUIT100': {
+                type: 'fixed',
+                value: 100,
+                description: '滿千折百',
+                minAmount: 1000,
+                validFrom: '2025-01-01',
+                validUntil: '2025-12-31'
+            },
+            'SPRING20': {
+                type: 'percentage',
+                value: 20,
+                description: '春季限定 20% 折扣',
+                minAmount: 800,
+                validFrom: '2025-03-01',
+                validUntil: '2025-05-31'
+            },
+            'VIP15': {
+                type: 'percentage',
+                value: 15,
+                description: 'VIP會員專屬 15% 折扣',
+                minAmount: 0,
+                validFrom: '2025-01-01',
+                validUntil: '2025-12-31'
+            },
+            'NEWYEAR200': {
+                type: 'fixed',
+                value: 200,
+                description: '新年特惠折 200 元',
+                minAmount: 1500,
+                validFrom: '2025-01-01',
+                validUntil: '2025-02-28'
+            }
+        };
+        
+        let appliedDiscount = null;
+        
+        // 檢查折扣碼是否有效
+        function isDiscountCodeValid(code) {
+            const discount = discountCodes[code.toUpperCase()];
+            if (!discount) return { valid: false, message: '折扣碼無效' };
+            
+            const now = new Date();
+            const validFrom = new Date(discount.validFrom);
+            const validUntil = new Date(discount.validUntil);
+            validUntil.setHours(23, 59, 59, 999); // 設定到當天結束
+            
+            if (now < validFrom) {
+                return { valid: false, message: `此折扣碼將於 ${discount.validFrom} 開始生效` };
+            }
+            
+            if (now > validUntil) {
+                return { valid: false, message: '此折扣碼已過期' };
+            }
+            
+            return { valid: true, discount: discount };
+        }
+        
+        // 套用折扣碼
+        function applyDiscountCode() {
+            const input = document.getElementById('discountCodeInput');
+            const code = input.value.trim().toUpperCase();
+            const messageDiv = document.getElementById('discountMessage');
+            
+            if (!code) {
+                showDiscountMessage('請輸入折扣碼', 'error');
+                return;
+            }
+            
+            const validation = isDiscountCodeValid(code);
+            
+            if (!validation.valid) {
+                showDiscountMessage(validation.message, 'error');
+                appliedDiscount = null;
+                updateCartSummary();
+                return;
+            }
+            
+            const discount = validation.discount;
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            if (subtotal < discount.minAmount) {
+                showDiscountMessage(`此折扣碼需消費滿 NT$ ${discount.minAmount.toLocaleString()}`, 'error');
+                appliedDiscount = null;
+                updateCartSummary();
+                return;
+            }
+            
+            appliedDiscount = discount;
+            showDiscountMessage(`✓ ${discount.description}`, 'success');
+            updateCartSummary();
+        }
+        
+        // 顯示折扣訊息
+        function showDiscountMessage(message, type) {
+            const messageDiv = document.getElementById('discountMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.display = 'block';
+            messageDiv.style.color = type === 'success' ? '#27ae60' : '#e74c3c';
+            messageDiv.style.fontWeight = type === 'success' ? '600' : 'normal';
+        }
+        
+        // 計算折扣金額
+        function calculateDiscount(subtotal) {
+            if (!appliedDiscount) return 0;
+            
+            if (appliedDiscount.type === 'percentage') {
+                return Math.floor(subtotal * appliedDiscount.value / 100);
+            } else if (appliedDiscount.type === 'fixed') {
+                return appliedDiscount.value;
+            }
+            
+            return 0;
+        }
+        
+        // 更新購物車摘要
+        function updateCartSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const discount = calculateDiscount(subtotal);
+            const shipping = (subtotal - discount) >= 1800 ? 0 : 150;
+            const total = subtotal - discount + shipping;
+            
+            document.getElementById('summarySubtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
+            document.getElementById('summaryShipping').innerHTML = shipping === 0 
+                ? '<span style="color: #27ae60;">免運費</span>' 
+                : `NT$ ${shipping.toLocaleString()}`;
+            document.getElementById('summaryTotal').textContent = `NT$ ${total.toLocaleString()}`;
+            
+            // 顯示/隱藏折扣行
+            const discountRow = document.getElementById('discountRow');
+            if (discount > 0) {
+                discountRow.style.display = 'flex';
+                document.getElementById('summaryDiscount').textContent = `-NT$ ${discount.toLocaleString()}`;
+            } else {
+                discountRow.style.display = 'none';
+            }
+            
+            document.getElementById('shippingNotice').textContent = shipping === 0 
+                ? '✓ 已達免運門檻' 
+                : `再消費 NT$ ${(1800 - (subtotal - discount)).toLocaleString()} 即可免運`;
+        }
+        
         // 載入購物車資料
         function loadCartSummary() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
