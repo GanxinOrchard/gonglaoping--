@@ -262,15 +262,33 @@ function updateCartTotal() {
     const shipping = (subtotal > 0 && subtotal >= FREE_SHIPPING_THRESHOLD) ? 0 : (subtotal > 0 ? SHIPPING_FEE : 0);
     const total = Math.max(0, subtotal - discount + shipping);
     
-    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    console.log('更新購物車總計:', { subtotal, discount, shipping, total });
+    
+    if (subtotalEl) {
+        subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
+        console.log('已更新小計');
+    } else {
+        console.warn('找不到 subtotal 元素');
+    }
+    
     if (shippingEl) {
         if (shipping === 0 && subtotal > 0) {
             shippingEl.innerHTML = '<span style="color: #27ae60;">免運費</span>';
+            console.log('顯示免運費');
         } else {
             shippingEl.textContent = `NT$ ${shipping.toLocaleString()}`;
+            console.log('顯示運費:', shipping);
         }
+    } else {
+        console.warn('找不到 shippingFee 元素');
     }
-    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
+    
+    if (totalEl) {
+        totalEl.textContent = `NT$ ${total.toLocaleString()}`;
+        console.log('已更新總計');
+    } else {
+        console.warn('找不到 total 元素');
+    }
     
     if (discount > 0 && discountAmountEl && discountValueEl) {
         discountAmountEl.style.display = 'flex';
