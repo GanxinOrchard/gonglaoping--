@@ -2612,14 +2612,13 @@ ul {
         box-sizing: border-box !important;
     }
     
-    .btn-view-detail {
+    .product-card .btn-view-detail {
         width: 100% !important;
         box-sizing: border-box !important;
         padding: 12px !important;
         font-size: 14px !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
     }
     
     /* 隱藏手機版輪播按鈕 */
@@ -2809,5 +2808,46 @@ ul {
     
     .modal-body {
         padding: 20px;
+    }
+    
+    /* 商品詳情頁手機版 */
+    .product-detail-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    
+    .product-detail-image {
+        position: static !important;
+    }
+    
+    .product-detail-info h1 {
+        font-size: 24px !important;
+    }
+    
+    .product-detail-price {
+        font-size: 28px !important;
+    }
+    
+    .spec-selector {
+        padding: 15px !important;
+    }
+    
+    .spec-buttons {
+        flex-wrap: wrap !important;
+    }
+    
+    .spec-btn {
+        flex: 1 1 45% !important;
+        min-width: 120px !important;
+    }
+    
+    .product-actions {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    
+    .quantity-selector {
+        width: 100% !important;
+        justify-content: center !important;
     }
 }
