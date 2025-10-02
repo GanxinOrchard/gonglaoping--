@@ -125,11 +125,11 @@ ul {
 
 /* ===== Header ===== */
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
     background: var(--white);
     box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 10000;
 }
 
 .top-bar {
@@ -752,11 +752,18 @@ ul {
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
 }
 
 .month-item:hover {
     transform: translateY(-5px) scale(1.05);
     box-shadow: var(--shadow-hover);
+}
+
+.month-item:hover .month-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-10px);
 }
 
 .month-icon {
@@ -768,6 +775,36 @@ ul {
     font-size: 14px;
     font-weight: 600;
     color: var(--text-dark);
+}
+
+.month-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background: var(--white);
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    font-size: 13px;
+    color: var(--text-dark);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+    pointer-events: none;
+    margin-bottom: 8px;
+}
+
+.month-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--white);
 }
 
 .month-item.in-season {
@@ -2506,52 +2543,54 @@ ul {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 80%;
-        max-width: 300px;
+        width: 70%;
+        max-width: 280px;
         height: 100vh;
         background: var(--white);
         box-shadow: -2px 0 10px rgba(0,0,0,0.1);
         transition: right 0.3s ease;
-        z-index: 9999;
+        z-index: 99999;
         overflow-y: auto;
-        padding-top: 60px;
+        padding: 20px 0;
+        margin-top: 0;
+        border-top: none;
     }
     
     .main-menu.active {
         right: 0;
     }
     
-    .main-menu ul {
+    .main-menu > ul {
         flex-direction: column;
-        padding: 20px;
+        padding: 0;
+        gap: 0;
     }
     
-    .main-menu ul li {
+    .main-menu > ul > li {
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--border-color);
     }
     
-    .main-menu ul li a {
+    .main-menu > ul > li > a {
         display: block;
-        padding: 12px 15px;
-        border-radius: 8px;
+        padding: 15px 20px;
+        border-radius: 0;
         transition: background 0.3s ease;
     }
     
-    .main-menu ul li a:hover,
-    .main-menu ul li a.active {
+    .main-menu > ul > li > a:hover,
+    .main-menu > ul > li > a.active {
         background: var(--bg-light);
         color: var(--primary-color);
     }
     
-    .mobile-menu-toggle {
-        display: block !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .products-grid {
-        grid-template-columns: 1fr;
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        padding-left: 20px;
     }
     
     .category-grid {

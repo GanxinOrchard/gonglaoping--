@@ -187,41 +187,6 @@ function renderCarouselProducts(containerId, productsToRender) {
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
-    renderProducts();
-    renderCategoryCarousel();
-    
-    // 分類篩選
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const category = btn.dataset.category;
-            filterByCategory(category);
-            
-            // 更新按鈕狀態
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        });
-    });
-    
-    // Tab 切換
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tab = btn.dataset.tab;
-            
-            // 更新按鈕狀態
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // 更新內容顯示
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(`${tab}-tab`).classList.add('active');
-        });
-    });
-    
-    // 初始化
-document.addEventListener('DOMContentLoaded', () => {
     console.log('Products loaded:', products.length);
     
     // 渲染商品
@@ -233,6 +198,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 分類篩選按鈕
     const categoryBtns = document.querySelectorAll('.category-btn');
     categoryBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             categoryBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            const category = btn.dataset.category;
+            filterByCategory(category);
