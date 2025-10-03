@@ -266,28 +266,18 @@ function updateCartTotal() {
     
     if (subtotalEl) {
         subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
-        console.log('已更新小計');
-    } else {
-        console.warn('找不到 subtotal 元素');
     }
     
     if (shippingEl) {
         if (shipping === 0 && subtotal > 0) {
             shippingEl.innerHTML = '<span style="color: #27ae60;">免運費</span>';
-            console.log('顯示免運費');
         } else {
             shippingEl.textContent = `NT$ ${shipping.toLocaleString()}`;
-            console.log('顯示運費:', shipping);
         }
-    } else {
-        console.warn('找不到 shippingFee 元素');
     }
     
     if (totalEl) {
         totalEl.textContent = `NT$ ${total.toLocaleString()}`;
-        console.log('已更新總計');
-    } else {
-        console.warn('找不到 total 元素');
     }
     
     if (discount > 0 && discountAmountEl && discountValueEl) {
@@ -458,8 +448,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            console.log('結帳按鈕被點擊');
-            
             // 跳轉到結帳頁面或開啟結帳模態框
             const checkoutModal = document.getElementById('checkoutModal');
             if (checkoutModal) {
@@ -474,12 +462,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCheckoutSummary();
             } else {
                 // 如果沒有模態框，跳轉到結帳頁面
-                console.log('準備跳轉到結帳頁面');
                 // 先關閉購物車側邊欄
                 closeCartSidebar();
                 // 使用 setTimeout 確保動畫完成後再跳轉
                 setTimeout(() => {
-                    console.log('執行跳轉');
                     window.location.href = 'checkout.html';
                 }, 300);
             }
