@@ -127,20 +127,13 @@
                 <div class="main-menu" id="mainMenu">
                     <ul>
                         <li><a href="index.html" class="active">首頁</a></li>
-                        <li class="dropdown">
-                            <a href="#products">全部商品 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#products" onclick="filterByCategory('全部'); return false;">所有商品</a></li>
-                                <li><a href="#products" onclick="filterByCategory('優質水果'); return false;">優質水果</a></li>
-                                <li><a href="#products" onclick="filterByCategory('新鮮蔬果'); return false;">新鮮蔬果</a></li>
-                                <li><a href="#products" onclick="filterByCategory('冷凍食品'); return false;">冷凍食品</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="products.html">全部商品</a></li>
+                        <li><a href="grading.html">規格分級</a></li>
+                        <li><a href="season.html">產季資訊</a></li>
                         <li><a href="about.html">關於我們</a></li>
                         <li><a href="news.html">最新消息</a></li>
                         <li><a href="knowledge.html">蔬果知識</a></li>
                         <li><a href="contact.html">聯絡我們</a></li>
-                        <li><a href="order-tracking.html">訂單查詢</a></li>
                     </ul>
                 </div>
             </div>
@@ -161,37 +154,31 @@
         </div>
     </section>
 
-    <!-- 品牌特色 -->
+    <!-- 三大賣點 -->
     <section class="features">
         <div class="container">
-            <div class="features-grid">
+            <h2 class="section-title">為什麼選擇柑心果園</h2>
+            <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1000px; margin: 0 auto;">
                 <div class="feature-item">
-                    <div class="feature-icon">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
                         <i class="fas fa-leaf"></i>
                     </div>
-                    <h3>友善農友</h3>
-                    <p>平台無抽成、無上架費用，由農友自行定價，降低消費者購買金額</p>
+                    <h3>友善農法栽培</h3>
+                    <p>草生管理、友善防治、土壤養護<br>不使用除草劑，讓您吃得更安心健康</p>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-seedling"></i>
-                    </div>
-                    <h3>友善環境</h3>
-                    <p>生態保育、產地直送、降低碳排，落實良好農業規範</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
                         <i class="fas fa-certificate"></i>
                     </div>
-                    <h3>安全驗證</h3>
-                    <p>商品通過安全驗證報告，讓您買得安心，守護健康</p>
+                    <h3>安全驗證保障</h3>
+                    <p>產銷履歷認證、農藥殘留檢驗<br>每批商品都經過嚴格把關，品質有保證</p>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-truck-fast"></i>
                     </div>
-                    <h3>安心保障</h3>
-                    <p>專人客服、換貨服務，24小時內回應問題</p>
+                    <h3>現採產地直送</h3>
+                    <p>採收後 24-48 小時內配送<br>新鮮直達您家，保留最佳風味和營養</p>
                 </div>
             </div>
         </div>
