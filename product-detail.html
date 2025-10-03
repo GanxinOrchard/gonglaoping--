@@ -23,10 +23,36 @@
         
         /* ===== 商品詳情頁專用樣式 ===== */
         
+        /* 麵包屑導航 */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 100px auto 20px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .breadcrumb-separator {
+            color: #999;
+        }
+        
         /* 桌面版樣式 */
         .product-detail-container {
             max-width: 1200px;
-            margin: 100px auto 50px;
+            margin: 20px auto 50px;
             padding: 0 20px;
             width: 100%;
             box-sizing: border-box;
@@ -565,6 +591,15 @@
         </nav>
     </header>
 
+    <!-- 麵包屑導航 -->
+    <nav class="breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="products.html">全部商品</a>
+        <span class="breadcrumb-separator">/</span>
+        <span id="breadcrumbProductName">商品詳情</span>
+    </nav>
+
     <!-- 商品詳情 -->
     <div class="product-detail-container">
         <div class="product-detail-grid">
@@ -877,6 +912,12 @@
             document.getElementById('productPrice').textContent = currentProduct.price;
             document.getElementById('productDescription').textContent = currentProduct.description;
             document.getElementById('salesCount').textContent = currentProduct.salesCount || 0;
+            
+            // 更新麵包屑
+            const breadcrumbName = document.getElementById('breadcrumbProductName');
+            if (breadcrumbName) {
+                breadcrumbName.textContent = currentProduct.name;
+            }
             
             loadProductFeatures(currentProduct);
             
