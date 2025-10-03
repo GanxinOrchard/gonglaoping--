@@ -634,6 +634,42 @@
                     <ul id="productFeatures"></ul>
                 </div>
                 
+                <!-- 風味指標 -->
+                <div class="flavor-indicators" id="flavorIndicators" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 18px;">
+                        <i class="fas fa-star"></i> 風味指標
+                    </h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div class="flavor-item">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-weight: 600; color: #555;">🍯 甜度</span>
+                                <span id="sweetnessValue" style="color: var(--primary-color); font-weight: 700;">-</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div id="sweetnessBar" style="background: linear-gradient(90deg, #ffd700, #ff8c00); height: 100%; width: 0%; transition: width 0.5s;"></div>
+                            </div>
+                        </div>
+                        <div class="flavor-item">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-weight: 600; color: #555;">🍋 酸度</span>
+                                <span id="acidityValue" style="color: var(--primary-color); font-weight: 700;">-</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div id="acidityBar" style="background: linear-gradient(90deg, #90ee90, #32cd32); height: 100%; width: 0%; transition: width 0.5s;"></div>
+                            </div>
+                        </div>
+                        <div class="flavor-item">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-weight: 600; color: #555;">🌸 香氣</span>
+                                <span id="aromaValue" style="color: var(--primary-color); font-weight: 700;">-</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div id="aromaBar" style="background: linear-gradient(90deg, #ff69b4, #ff1493); height: 100%; width: 0%; transition: width 0.5s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- 預購提示 -->
                 <div id="preorderNotice" style="display: none; background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
                     <div style="display: flex; align-items: center; gap: 10px;">
@@ -741,6 +777,55 @@
                 <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #dc3545;">
                     <p style="margin: 8px 0;"><strong style="color: #dc3545;">❌ 不受理情形：</strong>主觀風味不符、自然外觀差異、未依保存方式造成變質、超時通報、拆分食用後欲退換等。</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 常見問題 FAQ -->
+    <div class="product-faq-section" style="max-width: 1200px; margin: 50px auto; padding: 0 20px;">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 40px; font-size: 28px;">
+            <i class="fas fa-question-circle"></i> 常見問題
+        </h2>
+        <div class="faq-container" style="display: grid; gap: 20px;">
+            <div class="faq-item" style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border-left: 4px solid var(--primary-color);">
+                <h3 style="color: #2c3e50; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-box" style="color: var(--primary-color);"></i>
+                    如何選擇適合的規格？
+                </h3>
+                <p style="color: #666; line-height: 1.8; margin: 0;">
+                    規格大小主要影響外觀，甜度取決於栽培和成熟度。<strong>家庭自用建議選 23A/25A</strong>（經濟實惠），<strong>送禮推薦 27A/30A</strong>（外觀大方）。詳細說明請參考 <a href="grading.html" style="color: var(--primary-color); text-decoration: underline;">規格分級頁面</a>。
+                </p>
+            </div>
+            
+            <div class="faq-item" style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border-left: 4px solid var(--secondary-color);">
+                <h3 style="color: #2c3e50; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-snowflake" style="color: var(--secondary-color);"></i>
+                    如何保存才能延長新鮮度？
+                </h3>
+                <p style="color: #666; line-height: 1.8; margin: 0;">
+                    收到後請置於<strong>陰涼通風處</strong>，避免陽光直射。若想延長保存，可放入<strong>冷藏保存</strong>（建議 2 週內食用完畢）。食用前 30 分鐘取出回溫，風味更佳。
+                </p>
+            </div>
+            
+            <div class="faq-item" style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border-left: 4px solid #3498db;">
+                <h3 style="color: #2c3e50; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-truck" style="color: #3498db;"></i>
+                    什麼時候會出貨？多久會到？
+                </h3>
+                <p style="color: #666; line-height: 1.8; margin: 0;">
+                    <strong>週一至週五出貨</strong>，15:00 前完成訂單優先安排。本島約 <strong>1-2 個工作天</strong>到貨，偏遠地區約 2-4 天。預購商品將於產季到貨後依訂單順序出貨，請耐心等候。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 相關商品推薦 -->
+    <div class="related-products-section" style="max-width: 1200px; margin: 50px auto 80px; padding: 0 20px;">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 40px; font-size: 28px;">
+            <i class="fas fa-heart"></i> 您可能也喜歡
+        </h2>
+        <div id="relatedProductsGrid" class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px;">
+            <!-- 相關商品將由 JavaScript 動態載入 -->
 
                 <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #0066cc;">
                     <p style="margin: 8px 0;"><strong style="color: #0066cc;">📞 爭議處理：</strong>依消費者保護法及相關規定辦理；亦可撥打 <strong>1950</strong> 全國消費者服務專線協助。</p>
@@ -920,6 +1005,8 @@
             }
             
             loadProductFeatures(currentProduct);
+            loadFlavorIndicators(currentProduct);
+            loadRelatedProducts(currentProduct);
             
             // 顯示預購提示和更改按鈕文字
             if (currentProduct.isPreorder) {
@@ -1047,15 +1134,85 @@
         
         function loadProductDetailImages(product) {
             const detailImagesEl = document.getElementById('productDetailImages');
-            if (!detailImagesEl || !product.detailImages || product.detailImages.length === 0) {
-                if (detailImagesEl) detailImagesEl.style.display = 'none';
+            if (!detailImagesEl) return;
+            
+            if (!product.detailImages || product.detailImages.length === 0) {
+                detailImagesEl.style.display = 'none';
                 return;
             }
             
             detailImagesEl.style.display = 'block';
             detailImagesEl.innerHTML = product.detailImages.map(img => `
                 <div style="margin-bottom: 20px; text-align: center;">
-                    <img src="${img}" alt="${product.name} 商品介紹" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <img src="${img}" alt="${product.name} 商品介紹" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            `).join('');
+        }
+        
+        // 載入風味指標
+        function loadFlavorIndicators(product) {
+            const flavorSection = document.getElementById('flavorIndicators');
+            if (!flavorSection) return;
+            
+            // 只有水果類商品顯示風味指標
+            if (product.category !== '優質水果') {
+                flavorSection.style.display = 'none';
+                return;
+            }
+            
+            // 設定預設風味值
+            const sweetness = product.sweetness || 4;
+            const acidity = product.acidity || 3;
+            const aroma = product.aroma || 4;
+            
+            flavorSection.style.display = 'block';
+            
+            // 更新數值和進度條
+            document.getElementById('sweetnessValue').textContent = sweetness + '/5';
+            document.getElementById('acidityValue').textContent = acidity + '/5';
+            document.getElementById('aromaValue').textContent = aroma + '/5';
+            
+            setTimeout(() => {
+                document.getElementById('sweetnessBar').style.width = (sweetness / 5 * 100) + '%';
+                document.getElementById('acidityBar').style.width = (acidity / 5 * 100) + '%';
+                document.getElementById('aromaBar').style.width = (aroma / 5 * 100) + '%';
+            }, 100);
+        }
+        
+        // 載入相關商品推薦
+        function loadRelatedProducts(product) {
+            const relatedGrid = document.getElementById('relatedProductsGrid');
+            if (!relatedGrid) return;
+            
+            // 推薦同類別的其他商品
+            const related = products.filter(p => 
+                p.id !== product.id && 
+                p.category === product.category
+            ).slice(0, 3);
+            
+            // 如果同類別不足3個，補充其他商品
+            if (related.length < 3) {
+                const others = products.filter(p => 
+                    p.id !== product.id && 
+                    !related.includes(p)
+                ).slice(0, 3 - related.length);
+                related.push(...others);
+            }
+            
+            relatedGrid.innerHTML = related.map(p => `
+                <div class="product-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    ${p.badge ? `<span style="position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 1;">${p.badge}</span>` : ''}
+                    <div style="position: relative; overflow: hidden; height: 200px;">
+                        <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                    </div>
+                    <div style="padding: 20px;">
+                        <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 8px; height: 50px; overflow: hidden;">${p.name}</h3>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 15px; height: 40px; overflow: hidden;">${p.description || ''}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 24px; font-weight: 700; color: var(--primary-color);">NT$ ${p.price.toLocaleString()}</span>
+                            <a href="product-detail.html?id=${p.id}" style="background: var(--primary-color); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 14px; transition: background 0.3s;" onmouseover="this.style.background='var(--secondary-color)'" onmouseout="this.style.background='var(--primary-color)'">查看詳情</a>
+                        </div>
+                    </div>
                 </div>
             `).join('');
         }
