@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品詳情 - 柑心果園</title>
+    <title id="pageTitle">商品詳情 - 柑心果園</title>
+    <meta name="description" id="pageDescription" content="柑心果園優質農產品，產地直送，新鮮安心。">
     <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="product">
+    <meta property="og:title" id="ogTitle" content="商品詳情 - 柑心果園">
+    <meta property="og:description" id="ogDescription" content="柑心果園優質農產品">
+    <meta property="og:image" id="ogImage" content="">
+    <meta property="og:url" id="ogUrl" content="">
+    
+    <!-- Product JSON-LD (動態生成) -->
+    <script type="application/ld+json" id="productSchema"></script>
+    
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -1007,6 +1019,8 @@
             loadProductFeatures(currentProduct);
             loadFlavorIndicators(currentProduct);
             loadRelatedProducts(currentProduct);
+            updateMetaTags(currentProduct);
+            generateProductSchema(currentProduct);
             
             // 顯示預購提示和更改按鈕文字
             if (currentProduct.isPreorder) {
@@ -1215,6 +1229,62 @@
                     </div>
                 </div>
             `).join('');
+        }
+        
+        // 更新 Meta 標籤
+        function updateMetaTags(product) {
+            const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
+            const productUrl = baseUrl + 'product-detail.html?id=' + product.id;
+            
+            // 更新 title
+            document.getElementById('pageTitle').textContent = product.name + ' - 柑心果園';
+            document.getElementById('pageDescription').content = product.description || product.name;
+            
+            // 更新 OG 標籤
+            document.getElementById('ogTitle').content = product.name + ' - 柑心果園';
+            document.getElementById('ogDescription').content = product.description || product.name;
+            document.getElementById('ogImage').content = product.image;
+            document.getElementById('ogUrl').content = productUrl;
+        }
+        
+        // 生成 Product JSON-LD
+        function generateProductSchema(product) {
+            const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
+            const productUrl = baseUrl + 'product-detail.html?id=' + product.id;
+            
+            const schema = {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": product.name,
+                "image": product.image,
+                "description": product.description || product.name,
+                "brand": {
+                    "@type": "Brand",
+                    "name": "柑心果園"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "url": productUrl,
+                    "priceCurrency": "TWD",
+                    "price": product.price,
+                    "availability": product.isPreorder ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "柑心果園"
+                    }
+                }
+            };
+            
+            // 如果有評分資料，添加 aggregateRating
+            if (product.rating) {
+                schema.aggregateRating = {
+                    "@type": "AggregateRating",
+                    "ratingValue": product.rating,
+                    "reviewCount": product.reviewCount || 1
+                };
+            }
+            
+            document.getElementById('productSchema').textContent = JSON.stringify(schema, null, 2);
         }
         
         function changeQuantity(change) {

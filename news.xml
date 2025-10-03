@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>柑心果園 - 最新消息</title>
+        <link>https://ganxinorchard.github.io/gonglaoping--/</link>
+        <description>柑心果園最新消息、優惠活動、產季資訊</description>
+        <language>zh-TW</language>
+        <lastBuildDate>Fri, 03 Oct 2025 15:16:00 +0800</lastBuildDate>
+        <atom:link href="https://ganxinorchard.github.io/gonglaoping--/news.xml" rel="self" type="application/rss+xml"/>
+        
+        <!-- 新聞項目 1 -->
+        <item>
+            <title>2025 椪柑預購開始！早鳥優惠中</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=1</link>
+            <description>公老坪椪柑開始預購！10月青皮、11-12月橙皮，現在預購享早鳥優惠，滿額免運。</description>
+            <pubDate>Mon, 01 Oct 2025 10:00:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=1</guid>
+            <category>優惠活動</category>
+        </item>
+        
+        <!-- 新聞項目 2 -->
+        <item>
+            <title>茂谷柑產季即將到來</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=2</link>
+            <description>東勢茂谷柑預計12月開始採收，果肉飽滿、香氣濃郁，適合春節送禮。</description>
+            <pubDate>Fri, 20 Sep 2025 14:30:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=2</guid>
+            <category>產季資訊</category>
+        </item>
+        
+        <!-- 新聞項目 3 -->
+        <item>
+            <title>中秋節禮盒優惠活動</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=3</link>
+            <description>中秋佳節將至，柑心果園推出精美禮盒，送禮自用兩相宜。</description>
+            <pubDate>Mon, 10 Sep 2025 09:00:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=3</guid>
+            <category>優惠活動</category>
+        </item>
+        
+        <!-- 新聞項目 4 -->
+        <item>
+            <title>如何挑選優質椪柑？專家教您小撇步</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=4</link>
+            <description>椪柑挑選有訣竅！看外觀、摸手感、聞香氣，三步驟挑出好吃的椪柑。</description>
+            <pubDate>Wed, 05 Sep 2025 16:00:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=4</guid>
+            <category>蔬果知識</category>
+        </item>
+        
+        <!-- 新聞項目 5 -->
+        <item>
+            <title>柑心果園通過產銷履歷認證</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=5</link>
+            <description>我們的農產品已通過產銷履歷認證，從產地到餐桌，每一步都可追溯。</description>
+            <pubDate>Mon, 01 Sep 2025 11:00:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=5</guid>
+            <category>公告</category>
+        </item>
+        
+        <!-- 新聞項目 6 -->
+        <item>
+            <title>椪柑保存方法大公開</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=6</link>
+            <description>椪柑買回家後如何保存？常溫、冷藏各有訣竅，延長新鮮度的秘訣在這裡。</description>
+            <pubDate>Fri, 25 Aug 2025 13:30:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=6</guid>
+            <category>蔬果知識</category>
+        </item>
+        
+        <!-- 新聞項目 7 -->
+        <item>
+            <title>友善農法栽培，守護土地與健康</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=7</link>
+            <description>柑心果園堅持友善農法，不使用除草劑，讓您吃得安心，也讓土地永續。</description>
+            <pubDate>Mon, 20 Aug 2025 10:00:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=7</guid>
+            <category>品牌故事</category>
+        </item>
+        
+        <!-- 新聞項目 8 -->
+        <item>
+            <title>公老坪椪柑的故事</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=8</link>
+            <description>公老坪位於台中豐原，得天獨厚的氣候和土壤，孕育出香甜多汁的椪柑。</description>
+            <pubDate>Wed, 15 Aug 2025 14:00:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=8</guid>
+            <category>品牌故事</category>
+        </item>
+        
+        <!-- 新聞項目 9 -->
+        <item>
+            <title>夏季限定：冷凍菱角仁上市</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=9</link>
+            <description>新鮮菱角仁急速冷凍，保留最佳口感和營養，煮湯、炒菜都適合。</description>
+            <pubDate>Fri, 10 Aug 2025 09:30:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=9</guid>
+            <category>優惠活動</category>
+        </item>
+        
+        <!-- 新聞項目 10 -->
+        <item>
+            <title>配送政策更新通知</title>
+            <link>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=10</link>
+            <description>為提供更好的服務，我們更新了配送政策，滿 NT$1,800 免運費。</description>
+            <pubDate>Mon, 05 Aug 2025 11:00:00 +0800</pubDate>
+            <guid>https://ganxinorchard.github.io/gonglaoping--/news-detail.html?id=10</guid>
+            <category>公告</category>
+        </item>
+        
+    </channel>
+</rss>
