@@ -441,7 +441,7 @@
     <header class="checkout-header">
         <div class="checkout-header-content">
             <div class="checkout-logo">
-                <img src="images/logo.png" alt="柑心果園" onerror="this.style.display='none';">
+                <img src="images/logo.png" alt="柑心果園" width="180" height="60" loading="lazy" onerror="this.style.display='none';">
                 <div class="checkout-logo-text">柑心果園</div>
             </div>
             <div class="checkout-steps">
@@ -895,7 +895,7 @@
             // 渲染商品列表
             cartItemsList.innerHTML = cart.map(item => `
                 <div class="cart-item-checkout">
-                    <img src="${item.image || 'images/placeholder.png'}" alt="${item.name}">
+                    <img src="${item.image || 'images/placeholder.png'}" alt="${item.name}" loading="lazy">
                     <div class="cart-item-info-checkout">
                         <div class="cart-item-name-checkout">${item.name}</div>
                         ${item.selectedSpec ? `<div class="cart-item-spec-checkout">規格：${item.selectedSpec}</div>` : ''}
