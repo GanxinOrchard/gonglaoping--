@@ -2,15 +2,16 @@
 const products = [
     {
         id: 1,
-        name: '公老坪椪柑 10斤裝',
+        name: '公老坪植柑 10斤裝',
         category: '優質水果',
         price: 680,
-        image: 'images/椪柑產品圖/椪柑1.jpg',
+        image: 'images/植柑產品圖/植柑1.jpg',
+        alt: '公老坪植柑，果皮橙黃，果實飽滿，皮薄好剝',
         images: [
-            'images/椪柑產品圖/椪柑1.jpg',
-            'images/椪柑產品圖/椪柑2.jpg',
-            'images/椪柑產品圖/椪柑3.png',
-            'images/椪柑產品圖/椪柑4.png',
+            'images/植柑產品圖/植柑1.jpg',
+            'images/植柑產品圖/植柑2.jpg',
+            'images/植柑產品圖/植柑3.png',
+            'images/植柑產品圖/植柑4.png',
             'images/椪柑產品圖/椪柑5.png'
         ],
         description: '皮薄好剝、酸甜平衡、果香乾淨｜冷藏後更清爽｜產地直送',
@@ -38,6 +39,7 @@ const products = [
         category: '優質水果',
         price: 850,
         image: 'images/茂谷柑產品圖/茂谷柑1.png',
+        alt: '東勢茂谷柑，果肉飽滿，香氣濃郁，甜度高',
         images: [
             'images/茂谷柑產品圖/茂谷柑1.png',
             'images/茂谷柑產品圖/茂谷柑2.png',
@@ -61,25 +63,25 @@ const products = [
         detailImages: [
             'images/茂谷柑產品圖/茂谷柑商品介紹1.png',
             'images/茂谷柑產品圖/茂谷柑商品介紹2.png',
-            'images/茂谷柑產品圖/茂谷柑商品介紹3.png'
         ]
     },
     {
         id: 3,
         name: '冷凍菱角仁',
-        category: '新鮮蔬果',
+        category: '新鮮蔣果',
         price: 240,
-        image: 'images/菱角仁/新鮮蔬果菱角仁1.jpg',
+        image: 'images/菱角仁/新鮮蔣果菱角仁1.jpg',
+        alt: '新鮮冷凍菱角仁，顆粒飽滿，適合煮湯、炒菜',
         images: [
             'images/菱角仁/新鮮蔬果菱角仁1.jpg',
             'images/菱角仁/新鮮蔬果菱角仁2.jpg',
             'images/菱角仁/新鮮蔬果菱角仁3.jpg'
         ],
-        description: '新鮮冷凍菱角仁｜效期：冷凍12個月｜保存：-18°C 冷凍｜多種規格可選',
+        description: '新鮮冷凍菱角仁｜每袋約600g｜效期：冷凍12個月｜保存：-18°C 冷凍',
         badge: '熱銷',
         salesCount: 1371,
         shippingType: 'frozen',
-        weight: '依規格而定',
+        weight: '600g',
         hasSpecs: true,
         specs: [
             { id: 'single-jin', name: '單斤裝', weight: '600克', price: 240 },
@@ -99,9 +101,10 @@ const products = [
     {
         id: 6,
         name: '冷凍大甲芋角',
-        category: '新鮮蔬果',
+        category: '新鮮蔣果',
         price: 280,
-        image: 'images/新鮮蔔果芋角2CM.jpg',
+        image: 'images/新鮮卜果芋角2CM.jpg',
+        alt: '大甲芋角，2CM切塊，適合煮糖水、做甜點',
         description: '新鮮大甲芋角｜每袋約600g｜效期：冷凍12個月｜保存：-18°C 冷凍',
         badge: '新品',
         salesCount: 50,
@@ -131,7 +134,7 @@ function renderProducts(productsToRender = products) {
             <a href="product-detail.html?id=${product.id}" class="product-link">
                 <div class="product-image">
                     ${product.badge ? `<span class="badge">${product.badge}</span>` : ''}
-                    <img src="${product.image}" alt="${product.name}">
+                    <img src="${product.image}" alt="${product.alt || product.name}" loading="lazy">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">${product.name}</h3>
