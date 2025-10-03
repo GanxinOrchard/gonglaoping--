@@ -344,6 +344,106 @@
             margin-right: 8px;
         }
         
+        /* 折扣碼區塊優化 */
+        .discount-section {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffe8cc 100%);
+            border: 2px dashed #ff8c42;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .discount-section label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            color: #d35400;
+            font-size: 15px;
+        }
+        
+        .discount-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .discount-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ff8c42;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .discount-input:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+        }
+        
+        .apply-discount-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
+        }
+        
+        .apply-discount-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 140, 66, 0.4);
+        }
+        
+        .discount-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .discount-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .discount-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .available-codes {
+            margin-top: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        
+        .code-hint {
+            display: inline-block;
+            background: #ff8c42;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        
+        .code-hint:hover {
+            background: #ff6b35;
+            transform: scale(1.05);
+        }
+        
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -657,17 +757,28 @@
                     <div id="cartItemsList"></div>
                     
                     <!-- 折扣碼 -->
-                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                        <label style="font-weight: 600; margin-bottom: 10px; display: block; color: #2c3e50;">
+                    <div class="discount-section">
+                        <label>
                             <i class="fas fa-tag"></i> 折扣碼
                         </label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="discountCodeInput" placeholder="輸入折扣碼" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;">
-                            <button onclick="applyDiscountCode()" style="padding: 10px 20px; background: var(--secondary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; white-space: nowrap;">
+                        <div class="discount-input-group">
+                            <input type="text" id="discountCodeInput" class="discount-input" placeholder="輸入折扣碼">
+                            <button onclick="applyDiscountCode()" class="apply-discount-btn">
                                 套用
                             </button>
                         </div>
-                        <div id="discountMessage" style="margin-top: 10px; font-size: 13px; display: none;"></div>
+                        <div id="discountMessage" class="discount-message" style="display: none;"></div>
+                        <div class="available-codes">
+                            <small style="color: #666;">
+                                💡 可用折扣碼：
+                                <span class="code-hint" onclick="document.getElementById('discountCodeInput').value='PONKAN100'; applyDiscountCode();">
+                                    PONKAN100
+                                </span>
+                                <span class="code-hint" onclick="document.getElementById('discountCodeInput').value='SPRING2025'; applyDiscountCode();">
+                                    SPRING2025
+                                </span>
+                            </small>
+                        </div>
                     </div>
                     
                     <div style="margin-top: 20px;">
