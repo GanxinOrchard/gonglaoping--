@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全部商品 - 柑心果園 | 椪柑、茂谷柑、菱角仁</title>
+    <meta name="description" content="瀏覽柑心果園所有優質農產品，包含公老坪椪柑、東勢茂谷柑、冷凍菱角仁等。多種規格選擇，產地直送，新鮮安心。">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="canonical" href="https://ganxinorchard.github.io/gonglaoping--/products.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="全部商品 - 柑心果園">
+    <meta property="og:description" content="瀏覽柑心果園所有優質農產品，產地直送，新鮮安心">
+    <meta property="og:image" content="https://ganxinorchard.github.io/gonglaoping--/images/椪柑產品圖/椪柑1.jpg">
+    <meta property="og:url" content="https://ganxinorchard.github.io/gonglaoping--/products.html">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 100px auto 20px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .breadcrumb-separator {
+            color: #999;
+        }
+        
+        .products-page {
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+        
+        .products-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .products-header h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .products-header p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .filter-group {
+            margin-bottom: 20px;
+        }
+        
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: transparent;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .product-count {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .no-products {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .no-products i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+        
+        @media (max-width: 768px) {
+            .breadcrumb {
+                margin-top: 80px;
+            }
+            
+            .products-header h1 {
+                font-size: 28px;
+            }
+            
+            .filter-section {
+                padding: 20px 15px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (使用共用的 header) -->
+    <header class="header">
+        <div class="announcement-bar">
+            <div class="announcement-content">
+                <marquee behavior="scroll" direction="left" scrollamount="5">
+                    🎉 椪柑、茂谷柑預購中！滿 NT$1,800 免運費 | 📦 常溫宅配，產地直送 | 🎁 春節禮盒優惠中
+                </marquee>
+            </div>
+        </div>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://raw.githubusercontent.com/GanxinOrchard/gonglaoping/main/%E6%9F%91%E5%BF%83%E6%9E%9C%E5%9C%92LOGO.png" alt="柑心果園" loading="lazy" width="180" height="60">
+                    </a>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="搜尋商品..." id="searchInput">
+                    <button type="button" id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="nav-icons">
+                    <a href="#" class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="main-menu" id="mainMenu">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="products.html" class="active">全部商品</a></li>
+                    <li><a href="grading.html">規格分級</a></li>
+                    <li><a href="season.html">產季資訊</a></li>
+                    <li><a href="about.html">關於我們</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                    <li><a href="knowledge.html">蔬果知識</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- 麵包屑導航 -->
+    <nav class="breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>全部商品</span>
+    </nav>
+
+    <!-- 商品頁面 -->
+    <div class="products-page">
+        <div class="products-header">
+            <h1>全部商品</h1>
+            <p>精選優質農產品，產地直送，新鮮安心</p>
+        </div>
+
+        <!-- 篩選區 -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <label class="filter-label">品種分類</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="category" data-value="全部">全部商品</button>
+                    <button class="filter-btn" data-filter="category" data-value="優質水果">優質水果</button>
+                    <button class="filter-btn" data-filter="category" data-value="新鮮蔬果">新鮮蔬果</button>
+                    <button class="filter-btn" data-filter="category" data-value="冷凍食品">冷凍食品</button>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <label class="filter-label">商品狀態</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="status" data-value="全部">全部狀態</button>
+                    <button class="filter-btn" data-filter="status" data-value="現貨">現貨供應</button>
+                    <button class="filter-btn" data-filter="status" data-value="預購">預購商品</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商品數量 -->
+        <div class="product-count">
+            顯示 <span id="productCount">0</span> 項商品
+        </div>
+
+        <!-- 商品網格 -->
+        <div class="products-grid" id="productsGrid">
+            <!-- 商品將由 JavaScript 動態載入 -->
+        </div>
+
+        <!-- 無商品提示 -->
+        <div class="no-products" id="noProducts" style="display: none;">
+            <i class="fas fa-box-open"></i>
+            <h3>沒有符合條件的商品</h3>
+            <p>請嘗試調整篩選條件</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="policies.html?type=faq">常見問題</a></li>
+                        <li><a href="policies.html?type=shipping">配送政策</a></li>
+                        <li><a href="policies.html?type=return">退換貨政策</a></li>
+                        <li><a href="policies.html?type=privacy">隱私權政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>購物指南</h4>
+                    <ul>
+                        <li><a href="policies.html?type=how-to-order">如何訂購</a></li>
+                        <li><a href="policies.html?type=payment">付款方式</a></li>
+                        <li><a href="grading.html">規格說明</a></li>
+                        <li><a href="season.html">產季資訊</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
+                        <li><i class="fas fa-envelope"></i> service@ganxinorchard.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台中市豐原區、東勢區</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 購物車側邊欄 -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>購物車</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- 購物車商品將由 JavaScript 動態載入 -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>小計</span>
+                    <span id="subtotal">NT$ 0</span>
+                </div>
+                <div class="total-row">
+                    <span>運費</span>
+                    <span id="shippingFee">NT$ 150</span>
+                </div>
+                <div class="total-row total">
+                    <span>總計</span>
+                    <span id="total">NT$ 0</span>
+                </div>
+            </div>
+            <button class="btn-checkout" id="checkoutBtn">前往結帳</button>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- 懸浮按鈕 -->
+    <button class="floating-cart-btn" id="floatingCartBtn">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="floatingCartCount">0</span>
+    </button>
+
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="./js/products.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+        // 篩選功能
+        let currentFilters = {
+            category: '全部',
+            status: '全部'
+        };
+
+        // 渲染商品
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const noProducts = document.getElementById('noProducts');
+            const productCount = document.getElementById('productCount');
+            
+            // 篩選商品
+            let filteredProducts = products.filter(product => {
+                let matchCategory = currentFilters.category === '全部' || product.category === currentFilters.category;
+                let matchStatus = currentFilters.status === '全部' || 
+                                 (currentFilters.status === '預購' && product.isPreorder) ||
+                                 (currentFilters.status === '現貨' && !product.isPreorder);
+                
+                return matchCategory && matchStatus;
+            });
+            
+            // 更新商品數量
+            productCount.textContent = filteredProducts.length;
+            
+            // 顯示商品或無商品提示
+            if (filteredProducts.length === 0) {
+                grid.style.display = 'none';
+                noProducts.style.display = 'block';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            noProducts.style.display = 'none';
+            
+            // 渲染商品卡片
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card">
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description || ''}</p>
+                        <div class="product-footer">
+                            <span class="product-price">NT$ ${product.price.toLocaleString()}</span>
+                            <a href="product-detail.html?id=${product.id}" class="btn-view-detail">查看詳情</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // 篩選按鈕事件
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filterType = this.dataset.filter;
+                const filterValue = this.dataset.value;
+                
+                // 更新按鈕狀態
+                document.querySelectorAll(`[data-filter="${filterType}"]`).forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // 更新篩選條件
+                currentFilters[filterType] = filterValue;
+                
+                // 重新渲染
+                renderProducts();
+            });
+        });
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+    </script>
+</body>
+</html>
