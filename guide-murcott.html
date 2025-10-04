@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>茂谷柑挑選指南 - 柑心果園</title>
+    <meta name="description" content="專業茂谷柑挑選指南，教您如何選購最優質的茂谷柑">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            padding: 120px 20px 60px;
+            text-align: center;
+            color: white;
+        }
+        
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .guide-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        .guide-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .guide-card h2 {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .tip-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .tip-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tip-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .tip-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .tip-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .dos-donts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .do-card, .dont-card {
+            padding: 30px;
+            border-radius: 12px;
+        }
+        
+        .do-card {
+            background: #d4edda;
+            border: 2px solid #27ae60;
+        }
+        
+        .dont-card {
+            background: #f8d7da;
+            border: 2px solid #e74c3c;
+        }
+        
+        .do-card h3, .dont-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .do-card h3 {
+            color: #27ae60;
+        }
+        
+        .dont-card h3 {
+            color: #e74c3c;
+        }
+        
+        .do-card ul, .dont-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .do-card li, .dont-card li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .do-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .dont-card li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .storage-guide {
+            background: #fff5e6;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px dashed var(--primary-color);
+        }
+        
+        .storage-guide h3 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .storage-steps {
+            list-style: none;
+            padding: 0;
+            counter-reset: step-counter;
+        }
+        
+        .storage-steps li {
+            counter-increment: step-counter;
+            padding: 15px 0;
+            padding-left: 50px;
+            position: relative;
+            color: #666;
+        }
+        
+        .storage-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 35px;
+            height: 35px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .dos-donts {
+                grid-template-columns: 1fr;
+            }
+            
+            .guide-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="./images/logo.png" alt="柑心果園">
+                            <span>柑心果園</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <a href="cart.html" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="products.html">全部商品</a></li>
+                        <li><a href="season-recommend.html">產季推薦</a></li>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>🍊 茂谷柑挑選指南</h1>
+        <p style="font-size: 20px; opacity: 0.95;">專業挑選技巧，讓您買到最優質的茂谷柑</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="guide-container">
+        <!-- 挑選重點 -->
+        <div class="guide-card">
+            <h2><i class="fas fa-check-circle"></i> 挑選重點</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                挑選優質茂谷柑有幾個關鍵要點，掌握這些技巧就能選到美味的茂谷柑！
+            </p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">👁️</div>
+                    <div class="tip-title">看外觀</div>
+                    <div class="tip-desc">
+                        果皮應呈現深橘紅色，色澤均勻有光澤。表面光滑飽滿，沒有明顯凹陷或損傷。
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">✋</div>
+                    <div class="tip-title">摸質感</div>
+                    <div class="tip-desc">
+                        用手輕壓果實，應該結實有彈性。茂谷柑皮較厚，手感扎實表示品質好。
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">⚖️</div>
+                    <div class="tip-title">掂重量</div>
+                    <div class="tip-desc">
+                        同樣大小的茂谷柑，越重表示果肉越飽滿。茂谷柑本身就很有份量，拿起來沉甸甸的最佳。
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">🔍</div>
+                    <div class="tip-title">檢查蒂頭</div>
+                    <div class="tip-desc">
+                        蒂頭應該是青綠色且完整，表示新鮮採摘。若蒂頭乾枯或脫落，代表存放過久。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Do's & Don'ts -->
+        <div class="guide-card">
+            <h2><i class="fas fa-lightbulb"></i> 挑選建議</h2>
+            <div class="dos-donts">
+                <div class="do-card">
+                    <h3><i class="fas fa-thumbs-up"></i> 建議選擇</h3>
+                    <ul>
+                        <li>果皮橘黃色澤均勻</li>
+                        <li>果實飽滿有彈性</li>
+                        <li>拿起來有重量感</li>
+                        <li>蒂頭青綠完整</li>
+                        <li>果形圓潤對稱</li>
+                        <li>表面光滑無損傷</li>
+                    </ul>
+                </div>
+                
+                <div class="dont-card">
+                    <h3><i class="fas fa-thumbs-down"></i> 避免選擇</h3>
+                    <ul>
+                        <li>果皮過綠或過黃</li>
+                        <li>表面有明顯凹陷</li>
+                        <li>拿起來過輕過軟</li>
+                        <li>蒂頭乾枯脫落</li>
+                        <li>果形歪斜不規則</li>
+                        <li>有腐爛或黑斑</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 保存方法 -->
+        <div class="guide-card">
+            <h2><i class="fas fa-box"></i> 保存方法</h2>
+            <div class="storage-guide">
+                <h3><i class="fas fa-info-circle"></i> 正確保存延長新鮮期</h3>
+                <ol class="storage-steps">
+                    <li>
+                        <strong>檢查果實：</strong>
+                        <ul>
+                            <li>收到茂谷柑後先檢查，若有損傷的果實請先食用，避免影響其他果實。</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>陰涼通風：</strong>
+                        <ul>
+                            <li>將茂谷柑放置在陰涼通風處，避免陽光直射。室溫約可保存2-3週。</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>冷藏保存：</strong>
+                        <ul>
+                            <li>若要延長保存期，可放入冰箱冷藏，但建議用保鮮袋裝好，避免水分流失。</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>適時食用：</strong>
+                        <ul>
+                            <li>茂谷柑最佳賞味期為採收後3週內，建議盡早食用以品嚐最佳風味。</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="guide-card">
+            <h2><i class="fas fa-utensils"></i> 食用建議</h2>
+            <div style="color: #666; line-height: 1.8;">
+                <p style="margin-bottom: 15px;">
+                    <strong style="color: var(--primary-color);">🍊 直接食用：</strong>
+                    茂谷柑可以直接剝皮享用，果肉細緻無籽。建議食用前先放置室溫回溫，風味更佳。
+                </p>
+                <p style="margin-bottom: 15px;">
+                    <strong style="color: var(--primary-color);">🧊 冷藏後食用：</strong>
+                    茂谷柑冷藏後食用，甜度更加集中，清涼爽口，別有一番風味。
+                </p>
+                <p style="margin-bottom: 15px;">
+                    <strong style="color: var(--primary-color);">🥤 榨汁飲用：</strong>
+                    茂谷柑汁豐富且香甜，榨成果汁風味絕佳，是天然的甜味果汁。
+                </p>
+                <p>
+                    <strong style="color: var(--primary-color);">🍰 料理應用：</strong>
+                    茂谷柑皮可以製作果醬、蜜餞，果肉可加入沙拉或甜點中增添風味。
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); padding: 40px; border-radius: 16px; text-align: center; color: white;">
+            <h3 style="font-size: 28px; margin-bottom: 15px;">準備好選購了嗎？</h3>
+            <p style="font-size: 18px; margin-bottom: 25px; opacity: 0.95;">
+                我們為您嚴選最優質的椪柑，每一顆都經過仔細挑選
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="products.html?product=murcott" style="padding: 15px 40px; background: white; color: var(--primary-color); border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s;">
+                    <i class="fas fa-shopping-cart"></i> 立即選購
+                </a>
+                <a href="season-murcott.html" style="padding: 15px 40px; background: rgba(255,255,255,0.2); color: white; border: 2px solid white; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s;">
+                    <i class="far fa-calendar"></i> 產季資訊
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/cart.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

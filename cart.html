@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -112,11 +112,16 @@
         
         .cart-item {
             display: grid;
-            grid-template-columns: 100px 1fr auto auto;
+            grid-template-columns: 100px 2fr 1fr auto;
             gap: 20px;
             padding: 20px;
             border-bottom: 1px solid #f0f0f0;
             align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .cart-item:hover {
+            background: #f8f9fa;
         }
         
         .cart-item:last-child {
@@ -307,8 +312,14 @@
             <div class="header-content">
                 <div class="logo">
                     <a href="index.html">
-                        <img src="images/logo.png" alt="柑心果園">
+                        <img src="images/logo.png" alt="柑心果園" class="logo-image">
                         <span>柑心果園</span>
+                    </a>
+                </div>
+                <div class="nav-icons">
+                    <a href="cart.html" class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
                     </a>
                 </div>
             </div>

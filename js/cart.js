@@ -161,10 +161,15 @@ function updateCartUI() {
     
     // 更新購物車數量
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    if (cartCount) {
-        cartCount.textContent = totalItems;
-        cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
-    }
+    
+    // 更新所有頁面上的購物車數量標記
+    const cartCounts = document.querySelectorAll('#cartCount, .cart-count');
+    cartCounts.forEach(cartCount => {
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? 'block' : 'none';
+        }
+    });
     
     // 更新購物車列表
     if (cartItems) {

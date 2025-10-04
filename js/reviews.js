@@ -1,170 +1,270 @@
-// 100則評論資料
-const reviews = [
-    { id: 1, user: '王小明', rating: 5, date: '2025-01-15', content: '椪柑很新鮮，甜度剛好，家人都很喜歡！' },
-    { id: 2, user: '李美麗', rating: 5, date: '2025-01-14', content: '皮薄好剝，果肉飽滿多汁，非常滿意' },
-    { id: 3, user: '張大華', rating: 5, date: '2025-01-13', content: '產地直送品質有保證，會再回購' },
-    { id: 4, user: '陳小芬', rating: 4, date: '2025-01-12', content: '整體不錯，包裝很用心，果實新鮮' },
-    { id: 5, user: '林志明', rating: 5, date: '2025-01-11', content: '超級好吃！甜度高，酸度適中' },
-    { id: 6, user: '黃淑芬', rating: 5, date: '2025-01-10', content: '收到後立刻品嚐，真的很甜很好吃' },
-    { id: 7, user: '吳家豪', rating: 5, date: '2025-01-09', content: '果園直送就是不一樣，新鮮度滿分' },
-    { id: 8, user: '周美玲', rating: 4, date: '2025-01-08', content: '品質很好，大小均勻，值得推薦' },
-    { id: 9, user: '鄭志強', rating: 5, date: '2025-01-07', content: '冷藏後更好吃，清爽不膩口' },
-    { id: 10, user: '劉雅婷', rating: 5, date: '2025-01-06', content: '送禮自用兩相宜，包裝精美' },
-    { id: 11, user: '蔡明宏', rating: 5, date: '2025-01-05', content: '果實飽滿，汁多味美，讚！' },
-    { id: 12, user: '許淑惠', rating: 4, date: '2025-01-04', content: '很新鮮，家人都說好吃' },
-    { id: 13, user: '楊志偉', rating: 5, date: '2025-01-03', content: '品質穩定，每次購買都很滿意' },
-    { id: 14, user: '賴美珍', rating: 5, date: '2025-01-02', content: '果香濃郁，口感極佳' },
-    { id: 15, user: '謝文彬', rating: 5, date: '2025-01-01', content: '過年送禮最佳選擇，收到的人都說讚' },
-    { id: 16, user: '林佳慧', rating: 4, date: '2024-12-31', content: '果實大小適中，甜度夠' },
-    { id: 17, user: '陳建志', rating: 5, date: '2024-12-30', content: '產季限定，錯過可惜，趕快下單' },
-    { id: 18, user: '王雅芳', rating: 5, date: '2024-12-29', content: '皮薄易剝，小孩也能輕鬆享用' },
-    { id: 19, user: '張家銘', rating: 5, date: '2024-12-28', content: '果肉細緻，沒有籽，吃起來很方便' },
-    { id: 20, user: '李秀英', rating: 4, date: '2024-12-27', content: '配送快速，果實新鮮度很好' },
-    { id: 21, user: '黃志豪', rating: 5, date: '2024-12-26', content: '甜而不膩，香氣十足' },
-    { id: 22, user: '吳淑芬', rating: 5, date: '2024-12-25', content: '聖誕節收到最棒的禮物' },
-    { id: 23, user: '周建宏', rating: 5, date: '2024-12-24', content: '果園用心栽培，品質看得見' },
-    { id: 24, user: '鄭美玲', rating: 4, date: '2024-12-23', content: '價格合理，品質優良' },
-    { id: 25, user: '劉志明', rating: 5, date: '2024-12-22', content: '每年必買，從不失望' },
-    { id: 26, user: '蔡雅婷', rating: 5, date: '2024-12-21', content: '果實飽滿，水分充足' },
-    { id: 27, user: '許明宏', rating: 5, date: '2024-12-20', content: '老闆很用心，服務態度好' },
-    { id: 28, user: '楊淑惠', rating: 4, date: '2024-12-19', content: '果實新鮮，包裝完整' },
-    { id: 29, user: '賴志偉', rating: 5, date: '2024-12-18', content: '產地直送，新鮮看得見' },
-    { id: 30, user: '謝美珍', rating: 5, date: '2024-12-17', content: '甜度高，口感好，推薦！' },
-    { id: 31, user: '林文彬', rating: 5, date: '2024-12-16', content: '果香濃郁，吃過就忘不了' },
-    { id: 32, user: '陳佳慧', rating: 4, date: '2024-12-15', content: '品質穩定，值得信賴' },
-    { id: 33, user: '王建志', rating: 5, date: '2024-12-14', content: '果實大顆，CP值高' },
-    { id: 34, user: '張雅芳', rating: 5, date: '2024-12-13', content: '皮薄汁多，非常好吃' },
-    { id: 35, user: '李家銘', rating: 5, date: '2024-12-12', content: '冷藏後風味更佳' },
-    { id: 36, user: '黃秀英', rating: 4, date: '2024-12-11', content: '果肉細緻，口感極佳' },
-    { id: 37, user: '吳志豪', rating: 5, date: '2024-12-10', content: '百年果園傳承，品質保證' },
-    { id: 38, user: '周淑芬', rating: 5, date: '2024-12-09', content: '甜度剛好，不會太甜膩' },
-    { id: 39, user: '鄭建宏', rating: 5, date: '2024-12-08', content: '果實飽滿，香氣迷人' },
-    { id: 40, user: '劉美玲', rating: 4, date: '2024-12-07', content: '包裝精美，送禮體面' },
-    { id: 41, user: '蔡志明', rating: 5, date: '2024-12-06', content: '產季限定，趕快搶購' },
-    { id: 42, user: '許雅婷', rating: 5, date: '2024-12-05', content: '果實新鮮，水分充足' },
-    { id: 43, user: '楊明宏', rating: 5, date: '2024-12-04', content: '老客戶了，品質一直很穩定' },
-    { id: 44, user: '賴淑惠', rating: 4, date: '2024-12-03', content: '果肉細緻，甜度適中' },
-    { id: 45, user: '謝志偉', rating: 5, date: '2024-12-02', content: '產地直送，新鮮度滿分' },
-    { id: 46, user: '林美珍', rating: 5, date: '2024-12-01', content: '果香濃郁，口感一流' },
-    { id: 47, user: '陳文彬', rating: 5, date: '2024-11-30', content: '皮薄好剝，小孩也愛吃' },
-    { id: 48, user: '王佳慧', rating: 4, date: '2024-11-29', content: '品質優良，值得推薦' },
-    { id: 49, user: '張建志', rating: 5, date: '2024-11-28', content: '果實飽滿，汁多味美' },
-    { id: 50, user: '李雅芳', rating: 5, date: '2024-11-27', content: '甜而不膩，香氣十足' },
-    { id: 51, user: '黃家銘', rating: 5, date: '2024-11-26', content: '冷藏後更清爽好吃' },
-    { id: 52, user: '吳秀英', rating: 4, date: '2024-11-25', content: '果肉細緻，口感極佳' },
-    { id: 53, user: '周志豪', rating: 5, date: '2024-11-24', content: '百年果園，品質保證' },
-    { id: 54, user: '鄭淑芬', rating: 5, date: '2024-11-23', content: '果實新鮮，包裝完整' },
-    { id: 55, user: '劉建宏', rating: 5, date: '2024-11-22', content: '產地直送，新鮮看得見' },
-    { id: 56, user: '蔡美玲', rating: 4, date: '2024-11-21', content: '甜度高，口感好' },
-    { id: 57, user: '許志明', rating: 5, date: '2024-11-20', content: '果香濃郁，吃過難忘' },
-    { id: 58, user: '楊雅婷', rating: 5, date: '2024-11-19', content: '品質穩定，每次都滿意' },
-    { id: 59, user: '賴明宏', rating: 5, date: '2024-11-18', content: '果實大顆，CP值超高' },
-    { id: 60, user: '謝淑惠', rating: 4, date: '2024-11-17', content: '皮薄汁多，非常推薦' },
-    { id: 61, user: '林志偉', rating: 5, date: '2024-11-16', content: '果肉細緻，甜度剛好' },
-    { id: 62, user: '陳美珍', rating: 5, date: '2024-11-15', content: '產季限定，錯過可惜' },
-    { id: 63, user: '王文彬', rating: 5, date: '2024-11-14', content: '果實飽滿，香氣迷人' },
-    { id: 64, user: '張佳慧', rating: 4, date: '2024-11-13', content: '包裝精美，送禮首選' },
-    { id: 65, user: '李建志', rating: 5, date: '2024-11-12', content: '果實新鮮，水分充足' },
-    { id: 66, user: '黃雅芳', rating: 5, date: '2024-11-11', content: '甜而不膩，口感極佳' },
-    { id: 67, user: '吳家銘', rating: 5, date: '2024-11-10', content: '冷藏後風味更佳' },
-    { id: 68, user: '周秀英', rating: 4, date: '2024-11-09', content: '果肉細緻，香氣十足' },
-    { id: 69, user: '鄭志豪', rating: 5, date: '2024-11-08', content: '百年果園，值得信賴' },
-    { id: 70, user: '劉淑芬', rating: 5, date: '2024-11-07', content: '果實飽滿，汁多味美' },
-    { id: 71, user: '蔡建宏', rating: 5, date: '2024-11-06', content: '產地直送，新鮮度滿分' },
-    { id: 72, user: '許美玲', rating: 4, date: '2024-11-05', content: '甜度高，口感一流' },
-    { id: 73, user: '楊志明', rating: 5, date: '2024-11-04', content: '果香濃郁，吃過就愛上' },
-    { id: 74, user: '賴雅婷', rating: 5, date: '2024-11-03', content: '品質穩定，值得推薦' },
-    { id: 75, user: '謝明宏', rating: 5, date: '2024-11-02', content: '果實大顆，CP值高' },
-    { id: 76, user: '林淑惠', rating: 4, date: '2024-11-01', content: '皮薄好剝，方便食用' },
-    { id: 77, user: '陳志偉', rating: 5, date: '2024-10-31', content: '果肉細緻，甜度適中' },
-    { id: 78, user: '王美珍', rating: 5, date: '2024-10-30', content: '產季限定，趕快下單' },
-    { id: 79, user: '張文彬', rating: 5, date: '2024-10-29', content: '果實飽滿，香氣濃郁' },
-    { id: 80, user: '李佳慧', rating: 4, date: '2024-10-28', content: '包裝用心，果實新鮮' },
-    { id: 81, user: '黃建志', rating: 5, date: '2024-10-27', content: '果實新鮮，水分充足' },
-    { id: 82, user: '吳雅芳', rating: 5, date: '2024-10-26', content: '甜而不膩，香氣十足' },
-    { id: 83, user: '周家銘', rating: 5, date: '2024-10-25', content: '冷藏後更清爽' },
-    { id: 84, user: '鄭秀英', rating: 4, date: '2024-10-24', content: '果肉細緻，口感極佳' },
-    { id: 85, user: '劉志豪', rating: 5, date: '2024-10-23', content: '百年果園，品質保證' },
-    { id: 86, user: '蔡淑芬', rating: 5, date: '2024-10-22', content: '果實飽滿，汁多味美' },
-    { id: 87, user: '許建宏', rating: 5, date: '2024-10-21', content: '產地直送，新鮮看得見' },
-    { id: 88, user: '楊美玲', rating: 4, date: '2024-10-20', content: '甜度高，口感好' },
-    { id: 89, user: '賴志明', rating: 5, date: '2024-10-19', content: '果香濃郁，令人難忘' },
-    { id: 90, user: '謝雅婷', rating: 5, date: '2024-10-18', content: '品質穩定，值得信賴' },
-    { id: 91, user: '林明宏', rating: 5, date: '2024-10-17', content: '果實大顆，物超所值' },
-    { id: 92, user: '陳淑惠', rating: 4, date: '2024-10-16', content: '皮薄汁多，非常好吃' },
-    { id: 93, user: '王志偉', rating: 5, date: '2024-10-15', content: '果肉細緻，甜度剛好' },
-    { id: 94, user: '張美珍', rating: 5, date: '2024-10-14', content: '產季限定，不容錯過' },
-    { id: 95, user: '李文彬', rating: 5, date: '2024-10-13', content: '果實飽滿，香氣迷人' },
-    { id: 96, user: '黃佳慧', rating: 4, date: '2024-10-12', content: '包裝精美，送禮體面' },
-    { id: 97, user: '吳建志', rating: 5, date: '2024-10-11', content: '果實新鮮，水分充足' },
-    { id: 98, user: '周雅芳', rating: 5, date: '2024-10-10', content: '甜而不膩，口感一流' },
-    { id: 99, user: '鄭家銘', rating: 5, date: '2024-10-09', content: '冷藏後風味更佳' },
-    { id: 100, user: '劉秀英', rating: 5, date: '2024-10-08', content: '百年果園，世代傳承，品質保證！' }
+/**
+ * 柑心果園 - 全新評論系統
+ * 特點：
+ * 1. 每年自動生成100+則評論
+ * 2. 按最新日期排序
+ * 3. 每個產品對應專屬評論
+ */
+
+// ========== 產品專屬評論模板 ==========
+
+const reviewTemplates = {
+    'ponkan': {
+        name: '椪柑',
+        comments: [
+            '椪柑很新鮮，甜度剛好，家人都很喜歡！',
+            '皮薄好剝，果肉飽滿多汁，非常滿意',
+            '產地直送品質有保證，會再回購',
+            '整體不錯，包裝很用心，果實新鮮',
+            '超級好吃！甜度高，酸度適中',
+            '收到後立刻品嚐，真的很甜很好吃',
+            '果園直送就是不一樣，新鮮度滿分',
+            '品質很好，大小均勻，值得推薦',
+            '冷藏後更好吃，清爽不膩口',
+            '送禮自用兩相宜，包裝精美',
+            '果實飽滿，汁多味美，讚！',
+            '很新鮮，家人都說好吃',
+            '品質穩定，每次購買都很滿意',
+            '果香濃郁，口感極佳',
+            '過年送禮最佳選擇，收到的人都說讚',
+            '果實大小適中，甜度夠',
+            '產季限定，錯過可惜，趕快下單',
+            '皮薄易剝，小孩也能輕鬆享用',
+            '果肉細緻，沒有籽，吃起來很方便',
+            '配送快速，果實新鮮度很好',
+            '甜而不膩，香氣十足',
+            '聖誕節收到最棒的禮物',
+            '果園用心栽培，品質看得見',
+            '價格合理，品質優良',
+            '每年必買，從不失望'
+        ]
+    },
+    'murcott': {
+        name: '茂谷柑',
+        comments: [
+            '茂谷柑香氣濃郁，果肉飽滿',
+            '甜度超高，果汁豐富，非常推薦',
+            '茂谷柑品質優良，每顆都很甜',
+            '果肉細緻無籽，口感極佳',
+            '茂谷柑就是比一般柑橘好吃',
+            '皮薄汁多，果肉緊實',
+            '茂谷柑送禮最有面子',
+            '產季限定，錯過要再等一年',
+            '茂谷柑香甜可口，回購率100%',
+            '果實飽滿，每一口都是享受',
+            '茂谷柑CP值超高',
+            '包裝精美，果實新鮮',
+            '茂谷柑甜而不膩，很好吃',
+            '果園直送，品質保證',
+            '茂谷柑果香濃郁，令人難忘',
+            '皮好剝，果肉多汁',
+            '茂谷柑大小均勻，品質穩定',
+            '產地直送就是新鮮',
+            '茂谷柑是我的最愛',
+            '甜度剛好，口感一流'
+        ]
+    },
+    'water-chestnut': {
+        name: '菱角',
+        comments: [
+            '菱角新鮮飽滿，口感鬆軟',
+            '冷凍菱角仁品質很好，方便料理',
+            '菱角很新鮮，煮湯超好喝',
+            '菱角仁粒粒飽滿，口感綿密',
+            '產地直送的菱角就是不一樣',
+            '菱角口感香甜，營養豐富',
+            '冷凍處理得很好，保持新鮮度',
+            '菱角燉湯、炒菜都很適合',
+            '菱角仁品質優良，值得推薦',
+            '包裝完善，菱角保存良好',
+            '菱角口感鬆軟，老人小孩都愛吃',
+            '新鮮菱角料理方便又美味',
+            '菱角營養價值高，健康食材',
+            '產季限定，要買要快',
+            '菱角仁大顆飽滿，CP值高',
+            '冷凍菱角品質不輸新鮮的',
+            '菱角燉排骨湯超美味',
+            '菱角口感綿密，香氣十足',
+            '包裝用心，配送快速',
+            '菱角品質穩定，值得信賴'
+        ]
+    },
+    'taro': {
+        name: '芋角',
+        comments: [
+            '芋角鬆軟香甜，口感極佳',
+            '冷凍芋角品質很好，隨時可料理',
+            '芋角綿密香濃，非常好吃',
+            '芋頭角粒粒飽滿，品質優良',
+            '產地直送的芋角就是新鮮',
+            '芋角口感鬆軟，芋香濃郁',
+            '冷凍處理完善，保持最佳品質',
+            '芋角燉湯、甜點都很適合',
+            '芋角品質穩定，每次都滿意',
+            '包裝完整，芋角保存良好',
+            '芋角口感綿密，入口即化',
+            '新鮮芋角料理變化多',
+            '芋角營養豐富，健康食材',
+            '產季限定，錯過可惜',
+            '芋角大顆飽滿，物超所值',
+            '冷凍芋角方便又美味',
+            '芋角燉甜湯超好喝',
+            '芋角香氣濃郁，口感一流',
+            '配送快速，品質新鮮',
+            '芋角值得推薦給親朋好友'
+        ]
+    }
+};
+
+// ========== 評論用戶名單 ==========
+const userNames = [
+    '王小明', '李美麗', '張大華', '陳小芬', '林志明', '黃淑芬', '吳家豪', '周美玲',
+    '鄭志強', '劉雅婷', '蔡明宏', '許淑惠', '楊志偉', '賴美珍', '謝文彬', '林佳慧',
+    '陳建志', '王雅芳', '張家銘', '李秀英', '黃志豪', '吳淑芬', '周建宏', '鄭美玲',
+    '劉志明', '蔡雅婷', '許明宏', '楊淑惠', '賴志偉', '謝美珍', '林文彬', '陳佳慧',
+    '王建志', '張雅芳', '李家銘', '黃秀英', '吳志豪', '周淑芬', '鄭建宏', '劉美玲',
+    '蔡志明', '許雅婷', '楊明宏', '賴淑惠', '謝志偉', '林美珍', '陳文彬', '王佳慧',
+    '張建志', '李雅芳', '黃家銘', '吳秀英', '周志豪', '鄭淑芬', '劉建宏', '蔡美玲',
+    '許志明', '楊雅婷', '賴明宏', '謝淑惠', '林志偉', '陳美珍', '王文彬', '張佳慧',
+    '李建志', '黃雅芳', '吳家銘', '周秀英', '鄭志豪', '劉淑芬', '蔡建宏', '許美玲',
+    '楊志明', '賴雅婷', '謝明宏', '林淑惠', '陳志偉', '王美珍', '張文彬', '李佳慧'
 ];
 
-// 基於年份的隨機種子函數（確保每年順序不同但同一年固定）
-function seededRandom(seed) {
-    const x = Math.sin(seed++) * 10000;
-    return x - Math.floor(x);
-}
+// ========== 評論生成器 ==========
 
-// 自動更新評論日期為最近三年
-function updateReviewDates(reviewList) {
-    const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth() + 1;
-    const currentDay = new Date().getDate();
-    
-    // 使用年份作為種子，確保同一年生成相同的日期
-    let seed = currentYear * 9876;
-    
-    return reviewList.map((review, index) => {
-        // 計算這條評論應該在哪一年（最近三年內）
-        const yearOffset = Math.floor(index / 34); // 每年約 34 條評論
-        const year = currentYear - (yearOffset % 3); // 循環使用最近三年
-        
-        // 根據種子生成月份和日期
-        const month = Math.floor(seededRandom(seed++) * 12) + 1;
-        const maxDay = new Date(year, month, 0).getDate();
-        const day = Math.floor(seededRandom(seed++) * maxDay) + 1;
-        
-        const newDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        
-        return {
-            ...review,
-            date: newDate
-        };
-    });
-}
+/**
+ * 為指定產品生成跨年度的評論
+ * @param {string} productId - 產品ID
+ * @param {number} reviewsPerYear - 每年評論數量（默認120條）
+ * @param {number} years - 生成幾年的評論（默認3年）
+ */
+function generateProductReviews(productId, reviewsPerYear = 120, years = 3) {
+    const template = reviewTemplates[productId];
+    if (!template) {
+        console.warn(`找不到產品 ${productId} 的評論模板`);
+        return [];
+    }
 
-// 基於年份打亂評論順序
-function shuffleReviewsByYear(array) {
-    const currentYear = new Date().getFullYear();
-    const shuffled = [...array];
+    const reviews = [];
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
     
-    // 使用年份作為種子，確保同一年順序固定
-    let seed = currentYear * 12345;
-    
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(seededRandom(seed++) * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    // 生成多年度評論
+    for (let yearOffset = 0; yearOffset < years; yearOffset++) {
+        const year = currentYear - yearOffset;
+        
+        // 每年生成指定數量的評論
+        for (let i = 0; i < reviewsPerYear; i++) {
+            // 隨機選擇評論內容
+            const commentIndex = Math.floor(Math.random() * template.comments.length);
+            const userIndex = Math.floor(Math.random() * userNames.length);
+            
+            // 生成隨機日期（該年內）
+            const month = Math.floor(Math.random() * 12) + 1;
+            const maxDay = new Date(year, month, 0).getDate();
+            const day = Math.floor(Math.random() * maxDay) + 1;
+            
+            // 隨機評分（4-5星，偏重5星）
+            const rating = Math.random() > 0.25 ? 5 : 4;
+            
+            reviews.push({
+                id: `${productId}-${year}-${i + 1}`,
+                productId: productId,
+                productName: template.name,
+                user: userNames[userIndex],
+                rating: rating,
+                date: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+                content: template.comments[commentIndex],
+                year: year
+            });
+        }
     }
     
-    return shuffled;
+    return reviews;
 }
 
-// 獲取當年的隨機評論順序，並更新日期
-let updatedReviews = updateReviewDates(reviews);
-let shuffledReviews = shuffleReviewsByYear(updatedReviews);
+// ========== 全局評論數據庫 ==========
 
-// 渲染評論
-function renderReviews(productId, limit = 10) {
+let allReviews = [];
+
+// 為所有產品生成評論
+function initializeReviews() {
+    allReviews = [];
+    
+    // 為每個產品生成評論
+    for (const productId in reviewTemplates) {
+        const productReviews = generateProductReviews(productId, 120, 3);
+        allReviews.push(...productReviews);
+    }
+    
+    // 按日期降序排序（最新的在前面）
+    allReviews.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+    });
+    
+    console.log(`✅ 評論系統初始化完成：共 ${allReviews.length} 則評論`);
+}
+
+// ========== 評論查詢與篩選 ==========
+
+/**
+ * 獲取指定產品的評論
+ * @param {string} productId - 產品ID
+ * @param {number} limit - 限制數量
+ */
+function getProductReviews(productId, limit = null) {
+    const filtered = allReviews.filter(review => review.productId === productId);
+    return limit ? filtered.slice(0, limit) : filtered;
+}
+
+/**
+ * 獲取所有評論（已按日期排序）
+ * @param {number} limit - 限制數量
+ */
+function getAllReviews(limit = null) {
+    return limit ? allReviews.slice(0, limit) : allReviews;
+}
+
+/**
+ * 計算產品平均評分
+ * @param {string} productId - 產品ID
+ */
+function getAverageRating(productId = null) {
+    const reviews = productId ? getProductReviews(productId) : allReviews;
+    if (reviews.length === 0) return 0;
+    
+    const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+    return (total / reviews.length).toFixed(1);
+}
+
+/**
+ * 獲取評論總數
+ * @param {string} productId - 產品ID（可選）
+ */
+function getReviewCount(productId = null) {
+    return productId ? getProductReviews(productId).length : allReviews.length;
+}
+
+// ========== 評論渲染 ==========
+
+/**
+ * 渲染評論列表
+ * @param {string} productId - 產品ID
+ * @param {number} limit - 顯示數量
+ */
+function renderReviews(productId = null, limit = 10) {
     const container = document.getElementById('reviewsList');
     if (!container) return;
     
-    const displayReviews = shuffledReviews.slice(0, limit);
+    const reviews = productId ? getProductReviews(productId, limit) : getAllReviews(limit);
     
-    container.innerHTML = displayReviews.map(review => `
-        <div class="review-item">
+    if (reviews.length === 0) {
+        container.innerHTML = '<p class="no-reviews">暫無評論</p>';
+        return;
+    }
+    
+    container.innerHTML = reviews.map(review => `
+        <div class="review-item" data-product="${review.productId}">
             <div class="review-header">
                 <div class="review-user">
                     <i class="fas fa-user-circle"></i>
@@ -176,12 +276,106 @@ function renderReviews(productId, limit = 10) {
             </div>
             <div class="review-date">${review.date}</div>
             <div class="review-content">${review.content}</div>
+            ${!productId ? `<div class="review-product-tag">${review.productName}</div>` : ''}
         </div>
     `).join('');
 }
 
-// 計算平均評分
-function getAverageRating() {
-    const total = shuffledReviews.reduce((sum, r) => sum + r.rating, 0);
-    return (total / shuffledReviews.length).toFixed(1);
+/**
+ * 更新評論統計資訊
+ * @param {string} productId - 產品ID（可選）
+ */
+function updateReviewStats(productId = null) {
+    const avgRating = getAverageRating(productId);
+    const count = getReviewCount(productId);
+    
+    // 更新平均評分
+    const avgElement = document.getElementById('averageRating');
+    if (avgElement) {
+        avgElement.textContent = avgRating;
+    }
+    
+    // 更新評論數量
+    const countElement = document.querySelector('.review-count');
+    if (countElement) {
+        countElement.textContent = `(${count}則評論)`;
+    }
+    
+    // 更新星星顯示
+    const starsElement = document.getElementById('reviewStars');
+    if (starsElement) {
+        const fullStars = Math.floor(avgRating);
+        const halfStar = avgRating % 1 >= 0.5;
+        starsElement.innerHTML = '★'.repeat(fullStars) + 
+                                 (halfStar ? '½' : '') + 
+                                 '☆'.repeat(5 - fullStars - (halfStar ? 1 : 0));
+    }
+}
+
+// ========== 頁面載入初始化 ==========
+
+// 初始化評論系統
+initializeReviews();
+
+// 頁面載入完成後處理
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        // 檢查是否在產品詳情頁
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        
+        if (productId) {
+            // 產品詳情頁：顯示該產品的評論
+            renderReviews(productId, 10);
+            updateReviewStats(productId);
+        } else {
+            // 其他頁面：顯示所有評論
+            renderReviews(null, 20);
+            updateReviewStats(null);
+        }
+    });
+} else {
+    // DOM 已載入
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    
+    if (productId) {
+        renderReviews(productId, 10);
+        updateReviewStats(productId);
+    }
+}
+
+// ========== 載入更多評論 ==========
+
+let currentDisplayCount = 10;
+
+function loadMoreReviews() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    
+    currentDisplayCount += 10;
+    renderReviews(productId, currentDisplayCount);
+    
+    // 如果已顯示所有評論，隱藏按鈕
+    const totalReviews = getReviewCount(productId);
+    if (currentDisplayCount >= totalReviews) {
+        const loadMoreBtn = document.querySelector('.btn-load-more');
+        if (loadMoreBtn) {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+}
+
+// 匯出函數供外部使用
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        generateProductReviews,
+        getProductReviews,
+        getAllReviews,
+        getAverageRating,
+        getReviewCount,
+        renderReviews,
+        updateReviewStats,
+        loadMoreReviews
+    };
 }

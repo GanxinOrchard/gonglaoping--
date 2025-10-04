@@ -2,7 +2,7 @@
 const products = [
     {
         id: 1,
-        name: '公老坪植柑 10斤裝',
+        name: '公老坪椪柑 10斤裝',
         category: '優質水果',
         price: 699,
         image: 'images/椪柑產品圖/椪柑1.jpg',
@@ -18,6 +18,7 @@ const products = [
         badge: '預購',
         salesCount: 1250,
         shippingType: 'normal',
+        shippingMethod: '常溫宅配',
         weight: '10台斤/箱',
         isPreorder: true,
         hasSpecs: true,
@@ -51,6 +52,7 @@ const products = [
         badge: '預購',
         salesCount: 980,
         shippingType: 'normal',
+        shippingMethod: '常溫宅配',
         weight: '10台斤/箱',
         isPreorder: true,
         hasSpecs: true,
@@ -81,6 +83,7 @@ const products = [
         badge: '熱銷',
         salesCount: 1371,
         shippingType: 'frozen',
+        shippingMethod: '冷凍宅配',
         weight: '600g',
         hasSpecs: true,
         specs: [
@@ -109,6 +112,7 @@ const products = [
         badge: '新品',
         salesCount: 50,
         shippingType: 'frozen',
+        shippingMethod: '冷凍宅配',
         weight: '600g',
         hasSpecs: false
     }

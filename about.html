@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -209,12 +209,25 @@
         }
         
         @media (max-width: 768px) {
-            .about-hero h1 {
-                font-size: 32px;
+            .about-hero-image {
+                height: 400px !important;
             }
             
-            .about-hero p {
-                font-size: 16px;
+            .about-hero h1, 
+            .about-hero-image h1 {
+                font-size: 28px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .about-hero p,
+            .about-hero-image p {
+                font-size: 16px !important;
+                margin-bottom: 12px !important;
+                line-height: 1.6 !important;
+            }
+            
+            .about-hero-image .container {
+                padding: 0 15px !important;
             }
             
             .about-section h2 {
@@ -223,6 +236,11 @@
             
             .about-section p {
                 font-size: 16px;
+            }
+            
+            .about-values {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
         }
     </style>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>椪柑規格分級 - 柑心果園</title>
+    <meta name="description" content="椪柑規格分級說明，了解不同等級的椪柑特色">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            padding: 120px 20px 60px;
+            text-align: center;
+            color: white;
+        }
+        
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .grading-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        .intro-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .intro-card h2 {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .grade-cards {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .grade-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .grade-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .grade-header {
+            padding: 30px;
+            color: white;
+            position: relative;
+        }
+        
+        .grade-header.premium {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+        
+        .grade-header.standard {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+        
+        .grade-header.economy {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        }
+        
+        .grade-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .grade-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .grade-subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .grade-body {
+            padding: 30px;
+        }
+        
+        .grade-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .spec-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .spec-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .spec-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+        }
+        
+        .features-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .price-tag {
+            background: #fff5f0;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .price-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .price-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .price-unit {
+            font-size: 18px;
+            color: #999;
+        }
+        
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .buy-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .comparison-table {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+        
+        .comparison-table h2 {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        
+        .comparison-table td:first-child,
+        .comparison-table th:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .grade-specs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="./images/logo.png" alt="柑心果園">
+                            <span>柑心果園</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <a href="cart.html" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="products.html">全部商品</a></li>
+                        <li><a href="season-recommend.html">產季推薦</a></li>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>🍊 椪柑規格分級</h1>
+        <p style="font-size: 20px; opacity: 0.95;">依照果實大小與品質嚴格分級，滿足不同需求</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grading-container">
+        <!-- 介紹 -->
+        <div class="intro-card">
+            <h2>為什麼要分級？</h2>
+            <p style="color: #666; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                我們的椪柑經過嚴格的篩選與分級，依照果實大小、外觀、甜度等標準分為三個等級。
+                <br>
+                不同等級各有特色，您可以根據用途（自用或送禮）和預算來選擇最適合的規格。
+            </p>
+        </div>
+
+        <!-- 等級卡片 -->
+        <div class="grade-cards">
+            <!-- 特級 -->
+            <div class="grade-card">
+                <div class="grade-header premium">
+                    <div class="grade-badge">⭐ PREMIUM</div>
+                    <div class="grade-title">特級椪柑</div>
+                    <div class="grade-subtitle">精選禮盒級，送禮最佳選擇</div>
+                </div>
+                <div class="grade-body">
+                    <div class="grade-specs">
+                        <div class="spec-item">
+                            <div class="spec-label">果實大小</div>
+                            <div class="spec-value">25A 規格</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">重量範圍</div>
+                            <div class="spec-value">150-180g</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">甜度</div>
+                            <div class="spec-value">12-14°Brix</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">外觀</div>
+                            <div class="spec-value">AAA 級</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li>果實飽滿碩大，大小均勻一致</li>
+                        <li>外觀完美無瑕，色澤鮮豔</li>
+                        <li>甜度最高，口感極佳</li>
+                        <li>精美禮盒包裝，送禮體面</li>
+                        <li>嚴選果園最優質果實</li>
+                    </ul>
+                    
+                    <div class="price-tag">
+                        <div class="price-label">參考售價</div>
+                        <div class="price-value">
+                            NT$ 899
+                            <span class="price-unit">/ 5斤</span>
+                        </div>
+                    </div>
+                    
+                    <a href="products.html?product=ponkan&grade=premium" class="buy-btn">
+                        <i class="fas fa-shopping-cart"></i> 立即選購
+                    </a>
+                </div>
+            </div>
+
+            <!-- 優級 -->
+            <div class="grade-card">
+                <div class="grade-header standard">
+                    <div class="grade-badge">★ STANDARD</div>
+                    <div class="grade-title">優級椪柑</div>
+                    <div class="grade-subtitle">品質優良，CP值最高</div>
+                </div>
+                <div class="grade-body">
+                    <div class="grade-specs">
+                        <div class="spec-item">
+                            <div class="spec-label">果實大小</div>
+                            <div class="spec-value">27A 規格</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">重量範圍</div>
+                            <div class="spec-value">130-150g</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">甜度</div>
+                            <div class="spec-value">11-13°Brix</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">外觀</div>
+                            <div class="spec-value">AA 級</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li>果實大小適中，品質優良</li>
+                        <li>外觀良好，略有自然斑點</li>
+                        <li>甜度佳，口感良好</li>
+                        <li>自用送禮兩相宜</li>
+                        <li>最受歡迎的規格</li>
+                    </ul>
+                    
+                    <div class="price-tag">
+                        <div class="price-label">參考售價</div>
+                        <div class="price-value">
+                            NT$ 699
+                            <span class="price-unit">/ 5斤</span>
+                        </div>
+                    </div>
+                    
+                    <a href="products.html?product=ponkan&grade=standard" class="buy-btn">
+                        <i class="fas fa-shopping-cart"></i> 立即選購
+                    </a>
+                </div>
+            </div>
+
+            <!-- 良級 -->
+            <div class="grade-card">
+                <div class="grade-header economy">
+                    <div class="grade-badge">✓ ECONOMY</div>
+                    <div class="grade-title">良級椪柑</div>
+                    <div class="grade-subtitle">經濟實惠，家庭自用</div>
+                </div>
+                <div class="grade-body">
+                    <div class="grade-specs">
+                        <div class="spec-item">
+                            <div class="spec-label">果實大小</div>
+                            <div class="spec-value">30A 規格</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">重量範圍</div>
+                            <div class="spec-value">110-130g</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">甜度</div>
+                            <div class="spec-value">10-12°Brix</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">外觀</div>
+                            <div class="spec-value">A 級</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li>果實較小但風味不減</li>
+                        <li>外觀有自然斑點或輕微瑕疵</li>
+                        <li>甜度仍在標準範圍</li>
+                        <li>價格實惠，適合大量購買</li>
+                        <li>家庭日常食用最佳選擇</li>
+                    </ul>
+                    
+                    <div class="price-tag">
+                        <div class="price-label">參考售價</div>
+                        <div class="price-value">
+                            NT$ 499
+                            <span class="price-unit">/ 5斤</span>
+                        </div>
+                    </div>
+                    
+                    <a href="products.html?product=ponkan&grade=economy" class="buy-btn">
+                        <i class="fas fa-shopping-cart"></i> 立即選購
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 比較表 -->
+        <div class="comparison-table">
+            <h2><i class="fas fa-balance-scale"></i> 規格比較表</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>比較項目</th>
+                        <th>特級</th>
+                        <th>優級</th>
+                        <th>良級</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>果實大小</td>
+                        <td>150-180g</td>
+                        <td>130-150g</td>
+                        <td>110-130g</td>
+                    </tr>
+                    <tr>
+                        <td>甜度</td>
+                        <td>12-14°Brix</td>
+                        <td>11-13°Brix</td>
+                        <td>10-12°Brix</td>
+                    </tr>
+                    <tr>
+                        <td>外觀品質</td>
+                        <td>完美無瑕</td>
+                        <td>良好</td>
+                        <td>略有瑕疵</td>
+                    </tr>
+                    <tr>
+                        <td>包裝方式</td>
+                        <td>精美禮盒</td>
+                        <td>標準紙箱</td>
+                        <td>經濟紙箱</td>
+                    </tr>
+                    <tr>
+                        <td>適合用途</td>
+                        <td>送禮</td>
+                        <td>自用/送禮</td>
+                        <td>家庭自用</td>
+                    </tr>
+                    <tr>
+                        <td>價格（5斤）</td>
+                        <td>NT$ 899</td>
+                        <td>NT$ 699</td>
+                        <td>NT$ 499</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/cart.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

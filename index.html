@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -337,6 +337,63 @@
         </div>
     </section>
 
+    <!-- 最新消息 -->
+    <section class="news-section" style="padding: 50px 0; background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">最新消息</h2>
+            <div class="news-carousel" style="position: relative; overflow: hidden;">
+                <div class="news-track" style="display: flex; gap: 20px; transition: transform 0.5s ease;">
+                    <a href="news-detail.html?id=1" class="news-card" style="min-width: calc(33.333% - 14px); background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; color: inherit; transition: transform 0.3s;">
+                        <div style="height: 200px; overflow: hidden;">
+                            <img src="images/椪柑產品圖/椪柑1.jpg" alt="椪柑產季開始" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="color: var(--primary-color); font-size: 12px; margin-bottom: 8px;">2025-10-01</div>
+                            <h3 style="font-size: 18px; margin-bottom: 10px; color: var(--text-dark);">🍊 椪柑產季開始！</h3>
+                            <p style="color: #666; font-size: 14px; line-height: 1.6;">公老坪椪柑正式上市，皮薄好剝、酸甜平衡，現在訂購享早鳥優惠！</p>
+                        </div>
+                    </a>
+                    <a href="news-detail.html?id=2" class="news-card" style="min-width: calc(33.333% - 14px); background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; color: inherit; transition: transform 0.3s;">
+                        <div style="height: 200px; overflow: hidden;">
+                            <img src="images/茂谷柑產品圖/茂谷柑1.png" alt="茂谷柑預購" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="color: var(--primary-color); font-size: 12px; margin-bottom: 8px;">2025-09-15</div>
+                            <h3 style="font-size: 18px; margin-bottom: 10px; color: var(--text-dark);">🍊 茂谷柑預購開跑</h3>
+                            <p style="color: #666; font-size: 14px; line-height: 1.6;">春節送禮首選！2月開始供應，現在預購享優惠價格，數量有限！</p>
+                        </div>
+                    </a>
+                    <a href="news-detail.html?id=3" class="news-card" style="min-width: calc(33.333% - 14px); background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; color: inherit; transition: transform 0.3s;">
+                        <div style="height: 200px; overflow: hidden;">
+                            <img src="images/菱角仁/新鮮蔬果菱角仁1.jpg" alt="菱角上市" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="color: var(--primary-color); font-size: 12px; margin-bottom: 8px;">2025-09-01</div>
+                            <h3 style="font-size: 18px; margin-bottom: 10px; color: var(--text-dark);">🌾 新鮮菱角上市</h3>
+                            <p style="color: #666; font-size: 14px; line-height: 1.6;">秋季限定！新鮮菱角仁現貨供應，冷凍配送保鮮，營養美味。</p>
+                        </div>
+                    </a>
+                    <a href="news-detail.html?id=4" class="news-card" style="min-width: calc(33.333% - 14px); background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; color: inherit; transition: transform 0.3s;">
+                        <div style="height: 200px; overflow: hidden;">
+                            <img src="images/芋角/新鮮蔬果芋角2CM.jpg" alt="滿額免運" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="color: var(--primary-color); font-size: 12px; margin-bottom: 8px;">2025-08-20</div>
+                            <h3 style="font-size: 18px; margin-bottom: 10px; color: var(--text-dark);">📦 滿額免運優惠</h3>
+                            <p style="color: #666; font-size: 14px; line-height: 1.6;">單筆訂單滿NT$1800享免運優惠，全館商品適用，把握機會！</p>
+                        </div>
+                    </a>
+                </div>
+                <button onclick="newsCarousel(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 10;">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button onclick="newsCarousel(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 10;">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- 商品列表 -->
     <section class="products-section" id="products">
         <div class="container">
@@ -606,6 +663,9 @@
         </div>
     </footer>
 
+    <script src="./js/cookie-consent.js"></script>
+    <script src="./js/dropdown-menu.js"></script>
+    <script src="./js/page-transitions.js"></script>
     <script src="./js/orange-animation.js?v=20251004i"></script>
     <script src="./js/season-timeline.js?v=20251004i"></script>
     <script src="./js/products.js?v=20251004i"></script>
@@ -613,6 +673,49 @@
     <script src="./js/checkout.js?v=20251004i"></script>
     <script src="./js/main.js?v=20251004i"></script>
     <script>
+        // 新聞輪播控制
+        let newsPosition = 0;
+        function newsCarousel(direction) {
+            const track = document.querySelector('.news-track');
+            const cards = document.querySelectorAll('.news-card');
+            const cardWidth = cards[0].offsetWidth + 20; // 包含gap
+            const visibleCards = 3;
+            const maxPosition = -(cards.length - visibleCards);
+            
+            newsPosition += direction;
+            if (newsPosition > 0) newsPosition = 0;
+            if (newsPosition < maxPosition) newsPosition = maxPosition;
+            
+            track.style.transform = `translateX(${newsPosition * cardWidth}px)`;
+        }
+        
+        // 自動輪播
+        setInterval(() => {
+            const track = document.querySelector('.news-track');
+            const cards = document.querySelectorAll('.news-card');
+            if (cards.length > 3) {
+                newsCarousel(-1);
+                if (newsPosition <= -(cards.length - 3)) {
+                    setTimeout(() => {
+                        track.style.transition = 'none';
+                        newsPosition = 0;
+                        track.style.transform = 'translateX(0)';
+                        setTimeout(() => {
+                            track.style.transition = 'transform 0.5s ease';
+                        }, 50);
+                    }, 500);
+                }
+            }
+        }, 5000);
+        
+        // 響應式調整
+        window.addEventListener('resize', () => {
+            newsPosition = 0;
+            document.querySelector('.news-track').style.transform = 'translateX(0)';
+        });
+    </script>
+</body>
+</html>
     // 圖片懶加載功能
     document.addEventListener('DOMContentLoaded', function() {
         const lazyImages = [].slice.call(document.querySelectorAll('img.lazy'));
