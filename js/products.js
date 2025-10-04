@@ -4,7 +4,7 @@ const products = [
         id: 1,
         name: '公老坪植柑 10斤裝',
         category: '優質水果',
-        price: 680,
+        price: 699,
         image: 'images/椪柑產品圖/椪柑1.jpg',
         alt: '公老坪椪柑，果皮橙黃，果實飽滿，皮薄好剝',
         images: [
@@ -37,7 +37,7 @@ const products = [
         id: 2,
         name: '東勢茂谷柑 10斤裝',
         category: '優質水果',
-        price: 850,
+        price: 880,
         image: 'images/茂谷柑產品圖/茂谷柑1.png',
         alt: '東勢茂谷柑，果肉飽滿，香氣濃郁，甜度高',
         images: [
@@ -142,6 +142,7 @@ function renderProducts(productsToRender = products) {
                     <div class="product-price">
                         <span class="currency">NT$</span>
                         <span class="amount">${product.price}</span>
+                        ${product.hasSpecs ? '<span class="price-suffix"> 起</span>' : ''}
                     </div>
                 </div>
             </a>
@@ -206,6 +207,7 @@ function renderCarouselProducts(containerId, productsToRender) {
                     <div class="product-price">
                         <span class="currency">NT$</span>
                         <span class="amount">${product.price}</span>
+                        ${product.hasSpecs ? '<span class="price-suffix"> 起</span>' : ''}
                     </div>
                 </div>
             </a>
