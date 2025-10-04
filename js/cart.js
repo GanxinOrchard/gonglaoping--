@@ -349,6 +349,10 @@ function closeCartSidebar() {
     }
     if (cartOverlay) {
         cartOverlay.classList.remove('active');
+        // 延遲隱藏，等待動畫完成
+        setTimeout(() => {
+            cartOverlay.style.display = 'none';
+        }, 300);
     }
     document.body.style.overflow = '';
 }
@@ -374,13 +378,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(cartOverlay);
     }
     
-    // 確保購物車側邊欄和遮罩層關閉
+    // 強制確保購物車側邊欄和遮罩層關閉
     const cartSidebar = document.getElementById('cartSidebar');
     if (cartSidebar) {
         cartSidebar.classList.remove('active');
+        cartSidebar.style.right = '-400px'; // 強制隱藏
     }
     if (cartOverlay) {
         cartOverlay.classList.remove('active');
+        cartOverlay.style.opacity = '0';
+        cartOverlay.style.visibility = 'hidden';
+        cartOverlay.style.display = 'none'; // 強制隱藏
     }
     
     // 購物車圖示點擊
@@ -390,9 +398,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 打開購物車函數
     function openCart() {
-        if (cartSidebar) {
+        if (cartSidebar && cartOverlay) {
             cartSidebar.classList.add('active');
             cartOverlay.classList.add('active');
+            cartOverlay.style.display = 'block'; // 確保顯示
             document.body.style.overflow = 'hidden';
         }
     }
