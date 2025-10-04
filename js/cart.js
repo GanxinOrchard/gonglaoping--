@@ -398,19 +398,41 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 打開購物車函數
     function openCart() {
-        if (cartSidebar && cartOverlay) {
-            cartSidebar.classList.add('active');
-            cartOverlay.classList.add('active');
-            cartOverlay.style.display = 'block'; // 確保顯示
+        console.log('openCart 被調用');
+        const sidebar = document.getElementById('cartSidebar');
+        const overlay = document.getElementById('cartOverlay');
+        
+        console.log('sidebar:', sidebar);
+        console.log('overlay:', overlay);
+        
+        if (sidebar && overlay) {
+            console.log('打開購物車...');
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            overlay.style.display = 'block'; // 確保顯示
+            overlay.style.opacity = '1';
+            overlay.style.visibility = 'visible';
             document.body.style.overflow = 'hidden';
+            console.log('購物車已打開');
+        } else {
+            console.error('無法找到購物車元素');
         }
     }
     
-    if (cartIcon && cartSidebar) {
+    console.log('設置事件監聽器...');
+    console.log('cartIcon:', cartIcon);
+    console.log('cartSidebar:', cartSidebar);
+    
+    if (cartIcon) {
+        console.log('添加購物車圖示點擊事件');
         cartIcon.addEventListener('click', (e) => {
+            console.log('購物車圖示被點擊！');
             e.preventDefault();
+            e.stopPropagation();
             openCart();
         });
+    } else {
+        console.error('找不到 cartIcon 元素');
     }
     
     // 懸浮購物車按鈕點擊
