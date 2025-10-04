@@ -742,9 +742,14 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit-order" onclick="submitOrder(event)">
-                    <i class="fas fa-check-circle"></i> 確認送出訂單
-                </button>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <a href="cart.html" class="btn-back-to-cart" style="flex: 1; padding: 15px 30px; background: #95a5a6; color: white; border-radius: 8px; text-decoration: none; text-align: center; transition: all 0.3s;">
+                        <i class="fas fa-arrow-left"></i> 返回購物車
+                    </a>
+                    <button type="submit" class="btn-submit-order" onclick="submitOrder(event)" style="flex: 2;">
+                        <i class="fas fa-check-circle"></i> 確認送出訂單
+                    </button>
+                </div>
             </div>
 
             <!-- 右側：訂單摘要 -->
@@ -825,9 +830,9 @@
         </div>
     </footer>
 
-    <script src="./js/products.js?v=20251004h"></script>
-    <script src="./js/cart.js?v=20251004h"></script>
-    <script src="./js/main.js?v=20251004h"></script>
+    <script src="./js/products.js?v=20251004i"></script>
+    <script src="./js/cart.js?v=20251004i"></script>
+    <script src="./js/main.js?v=20251004i"></script>
     <script>
         // 折扣碼規則（配合產季期限）
         const discountCodes = {
@@ -1073,7 +1078,20 @@ T$ ${total.toLocaleString()}`;
                 return;
             }
             
+            // 獲取購物車資料
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const totals = calculateTotal();
+            
+            // 生成訂單編號
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            const orderNumber = `${year}${month}${day}${random}`;
+            
             const orderData = {
+                orderNumber: orderNumber,
                 orderId: 'ORD' + Date.now(),
                 buyer: {
                     name: document.getElementById('buyerName').value,
@@ -1093,21 +1111,23 @@ T$ ${total.toLocaleString()}`;
                 },
                 payment: document.querySelector('input[name="payment"]:checked').value,
                 note: document.getElementById('orderNote').value,
-                cart: JSON.parse(localStorage.getItem('cart')) || [],
+                items: cartItems,
+                subtotal: totals.subtotal,
+                shipping: totals.shipping,
+                total: totals.total,
                 date: new Date().toISOString()
             };
             
             console.log('訂單資料：', orderData);
             
-            // 這裡可以串接後端 API
-            alert('訂單已送出！訂單編號：' + orderData.orderId + '\n\n我們會盡快與您聯繫確認訂單。');
+            // 保存訂單資訊到 localStorage
+            localStorage.setItem('lastOrder', JSON.stringify(orderData));
             
-            // 清空購物車和表單資料
-            localStorage.removeItem('cart');
+            // 清空表單資料
             localStorage.removeItem('checkoutFormData');
             
-            // 跳轉到首頁
-            window.location.href = 'index.html';
+            // 跳轉到訂單完成頁面
+            window.location.href = 'order-complete.html';
         }
         
         // 載入已儲存的表單資料
