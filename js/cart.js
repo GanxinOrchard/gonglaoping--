@@ -355,6 +355,19 @@ function closeCartSidebar() {
 
 // 初始化購物車
 document.addEventListener('DOMContentLoaded', () => {
+    // 確保頁面載入時 body overflow 正常
+    document.body.style.overflow = '';
+    
+    // 確保購物車側邊欄關閉
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartOverlay = document.getElementById('cartOverlay');
+    if (cartSidebar) {
+        cartSidebar.classList.remove('active');
+    }
+    if (cartOverlay) {
+        cartOverlay.classList.remove('active');
+    }
+    
     updateCartUI();
     
     // 創建遮罩層（如果不存在）

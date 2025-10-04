@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -1025,13 +1025,12 @@ T$ ${total.toLocaleString()}`;
             const total = subtotal + shipping;
             
             document.getElementById('summarySubtotal').textContent = 
-T$ ${subtotal.toLocaleString()}`;
+                `NT$ ${subtotal.toLocaleString()}`;
             document.getElementById('summaryShipping').innerHTML = shipping === 0 
                 ? '<span style="color: #27ae60;">免運費</span>' 
-                : 
-T$ ${shipping.toLocaleString()}`;
+                : `NT$ ${shipping.toLocaleString()}`;
             document.getElementById('summaryTotal').textContent = 
-T$ ${total.toLocaleString()}`;
+                `NT$ ${total.toLocaleString()}`;
             document.getElementById('shippingNotice').textContent = shipping === 0 
                 ? '✓ 已達免運門檻' 
                 : `再消費 NT$ ${(1800 - subtotal).toLocaleString()} 即可免運`;
