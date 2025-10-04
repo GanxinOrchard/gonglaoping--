@@ -13,8 +13,8 @@
         if (document.getElementById('fallingAnimation')) {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get('id'));
-            // 菱角(3)和芋角(6)有專屬動畫，不顯示橘子
-            if (productId === 3 || productId === 6) {
+            // 椪柑(1)、茂谷柑(2)、菱角(3)、芋角(6)有專屬動畫，不顯示橘子
+            if ([1, 2, 3, 6].includes(productId)) {
                 return;
             }
         }

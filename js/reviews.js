@@ -102,12 +102,66 @@ const reviews = [
     { id: 100, user: '劉秀英', rating: 5, date: '2024-10-08', content: '百年果園，世代傳承，品質保證！' }
 ];
 
+// 基於年份的隨機種子函數（確保每年順序不同但同一年固定）
+function seededRandom(seed) {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+}
+
+// 自動更新評論日期為最近三年
+function updateReviewDates(reviewList) {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+    const currentDay = new Date().getDate();
+    
+    // 使用年份作為種子，確保同一年生成相同的日期
+    let seed = currentYear * 9876;
+    
+    return reviewList.map((review, index) => {
+        // 計算這條評論應該在哪一年（最近三年內）
+        const yearOffset = Math.floor(index / 34); // 每年約 34 條評論
+        const year = currentYear - (yearOffset % 3); // 循環使用最近三年
+        
+        // 根據種子生成月份和日期
+        const month = Math.floor(seededRandom(seed++) * 12) + 1;
+        const maxDay = new Date(year, month, 0).getDate();
+        const day = Math.floor(seededRandom(seed++) * maxDay) + 1;
+        
+        const newDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        
+        return {
+            ...review,
+            date: newDate
+        };
+    });
+}
+
+// 基於年份打亂評論順序
+function shuffleReviewsByYear(array) {
+    const currentYear = new Date().getFullYear();
+    const shuffled = [...array];
+    
+    // 使用年份作為種子，確保同一年順序固定
+    let seed = currentYear * 12345;
+    
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(seededRandom(seed++) * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    return shuffled;
+}
+
+// 獲取當年的隨機評論順序，並更新日期
+let updatedReviews = updateReviewDates(reviews);
+let shuffledReviews = shuffleReviewsByYear(updatedReviews);
+
 // 渲染評論
 function renderReviews(productId, limit = 10) {
     const container = document.getElementById('reviewsList');
     if (!container) return;
     
-    const displayReviews = reviews.slice(0, limit);
+    const displayReviews = shuffledReviews.slice(0, limit);
     
     container.innerHTML = displayReviews.map(review => `
         <div class="review-item">
@@ -128,6 +182,6 @@ function renderReviews(productId, limit = 10) {
 
 // 計算平均評分
 function getAverageRating() {
-    const total = reviews.reduce((sum, r) => sum + r.rating, 0);
-    return (total / reviews.length).toFixed(1);
+    const total = shuffledReviews.reduce((sum, r) => sum + r.rating, 0);
+    return (total / shuffledReviews.length).toFixed(1);
 }
