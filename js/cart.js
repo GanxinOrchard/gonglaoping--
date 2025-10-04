@@ -215,27 +215,19 @@ function showNotification(message) {
 }
 
 // ========================================
-// 購物車側邊欄控制（簡化版）
+// 購物車導航（使用獨立頁面）
 // ========================================
 
-function openCartSidebar() {
-    const sidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('cartOverlay');
-    
-    if (!sidebar || !overlay) return;
-    
-    sidebar.classList.add('active');
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+function goToCart() {
+    window.location.href = 'cart.html';
 }
 
-function closeCartSidebar() {
-    const sidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('cartOverlay');
-    
-    if (sidebar) sidebar.classList.remove('active');
-    if (overlay) overlay.classList.remove('active');
-    document.body.style.overflow = '';
+function goToCheckout() {
+    if (cart.length === 0) {
+        showNotification('購物車是空的！');
+        return;
+    }
+    window.location.href = 'checkout.html';
 }
 
 // ========================================
@@ -250,84 +242,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // 更新UI
     updateCartUI();
     
-    // 檢查是否有購物車側邊欄（只在需要的頁面設置）
-    const cartSidebar = document.getElementById('cartSidebar');
-    
-    if (!cartSidebar) {
-        // 沒有側邊欄的頁面（如結帳頁面），直接返回
-        return;
-    }
-    
-    // 確保遮罩層存在
-    let cartOverlay = document.getElementById('cartOverlay');
-    if (!cartOverlay) {
-        cartOverlay = document.createElement('div');
-        cartOverlay.id = 'cartOverlay';
-        cartOverlay.className = 'cart-overlay';
-        document.body.appendChild(cartOverlay);
-    }
-    
-    // 購物車圖示點擊事件
+    // 購物車圖示點擊事件 - 導向購物車頁面
     const cartIcon = document.getElementById('cartIcon');
     if (cartIcon) {
         cartIcon.addEventListener('click', function(e) {
             e.preventDefault();
-            openCartSidebar();
+            window.location.href = 'cart.html';
         });
     }
     
-    // 懸浮購物車按鈕
+    // 懸浮購物車按鈕 - 導向購物車頁面
     const floatingCartBtn = document.getElementById('floatingCartBtn');
     if (floatingCartBtn) {
         floatingCartBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            openCartSidebar();
-        });
-    }
-    
-    // 關閉按鈕
-    const closeCart = document.getElementById('closeCart');
-    if (closeCart) {
-        closeCart.addEventListener('click', closeCartSidebar);
-    }
-    
-    // 點擊遮罩關閉
-    if (cartOverlay) {
-        cartOverlay.addEventListener('click', closeCartSidebar);
-    }
-    
-    // 結帳按鈕
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (cart.length === 0) {
-                showNotification('購物車是空的！');
-                return;
-            }
-            closeCartSidebar();
-            setTimeout(() => {
-                window.location.href = 'checkout.html';
-            }, 300);
-        });
-    }
-    
-    // 折扣碼
-    const applyDiscountBtn = document.getElementById('applyDiscount');
-    const discountCodeInput = document.getElementById('discountCode');
-    
-    if (applyDiscountBtn && discountCodeInput) {
-        applyDiscountBtn.addEventListener('click', function() {
-            const code = discountCodeInput.value.trim().toUpperCase();
-            const discount = discountCodes[code];
-            
-            if (discount) {
-                appliedDiscount = discount;
-                showNotification(`✅ ${discount.description}`);
-                updateCartUI();
-            } else {
-                showNotification('❌ 無效的折扣碼');
-            }
+            window.location.href = 'cart.html';
         });
     }
 });
