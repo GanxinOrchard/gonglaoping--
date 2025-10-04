@@ -390,7 +390,8 @@ ul {
 .main-menu > ul {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
+    flex-wrap: nowrap;
 }
 
 .main-menu > ul > li {
@@ -2818,6 +2819,29 @@ ul {
     .cart-sidebar {
         width: 100%;
         right: -100%;
+    }
+}
+
+/* 中等螢幕優化（避免導覽列換行） */
+@media (max-width: 1280px) {
+    .main-menu > ul {
+        gap: 15px;
+    }
+    
+    .main-menu > ul > li > a {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main-menu > ul {
+        gap: 10px;
+    }
+    
+    .main-menu > ul > li > a {
+        font-size: 13px;
+        padding: 8px 10px;
     }
 }
 

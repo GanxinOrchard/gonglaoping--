@@ -250,7 +250,8 @@ ul {
 .main-menu > ul {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
+    flex-wrap: nowrap;
 }
 
 .main-menu > ul > li {
@@ -917,6 +918,29 @@ ul {
     padding-top: 30px;
     border-top: 1px solid rgba(255,255,255,0.1);
     color: #999;
+}
+
+/* ===== 中等螢幕優化（避免導覽列換行） ===== */
+@media (max-width: 1280px) {
+    .main-menu > ul {
+        gap: 15px;
+    }
+    
+    .main-menu > ul > li > a {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main-menu > ul {
+        gap: 10px;
+    }
+    
+    .main-menu > ul > li > a {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
 }
 
 /* ===== 手機版響應式 ===== */
