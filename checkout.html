@@ -970,11 +970,14 @@
             const shipping = (subtotal - discount) >= 1800 ? 0 : 150;
             const total = subtotal - discount + shipping;
             
-            document.getElementById('summarySubtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
+            document.getElementById('summarySubtotal').textContent = 
+T$ ${subtotal.toLocaleString()}`;
             document.getElementById('summaryShipping').innerHTML = shipping === 0 
                 ? '<span style="color: #27ae60;">免運費</span>' 
-                : `NT$ ${shipping.toLocaleString()}`;
-            document.getElementById('summaryTotal').textContent = `NT$ ${total.toLocaleString()}`;
+                : 
+T$ ${shipping.toLocaleString()}`;
+            document.getElementById('summaryTotal').textContent = 
+T$ ${total.toLocaleString()}`;
             
             // 顯示/隱藏折扣行
             const discountRow = document.getElementById('discountRow');
@@ -1021,11 +1024,14 @@
             const shipping = subtotal >= 1800 ? 0 : 150;
             const total = subtotal + shipping;
             
-            document.getElementById('summarySubtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
+            document.getElementById('summarySubtotal').textContent = 
+T$ ${subtotal.toLocaleString()}`;
             document.getElementById('summaryShipping').innerHTML = shipping === 0 
                 ? '<span style="color: #27ae60;">免運費</span>' 
-                : `NT$ ${shipping.toLocaleString()}`;
-            document.getElementById('summaryTotal').textContent = `NT$ ${total.toLocaleString()}`;
+                : 
+T$ ${shipping.toLocaleString()}`;
+            document.getElementById('summaryTotal').textContent = 
+T$ ${total.toLocaleString()}`;
             document.getElementById('shippingNotice').textContent = shipping === 0 
                 ? '✓ 已達免運門檻' 
                 : `再消費 NT$ ${(1800 - subtotal).toLocaleString()} 即可免運`;
