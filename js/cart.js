@@ -350,9 +350,12 @@ function closeCartSidebar() {
     }
     if (cartOverlay) {
         cartOverlay.classList.remove('active');
+        cartOverlay.style.pointerEvents = 'none'; // 禁用點擊事件
         // 延遲隱藏，等待動畫完成
         setTimeout(() => {
             cartOverlay.style.display = 'none';
+            cartOverlay.style.opacity = '0';
+            cartOverlay.style.visibility = 'hidden';
         }, 300);
     }
     document.body.style.overflow = '';
@@ -376,18 +379,26 @@ document.addEventListener('DOMContentLoaded', () => {
         cartOverlay = document.createElement('div');
         cartOverlay.id = 'cartOverlay';
         cartOverlay.className = 'cart-overlay';
+        cartOverlay.style.display = 'none'; // 初始化時就隱藏
+        cartOverlay.style.opacity = '0';
+        cartOverlay.style.visibility = 'hidden';
         document.body.appendChild(cartOverlay);
+        console.log('✅ 遮罩層已創建並隱藏');
     }
     
     // 強制確保購物車側邊欄和遮罩層關閉
     const cartSidebar = document.getElementById('cartSidebar');
     if (cartSidebar) {
         cartSidebar.classList.remove('active');
-        // 不要設置內聯樣式，讓 CSS 處理位置
+        console.log('✅ 購物車側邊欄已關閉');
     }
     if (cartOverlay) {
         cartOverlay.classList.remove('active');
         cartOverlay.style.display = 'none'; // 強制隱藏遮罩
+        cartOverlay.style.opacity = '0';
+        cartOverlay.style.visibility = 'hidden';
+        cartOverlay.style.pointerEvents = 'none'; // 確保不會攔截點擊
+        console.log('✅ 遮罩層已完全隱藏');
     }
     
     // 購物車圖示點擊
@@ -414,6 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.style.display = 'block';
             overlay.style.opacity = '';
             overlay.style.visibility = '';
+            overlay.style.pointerEvents = 'auto'; // 啟用點擊事件
             overlay.classList.add('active');
             
             document.body.style.overflow = 'hidden';
