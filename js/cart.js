@@ -358,16 +358,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 確保頁面載入時 body overflow 正常
     document.body.style.overflow = '';
     
-    // 確保購物車側邊欄關閉
-    const cartSidebar = document.getElementById('cartSidebar');
-    const cartOverlay = document.getElementById('cartOverlay');
-    if (cartSidebar) {
-        cartSidebar.classList.remove('active');
-    }
-    if (cartOverlay) {
-        cartOverlay.classList.remove('active');
-    }
-    
     updateCartUI();
     
     // 創建遮罩層（如果不存在）
@@ -379,10 +369,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(cartOverlay);
     }
     
+    // 確保購物車側邊欄和遮罩層關閉
+    const cartSidebar = document.getElementById('cartSidebar');
+    if (cartSidebar) {
+        cartSidebar.classList.remove('active');
+    }
+    if (cartOverlay) {
+        cartOverlay.classList.remove('active');
+    }
+    
     // 購物車圖示點擊
     const cartIcon = document.getElementById('cartIcon');
     const floatingCartBtn = document.getElementById('floatingCartBtn');
-    const cartSidebar = document.getElementById('cartSidebar');
     const closeCart = document.getElementById('closeCart');
     
     // 打開購物車函數
