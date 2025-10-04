@@ -346,6 +346,7 @@ function closeCartSidebar() {
     const cartOverlay = document.getElementById('cartOverlay');
     if (cartSidebar) {
         cartSidebar.classList.remove('active');
+        // 不要強制設置 style.right，讓 CSS 處理
     }
     if (cartOverlay) {
         cartOverlay.classList.remove('active');
@@ -382,13 +383,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartSidebar = document.getElementById('cartSidebar');
     if (cartSidebar) {
         cartSidebar.classList.remove('active');
-        cartSidebar.style.right = '-400px'; // 強制隱藏
+        // 不要設置內聯樣式，讓 CSS 處理位置
     }
     if (cartOverlay) {
         cartOverlay.classList.remove('active');
-        cartOverlay.style.opacity = '0';
-        cartOverlay.style.visibility = 'hidden';
-        cartOverlay.style.display = 'none'; // 強制隱藏
+        cartOverlay.style.display = 'none'; // 強制隱藏遮罩
     }
     
     // 購物車圖示點擊
@@ -407,13 +406,20 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (sidebar && overlay) {
             console.log('打開購物車...');
+            
+            // 清除強制設置的內聯樣式，讓 CSS 類生效
+            sidebar.style.right = '';
             sidebar.classList.add('active');
+            
+            overlay.style.display = 'block';
+            overlay.style.opacity = '';
+            overlay.style.visibility = '';
             overlay.classList.add('active');
-            overlay.style.display = 'block'; // 確保顯示
-            overlay.style.opacity = '1';
-            overlay.style.visibility = 'visible';
+            
             document.body.style.overflow = 'hidden';
             console.log('購物車已打開');
+            console.log('sidebar.style.right:', sidebar.style.right);
+            console.log('sidebar has active class:', sidebar.classList.contains('active'));
         } else {
             console.error('無法找到購物車元素');
         }
