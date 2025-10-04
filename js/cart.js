@@ -1,15 +1,15 @@
-console.log('Cart.js loading...');
+// ========================================
+// 購物車系統 - 完全重寫版本
+// 版本：2.0 - 2025-10-04
+// ========================================
 
 // 購物車資料
 let cart = [];
 try {
     cart = JSON.parse(localStorage.getItem('cart')) || [];
 } catch (e) {
-    console.error('Failed to load cart from localStorage:', e);
     cart = [];
 }
-
-console.log('Cart.js loaded successfully');
 
 // 運費設定
 const FREE_SHIPPING_THRESHOLD = 1800;
@@ -25,9 +25,12 @@ const discountCodes = {
 
 let appliedDiscount = null;
 
+// ========================================
+// 核心功能：購物車操作
+// ========================================
+
 // 加入購物車
 function addToCart(productId, specId = null, quantity = 1) {
-    // 如果第一個參數是物件（舊版相容）
     if (typeof productId === 'object') {
         const product = productId;
         const existingItem = cart.find(item => item.id === product.id && item.selectedSpecId === product.selectedSpecId);
@@ -41,14 +44,11 @@ function addToCart(productId, specId = null, quantity = 1) {
             });
         }
     } else {
-        // 新版：使用 productId 和 specId
         if (typeof products === 'undefined') {
-            console.error('Products array is not defined');
             return;
         }
         const product = products.find(p => p.id === productId);
         if (!product) {
-            console.error('Product not found:', productId);
             return;
         }
         
@@ -56,18 +56,15 @@ function addToCart(productId, specId = null, quantity = 1) {
         let price = product.price;
         let specName = '';
         
-        // 如果有規格
         if (specId && product.specs) {
             selectedSpec = product.specs.find(s => s.id === specId);
             if (selectedSpec) {
                 price = selectedSpec.price;
-                // 優先顯示 weight，其次顯示 diameter
                 const specDetail = selectedSpec.weight || selectedSpec.diameter || '';
                 specName = selectedSpec.name + (specDetail ? ' (' + specDetail + ')' : '');
             }
         }
         
-        // 檢查是否已存在（同商品同規格）
         const existingItem = cart.find(item => 
             item.id === productId && item.selectedSpecId === specId
         );
@@ -103,575 +100,234 @@ function updateQuantity(productId, change, specId = null) {
     
     if (item.quantity <= 0) {
         removeFromCart(productId, specId);
-        return;
+    } else {
+        saveCart();
+        updateCartUI();
     }
-    
-    saveCart();
-    updateCartUI();
 }
 
-// 移除商品
+// 從購物車移除商品
 function removeFromCart(productId, specId = null) {
     cart = cart.filter(item => !(item.id === productId && item.selectedSpecId === specId));
     saveCart();
     updateCartUI();
-    showNotification('已移除商品');
-}
-
-// 計算小計
-function calculateSubtotal() {
-    return cart.reduce((total, item) => {
-        const price = Number(item.price) || 0;
-        const quantity = Number(item.quantity) || 0;
-        return total + (price * quantity);
-    }, 0);
-}
-
-// 計算折扣金額
-function calculateDiscount(subtotal) {
-    if (!appliedDiscount) return 0;
-    
-    if (appliedDiscount.type === 'percentage') {
-        return Math.floor(subtotal * appliedDiscount.value / 100);
-    } else if (appliedDiscount.type === 'fixed') {
-        return appliedDiscount.value;
-    }
-    
-    return 0;
-}
-
-// 計算總計
-function calculateTotal() {
-    const subtotal = calculateSubtotal();
-    const discount = calculateDiscount(subtotal);
-    return Math.max(0, subtotal - discount);
-}
-
-// 套用折扣碼
-function applyDiscountCode(code) {
-    const discount = discountCodes[code.toUpperCase()];
-    
-    if (!discount) {
-        showDiscountMessage('折扣碼無效', 'error');
-        return false;
-    }
-    
-    appliedDiscount = discount;
-    showDiscountMessage(`已套用：${discount.description}`, 'success');
-    updateCartUI();
-    return true;
-}
-
-// 顯示折扣訊息
-function showDiscountMessage(message, type) {
-    const discountInfo = document.getElementById('discountInfo');
-    
-    if (!discountInfo) return;
-    
-    discountInfo.textContent = message;
-    discountInfo.className = `discount-info ${type}`;
-    discountInfo.style.display = 'block';
-    
-    setTimeout(() => {
-        discountInfo.style.display = 'none';
-    }, 3000);
-}
-
-// 更新購物車 UI
-function updateCartUI() {
-    updateCartCount();
-    renderCartItems();
-    updateCartTotal();
-}
-
-// 更新購物車數量顯示
-function updateCartCount() {
-    const cartCount = document.getElementById('cartCount');
-    const floatingCartCount = document.getElementById('floatingCartCount');
-    
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    
-    if (cartCount) {
-        cartCount.textContent = totalItems;
-    }
-    
-    if (floatingCartCount) {
-        floatingCartCount.textContent = totalItems;
-        floatingCartCount.style.display = totalItems > 0 ? 'block' : 'none';
-    }
-}
-
-// 渲染購物車項目
-function renderCartItems() {
-    const cartItems = document.getElementById('cartItems');
-    
-    if (!cartItems) return;
-    
-    // 清理無效的購物車項目
-    cart = cart.filter(item => item && item.id && item.name);
-    
-    if (cart.length === 0) {
-        cartItems.innerHTML = `
-            <div class="empty-cart">
-                <i class="fas fa-shopping-cart"></i>
-                <p>購物車是空的</p>
-            </div>
-        `;
-        saveCart(); // 儲存清理後的購物車
-        return;
-    }
-    
-    cartItems.innerHTML = cart.map(item => `
-        <div class="cart-item">
-            <div class="cart-item-image">
-                <img src="${item.image || 'images/placeholder.png'}" alt="${item.name || '商品'}">
-            </div>
-            <div class="cart-item-info">
-                <div class="cart-item-name">${item.name || '未知商品'}</div>
-                ${item.selectedSpec ? `<div class="cart-item-spec">規格：${item.selectedSpec}</div>` : ''}
-                <div class="cart-item-price">NT$ ${item.price || 0}</div>
-                <div class="cart-item-controls">
-                    <div class="quantity-control">
-                        <button onclick="updateQuantity(${item.id}, -1, ${item.selectedSpecId ? "'" + item.selectedSpecId + "'" : 'null'})">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <span>${item.quantity || 1}</span>
-                        <button onclick="updateQuantity(${item.id}, 1, ${item.selectedSpecId ? "'" + item.selectedSpecId + "'" : 'null'})">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                    <button class="btn-remove" onclick="removeFromCart(${item.id}, ${item.selectedSpecId ? "'" + item.selectedSpecId + "'" : 'null'})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
-
-// 更新購物車總計
-function updateCartTotal() {
-    const subtotalEl = document.getElementById('subtotal');
-    const shippingEl = document.getElementById('shippingFee');
-    const totalEl = document.getElementById('total');
-    const discountAmountEl = document.getElementById('discountAmount');
-    const discountValueEl = document.getElementById('discountValue');
-    
-    const subtotal = calculateSubtotal() || 0;
-    const discount = calculateDiscount(subtotal) || 0;
-    const shipping = (subtotal > 0 && subtotal >= FREE_SHIPPING_THRESHOLD) ? 0 : (subtotal > 0 ? SHIPPING_FEE : 0);
-    const total = Math.max(0, subtotal - discount + shipping);
-    
-    console.log('更新購物車總計:', { subtotal, discount, shipping, total });
-    
-    if (subtotalEl) {
-        subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
-    }
-    
-    if (shippingEl) {
-        if (shipping === 0 && subtotal > 0) {
-            shippingEl.innerHTML = '<span style="color: #27ae60;">免運費</span>';
-        } else {
-            shippingEl.textContent = `NT$ ${shipping.toLocaleString()}`;
-        }
-    }
-    
-    if (totalEl) {
-        totalEl.textContent = `NT$ ${total.toLocaleString()}`;
-    }
-    
-    if (discount > 0 && discountAmountEl && discountValueEl) {
-        discountAmountEl.style.display = 'flex';
-        discountValueEl.textContent = `-NT$ ${discount}`;
-    } else if (discountAmountEl) {
-        discountAmountEl.style.display = 'none';
-    }
-}
-
-// 儲存購物車到 localStorage
-function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 // 清空購物車
 function clearCart() {
     cart = [];
-    appliedDiscount = null;
     saveCart();
     updateCartUI();
-    console.log('購物車已清空');
 }
 
-// 全域清除快取函數（供開發者使用）
-window.clearAllCache = function() {
-    localStorage.clear();
-    sessionStorage.clear();
-    cart = [];
-    console.log('所有快取已清除，請重新載入頁面');
-    location.reload();
+// 儲存購物車
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// 計算總計
+function calculateTotal() {
+    let subtotal = 0;
+    cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+    });
+    
+    let discount = 0;
+    if (appliedDiscount) {
+        if (appliedDiscount.type === 'percentage') {
+            discount = subtotal * (appliedDiscount.value / 100);
+        } else {
+            discount = appliedDiscount.value;
+        }
+    }
+    
+    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+    const total = subtotal - discount + shipping;
+    
+    return { subtotal, discount, shipping, total };
+}
+
+// ========================================
+// UI 更新
+// ========================================
+
+// 更新購物車UI
+function updateCartUI() {
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartSubtotal = document.getElementById('cartSubtotal');
+    const cartShipping = document.getElementById('cartShipping');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    // 更新購物車數量
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+        cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+    
+    // 更新購物車列表
+    if (cartItems) {
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<div style="text-align: center; padding: 40px; color: #999;">購物車是空的</div>';
+        } else {
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        ${item.selectedSpec ? `<p class="item-spec">${item.selectedSpec}</p>` : ''}
+                        <p class="item-price">NT$ ${item.price.toLocaleString()}</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button onclick="updateQuantity(${item.id}, -1, ${item.selectedSpecId || null})">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1, ${item.selectedSpecId || null})">+</button>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${item.id}, ${item.selectedSpecId || null})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+    }
+    
+    // 更新總計
+    const totals = calculateTotal();
+    if (cartSubtotal) cartSubtotal.textContent = `NT$ ${totals.subtotal.toLocaleString()}`;
+    if (cartShipping) cartShipping.textContent = totals.shipping === 0 ? '免運費' : `NT$ ${totals.shipping}`;
+    if (cartTotal) cartTotal.textContent = `NT$ ${totals.total.toLocaleString()}`;
 }
 
 // 顯示通知
 function showNotification(message) {
-    // 創建通知元素
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: var(--success-color);
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        z-index: 9999;
-        animation: slideIn 0.3s ease;
-    `;
-    
+    notification.style.cssText = 'position:fixed;top:20px;right:20px;background:#27ae60;color:white;padding:15px 25px;border-radius:8px;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
     document.body.appendChild(notification);
     
     setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s';
+        setTimeout(() => notification.remove(), 300);
     }, 2000);
 }
 
-// 全域關閉購物車函數
+// ========================================
+// 購物車側邊欄控制（簡化版）
+// ========================================
+
+function openCartSidebar() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    
+    if (!sidebar || !overlay) return;
+    
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
 function closeCartSidebar() {
-    const cartSidebar = document.getElementById('cartSidebar');
-    const cartOverlay = document.getElementById('cartOverlay');
-    if (cartSidebar) {
-        cartSidebar.classList.remove('active');
-        // 不要強制設置 style.right，讓 CSS 處理
-    }
-    if (cartOverlay) {
-        cartOverlay.classList.remove('active');
-        cartOverlay.style.pointerEvents = 'none'; // 禁用點擊事件
-        // 延遲隱藏，等待動畫完成
-        setTimeout(() => {
-            cartOverlay.style.display = 'none';
-            cartOverlay.style.opacity = '0';
-            cartOverlay.style.visibility = 'hidden';
-        }, 300);
-    }
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    
+    if (sidebar) sidebar.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
 }
 
-// 初始化購物車
-document.addEventListener('DOMContentLoaded', () => {
-    // 完全重置頁面狀態（解決從其他頁面返回的格式問題）
+// ========================================
+// 初始化
+// ========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 重置頁面狀態
     document.body.style.overflow = '';
     document.body.style.position = '';
-    document.body.style.width = '';
-    document.body.style.height = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
     
+    // 更新UI
     updateCartUI();
     
-    // 創建遮罩層（如果不存在）
+    // 檢查是否有購物車側邊欄（只在需要的頁面設置）
+    const cartSidebar = document.getElementById('cartSidebar');
+    
+    if (!cartSidebar) {
+        // 沒有側邊欄的頁面（如結帳頁面），直接返回
+        return;
+    }
+    
+    // 確保遮罩層存在
     let cartOverlay = document.getElementById('cartOverlay');
     if (!cartOverlay) {
         cartOverlay = document.createElement('div');
         cartOverlay.id = 'cartOverlay';
         cartOverlay.className = 'cart-overlay';
-        cartOverlay.style.display = 'none'; // 初始化時就隱藏
-        cartOverlay.style.opacity = '0';
-        cartOverlay.style.visibility = 'hidden';
         document.body.appendChild(cartOverlay);
-        console.log('✅ 遮罩層已創建並隱藏');
     }
     
-    // 強制確保購物車側邊欄和遮罩層關閉
-    const cartSidebar = document.getElementById('cartSidebar');
-    if (cartSidebar) {
-        cartSidebar.classList.remove('active');
-        console.log('✅ 購物車側邊欄已關閉');
-    }
-    if (cartOverlay) {
-        cartOverlay.classList.remove('active');
-        cartOverlay.style.display = 'none'; // 強制隱藏遮罩
-        cartOverlay.style.opacity = '0';
-        cartOverlay.style.visibility = 'hidden';
-        cartOverlay.style.pointerEvents = 'none'; // 確保不會攔截點擊
-        console.log('✅ 遮罩層已完全隱藏');
-    }
-    
-    // 購物車圖示點擊
+    // 購物車圖示點擊事件
     const cartIcon = document.getElementById('cartIcon');
-    const floatingCartBtn = document.getElementById('floatingCartBtn');
-    const closeCart = document.getElementById('closeCart');
-    
-    // 打開購物車函數
-    function openCart() {
-        console.log('openCart 被調用');
-        const sidebar = document.getElementById('cartSidebar');
-        const overlay = document.getElementById('cartOverlay');
-        
-        console.log('sidebar:', sidebar);
-        console.log('overlay:', overlay);
-        
-        if (sidebar && overlay) {
-            console.log('打開購物車...');
-            
-            // 清除強制設置的內聯樣式，讓 CSS 類生效
-            sidebar.style.right = '';
-            sidebar.classList.add('active');
-            
-            overlay.style.display = 'block';
-            overlay.style.opacity = '';
-            overlay.style.visibility = '';
-            overlay.style.pointerEvents = 'auto'; // 啟用點擊事件
-            overlay.classList.add('active');
-            
-            document.body.style.overflow = 'hidden';
-            console.log('購物車已打開');
-            console.log('sidebar.style.right:', sidebar.style.right);
-            console.log('sidebar has active class:', sidebar.classList.contains('active'));
-        } else {
-            console.error('無法找到購物車元素');
-        }
-    }
-    
-    console.log('設置事件監聽器...');
-    console.log('cartIcon:', cartIcon);
-    console.log('cartSidebar:', cartSidebar);
-    
     if (cartIcon) {
-        console.log('添加購物車圖示點擊事件');
-        cartIcon.addEventListener('click', (e) => {
-            console.log('購物車圖示被點擊！');
+        cartIcon.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
-            openCart();
+            openCartSidebar();
         });
-    } else {
-        console.error('找不到 cartIcon 元素');
     }
     
-    // 懸浮購物車按鈕點擊
-    if (floatingCartBtn && cartSidebar) {
-        floatingCartBtn.addEventListener('click', (e) => {
+    // 懸浮購物車按鈕
+    const floatingCartBtn = document.getElementById('floatingCartBtn');
+    if (floatingCartBtn) {
+        floatingCartBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            openCart();
+            openCartSidebar();
         });
     }
     
-    if (closeCart && cartSidebar) {
-        closeCart.addEventListener('click', () => {
-            closeCartSidebar();
-        });
+    // 關閉按鈕
+    const closeCart = document.getElementById('closeCart');
+    if (closeCart) {
+        closeCart.addEventListener('click', closeCartSidebar);
     }
     
-    // 點擊遮罩層關閉
+    // 點擊遮罩關閉
     if (cartOverlay) {
-        cartOverlay.addEventListener('click', () => {
-            closeCartSidebar();
-        });
+        cartOverlay.addEventListener('click', closeCartSidebar);
     }
     
-    // 折扣碼套用
-    const applyDiscountBtn = document.getElementById('applyDiscount');
-    const discountCodeInput = document.getElementById('discountCode');
-    
-    if (applyDiscountBtn && discountCodeInput) {
-        applyDiscountBtn.addEventListener('click', () => {
-            const code = discountCodeInput.value.trim();
-            if (code) {
-                applyDiscountCode(code);
-            }
-        });
-        
-        discountCodeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const code = discountCodeInput.value.trim();
-                if (code) {
-                    applyDiscountCode(code);
-                }
-            }
-        });
-    }
-    
-    // 前往結帳按鈕
+    // 結帳按鈕
     const checkoutBtn = document.getElementById('checkoutBtn');
-    
     if (checkoutBtn) {
-        // 移除舊的事件監聽器（如果有）
-        const newCheckoutBtn = checkoutBtn.cloneNode(true);
-        checkoutBtn.parentNode.replaceChild(newCheckoutBtn, checkoutBtn);
-        
-        newCheckoutBtn.addEventListener('click', (e) => {
+        checkoutBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
-            
             if (cart.length === 0) {
                 showNotification('購物車是空的！');
                 return;
             }
+            closeCartSidebar();
+            setTimeout(() => {
+                window.location.href = 'checkout.html';
+            }, 300);
+        });
+    }
+    
+    // 折扣碼
+    const applyDiscountBtn = document.getElementById('applyDiscount');
+    const discountCodeInput = document.getElementById('discountCode');
+    
+    if (applyDiscountBtn && discountCodeInput) {
+        applyDiscountBtn.addEventListener('click', function() {
+            const code = discountCodeInput.value.trim().toUpperCase();
+            const discount = discountCodes[code];
             
-            // 跳轉到結帳頁面或開啟結帳模態框
-            const checkoutModal = document.getElementById('checkoutModal');
-            if (checkoutModal) {
-                // 關閉購物車側邊欄
-                closeCartSidebar();
-                
-                // 開啟結帳模態框
-                checkoutModal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-                
-                // 更新結帳摘要
-                updateCheckoutSummary();
+            if (discount) {
+                appliedDiscount = discount;
+                showNotification(`✅ ${discount.description}`);
+                updateCartUI();
             } else {
-                // 如果沒有模態框，跳轉到結帳頁面
-                // 先關閉購物車側邊欄
-                closeCartSidebar();
-                
-                // 完全重置頁面狀態
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.width = '';
-                
-                // 移除所有 active 類
-                document.querySelectorAll('.active').forEach(el => {
-                    if (el.id !== 'mainMenu') { // 保留主選單狀態
-                        el.classList.remove('active');
-                    }
-                });
-                
-                // 使用 setTimeout 確保動畫完成後再跳轉
-                setTimeout(() => {
-                    window.location.href = 'checkout.html';
-                }, 300);
+                showNotification('❌ 無效的折扣碼');
             }
-        });
-    }
-    
-    // 關閉結帳模態框
-    const closeCheckoutModal = document.getElementById('closeCheckoutModal');
-    const checkoutModal = document.getElementById('checkoutModal');
-    
-    if (closeCheckoutModal && checkoutModal) {
-        closeCheckoutModal.addEventListener('click', () => {
-            checkoutModal.style.display = 'none';
-            document.body.style.overflow = '';
-        });
-        
-        // 點擊模態框外部關閉
-        checkoutModal.addEventListener('click', (e) => {
-            if (e.target === checkoutModal) {
-                checkoutModal.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-        });
-    }
-    
-    // 結帳表單提交
-    const checkoutForm = document.getElementById('checkoutForm');
-    if (checkoutForm) {
-        checkoutForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            handleCheckout();
         });
     }
 });
-
-// 更新結帳摘要
-function updateCheckoutSummary() {
-    const checkoutSummary = document.getElementById('checkoutSummary');
-    const checkoutTotal = document.getElementById('checkoutTotal');
-    
-    if (!checkoutSummary || !checkoutTotal) return;
-    
-    const subtotal = calculateSubtotal();
-    const discount = calculateDiscount(subtotal);
-    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
-    const total = Math.max(0, subtotal - discount + shipping);
-    
-    checkoutSummary.innerHTML = cart.map(item => `
-        <div class="checkout-item">
-            <span>${item.name} ${item.selectedSpec ? '(' + item.selectedSpec + ')' : ''} x ${item.quantity}</span>
-            <span>NT$ ${item.price * item.quantity}</span>
-        </div>
-    `).join('') + `
-        <div class="checkout-item">
-            <span>運費</span>
-            <span>${shipping === 0 ? '免運費' : 'NT$ ' + shipping}</span>
-        </div>
-        ${discount > 0 ? `<div class="checkout-item discount"><span>折扣</span><span>-NT$ ${discount}</span></div>` : ''}
-    `;
-    
-    checkoutTotal.textContent = `NT$ ${total}`;
-}
-
-// 處理結帳
-function handleCheckout() {
-    const name = document.getElementById('customerName').value;
-    const phone = document.getElementById('customerPhone').value;
-    const email = document.getElementById('customerEmail').value;
-    const address = document.getElementById('customerAddress').value;
-    const note = document.getElementById('customerNote').value;
-    const payment = document.querySelector('input[name="payment"]:checked').value;
-    
-    // 建立訂單資料
-    const orderData = {
-        orderId: 'ORD' + Date.now(),
-        customer: { name, phone, email, address, note },
-        items: cart,
-        payment: payment,
-        subtotal: calculateSubtotal(),
-        discount: calculateDiscount(calculateSubtotal()),
-        shipping: calculateSubtotal() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE,
-        total: calculateSubtotal() - calculateDiscount(calculateSubtotal()) + (calculateSubtotal() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE),
-        date: new Date().toISOString()
-    };
-    
-    // 這裡可以串接後端 API 或 Google Sheets
-    console.log('訂單資料：', orderData);
-    
-    // 顯示成功訊息
-    showNotification('訂單已送出！訂單編號：' + orderData.orderId);
-    
-    // 清空購物車
-    clearCart();
-    
-    // 關閉模態框
-    const checkoutModal = document.getElementById('checkoutModal');
-    if (checkoutModal) {
-        checkoutModal.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-    
-    // 重置表單
-    document.getElementById('checkoutForm').reset();
-}
-
-// 添加動畫樣式
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
