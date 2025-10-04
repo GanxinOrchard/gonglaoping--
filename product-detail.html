@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -548,9 +548,52 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* 落下動畫容器 */
+        .falling-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .falling-item {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: fall linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- 落下動畫容器 -->
+    <div id="fallingAnimation" class="falling-animation-container"></div>
+
     <!-- Skip to main content -->
     <a href="#main-content" class="skip-link">跳到主要內容</a>
     
@@ -1352,5 +1395,45 @@
         });
     </script>
     <script src="./js/orange-animation.js"></script>
+    
+    <!-- 落下動畫腳本 -->
+    <script>
+        // 根據商品 ID 顯示對應的落下動畫
+        function initFallingAnimation() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            
+            let animationImage = null;
+            
+            // 菱角商品 (ID: 3)
+            if (productId === 3) {
+                animationImage = 'images/新鮮蔬果菱角仁.jpg';
+            }
+            // 芋角商品 (ID: 6)
+            else if (productId === 6) {
+                animationImage = 'images/芋角/新鮮蔬果芋角2CM.jpg';
+            }
+            
+            // 如果有對應的動畫圖片，創建落下動畫
+            if (animationImage) {
+                const container = document.getElementById('fallingAnimation');
+                const itemCount = 8; // 落下物品數量
+                
+                for (let i = 0; i < itemCount; i++) {
+                    const item = document.createElement('div');
+                    item.className = 'falling-item';
+                    item.style.backgroundImage = `url('${animationImage}')`;
+                    item.style.left = `${Math.random() * 100}%`;
+                    item.style.animationDuration = `${5 + Math.random() * 5}s`; // 5-10秒
+                    item.style.animationDelay = `${Math.random() * 5}s`; // 隨機延遲
+                    
+                    container.appendChild(item);
+                }
+            }
+        }
+        
+        // 頁面載入時初始化動畫
+        document.addEventListener('DOMContentLoaded', initFallingAnimation);
+    </script>
 </body>
 </html>
