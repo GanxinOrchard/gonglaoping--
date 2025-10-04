@@ -355,8 +355,13 @@ function closeCartSidebar() {
 
 // 初始化購物車
 document.addEventListener('DOMContentLoaded', () => {
-    // 確保頁面載入時 body overflow 正常
+    // 完全重置頁面狀態（解決從其他頁面返回的格式問題）
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.height = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
     
     updateCartUI();
     
@@ -475,6 +480,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 如果沒有模態框，跳轉到結帳頁面
                 // 先關閉購物車側邊欄
                 closeCartSidebar();
+                
+                // 完全重置頁面狀態
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+                
+                // 移除所有 active 類
+                document.querySelectorAll('.active').forEach(el => {
+                    if (el.id !== 'mainMenu') { // 保留主選單狀態
+                        el.classList.remove('active');
+                    }
+                });
+                
                 // 使用 setTimeout 確保動畫完成後再跳轉
                 setTimeout(() => {
                     window.location.href = 'checkout.html';
