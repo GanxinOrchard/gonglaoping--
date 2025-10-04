@@ -381,6 +381,43 @@
         </div>
     </footer>
 
+    <!-- 購物車側邊欄 -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>購物車</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- 購物車項目將由 JavaScript 動態載入 -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div class="subtotal">
+                    <span>商品小計：</span>
+                    <span id="subtotal">NT$ 0</span>
+                </div>
+                <div class="shipping-row">
+                    <span>運費：</span>
+                    <span id="shippingFee">NT$ 150</span>
+                </div>
+                <div class="discount-amount" id="discountAmount" style="display: none;">
+                    <span>折扣：</span>
+                    <span id="discountValue">-NT$ 0</span>
+                </div>
+                <div class="total">
+                    <span>總計：</span>
+                    <span id="total">NT$ 0</span>
+                </div>
+                <div class="shipping-notice">
+                    <i class="fas fa-truck"></i> 滿 NT$1,800 免運費
+                </div>
+            </div>
+            <button class="btn-checkout" id="checkoutBtn">前往結帳</button>
+        </div>
+    </div>
+
     <script src="./js/cart.js"></script>
     <script src="./js/main.js"></script>
 </body>
