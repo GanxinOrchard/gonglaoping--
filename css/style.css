@@ -2823,25 +2823,47 @@ ul {
 }
 
 /* 中等螢幕優化（避免導覽列換行） */
-@media (max-width: 1280px) {
+@media (max-width: 1600px) {
     .main-menu > ul {
         gap: 15px;
     }
     
     .main-menu > ul > li > a {
         font-size: 14px;
-        padding: 8px 12px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .main-menu > ul {
+        gap: 12px;
+    }
+    
+    .main-menu > ul > li > a {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .main-menu > ul {
+        gap: 8px;
+    }
+    
+    .main-menu > ul > li > a {
+        font-size: 12px;
+        padding: 5px 6px;
     }
 }
 
 @media (max-width: 1024px) {
     .main-menu > ul {
-        gap: 10px;
+        gap: 6px;
     }
     
     .main-menu > ul > li > a {
-        font-size: 13px;
-        padding: 8px 10px;
+        font-size: 11px;
+        padding: 5px 5px;
     }
 }
 
