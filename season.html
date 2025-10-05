@@ -381,29 +381,30 @@
             
             /* 時間軸 - 手機版橫向滾動 */
             .timeline-bar {
-                display: flex;
-                gap: 8px;
-                overflow-x: auto;
-                padding: 10px 0;
-                margin-bottom: 15px;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
+                display: flex !important;
+                grid-template-columns: unset !important;
+                gap: 8px !important;
+                overflow-x: auto !important;
+                padding: 10px 0 !important;
+                margin-bottom: 15px !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
             }
             
             .timeline-bar::-webkit-scrollbar {
-                display: none;
+                display: none !important;
             }
             
             .timeline-month {
-                flex: 0 0 70px;
-                height: 65px;
-                font-size: 11px;
-                padding: 10px 5px;
-                line-height: 1.3;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                flex: 0 0 70px !important;
+                height: 65px !important;
+                font-size: 11px !important;
+                padding: 10px 5px !important;
+                line-height: 1.3 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
             }
             
             .timeline-month br {
