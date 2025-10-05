@@ -149,37 +149,146 @@
         
         .product-detail-features li:before {
             content: "✓";
-            position: absolute;
             left: 0;
             color: var(--primary-color);
             font-weight: 700;
         }
         
-        /* 規格選擇區塊 */
+        /* 規格選擇區塊 - Tab 樣式 */
         .spec-selector {
             margin: 20px 0;
-            padding: 15px;
-            background: var(--bg-light);
+            background: white;
             border-radius: 12px;
-            border: 2px solid var(--primary-color);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
             width: 100%;
+            max-width: 100%;
             box-sizing: border-box;
         }
         
         .spec-selector h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
+            font-size: 20px;
+            margin: 0;
+            padding: 20px;
             color: var(--text-dark);
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-bottom: 2px solid var(--primary-color);
         }
         
-        .spec-buttons {
+        /* Tab 導航 */
+        .spec-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .spec-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .spec-tab {
+            flex: 1;
+            min-width: 80px;
+            padding: 15px 10px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            text-align: center;
+        }
+        
+        .spec-tab:hover {
+            background: #fff;
+            color: var(--primary-color);
+        }
+        
+        .spec-tab.active {
+            background: white;
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        /* Tab 內容 */
+        .spec-tab-content {
+            display: none;
+            padding: 25px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .spec-tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .spec-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .spec-detail-item {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 15px;
-            width: 100%;
+            gap: 5px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
         }
         
+        .spec-detail-item i {
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .spec-detail-label {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .spec-detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .spec-description-box {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 15px 0;
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .spec-price-highlight {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .spec-price-highlight .currency {
+            font-size: 24px;
+        }
+        
+        /* 舊的按鈕樣式保留供其他用途 */
         .spec-btn {
             padding: 12px 15px;
             background: var(--white);
@@ -466,14 +575,66 @@
             /* 規格選擇 - 手機版 */
             .spec-selector {
                 margin: 15px 0 !important;
-                padding: 12px !important;
                 width: 100% !important;
                 max-width: 100% !important;
             }
             
             .spec-selector h3 {
                 font-size: 18px !important;
-                margin-bottom: 12px !important;
+                padding: 15px !important;
+            }
+            
+            .spec-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+            
+            .spec-tab {
+                min-width: 70px !important;
+                padding: 12px 8px !important;
+                font-size: 14px !important;
+            }
+            
+            .spec-tab-content {
+                padding: 15px !important;
+            }
+            
+            .spec-price-highlight {
+                font-size: 28px !important;
+                margin: 15px 0 !important;
+            }
+            
+            .spec-price-highlight .currency {
+                font-size: 20px !important;
+            }
+            
+            .spec-detail-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+            
+            .spec-detail-item {
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            
+            .spec-detail-item i {
+                font-size: 16px !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .spec-detail-label {
+                font-size: 12px !important;
+            }
+            
+            .spec-detail-value {
+                font-size: 14px !important;
+            }
+            
+            .spec-description-box {
+                padding: 12px !important;
+                font-size: 14px !important;
             }
             
             .spec-buttons {
@@ -677,11 +838,11 @@
                 
                 <div class="product-detail-description" id="productDescription"></div>
                 
-                <!-- 規格選擇 -->
+                <!-- 規格選擇 - Tab版本 -->
                 <div class="spec-selector" id="specSelector" style="display:none;">
-                    <h3>規格選擇</h3>
-                    <div class="spec-buttons" id="specButtons"></div>
-                    <div class="spec-info" id="specInfo"></div>
+                    <h3><i class="fas fa-layer-group"></i> 規格分級</h3>
+                    <div class="spec-tabs" id="specTabs"></div>
+                    <div id="specTabContents"></div>
                 </div>
                 
                 <div class="product-detail-features">
@@ -1087,23 +1248,75 @@
         }
         
         function renderSpecs() {
-            const specButtons = document.getElementById('specButtons');
+            const specTabs = document.getElementById('specTabs');
+            const specTabContents = document.getElementById('specTabContents');
             const specs = currentProduct.specs;
             
-            specButtons.innerHTML = specs.map((spec, index) => `
-                <button class="spec-btn ${index === 0 ? 'active' : ''}" onclick="selectSpec('${spec.id}', this)">
-                    <div class="spec-info-left">
-                        <div class="spec-name">${spec.name}</div>
-                        ${spec.weight ? `<div class="spec-diameter">${spec.weight}</div>` : (spec.diameter ? `<div class="spec-diameter">${spec.diameter}</div>` : '')}
-                        ${spec.description ? `<div class="spec-description" style="font-size: 12px; color: #666; margin-top: 4px;">${spec.description}</div>` : ''}
-                    </div>
-                    <div class="spec-price">NT$ ${spec.price}</div>
+            // 渲染 Tab 導航
+            specTabs.innerHTML = specs.map((spec, index) => `
+                <button class="spec-tab ${index === 0 ? 'active' : ''}" onclick="switchSpecTab('${spec.id}', this)">
+                    ${spec.name}
                 </button>
+            `).join('');
+            
+            // 渲染 Tab 內容
+            specTabContents.innerHTML = specs.map((spec, index) => `
+                <div class="spec-tab-content ${index === 0 ? 'active' : ''}" id="tab-${spec.id}">
+                    <div class="spec-price-highlight">
+                        <span class="currency">NT$</span> ${spec.price.toLocaleString()}
+                    </div>
+                    
+                    ${spec.description ? `
+                        <div class="spec-description-box">
+                            <i class="fas fa-info-circle"></i> ${spec.description}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="spec-detail-grid">
+                        <div class="spec-detail-item">
+                            <i class="fas fa-tag"></i>
+                            <div class="spec-detail-label">規格等級</div>
+                            <div class="spec-detail-value">${spec.name}</div>
+                        </div>
+                        <div class="spec-detail-item">
+                            <i class="fas fa-ruler-combined"></i>
+                            <div class="spec-detail-label">果粒大小</div>
+                            <div class="spec-detail-value">${spec.diameter || spec.weight || '-'}</div>
+                        </div>
+                        <div class="spec-detail-item">
+                            <i class="fas fa-box"></i>
+                            <div class="spec-detail-label">包裝規格</div>
+                            <div class="spec-detail-value">10台斤/箱</div>
+                        </div>
+                        <div class="spec-detail-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div class="spec-detail-label">單價</div>
+                            <div class="spec-detail-value">NT$ ${spec.price.toLocaleString()}</div>
+                        </div>
+                    </div>
+                </div>
             `).join('');
             
             if (specs.length > 0) {
                 selectSpec(specs[0].id);
             }
+        }
+        
+        function switchSpecTab(specId, clickedTab) {
+            // 更新 Tab 狀態
+            document.querySelectorAll('.spec-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            clickedTab.classList.add('active');
+            
+            // 更新內容顯示
+            document.querySelectorAll('.spec-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + specId).classList.add('active');
+            
+            // 更新選中的規格
+            selectSpec(specId);
         }
         
         function selectSpec(specId, clickedElement) {
