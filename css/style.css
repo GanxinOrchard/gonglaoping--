@@ -3129,6 +3129,81 @@ ul {
         overflow: visible !important;
     }
     
+    /* 最新消息區塊手機版 - 正方形小卡片 */
+    .news-section .news-carousel {
+        overflow: visible !important;
+    }
+    
+    .news-section .news-track {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        transition: none !important;
+        transform: none !important;
+    }
+    
+    .news-section .news-card {
+        min-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    }
+    
+    .news-section .news-card > div:first-child {
+        height: 0 !important;
+        padding-bottom: 100% !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+    
+    .news-section .news-card img {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+    
+    .news-section .news-card > div:last-child {
+        padding: 12px !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .news-section .news-card h3 {
+        font-size: 14px !important;
+        margin-bottom: 6px !important;
+        line-height: 1.3 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+    }
+    
+    .news-section .news-card p {
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .news-section .news-card > div:last-child > div:first-child {
+        font-size: 10px !important;
+        margin-bottom: 6px !important;
+    }
+    
+    /* 隱藏輪播按鈕 */
+    .news-section button {
+        display: none !important;
+    }
+    
     .news-grid {
         grid-template-columns: 1fr;
         gap: 20px;

@@ -126,7 +126,8 @@
                 link.innerHTML = `
                     規格分級 <i class="fas fa-chevron-down dropdown-arrow"></i>
                 `;
-                link.href = '#';
+                link.href = 'javascript:void(0)';
+                link.setAttribute('data-dropdown', 'true');
                 
                 const dropdownMenu = document.createElement('div');
                 dropdownMenu.className = 'dropdown-menu';
@@ -145,7 +146,8 @@
                 link.innerHTML = `
                     挑選指南 <i class="fas fa-chevron-down dropdown-arrow"></i>
                 `;
-                link.href = '#';
+                link.href = 'javascript:void(0)';
+                link.setAttribute('data-dropdown', 'true');
                 
                 const dropdownMenu = document.createElement('div');
                 dropdownMenu.className = 'dropdown-menu';
@@ -164,7 +166,8 @@
                 link.innerHTML = `
                     產季資訊 <i class="fas fa-chevron-down dropdown-arrow"></i>
                 `;
-                link.href = '#';
+                link.href = 'javascript:void(0)';
+                link.setAttribute('data-dropdown', 'true');
                 
                 const dropdownMenu = document.createElement('div');
                 dropdownMenu.className = 'dropdown-menu';
@@ -183,6 +186,7 @@
         document.querySelectorAll('.dropdown > a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 const dropdown = this.parentElement;
                 const isActive = dropdown.classList.contains('active');
                 
@@ -198,6 +202,14 @@
             });
         });
         
+        // 確保下拉選單內的連結可以正常導航
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 不阻止默認行為，讓連結正常導航
+                e.stopPropagation();
+            });
+        });
+        
         // 點擊外部關閉下拉選單
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.dropdown')) {
@@ -208,15 +220,26 @@
         });
         
         // 手機版：點擊箭頭展開/收合
-        if (window.innerWidth <= 992) {
-            document.querySelectorAll('.dropdown > a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const dropdown = this.parentElement;
-                    dropdown.classList.toggle('active');
+        function handleMobileDropdown() {
+            if (window.innerWidth <= 992) {
+                document.querySelectorAll('.dropdown > a').forEach(link => {
+                    // 移除桌面版的事件監聽器，添加手機版的行為
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const dropdown = this.parentElement;
+                        dropdown.classList.toggle('active');
+                    });
                 });
-            });
+            }
         }
+        
+        handleMobileDropdown();
+        
+        // 視窗大小改變時重新初始化
+        window.addEventListener('resize', function() {
+            handleMobileDropdown();
+        });
     });
     
 })();

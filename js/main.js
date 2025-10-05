@@ -111,28 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 手機版下拉選單
-    const dropdowns = document.querySelectorAll('.dropdown');
-    
-    dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a');
-        
-        if (link) {
-            link.addEventListener('click', (e) => {
-                if (window.innerWidth <= 992) {
-                    e.preventDefault();
-                    dropdown.classList.toggle('active');
-                }
-            });
-        }
-    });
+    // 手機版下拉選單（由 dropdown-menu.js 處理）
+    // 此處已移除重複的處理邏輯，避免與 dropdown-menu.js 衝突
     
     // 平滑滾動
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             
-            if (href === '#' || href === 'javascript:void(0)') return;
+            // 排除下拉選單和無效連結
+            if (href === '#' || href === 'javascript:void(0)' || this.hasAttribute('data-dropdown')) {
+                return;
+            }
             
             const target = document.querySelector(href);
             
