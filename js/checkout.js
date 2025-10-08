@@ -10,20 +10,21 @@
 
 // 確保 cart 變數存在（cart.js 應該已經定義）
 // 如果沒有，從 localStorage 載入
-if (typeof cart === 'undefined') {
+if (typeof window.cart === 'undefined') {
     console.warn('cart 變數未定義，嘗試從 localStorage 載入');
-    if (typeof window.cart === 'undefined') {
-        window.cart = [];
-        try {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                window.cart = JSON.parse(savedCart);
-            }
-        } catch (e) {
-            console.error('載入購物車失敗:', e);
+    window.cart = [];
+    try {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            window.cart = JSON.parse(savedCart);
         }
+    } catch (e) {
+        console.error('載入購物車失敗:', e);
+        window.cart = [];
     }
 }
+// 使用全局 cart 變數
+var cart = window.cart;
 
 let currentStep = 1;
 let orderData = {
