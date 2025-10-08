@@ -641,9 +641,13 @@
                 const div = this.querySelector('div');
                 if (div) div.style.color = 'var(--primary-color)';
                 
-                // 確保 radio 被選中
+                // 確保 radio 被選中並觸發 change 事件
                 const radio = this.querySelector('input[type="radio"]');
-                if (radio) radio.checked = true;
+                if (radio) {
+                    radio.checked = true;
+                    // 觸發 change 事件以便 cart.js 保存到 localStorage
+                    radio.dispatchEvent(new Event('change', { bubbles: true }));
+                }
             });
         });
     </script>
