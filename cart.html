@@ -642,6 +642,38 @@
             
             if (typeof discountCodes !== 'undefined' && discountCodes[code]) {
                 const discount = discountCodes[code];
+                
+                // 檢查日期有效性
+                const now = new Date();
+                const currentYearMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+                
+                if (discount.validFrom && currentYearMonth < discount.validFrom) {
+                    messageEl.textContent = '折扣碼尚未生效';
+                    messageEl.style.display = 'block';
+                    messageEl.style.background = '#fee';
+                    messageEl.style.color = '#c33';
+                    return;
+                }
+                
+                if (discount.validTo && currentYearMonth > discount.validTo) {
+                    messageEl.textContent = '折扣碼已過期';
+                    messageEl.style.display = 'block';
+                    messageEl.style.background = '#fee';
+                    messageEl.style.color = '#c33';
+                    return;
+                }
+                
+                // 檢查最低消費金額
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                if (discount.minAmount && subtotal < discount.minAmount) {
+                    messageEl.textContent = `此折扣碼需消費滿 NT$ ${discount.minAmount.toLocaleString()}`;
+                    messageEl.style.display = 'block';
+                    messageEl.style.background = '#fee';
+                    messageEl.style.color = '#c33';
+                    return;
+                }
+                
                 messageEl.textContent = `✓ 已套用：${discount.description}`;
                 messageEl.style.display = 'block';
                 messageEl.style.background = '#efe';
@@ -649,7 +681,7 @@
                 // 儲存折扣碼到 localStorage
                 localStorage.setItem('appliedDiscountCode', code);
             } else {
-                messageEl.textContent = '折扣碼無效或已過期';
+                messageEl.textContent = '折扣碼無效';
                 messageEl.style.display = 'block';
                 messageEl.style.background = '#fee';
                 messageEl.style.color = '#c33';
