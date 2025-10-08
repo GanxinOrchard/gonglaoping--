@@ -2002,10 +2002,10 @@ ul {
     color: var(--white);
 }
 
-/* 手機版顯示懸浮 Menu 按鈕 */
+/* 手機版隱藏懸浮 Menu 按鈕 */
 @media (max-width: 992px) {
     .floating-menu-btn {
-        display: flex !important;
+        display: none !important;
     }
 }
 

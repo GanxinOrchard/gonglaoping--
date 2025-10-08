@@ -235,3 +235,24 @@ body.menu-open {
         touch-action: manipulation;
     }
 }
+
+/* 9. 購物車頁面手機版優化 */
+@media (max-width: 768px) {
+    /* 隱藏購物車頁面的 logo 和購物車圖標 */
+    body:has(.cart-page) .header .logo,
+    .cart-page .header .logo {
+        display: none !important;
+    }
+    
+    body:has(.cart-page) .header .cart-icon,
+    .cart-page .header .cart-icon {
+        display: none !important;
+    }
+    
+    /* 讓漢堡選單在購物車頁面也靠右 */
+    body:has(.cart-page) .header .nav-icons,
+    .cart-page .header .nav-icons {
+        margin-left: auto !important;
+        justify-content: flex-end !important;
+    }
+}

@@ -238,10 +238,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             // 檢查是否為 LINE Pay
+            console.log('付款方式:', payMethod);
             if (payMethod === 'LINE Pay') {
+                console.log('跳轉到 LINE Pay 頁面');
                 // 跳轉到 LINE Pay 頁面
                 window.location.href = 'linepay.html';
             } else {
+                console.log('跳轉到訂單完成頁');
                 // 清空購物車與折扣碼
                 localStorage.removeItem(STORAGE_KEYS.CART);
                 localStorage.removeItem(STORAGE_KEYS.COUPON);

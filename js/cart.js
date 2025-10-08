@@ -526,11 +526,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedShip = localStorage.getItem(STORAGE_KEYS.SHIP_MODE) || 'home';
     const savedPay = localStorage.getItem(STORAGE_KEYS.PAY_METHOD) || '匯款';
     
+    // 確保預設值被保存
+    if (!localStorage.getItem(STORAGE_KEYS.PAY_METHOD)) {
+        localStorage.setItem(STORAGE_KEYS.PAY_METHOD, '匯款');
+    }
+    
     const shipRadio = document.querySelector(`[data-ship="${savedShip}"]`);
     if (shipRadio) shipRadio.checked = true;
     
     const payRadio = document.querySelector(`[name="pay_method"][value="${savedPay}"]`);
-    if (payRadio) payRadio.checked = true;
+    if (payRadio) {
+        payRadio.checked = true;
+        // 觸發 change 事件確保保存
+        payRadio.dispatchEvent(new Event('change', { bubbles: true }));
+    }
 });
 
 // 頁面載入時立即更新購物車數量（不等待 DOMContentLoaded）
