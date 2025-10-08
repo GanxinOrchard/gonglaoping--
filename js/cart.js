@@ -160,6 +160,134 @@ function removeCartItem(productId, specId = null) {
 }
 
 // ========================================
+// 全域購物車函數（供其他頁面使用）
+// ========================================
+
+// 加入購物車
+function addToCart(productId, specId = null, quantity = 1) {
+    if (typeof productId === 'object') {
+        const product = productId;
+        const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+        const existingItem = cart.find(item => item.id === product.id && item.selectedSpecId === product.selectedSpecId);
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                ...product,
+                quantity: quantity
+            });
+        }
+        
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart)); // 同步舊 key
+    } else {
+        if (typeof products === 'undefined') {
+            console.error('products 未定義');
+            return;
+        }
+        const product = products.find(p => p.id === productId);
+        if (!product) {
+            console.error('找不到商品:', productId);
+            return;
+        }
+        
+        let selectedSpec = null;
+        let price = product.price;
+        let specName = '';
+        
+        if (specId && product.specs) {
+            selectedSpec = product.specs.find(s => s.id === specId);
+            if (selectedSpec) {
+                price = selectedSpec.price;
+                const specDetail = selectedSpec.weight || selectedSpec.diameter || '';
+                specName = selectedSpec.name + (specDetail ? ' (' + specDetail + ')' : '');
+            }
+        }
+        
+        const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+        const existingItem = cart.find(item => 
+            item.id === productId && item.selectedSpecId === specId
+        );
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: price,
+                image: product.image,
+                selectedSpec: specName,
+                selectedSpecId: specId,
+                shippingType: product.shippingType || 'normal',
+                quantity: quantity
+            });
+        }
+        
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart)); // 同步舊 key
+    }
+    
+    updateCartCount();
+    showNotification('已加入購物車！');
+}
+
+// 更新購物車數量顯示
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    const cartCounts = document.querySelectorAll('#cartCount, .cart-count, #floatingCartCount, .cart-badge');
+    cartCounts.forEach(el => {
+        if (el) {
+            el.textContent = totalItems;
+            el.style.display = totalItems > 0 ? 'block' : 'none';
+        }
+    });
+}
+
+// 更新購物車 UI（相容舊系統）
+function updateCartUI() {
+    updateCartCount();
+    if (typeof renderCartItems === 'function') {
+        renderCartItems();
+    }
+}
+
+// 清空購物車
+function clearCart() {
+    localStorage.removeItem(STORAGE_KEYS.CART);
+    localStorage.removeItem('cart');
+    updateCartUI();
+}
+
+// 顯示通知
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    notification.style.cssText = 'position:fixed;top:20px;right:20px;background:#27ae60;color:white;padding:15px 25px;border-radius:8px;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s';
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
+// 更新數量（舊系統相容）
+function updateQuantity(productId, change, specId = null) {
+    updateCartQuantity(productId, change, specId);
+}
+
+// 移除商品（舊系統相容）
+function removeFromCart(productId, specId = null) {
+    removeCartItem(productId, specId);
+}
+
+// ========================================
 // 頁面初始化
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -289,6 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 初始化金額
     updateAmounts();
     
+    // 更新購物車數量顯示（所有頁面都需要）
+    updateCartCount();
+    
     // 載入已儲存的配送/付款方式
     const savedShip = localStorage.getItem(STORAGE_KEYS.SHIP_MODE) || 'home';
     const savedPay = localStorage.getItem(STORAGE_KEYS.PAY_METHOD) || '匯款';
@@ -299,3 +430,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const payRadio = document.querySelector(`[name="pay_method"][value="${savedPay}"]`);
     if (payRadio) payRadio.checked = true;
 });
+
+// 頁面載入時立即更新購物車數量（不等待 DOMContentLoaded）
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+} else {
+    updateCartCount();
+}
