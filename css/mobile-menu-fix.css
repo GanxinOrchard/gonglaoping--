@@ -68,6 +68,7 @@
 /* 3. 選單抽屜 - 從右側滑入 */
 @media (max-width: 992px) {
     .main-menu {
+        display: block !important; /* 強制顯示 */
         position: fixed !important;
         top: 0;
         right: 0;

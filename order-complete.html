@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -262,19 +262,7 @@
     </style>
 </head>
 <body>
-    <!-- 導航欄 -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="images/logo.png" alt="柑心果園">
-                        <span>柑心果園</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- 導航欄已移除 -->
 
     <!-- 訂單完成頁面 -->
     <div class="complete-page">
@@ -315,11 +303,7 @@
             </p>
         </div>
 
-        <!-- 訂單資訊 -->
-        <div class="order-info">
-            <h2><i class="fas fa-receipt"></i> 訂單摘要</h2>
-            <div id="orderSummary"></div>
-        </div>
+        <!-- 訂單摘要已移除 -->
 
         <!-- 提示訊息 -->
         <div class="notice-box">
@@ -380,49 +364,10 @@
             const orderNumber = orderData.orderNumber || generateOrderNumber();
             document.getElementById('orderNumber').textContent = orderNumber;
             
-            // 顯示訂單摘要
-            const orderSummary = document.getElementById('orderSummary');
-            
-            if (orderData.items && orderData.items.length > 0) {
-                const subtotal = orderData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const shipping = orderData.shipping || 150;
-                const total = subtotal + shipping;
-                
-                orderSummary.innerHTML = `
-                    ${orderData.items.map(item => `
-                        <div class="info-row">
-                            <span class="info-label">${item.name} ${item.selectedSpec ? '(' + item.selectedSpec + ')' : ''} × ${item.quantity}</span>
-                            <span class="info-value">NT$ ${(item.price * item.quantity).toLocaleString()}</span>
-                        </div>
-                    `).join('')}
-                    <div class="info-row">
-                        <span class="info-label">運費</span>
-                        <span class="info-value">${shipping === 0 ? '免運費' : 'NT$ ' + shipping}</span>
-                    </div>
-                    <div class="info-row total">
-                        <span class="info-label">訂單金額</span>
-                        <span class="info-value">NT$ ${total.toLocaleString()}</span>
-                    </div>
-                `;
-            } else {
-                orderSummary.innerHTML = `
-                    <div class="info-row">
-                        <span class="info-label">商品總金額</span>
-                        <span class="info-value">NT$ 0</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">運費</span>
-                        <span class="info-value">NT$ 150</span>
-                    </div>
-                    <div class="info-row total">
-                        <span class="info-label">訂單金額</span>
-                        <span class="info-value">NT$ 150</span>
-                    </div>
-                `;
-            }
-            
             // 清空購物車
-            clearCart();
+            if (typeof clearCart === 'function') {
+                clearCart();
+            }
         }
         
         // 頁面載入時顯示訂單資訊
