@@ -577,7 +577,9 @@
             
             container.innerHTML = recommended.map(product => {
                 const hasSpecs = product.specs && product.specs.length > 0;
-                const specsText = hasSpecs ? `<div style="font-size: 13px; color: #666; margin-bottom: 10px;">規格：${product.specs.join(' / ')}</div>` : '';
+                // 隨機選擇一個規格
+                const randomSpec = hasSpecs ? product.specs[Math.floor(Math.random() * product.specs.length)] : '';
+                const specsText = randomSpec ? `<div style="font-size: 13px; color: #666; margin-bottom: 10px;">規格：${randomSpec}</div>` : '';
                 
                 return `
                 <div style="min-width: 280px; max-width: 280px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
