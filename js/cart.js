@@ -35,7 +35,7 @@ const PRICING = {
 // 計價邏輯
 // ========================================
 function calculatePrice() {
-    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || '[]');
+    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
     const couponCode = localStorage.getItem(STORAGE_KEYS.COUPON) || '';
     const shipMode = localStorage.getItem(STORAGE_KEYS.SHIP_MODE) || 'home';
     
@@ -76,7 +76,13 @@ function calculatePrice() {
 // 頁面初始化
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
-    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || '[]');
+    // 遷移舊的 cart 到新的 key
+    const oldCart = localStorage.getItem('cart');
+    if (oldCart && !localStorage.getItem(STORAGE_KEYS.CART)) {
+        localStorage.setItem(STORAGE_KEYS.CART, oldCart);
+    }
+    
+    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
     
     // 更新金額顯示
     function updateAmounts() {
