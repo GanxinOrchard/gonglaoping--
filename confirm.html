@@ -6,6 +6,7 @@
     <title>確認訂單 - 柑心果園</title>
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -302,6 +303,50 @@
                 <img src="./images/商標.jpg" alt="柑心果園" style="height: 50px;">
                 <span class="checkout-logo-text">柑心果園</span>
             </div>
+            <div class="nav-icons">
+                <a href="cart.html" class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="main-menu" id="mainMenu">
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="news.html">最新消息</a></li>
+                <li class="dropdown">
+                    <a href="season-recommend.html">本季嚴選 <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="season-recommend.html">當季推薦</a></li>
+                        <li><a href="season-ponkan.html">椪柑產季</a></li>
+                        <li><a href="season-murcott.html">茂谷柑產季</a></li>
+                        <li><a href="season-water-chestnut.html">菱角產季</a></li>
+                        <li><a href="season-taro.html">芋角產季</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="products.html?category=優質水果">優質水果</a></li>
+                        <li><a href="products.html?category=新鮮蔬果">新鮮蔬果</a></li>
+                        <li><a href="products.html?category=冷凍食品">冷凍食品</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="farming.html">安心指南 <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="farming.html">栽種過程</a></li>
+                        <li><a href="guide.html">選購指南</a></li>
+                        <li><a href="grading.html">分級標準</a></li>
+                    </ul>
+                </li>
+                <li><a href="knowledge.html">知識專欄</a></li>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="contact.html">聯絡我們</a></li>
+            </ul>
         </div>
     </header>
 
@@ -421,6 +466,7 @@
         </div>
     </footer>
 
+    <script src="./js/dropdown-menu.js"></script>
     <script src="./js/confirm.js"></script>
 </body>
 </html>

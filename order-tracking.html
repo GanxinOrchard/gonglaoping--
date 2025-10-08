@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>訂單查詢 - 柑心果園</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -24,10 +26,19 @@
         <nav class="navbar">
             <div class="container">
                 <div class="nav-content">
-                    <div class="logo-mobile-wrapper">
-                        <a href="index.html" class="logo">
+                    <div class="logo">
+                        <a href="index.html">
                             <img src="./images/商標.jpg" alt="柑心果園" width="180" height="60" loading="lazy">
                         </a>
+                    </div>
+                    <div class="nav-icons">
+                        <a href="cart.html" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                            <i class="fas fa-bars"></i>
+                        </button>
                     </div>
                 </div>
                 
@@ -353,6 +364,8 @@
             resultDiv.style.display = 'block';
         }
     </script>
+    <script src="./js/dropdown-menu.js"></script>
+    <script src="./js/cart.js"></script>
     <script src="./js/order-tracking.js?v=20251004i"></script>
     <script src="./js/main.js?v=20251004i"></script>
 </body>
