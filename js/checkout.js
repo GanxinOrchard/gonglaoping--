@@ -688,6 +688,9 @@ function showNotification(message) {
 // ========== 初始化 ==========
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Checkout page loaded');
+    console.log('Cart:', cart);
+    
     // 檢查購物車
     if (!cart || cart.length === 0) {
         alert('購物車是空的，請先添加商品');
@@ -698,6 +701,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 渲染購物車
     renderCartItems();
     
+    // 強制更新訂單摘要
+    setTimeout(() => {
+        updateOrderSummary();
+    }, 100);
+    
     // 載入表單資料
     loadFormData();
     
@@ -706,8 +714,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化付款方式
     orderData.payment = 'bank';
-    document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
-    document.querySelector('.payment-option input[value="bank"]').parentElement.classList.add('selected');
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    if (paymentOptions.length > 0) {
+        paymentOptions.forEach(el => el.classList.remove('selected'));
+        const bankOption = document.querySelector('.payment-option input[value="bank"]');
+        if (bankOption) {
+            bankOption.parentElement.classList.add('selected');
+        }
+    }
     
     // 字數計數功能
     const orderNote = document.getElementById('orderNote');
