@@ -2828,24 +2828,7 @@ ul {
     }
     
     /* 搜尋欄和按鈕佈局已移至全域規則 */
-    
-    .main-menu {
-        display: none;
-    }
-    
-    .main-menu.active {
-        display: block;
-    }
-    
-    .main-menu > ul {
-        flex-direction: column;
-        gap: 0;
-    }
-    
-    .main-menu > ul > li > a {
-        padding: 15px;
-        border-bottom: 1px solid var(--border-color);
-    }
+    /* 選單樣式已移至 mobile-menu-fix.css */
     
     .dropdown-menu {
         position: static;
