@@ -575,24 +575,16 @@
             const shuffled = [...products].sort(() => 0.5 - Math.random());
             const recommended = shuffled; // 顯示所有商品
             
-            container.innerHTML = recommended.map(product => {
-                const hasSpecs = product.specs && product.specs.length > 0;
-                // 隨機選擇一個規格
-                const randomSpec = hasSpecs ? product.specs[Math.floor(Math.random() * product.specs.length)] : '';
-                const specsText = randomSpec ? `<div style="font-size: 13px; color: #666; margin-bottom: 10px;">規格：${randomSpec}</div>` : '';
-                
-                return `
+            container.innerHTML = recommended.map(product => `
                 <div style="min-width: 280px; max-width: 280px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                     <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
                     <h4 style="font-size: 18px; margin-bottom: 10px; color: #333; min-height: 48px;">${product.name}</h4>
-                    <p style="color: var(--primary-color); font-weight: bold; font-size: 20px; margin-bottom: 8px;">NT$ ${product.price.toLocaleString()}</p>
-                    ${specsText}
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 20px; margin-bottom: 15px;">NT$ ${product.price.toLocaleString()}</p>
                     <a href="product-detail.html?id=${product.id}" style="display: block; width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; text-align: center; text-decoration: none; transition: all 0.3s;" onmouseover="this.style.background='var(--secondary-color)'" onmouseout="this.style.background='var(--primary-color)'">
                         <i class="fas fa-eye"></i> 查看商品
                     </a>
                 </div>
-            `;
-            }).join('');
+            `).join('');
             
             section.style.display = 'block';
         }
