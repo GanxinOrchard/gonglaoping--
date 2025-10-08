@@ -253,8 +253,16 @@ function toDateStr_(v){
 }
 
 function ensureHeadersSafe_() {
-  const needOrder = ['訂單編號','姓名','Email','手機','寄信狀態','寄信結果','款項狀態','出貨狀態','物流方式','收件地址','備註','建立時間','應付金額','物流單號','出貨日期'];
-  const needItem  = ['建立時間','訂單編號','姓名','Email','品名','重量','規格','單價','數量','小計'];
+  const needOrder = [
+    '訂單編號','建立時間',
+    '購買人姓名','購買人Email','購買人手機','購買人地址',
+    '收件人姓名','收件人Email','收件人手機','收件人地址',
+    '配送方式','付款方式',
+    '商品小計','運費','折扣碼','折扣金額','應付金額',
+    '款項狀態','出貨狀態','物流單號','出貨日期',
+    '訂單備註','寄信狀態','寄信結果'
+  ];
+  const needItem  = ['建立時間','訂單編號','購買人姓名','購買人Email','品名','重量','規格','單價','數量','小計'];
 
   const shO = $.sheet(SHEET_ORDER);
   if (shO.getLastRow() === 0 && shO.getLastColumn() === 0) {
@@ -369,30 +377,64 @@ function doPost(e) {
     const orderNo = `K${yy}-${ymd}-${rand4}`;
 
     const createdAt = $.now();
-    const name  = (data.name||'').trim();
-    const email = (data.email||'').trim();
-    const phone = (data.phone||'').trim();
-    const ship  = (data.ship||'').trim();
-    const addr  = (data.addr||'').trim();
-    const remark= (data.remark||'').trim();
+    
+    // 購買人資料
+    const buyerName  = (data.buyerName||'').trim();
+    const buyerEmail = (data.buyerEmail||'').trim();
+    const buyerPhone = (data.buyerPhone||'').trim();
+    const buyerAddr  = (data.buyerAddress||'').trim();
+    
+    // 收件人資料
+    const receiverName  = (data.receiverName||'').trim();
+    const receiverEmail = (data.receiverEmail||'').trim();
+    const receiverPhone = (data.receiverPhone||'').trim();
+    const receiverAddr  = (data.receiverAddress||'').trim();
+    
+    // 配送與付款
+    const delivery = (data.delivery||'home').trim();
+    const payment  = (data.payment||'bank').trim();
+    
+    // 金額與折扣
     const subtotal = Number(data?.summary?.subtotal)||0;
     const shipping = Number(data?.summary?.shipping)||0;
-    const total    = Number(data?.summary?.total) || (subtotal+shipping);
+    const discountCode = (data.discountCode||'').trim();
+    const discountAmount = Number(data?.summary?.discount)||0;
+    const total    = Number(data?.summary?.total) || (subtotal - discountAmount + shipping);
+    
+    // 備註
+    const remark = (data.remark||'').trim();
 
+    // 寫入訂單表（按照新的欄位順序）
     const shO = $.sheet(SHEET_ORDER);
-    shO.appendRow([orderNo, name, email, phone, '', '', '待匯款', '待出貨', ship, addr, remark, createdAt, total, '', '']);
+    shO.appendRow([
+      orderNo, createdAt,
+      buyerName, buyerEmail, buyerPhone, buyerAddr,
+      receiverName, receiverEmail, receiverPhone, receiverAddr,
+      delivery, payment,
+      subtotal, shipping, discountCode, discountAmount, total,
+      '待匯款', '待出貨', '', '',
+      remark, '', ''
+    ]);
 
     const shI = $.sheet(SHEET_ITEM);
     const rows = data.items.map(it => {
       const price = Number(it.price)||0;
       const qty   = Number(it.qty)||0;
       const amount= price*qty;
-      return [createdAt, orderNo, name, email, it.title||'', it.weight||'', it.size||'', price, qty, amount];
+      return [createdAt, orderNo, buyerName, buyerEmail, it.title||'', it.weight||'', it.size||'', price, qty, amount];
     });
     if (rows.length) shI.getRange(shI.getLastRow()+1, 1, rows.length, 10).setValues(rows);
 
     if (SEND_MAIL) {
-      const ok = sendOrderCreatedMail_({ orderNo, name, email, phone, total, items: data.items, addr, ship, remark });
+      const ok = sendOrderCreatedMail_({ 
+        orderNo, 
+        buyerName, buyerEmail, buyerPhone, buyerAddr,
+        receiverName, receiverEmail, receiverPhone, receiverAddr,
+        delivery, payment,
+        subtotal, shipping, discountCode, discountAmount, total,
+        items: data.items, 
+        remark 
+      });
       markMailStateByOrderNo_(orderNo, ok===true ? '已寄信(成立)' : '寄信失敗(成立)：'+ok, ok===true);
     }
 
@@ -483,20 +525,39 @@ function adminOpenSheetBtn_(){
   return `<a href="${url}" target="_blank" style="display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700">開啟試算表</a>`;
 }
 
-function sendOrderCreatedMail_({ orderNo, name, email, phone, total, items, addr, ship, remark }) {
+function sendOrderCreatedMail_({ 
+  orderNo, 
+  buyerName, buyerEmail, buyerPhone, buyerAddr,
+  receiverName, receiverEmail, receiverPhone, receiverAddr,
+  delivery, payment,
+  subtotal, shipping, discountCode, discountAmount, total,
+  items, 
+  remark 
+}) {
   const lines = orderLinesHtml_(items);
   const copyUrl = bankCopyUrl_();
+  
+  const deliveryText = delivery === 'home' ? '宅配到府' : '門市自取';
+  const paymentText = payment === 'linepay' ? 'LINE Pay' : payment === 'bank' ? '銀行轉帳' : '貨到付款';
 
   const bodyCustomer = `
     <h2 style="margin:8px 0 10px">訂單成立＆匯款資訊</h2>
     <div style="font-size:13px;color:#6b7280;margin:0 0 12px">訂單編號：<b>${orderNo}</b></div>
 
     <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin:10px 0 14px;background:#fafafa">
-      <div style="font-weight:700;margin-bottom:6px">收件資訊</div>
-      <div>客戶：${safe_(name)}（${safe_(phone)}）</div>
-      <div>Email：${safe_(email)}</div>
-      <div>收件方式：${safe_(ship)}　收件地址：${safe_(addr)}</div>
-      <div>備註：${safe_(remark||'（無）')}</div>
+      <div style="font-weight:700;margin-bottom:6px">購買人資訊</div>
+      <div>姓名：${safe_(buyerName)}　電話：${safe_(buyerPhone)}</div>
+      <div>Email：${safe_(buyerEmail)}</div>
+      <div>地址：${safe_(buyerAddr)}</div>
+    </div>
+
+    <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin:10px 0 14px;background:#fafafa">
+      <div style="font-weight:700;margin-bottom:6px">收件人資訊</div>
+      <div>姓名：${safe_(receiverName)}　電話：${safe_(receiverPhone)}</div>
+      ${receiverEmail ? `<div>Email：${safe_(receiverEmail)}</div>` : ''}
+      <div>地址：${safe_(receiverAddr)}</div>
+      <div>配送方式：${deliveryText}　付款方式：${paymentText}</div>
+      ${remark ? `<div>備註：${safe_(remark)}</div>` : ''}
     </div>
 
     <table cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%;margin:10px 0">
@@ -513,6 +574,18 @@ function sendOrderCreatedMail_({ orderNo, name, email, phone, total, items, addr
       <tbody>${lines}</tbody>
       <tfoot>
         <tr>
+          <td colspan="5" style="padding:8px;border:1px solid #eee">商品小計</td>
+          <td style="padding:8px;border:1px solid #eee">${fmtCur_(subtotal)}</td>
+        </tr>
+        ${discountCode ? `<tr>
+          <td colspan="5" style="padding:8px;border:1px solid #eee">折扣碼（${safe_(discountCode)}）</td>
+          <td style="padding:8px;border:1px solid #eee;color:#16a34a">-${fmtCur_(discountAmount)}</td>
+        </tr>` : ''}
+        <tr>
+          <td colspan="5" style="padding:8px;border:1px solid #eee">運費</td>
+          <td style="padding:8px;border:1px solid #eee">${shipping === 0 ? '免運費' : fmtCur_(shipping)}</td>
+        </tr>
+        <tr style="background:#fff7ed">
           <td colspan="5" style="padding:8px;border:1px solid #eee"><b>應付金額</b></td>
           <td style="padding:8px;border:1px solid #eee"><b>${fmtCur_(total)}</b></td>
         </tr>
@@ -535,7 +608,7 @@ function sendOrderCreatedMail_({ orderNo, name, email, phone, total, items, addr
 
   let okAll = true;
   if (SEND_MAIL) {
-    const okA = sendMailSafe_(email, `${BRAND.name}｜訂單成立＆匯款資訊｜${orderNo}`, textCustomer, htmlCustomer);
+    const okA = sendMailSafe_(buyerEmail, `${BRAND.name}｜訂單成立＆匯款資訊｜${orderNo}`, textCustomer, htmlCustomer);
     if (okA !== true) okAll = okA;
   }
 
@@ -544,9 +617,20 @@ function sendOrderCreatedMail_({ orderNo, name, email, phone, total, items, addr
       <div style="margin-bottom:10px">${adminOpenSheetBtn_()}</div>
       <h2 style="margin:8px 0 10px">新訂單通知</h2>
       <div style="font-size:13px;color:#6b7280;margin:0 0 12px">訂單編號：<b>${orderNo}</b></div>
-      <div>客戶：${safe_(name)}（${safe_(phone)}，${safe_(email)}）</div>
-      <div>收件方式：${safe_(ship)}　收件地址：${safe_(addr)}</div>
-      <div style="margin-bottom:10px">備註：${safe_(remark||'（無）')}</div>
+      
+      <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin:10px 0;background:#fafafa">
+        <div style="font-weight:700;margin-bottom:6px">購買人</div>
+        <div>${safe_(buyerName)}（${safe_(buyerPhone)}，${safe_(buyerEmail)}）</div>
+        <div>地址：${safe_(buyerAddr)}</div>
+      </div>
+      
+      <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin:10px 0;background:#fafafa">
+        <div style="font-weight:700;margin-bottom:6px">收件人</div>
+        <div>${safe_(receiverName)}（${safe_(receiverPhone)}${receiverEmail ? '，' + safe_(receiverEmail) : ''}）</div>
+        <div>地址：${safe_(receiverAddr)}</div>
+        <div>配送：${deliveryText}　付款：${paymentText}</div>
+        ${remark ? `<div>備註：${safe_(remark)}</div>` : ''}
+      </div>
 
       <table cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%;margin:10px 0">
         <thead>
@@ -562,6 +646,18 @@ function sendOrderCreatedMail_({ orderNo, name, email, phone, total, items, addr
         <tbody>${lines}</tbody>
         <tfoot>
           <tr>
+            <td colspan="5" style="padding:8px;border:1px solid #eee">商品小計</td>
+            <td style="padding:8px;border:1px solid #eee">${fmtCur_(subtotal)}</td>
+          </tr>
+          ${discountCode ? `<tr>
+            <td colspan="5" style="padding:8px;border:1px solid #eee">折扣碼（${safe_(discountCode)}）</td>
+            <td style="padding:8px;border:1px solid #eee;color:#16a34a">-${fmtCur_(discountAmount)}</td>
+          </tr>` : ''}
+          <tr>
+            <td colspan="5" style="padding:8px;border:1px solid #eee">運費</td>
+            <td style="padding:8px;border:1px solid #eee">${shipping === 0 ? '免運費' : fmtCur_(shipping)}</td>
+          </tr>
+          <tr style="background:#eef2ff">
             <td colspan="5" style="padding:8px;border:1px solid #eee"><b>總金額</b></td>
             <td style="padding:8px;border:1px solid #eee"><b>${fmtCur_(total)}</b></td>
           </tr>
@@ -569,7 +665,7 @@ function sendOrderCreatedMail_({ orderNo, name, email, phone, total, items, addr
       </table>
     `.trim();
     const htmlBoss = emailShell_(bodyBoss);
-    const textBoss = `【新訂單】${orderNo} / 客戶：${name} (${email}) / 總額：${$.cur(total)}`;
+    const textBoss = `【新訂單】${orderNo} / 客戶：${buyerName} (${buyerEmail}) / 總額：${$.cur(total)}`;
     const okB = sendMailSafe_(NOTIFY_TO, `【新訂單】${orderNo}`, textBoss, htmlBoss);
     if (okB !== true) okAll = okB;
   }
