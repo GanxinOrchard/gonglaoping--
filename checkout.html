@@ -524,7 +524,7 @@
     <header class="checkout-header">
         <div class="checkout-header-content">
             <div class="checkout-logo">
-                <img src="images/logo.png" alt="柑心果園">
+                <img src="./images/商標.jpg" alt="柑心果園" style="height: 50px;">
                 <span class="checkout-logo-text">柑心果園</span>
             </div>
         </div>
@@ -550,7 +550,7 @@
 
     <!-- 主要內容 -->
     <div class="checkout-container">
-        <!-- 第1步：折扣碼 + 訂單摘要 + 配送方式 -->
+        <!-- 第1步：折扣碼 + 訂單摘要 + 配送方式 + 推薦商品 -->
         <div class="step-content active" id="step1">
             <!-- 折扣碼 -->
             <div class="section-box">
@@ -560,7 +560,7 @@
                 </h2>
                 <p style="color: #666; margin-bottom: 15px;">
                     更多優惠資訊請追蹤我們的 
-                    <a href="https://www.facebook.com/profile.php?id=61559838581668" target="_blank" class="fb-link">
+                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="fb-link">
                         <i class="fab fa-facebook"></i>
                         Facebook 粉絲專頁
                     </a>
@@ -580,21 +580,23 @@
                 </h2>
                 <div id="cartItemsList"></div>
                 
-                <div class="summary-row">
-                    <span>商品總金額</span>
-                    <span id="subtotal">NT$ 0</span>
-                </div>
-                <div class="summary-row" id="discountRow" style="display: none;">
-                    <span style="color: #27ae60;">折扣優惠</span>
-                    <span id="discountAmount" style="color: #27ae60;">-NT$ 0</span>
-                </div>
-                <div class="summary-row">
-                    <span>運費</span>
-                    <span id="shippingFee">NT$ 180</span>
-                </div>
-                <div class="summary-row total">
-                    <span>訂單總計</span>
-                    <span id="totalAmount">NT$ 0</span>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f0f0f0;">
+                    <div class="summary-row">
+                        <span>商品總金額</span>
+                        <span id="subtotal">NT$ 0</span>
+                    </div>
+                    <div class="summary-row" id="discountRow" style="display: none;">
+                        <span style="color: #27ae60;">折扣優惠</span>
+                        <span id="discountAmount" style="color: #27ae60;">-NT$ 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>運費</span>
+                        <span id="shippingFee">NT$ 180</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>訂單總計</span>
+                        <span id="totalAmount">NT$ 0</span>
+                    </div>
                 </div>
             </div>
 
@@ -626,6 +628,17 @@
                 </div>
             </div>
 
+            <!-- 推薦商品 -->
+            <div class="section-box">
+                <h2 class="section-title">
+                    <i class="fas fa-heart"></i>
+                    您可能也喜歡
+                </h2>
+                <div id="recommendedProducts" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                    <!-- 推薦商品將由 JavaScript 動態載入 -->
+                </div>
+            </div>
+
             <div class="btn-group">
                 <a href="cart.html" class="btn btn-back">
                     <i class="fas fa-arrow-left"></i> 返回購物車
@@ -636,7 +649,7 @@
             </div>
         </div>
 
-        <!-- 第2步：訂購人資訊 -->
+        <!-- 第2步：寄送付款方式 -->
         <div class="step-content" id="step2">
             <!-- 購買人資料 -->
             <div class="section-box">
@@ -646,23 +659,19 @@
                 </h2>
                 <div class="form-group">
                     <label>姓名 <span class="required">*</span></label>
-                    <div class="field-description">用於訂單確認及出貨聯絡</div>
-                    <input type="text" id="buyerName" required>
+                    <input type="text" id="buyerName" required placeholder="請輸入您的姓名">
                 </div>
                 <div class="form-group">
                     <label>Email <span class="required">*</span></label>
-                    <div class="field-description">訂單確認信將寄送至此信箱</div>
-                    <input type="email" id="buyerEmail" required>
+                    <input type="email" id="buyerEmail" required placeholder="請輸入您的Email">
                 </div>
                 <div class="form-group">
                     <label>手機 <span class="required">*</span></label>
-                    <div class="field-description">請輸入09開頭的手機號碼，用於配送聯絡</div>
-                    <input type="tel" id="buyerPhone" required pattern="09[0-9]{8}" placeholder="0912345678">
+                    <input type="tel" id="buyerPhone" required pattern="09[0-9]{8}" placeholder="請輸入您的手機">
                 </div>
                 <div class="form-group" id="buyerAddressGroup">
-                    <label>完整地址</label>
-                    <div class="field-description">配送地址（宅配時必填）</div>
-                    <input type="text" id="buyerAddress" placeholder="例如：台北市大安區忠孝東路四段123號">
+                    <label>地址 <span class="required">*</span></label>
+                    <input type="text" id="buyerAddress" placeholder="請輸入完整地址">
                 </div>
             </div>
 
@@ -674,19 +683,23 @@
                 </h2>
                 <div class="checkbox-group">
                     <input type="checkbox" id="sameAsBuyer" onchange="copySameAsBuyer()">
-                    <label for="sameAsBuyer">同購買人資料</label>
+                    <label for="sameAsBuyer" style="cursor: pointer;">【同購買人資料】</label>
                 </div>
                 <div class="form-group">
                     <label>姓名 <span class="required">*</span></label>
-                    <input type="text" id="receiverName" required>
+                    <input type="text" id="receiverName" required placeholder="請輸入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" id="receiverEmail" placeholder="請輸入您的Email">
                 </div>
                 <div class="form-group">
                     <label>手機 <span class="required">*</span></label>
-                    <input type="tel" id="receiverPhone" required pattern="09[0-9]{8}" placeholder="0912345678">
+                    <input type="tel" id="receiverPhone" required pattern="09[0-9]{8}" placeholder="請輸入您的手機">
                 </div>
                 <div class="form-group" id="receiverAddressGroup">
-                    <label>完整地址</label>
-                    <input type="text" id="receiverAddress" placeholder="例如：台北市大安區忠孝東路四段123號">
+                    <label>地址 <span class="required">*</span></label>
+                    <input type="text" id="receiverAddress" placeholder="請輸入完整地址">
                 </div>
             </div>
 
@@ -697,26 +710,26 @@
                     付款方式
                 </h2>
                 <div class="payment-options">
-                    <label class="payment-option selected" onclick="selectPayment('linepay')">
-                        <input type="radio" name="payment" value="linepay" checked>
+                    <label class="payment-option" onclick="selectPayment('bank')">
+                        <input type="radio" name="payment" value="bank" checked>
+                        <div class="payment-icon" style="color: #3498db;">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div><strong>匯款</strong></div>
+                    </label>
+                    <label class="payment-option" onclick="selectPayment('linepay')">
+                        <input type="radio" name="payment" value="linepay">
                         <div class="payment-icon" style="color: #00B900;">
                             <i class="fab fa-line"></i>
                         </div>
                         <div><strong>LINE Pay</strong></div>
-                    </label>
-                    <label class="payment-option" onclick="selectPayment('bank')">
-                        <input type="radio" name="payment" value="bank">
-                        <div class="payment-icon" style="color: #3498db;">
-                            <i class="fas fa-university"></i>
-                        </div>
-                        <div><strong>銀行轉帳</strong></div>
                     </label>
                     <label class="payment-option" onclick="selectPayment('cash')">
                         <input type="radio" name="payment" value="cash">
                         <div class="payment-icon" style="color: #27ae60;">
                             <i class="fas fa-money-bill-wave"></i>
                         </div>
-                        <div><strong>自取現金</strong></div>
+                        <div><strong>現金</strong></div>
                     </label>
                 </div>
             </div>
@@ -729,12 +742,15 @@
                 </h2>
                 <div class="form-group">
                     <label>備註內容</label>
-                    <textarea id="orderNote" rows="4" placeholder="如有特殊需求請在此註明"></textarea>
+                    <textarea id="orderNote" rows="4" maxlength="500" placeholder="如需統編請於此備註&#10;目前可輸入 500 字"></textarea>
+                    <div style="text-align: right; font-size: 12px; color: #999; margin-top: 5px;">
+                        <span id="noteCharCount">0</span>/500 字
+                    </div>
                 </div>
                 <div class="checkbox-group">
                     <input type="checkbox" id="agreeTerms" required>
-                    <label for="agreeTerms">
-                        我已了解並同意 <a href="policies.html?type=return" target="_blank" style="color: var(--primary-color);">網站退貨退款須知</a>
+                    <label for="agreeTerms" style="cursor: pointer;">
+                        我已了解並同意 <a href="policies.html?type=return" target="_blank" style="color: var(--primary-color); text-decoration: underline;">網站退貨退款須知</a>
                         <span class="required">*</span>
                     </label>
                 </div>

@@ -233,17 +233,87 @@
             }
         }
         
+        // Google Apps Script Web App URL
+        const GAS_WEB_APP_URL = 'YOUR_GAS_WEB_APP_URL_HERE'; // 請替換為實際的 GAS URL
+        
         // 處理 LINE Pay 付款
-        function handleLinePayment() {
+        async function handleLinePayment() {
+            const orderInfo = JSON.parse(localStorage.getItem('pendingLinePayOrder') || '{}');
+            
+            if (!orderInfo.orderNumber) {
+                alert('找不到訂單資訊');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // 顯示處理中
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 處理中...';
+            
+            // 實際環境應該跳轉到 LINE Pay API
+            // 這裡模擬付款流程
             alert('LINE Pay 整合需要後端 API 支援\n\n請依照以下步驟設定：\n\n1. 註冊 LINE Pay Merchant\n2. 取得 Channel ID 和 Channel Secret\n3. 設定後端 API 處理付款請求\n4. 更新此頁面的付款處理邏輯\n\n設定完成後，使用者將可以直接透過 LINE Pay 完成付款。');
             
             // 模擬付款成功（實際應該跳轉到 LINE Pay）
             if (confirm('是否模擬付款成功？（實際應整合 LINE Pay API）')) {
+                // 提交訂單到 Google Sheets
+                if (GAS_WEB_APP_URL && GAS_WEB_APP_URL !== 'YOUR_GAS_WEB_APP_URL_HERE') {
+                    try {
+                        await submitOrderToGAS(orderInfo);
+                        console.log('訂單已提交到 Google Sheets');
+                    } catch (error) {
+                        console.error('提交訂單失敗:', error);
+                    }
+                }
+                
                 // 清除待付款訂單
                 localStorage.removeItem('pendingLinePayOrder');
                 
                 // 跳轉到訂單完成頁面
                 window.location.href = 'order-complete.html';
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fab fa-line"></i> 前往 LINE Pay 付款';
+            }
+        }
+        
+        // 提交訂單到 Google Sheets
+        async function submitOrderToGAS(orderInfo) {
+            try {
+                const response = await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        orderId: orderInfo.orderNumber,
+                        orderDate: new Date(orderInfo.orderTime).toLocaleString('zh-TW'),
+                        status: '已付款 (LINE Pay)',
+                        buyer: orderInfo.buyer,
+                        receiver: orderInfo.receiver,
+                        items: orderInfo.items.map(item => ({
+                            name: item.name,
+                            spec: item.selectedSpec || '',
+                            quantity: item.quantity,
+                            price: item.price,
+                            subtotal: item.price * item.quantity
+                        })),
+                        subtotal: orderInfo.subtotal,
+                        discount: orderInfo.discountAmount || 0,
+                        shipping: orderInfo.shipping,
+                        total: orderInfo.total,
+                        paymentMethod: 'LINE Pay',
+                        delivery: orderInfo.delivery === 'home' ? '宅配到府' : '門市自取',
+                        note: orderInfo.note || ''
+                    })
+                });
+                
+                return { success: true };
+            } catch (error) {
+                console.error('提交訂單到 GAS 失敗:', error);
+                return { success: false, error: error.message };
             }
         }
         

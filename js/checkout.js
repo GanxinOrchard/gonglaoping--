@@ -7,12 +7,13 @@
 let currentStep = 1;
 let orderData = {
     delivery: 'home', // home: 宅配, pickup: 自取
-    payment: 'linepay',
+    payment: 'bank', // 預設為匯款
     discountCode: null,
     discountAmount: 0
 };
 
 // 折扣碼配置
+{{ ... }}
 const discountCodes = {
     'WELCOME10': { type: 'percentage', value: 10, description: '新客戶優惠 10% 折扣' },
     'SAVE100': { type: 'fixed', value: 100, description: '滿額折抵 NT$100' },
@@ -218,6 +219,7 @@ function copySameAsBuyer() {
     
     if (checked) {
         document.getElementById('receiverName').value = document.getElementById('buyerName').value;
+        document.getElementById('receiverEmail').value = document.getElementById('buyerEmail').value;
         document.getElementById('receiverPhone').value = document.getElementById('buyerPhone').value;
         document.getElementById('receiverAddress').value = document.getElementById('buyerAddress').value;
     }
@@ -271,13 +273,13 @@ function validateAndGoToStep3() {
         const receiverAddress = document.getElementById('receiverAddress').value.trim();
         
         if (!buyerAddress) {
-            alert('請輸入購買人地址');
+            alert('宅配到府需填寫購買人地址');
             document.getElementById('buyerAddress').focus();
             return;
         }
         
         if (!receiverAddress) {
-            alert('請輸入收件人地址');
+            alert('宅配到府需填寫收件人地址');
             document.getElementById('receiverAddress').focus();
             return;
         }
@@ -290,13 +292,14 @@ function validateAndGoToStep3() {
     }
     
     if (!receiverPhone || !isValidPhone(receiverPhone)) {
-        alert('請輸入正確的收件人手機號碼');
+        alert('請輸入正確的收件人手機號碼（09開頭，共10碼）');
         document.getElementById('receiverPhone').focus();
         return;
     }
     
     if (!agreeTerms) {
         alert('請閱讀並同意退貨退款須知');
+        document.getElementById('agreeTerms').focus();
         return;
     }
     
@@ -331,6 +334,7 @@ function saveFormData() {
         buyerPhone: document.getElementById('buyerPhone').value,
         buyerAddress: document.getElementById('buyerAddress').value,
         receiverName: document.getElementById('receiverName').value,
+        receiverEmail: document.getElementById('receiverEmail') ? document.getElementById('receiverEmail').value : '',
         receiverPhone: document.getElementById('receiverPhone').value,
         receiverAddress: document.getElementById('receiverAddress').value,
         orderNote: document.getElementById('orderNote').value
@@ -354,6 +358,9 @@ function loadFormData() {
         if (formData.buyerPhone) document.getElementById('buyerPhone').value = formData.buyerPhone;
         if (formData.buyerAddress) document.getElementById('buyerAddress').value = formData.buyerAddress;
         if (formData.receiverName) document.getElementById('receiverName').value = formData.receiverName;
+        if (formData.receiverEmail && document.getElementById('receiverEmail')) {
+            document.getElementById('receiverEmail').value = formData.receiverEmail;
+        }
         if (formData.receiverPhone) document.getElementById('receiverPhone').value = formData.receiverPhone;
         if (formData.receiverAddress) document.getElementById('receiverAddress').value = formData.receiverAddress;
         if (formData.orderNote) document.getElementById('orderNote').value = formData.orderNote;
@@ -613,6 +620,49 @@ function submitOrder() {
 
 // ========== 初始化 ==========
 
+// ========== 推薦商品功能 ==========
+
+/**
+ * 渲染推薦商品
+ */
+function renderRecommendedProducts() {
+    const container = document.getElementById('recommendedProducts');
+    if (!container || typeof products === 'undefined') return;
+    
+    // 隨機選擇3-4個商品
+    const shuffled = products.sort(() => 0.5 - Math.random());
+    const recommended = shuffled.slice(0, 4);
+    
+    container.innerHTML = recommended.map(product => `
+        <div style="background: white; border-radius: 12px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+            <h4 style="font-size: 16px; margin-bottom: 8px; color: #333;">${product.name}</h4>
+            <p style="color: var(--primary-color); font-weight: bold; font-size: 18px; margin-bottom: 10px;">NT$ ${product.price.toLocaleString()}</p>
+            <button onclick="addToCart(${product.id}); showNotification('已加入購物車！'); renderCartItems(); updateOrderSummary();" style="width: 100%; padding: 10px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.background='var(--secondary-color)'" onmouseout="this.style.background='var(--primary-color)'">
+                <i class="fas fa-cart-plus"></i> 加入購物車
+            </button>
+        </div>
+    `).join('');
+}
+
+/**
+ * 顯示通知
+ */
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #27ae60; color: white; padding: 15px 25px; border-radius: 8px; z-index: 99999; box-shadow: 0 4px 12px rgba(0,0,0,0.2);';
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s';
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
+// ========== 初始化 ==========
+
 document.addEventListener('DOMContentLoaded', function() {
     // 檢查購物車
     if (!cart || cart.length === 0) {
@@ -624,9 +674,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // 渲染購物車
     renderCartItems();
     
+    // 渲染推薦商品
+    renderRecommendedProducts();
+    
     // 載入表單資料
     loadFormData();
     
     // 初始化配送方式
     selectDelivery('home');
+    
+    // 初始化付款方式
+    orderData.payment = 'bank';
+    document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+    document.querySelector('.payment-option input[value="bank"]').parentElement.classList.add('selected');
+    
+    // 字數計數功能
+    const orderNote = document.getElementById('orderNote');
+    const noteCharCount = document.getElementById('noteCharCount');
+    if (orderNote && noteCharCount) {
+        orderNote.addEventListener('input', function() {
+            noteCharCount.textContent = this.value.length;
+        });
+    }
 });
