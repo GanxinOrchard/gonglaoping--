@@ -466,16 +466,16 @@
                 <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
                     <i class="fas fa-credit-card"></i> 付款方式
                 </h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
-                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="bank">
+                <div id="paymentOptions" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <label style="padding: 15px; border: 2px solid var(--primary-color); background: rgba(255, 140, 66, 0.1); border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart active" data-value="匯款">
                         <input type="radio" name="pay_method" value="匯款" checked style="display: none;">
-                        <div style="font-weight: 600;"><i class="fas fa-university"></i> 匯款</div>
+                        <div style="font-weight: 600; color: var(--primary-color);"><i class="fas fa-university"></i> 匯款</div>
                     </label>
-                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="linepay">
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="LINE Pay">
                         <input type="radio" name="pay_method" value="LINE Pay" style="display: none;">
                         <div style="font-weight: 600;"><i class="fab fa-line"></i> LINE Pay</div>
                     </label>
-                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="cash">
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="現金">
                         <input type="radio" name="pay_method" value="現金" style="display: none;">
                         <div style="font-weight: 600;"><i class="fas fa-money-bill-wave"></i> 現金</div>
                     </label>
@@ -570,5 +570,43 @@
     <script src="./js/dropdown-menu.js"></script>
     <script src="./js/products.js?v=20251004i"></script>
     <script src="js/cart.js"></script>
+    <script>
+        // 配送方式選擇效果
+        document.querySelectorAll('.delivery-option-cart').forEach(label => {
+            label.addEventListener('click', function() {
+                document.querySelectorAll('.delivery-option-cart').forEach(l => {
+                    l.style.border = '2px solid #e0e0e0';
+                    l.style.background = 'white';
+                });
+                this.style.border = '2px solid var(--primary-color)';
+                this.style.background = 'rgba(255, 140, 66, 0.1)';
+            });
+        });
+
+        // 付款方式選擇效果
+        document.querySelectorAll('.payment-option-cart').forEach(label => {
+            label.addEventListener('click', function() {
+                // 移除所有選項的 active 狀態
+                document.querySelectorAll('.payment-option-cart').forEach(l => {
+                    l.style.border = '2px solid #e0e0e0';
+                    l.style.background = 'white';
+                    l.classList.remove('active');
+                    const div = l.querySelector('div');
+                    if (div) div.style.color = '#333';
+                });
+                
+                // 添加當前選項的 active 狀態
+                this.style.border = '2px solid var(--primary-color)';
+                this.style.background = 'rgba(255, 140, 66, 0.1)';
+                this.classList.add('active');
+                const div = this.querySelector('div');
+                if (div) div.style.color = 'var(--primary-color)';
+                
+                // 確保 radio 被選中
+                const radio = this.querySelector('input[type="radio"]');
+                if (radio) radio.checked = true;
+            });
+        });
+    </script>
 </body>
 </html>
