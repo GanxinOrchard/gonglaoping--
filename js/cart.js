@@ -176,7 +176,9 @@ function updateCartUI() {
         if (cart.length === 0) {
             cartItems.innerHTML = '<div style="text-align: center; padding: 40px; color: #999;">購物車是空的</div>';
         } else {
-            cartItems.innerHTML = cart.map(item => `
+            cartItems.innerHTML = cart.map(item => {
+                const specId = item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null';
+                return `
                 <div class="cart-item">
                     <img src="${item.image}" alt="${item.name}">
                     <div class="cart-item-details">
@@ -185,15 +187,16 @@ function updateCartUI() {
                         <p class="item-price">NT$ ${item.price.toLocaleString()}</p>
                     </div>
                     <div class="cart-item-controls">
-                        <button onclick="updateQuantity(${item.id}, -1, ${item.selectedSpecId || null})">-</button>
+                        <button onclick="updateQuantity(${item.id}, -1, ${specId})">-</button>
                         <span>${item.quantity}</span>
-                        <button onclick="updateQuantity(${item.id}, 1, ${item.selectedSpecId || null})">+</button>
+                        <button onclick="updateQuantity(${item.id}, 1, ${specId})">+</button>
                     </div>
-                    <button class="remove-item" onclick="removeFromCart(${item.id}, ${item.selectedSpecId || null})">
+                    <button class="remove-item" onclick="removeFromCart(${item.id}, ${specId})">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
     }
     

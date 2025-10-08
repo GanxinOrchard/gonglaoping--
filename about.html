@@ -293,16 +293,21 @@
                 <div class="main-menu" id="mainMenu">
                     <ul>
                         <li><a href="index.html">首頁</a></li>
-                        <li><a href="products.html">全部商品</a></li>
-                        <li><a href="grading.html">規格分級</a></li>
-                        <li><a href="farming.html">友善栽培</a></li>
-                        <li><a href="guide.html">挑選指南</a></li>
-                        <li><a href="season.html">產季資訊</a></li>
+                        <li class="dropdown">
+                            <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="products.html">所有商品</a></li>
+                                <li><a href="grading.html">規格分級</a></li>
+                                <li><a href="farming.html">友善栽培</a></li>
+                                <li><a href="guide.html">挑選指南</a></li>
+                                <li><a href="season.html">產季資訊</a></li>
+                            </ul>
+                        </li>
                         <li><a href="about.html" class="active">關於我們</a></li>
-                        <li><a href="news.html">最新消息</a></li>
-                        <li><a href="knowledge.html">蔬果知識</a></li>
                         <li><a href="contact.html">聯絡我們</a></li>
                         <li><a href="order-tracking.html">訂單查詢</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li><a href="knowledge.html">蔬果知識+</a></li>
                     </ul>
                 </div>
             </div>
@@ -600,6 +605,8 @@
         </div>
     </footer>
     </div><!-- end content-wrapper -->
+    <script src="./js/cookie-consent.js"></script>
+    <script src="./js/dropdown-menu.js"></script>
     <script src="./js/orange-animation.js?v=20251004i"></script>
     <script src="./js/products.js?v=20251004i"></script>
     <script src="./js/cart.js?v=20251004i"></script>

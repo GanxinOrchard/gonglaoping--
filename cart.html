@@ -395,6 +395,7 @@
         </div>
     </footer>
 
+    <script src="./js/dropdown-menu.js"></script>
     <script src="./js/products.js?v=20251004i"></script>
     <script src="./js/cart.js?v=20251004i"></script>
     <script>
@@ -419,7 +420,9 @@
             }
             
             // 渲染商品列表
-            cartItemsList.innerHTML = cart.map(item => `
+            cartItemsList.innerHTML = cart.map(item => {
+                const specId = item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null';
+                return `
                 <div class="cart-item">
                     <div class="cart-item-image">
                         <img src="${item.image}" alt="${item.name}">
@@ -430,15 +433,16 @@
                         <div class="cart-item-price">NT$ ${item.price.toLocaleString()}</div>
                     </div>
                     <div class="cart-item-controls">
-                        <button class="qty-btn" onclick="updateQuantity(${item.id}, -1, ${item.selectedSpecId || null})">-</button>
+                        <button class="qty-btn" onclick="updateQuantity(${item.id}, -1, ${specId})">-</button>
                         <span class="qty-display">${item.quantity}</span>
-                        <button class="qty-btn" onclick="updateQuantity(${item.id}, 1, ${item.selectedSpecId || null})">+</button>
+                        <button class="qty-btn" onclick="updateQuantity(${item.id}, 1, ${specId})">+</button>
                     </div>
-                    <button class="remove-btn" onclick="removeFromCart(${item.id}, ${item.selectedSpecId || null})">
+                    <button class="remove-btn" onclick="removeFromCart(${item.id}, ${specId})">
                         <i class="fas fa-trash"></i> 刪除
                     </button>
                 </div>
-            `).join('');
+                `;
+            }).join('');
             
             // 計算總計
             const totals = calculateTotal();
