@@ -3473,6 +3473,7 @@ ul {
         visibility: hidden !important;
         transition: all 0.3s ease !important;
         pointer-events: none !important;
+        display: block !important;
     }
     
     .menu-overlay.active {

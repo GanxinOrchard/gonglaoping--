@@ -175,8 +175,36 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
 </head>
 <body>
+    <!-- 簡化導航欄 -->
+    <header class="header" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="./images/商標.jpg" alt="柑心果園" loading="lazy" width="120" height="40">
+                    </a>
+                </div>
+                
+                <div class="nav-icons">
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="main-menu" id="mainMenu">
+                <ul>
+                    <li><a href="index.html">返回首頁</a></li>
+                    <li><a href="cart.html">購物車</a></li>
+                    <li><a href="order-tracking.html">訂單查詢</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
     <div class="linepay-container">
         <div class="linepay-icon">
             <i class="fab fa-line"></i>
@@ -322,5 +350,9 @@
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', loadOrderInfo);
     </script>
+    
+    <!-- 載入必要的 JavaScript -->
+    <script src="./js/mobile-menu-fix.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
 </body>
 </html>

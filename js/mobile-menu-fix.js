@@ -32,6 +32,14 @@
             document.body.appendChild(overlay);
         }
         
+        // 確保遮罩在正確的層級
+        overlay.style.zIndex = '999998';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        
         let isOpen = false;
         let isAnimating = false;
         
