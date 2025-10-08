@@ -10,26 +10,28 @@
     --z-banner: 1;            /* 公告條 */
 }
 
-/* 2. 漢堡按鈕樣式 - 固定在右上角 */
+/* 2. 漢堡按鈕樣式 - 顯示在導航欄購物車右邊 */
 @media (max-width: 992px) {
-    .mobile-menu-toggle,
-    .floating-menu-btn {
-        position: fixed !important;
-        top: 12px;
-        right: 12px;
-        z-index: var(--z-hamburger) !important;
+    .mobile-menu-toggle {
+        display: flex !important;
+        position: relative !important;
         background: var(--white);
         border: 2px solid var(--primary-color);
         border-radius: 8px;
         width: 48px;
         height: 48px;
-        display: flex !important;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 2px 8px rgba(255, 140, 66, 0.3);
         -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* 隱藏懸浮按鈕 */
+    .floating-menu-btn,
+    .floating-cart-btn {
+        display: none !important;
     }
     
     .mobile-menu-toggle:active,

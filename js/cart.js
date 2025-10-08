@@ -130,6 +130,9 @@ function renderCartItems() {
     if (discountSection) discountSection.style.display = 'block';
     if (deliverySection) deliverySection.style.display = 'block';
     if (paymentSection) paymentSection.style.display = 'block';
+    
+    // 更新金額顯示
+    updateCartCount();
 }
 
 // 更新購物車數量
@@ -287,6 +290,28 @@ function removeFromCart(productId, specId = null) {
     removeCartItem(productId, specId);
 }
 
+// 更新金額顯示（全域函數）
+function updateAmounts() {
+    const { subtotal, discount, shipping, total } = calculatePrice();
+    
+    // 使用 id 選擇器（index.html 使用 id）
+    const subtotalEl = document.getElementById('subtotal');
+    const shippingEl = document.getElementById('shippingFee');
+    const discountEl = document.getElementById('discountValue');
+    const totalEl = document.getElementById('total');
+    const discountRow = document.getElementById('discountAmount');
+    
+    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
+    if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
+    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
+    
+    // 顯示/隱藏折扣行
+    if (discountRow) {
+        discountRow.style.display = discount > 0 ? 'flex' : 'none';
+    }
+}
+
 // ========================================
 // 頁面初始化
 // ========================================
@@ -300,20 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 渲染購物車商品
     renderCartItems();
     
-    // 更新金額顯示
-    function updateAmounts() {
-        const { subtotal, discount, shipping, total } = calculatePrice();
-        
-        const subtotalEl = document.querySelector('[data-subtotal]');
-        const shippingEl = document.querySelector('[data-shipping]');
-        const discountEl = document.querySelector('[data-discount]');
-        const totalEl = document.querySelector('[data-total]');
-        
-        if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
-        if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
-        if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
-        if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
-    }
+    // 初始更新金額
+    updateAmounts();
     
     // 折扣碼套用
     const applyBtn = document.querySelector('[data-action="apply-coupon"]');
