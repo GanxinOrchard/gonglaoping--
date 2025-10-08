@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡單測試頁面 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: white;
+        }
+        
+        .test-content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .test-header {
+            background: #ff8c42;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ff8c42;
+        }
+    </style>
+</head>
+<body>
+    <!-- 跑馬燈 -->
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <i class="fas fa-bullhorn"></i>
+            <span>🔧 簡單測試頁面 - 檢查遮罩問題</span>
+        </div>
+    </div>
+    
+    <!-- 導航列 -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="./images/商標.jpg" alt="柑心果園" width="180" height="60" loading="lazy">
+                    </a>
+                </div>
+                
+                <div class="nav-icons">
+                    <a href="cart.html" class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="main-menu" id="mainMenu">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="about.html">關於我們</a></li>
+                    <li><a href="products.html">全部商品</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="test-content">
+            <div class="test-header">
+                <h1>🔧 簡單測試頁面</h1>
+                <p>檢查遮罩問題是否已修復</p>
+            </div>
+            
+            <div class="test-section">
+                <h3>✅ 測試項目</h3>
+                <p>1. 頁面應該顯示白色背景，沒有半透明黑色遮罩</p>
+                <p>2. 右上角應該有漢堡選單按鈕</p>
+                <p>3. 點擊漢堡選單按鈕應該正常開啟選單</p>
+                <p>4. 選單關閉後不應該留下遮罩</p>
+            </div>
+            
+            <div class="test-section">
+                <h3>🔍 檢查項目</h3>
+                <p>如果頁面正常顯示，表示遮罩問題已修復。</p>
+                <p>如果仍有半透明黑色背景，請檢查：</p>
+                <ul>
+                    <li>瀏覽器快取是否已清除</li>
+                    <li>CSS檔案是否正確載入</li>
+                    <li>JavaScript是否有錯誤</li>
+                </ul>
+            </div>
+            
+            <div class="test-section">
+                <h3>📱 手機版測試</h3>
+                <p>請調整瀏覽器視窗到手機版大小測試漢堡選單功能。</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 載入必要的 JavaScript -->
+    <script src="./js/mobile-menu-fix.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    
+    <script>
+        // 測試頁面專用腳本
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 簡單測試頁面已載入');
+            
+            // 檢查是否有遮罩元素
+            const overlays = document.querySelectorAll('.menu-overlay, .cart-overlay');
+            console.log('找到遮罩元素數量:', overlays.length);
+            
+            overlays.forEach((overlay, index) => {
+                console.log(`遮罩 ${index + 1}:`, {
+                    display: overlay.style.display,
+                    opacity: overlay.style.opacity,
+                    visibility: overlay.style.visibility,
+                    zIndex: overlay.style.zIndex
+                });
+            });
+            
+            // 確保所有遮罩都是隱藏的
+            overlays.forEach(overlay => {
+                overlay.style.display = 'none';
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+                overlay.style.pointerEvents = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

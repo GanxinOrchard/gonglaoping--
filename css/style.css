@@ -2084,10 +2084,12 @@ ul {
     z-index: 99998 !important;
     opacity: 0;
     visibility: hidden;
+    display: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .cart-overlay.active {
+    display: block;
     opacity: 1;
     visibility: visible;
 }
@@ -3473,10 +3475,11 @@ ul {
         visibility: hidden !important;
         transition: all 0.3s ease !important;
         pointer-events: none !important;
-        display: block !important;
+        display: none !important;
     }
     
     .menu-overlay.active {
+        display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
         pointer-events: auto !important;

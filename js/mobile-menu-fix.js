@@ -32,13 +32,17 @@
             document.body.appendChild(overlay);
         }
         
-        // 確保遮罩在正確的層級
+        // 確保遮罩在正確的層級和初始狀態
         overlay.style.zIndex = '999998';
         overlay.style.position = 'fixed';
         overlay.style.top = '0';
         overlay.style.left = '0';
         overlay.style.width = '100vw';
         overlay.style.height = '100vh';
+        overlay.style.display = 'none';
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+        overlay.style.pointerEvents = 'none';
         
         let isOpen = false;
         let isAnimating = false;
