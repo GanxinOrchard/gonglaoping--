@@ -163,8 +163,8 @@ function updateCartUI() {
     // 更新購物車數量
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     
-    // 更新所有頁面上的購物車數量標記
-    const cartCounts = document.querySelectorAll('#cartCount, .cart-count');
+    // 更新所有頁面上的購物車數量標記（包括懸浮購物車按鈕）
+    const cartCounts = document.querySelectorAll('#cartCount, .cart-count, #floatingCartCount, .cart-badge');
     cartCounts.forEach(cartCount => {
         if (cartCount) {
             cartCount.textContent = totalItems;

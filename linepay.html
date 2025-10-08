@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Pay 付款 - 柑心果園</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #00B900 0%, #00C300 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .linepay-container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .linepay-icon {
+            font-size: 80px;
+            color: #00B900;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .order-info {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .order-info p {
+            margin: 10px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .order-info strong {
+            color: #333;
+        }
+        
+        .amount {
+            font-size: 36px;
+            color: #00B900;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 12px;
+        }
+        
+        .notice {
+            background: #fff7ed;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .notice strong {
+            color: #f59e0b;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-linepay {
+            background: #00B900;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .btn-linepay:hover {
+            background: #00A000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,185,0,0.3);
+        }
+        
+        .btn-back {
+            background: white;
+            color: #666;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-back:hover {
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .actions .btn {
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .linepay-container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .amount {
+                font-size: 28px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="linepay-container">
+        <div class="linepay-icon">
+            <i class="fab fa-line"></i>
+        </div>
+        <h1>LINE Pay 付款</h1>
+        <p class="subtitle">安全、快速、便利的行動支付</p>
+        
+        <div class="order-info">
+            <p><strong>訂單編號：</strong><span id="orderNumber">-</span></p>
+            <p><strong>訂單時間：</strong><span id="orderTime">-</span></p>
+            <p><strong>付款方式：</strong>LINE Pay</p>
+        </div>
+        
+        <div class="amount">
+            NT$ <span id="totalAmount">0</span>
+        </div>
+        
+        <div class="notice">
+            <strong><i class="fas fa-info-circle"></i> 重要提示</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0;">
+                <li>LINE Pay 整合需要後端 API 支援</li>
+                <li>請聯繫開發人員設定 LINE Pay Merchant API</li>
+                <li>設定完成後即可使用 LINE Pay 付款功能</li>
+            </ul>
+        </div>
+        
+        <button class="btn btn-linepay" onclick="handleLinePayment()">
+            <i class="fab fa-line"></i> 前往 LINE Pay 付款
+        </button>
+        
+        <div class="actions">
+            <a href="cart.html" class="btn btn-back">
+                <i class="fas fa-shopping-cart"></i> 返回購物車
+            </a>
+            <a href="index.html" class="btn btn-back">
+                <i class="fas fa-home"></i> 返回首頁
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 載入訂單資訊
+        function loadOrderInfo() {
+            const orderInfo = JSON.parse(localStorage.getItem('pendingLinePayOrder') || '{}');
+            
+            if (orderInfo.orderNumber) {
+                document.getElementById('orderNumber').textContent = orderInfo.orderNumber;
+                document.getElementById('orderTime').textContent = new Date(orderInfo.orderTime).toLocaleString('zh-TW');
+                document.getElementById('totalAmount').textContent = orderInfo.total.toLocaleString();
+            } else {
+                // 如果沒有訂單資訊，返回首頁
+                alert('找不到訂單資訊');
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // 處理 LINE Pay 付款
+        function handleLinePayment() {
+            alert('LINE Pay 整合需要後端 API 支援\n\n請依照以下步驟設定：\n\n1. 註冊 LINE Pay Merchant\n2. 取得 Channel ID 和 Channel Secret\n3. 設定後端 API 處理付款請求\n4. 更新此頁面的付款處理邏輯\n\n設定完成後，使用者將可以直接透過 LINE Pay 完成付款。');
+            
+            // 模擬付款成功（實際應該跳轉到 LINE Pay）
+            if (confirm('是否模擬付款成功？（實際應整合 LINE Pay API）')) {
+                // 清除待付款訂單
+                localStorage.removeItem('pendingLinePayOrder');
+                
+                // 跳轉到訂單完成頁面
+                window.location.href = 'order-complete.html';
+            }
+        }
+        
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', loadOrderInfo);
+    </script>
+</body>
+</html>

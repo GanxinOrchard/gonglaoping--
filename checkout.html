@@ -534,24 +534,45 @@
     <div class="steps-container">
         <div class="step-item active" id="step1-indicator">
             <div class="step-number">1</div>
-            <span class="step-label">訂單摘要</span>
+            <span class="step-label">購物清單</span>
         </div>
         <i class="fas fa-chevron-right step-arrow"></i>
         <div class="step-item" id="step2-indicator">
             <div class="step-number">2</div>
-            <span class="step-label">填寫資料</span>
+            <span class="step-label">寄送付款方式</span>
         </div>
         <i class="fas fa-chevron-right step-arrow"></i>
         <div class="step-item" id="step3-indicator">
             <div class="step-number">3</div>
-            <span class="step-label">確認訂單</span>
+            <span class="step-label">完成訂單</span>
         </div>
     </div>
 
     <!-- 主要內容 -->
     <div class="checkout-container">
-        <!-- 第1步：訂單摘要 + 折扣碼 + 配送方式 -->
+        <!-- 第1步：折扣碼 + 訂單摘要 + 配送方式 -->
         <div class="step-content active" id="step1">
+            <!-- 折扣碼 -->
+            <div class="section-box">
+                <h2 class="section-title">
+                    <i class="fas fa-tag"></i>
+                    折扣碼
+                </h2>
+                <p style="color: #666; margin-bottom: 15px;">
+                    更多優惠資訊請追蹤我們的 
+                    <a href="https://www.facebook.com/profile.php?id=61559838581668" target="_blank" class="fb-link">
+                        <i class="fab fa-facebook"></i>
+                        Facebook 粉絲專頁
+                    </a>
+                </p>
+                <div class="discount-input-group">
+                    <input type="text" id="discountCode" class="discount-input" placeholder="輸入折扣碼">
+                    <button class="apply-btn" onclick="applyDiscount()">套用</button>
+                </div>
+                <div id="discountMessage" class="discount-message" style="display: none;"></div>
+            </div>
+
+            <!-- 訂單摘要 -->
             <div class="section-box">
                 <h2 class="section-title">
                     <i class="fas fa-shopping-cart"></i>
@@ -575,26 +596,6 @@
                     <span>訂單總計</span>
                     <span id="totalAmount">NT$ 0</span>
                 </div>
-            </div>
-
-            <!-- 折扣碼 -->
-            <div class="section-box">
-                <h2 class="section-title">
-                    <i class="fas fa-tag"></i>
-                    折扣碼
-                </h2>
-                <p style="color: #666; margin-bottom: 15px;">
-                    更多優惠資訊請追蹤我們的 
-                    <a href="https://www.facebook.com/profile.php?id=61559838581668" target="_blank" class="fb-link">
-                        <i class="fab fa-facebook"></i>
-                        Facebook 粉絲專頁
-                    </a>
-                </p>
-                <div class="discount-input-group">
-                    <input type="text" id="discountCode" class="discount-input" placeholder="輸入折扣碼">
-                    <button class="apply-btn" onclick="applyDiscount()">套用</button>
-                </div>
-                <div id="discountMessage" class="discount-message" style="display: none;"></div>
             </div>
 
             <!-- 配送方式 -->

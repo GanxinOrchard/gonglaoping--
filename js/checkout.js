@@ -103,9 +103,18 @@ function renderCartItems() {
  */
 function updateOrderSummary() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    let shipping = orderData.delivery === 'pickup' ? 0 : (subtotal >= 1800 ? 0 : 150);
     const discount = orderData.discountAmount || 0;
-    const total = subtotal - discount + shipping;
+    const subtotalAfterDiscount = subtotal - discount;
+    
+    // 運費計算：自取為0，宅配未滿1800元收180元
+    let shipping = 0;
+    if (orderData.delivery === 'pickup') {
+        shipping = 0;
+    } else {
+        shipping = subtotalAfterDiscount >= 1800 ? 0 : 180;
+    }
+    
+    const total = subtotalAfterDiscount + shipping;
     
     document.getElementById('subtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
     document.getElementById('shippingFee').textContent = shipping === 0 ? '免運費' : `NT$ ${shipping}`;
@@ -360,9 +369,18 @@ function loadFormData() {
  */
 function showOrderConfirmation() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = orderData.delivery === 'pickup' ? 0 : (subtotal >= 1800 ? 0 : 150);
     const discount = orderData.discountAmount || 0;
-    const total = subtotal - discount + shipping;
+    const subtotalAfterDiscount = subtotal - discount;
+    
+    // 運費計算：自取為0，宅配未滿1800元收180元
+    let shipping = 0;
+    if (orderData.delivery === 'pickup') {
+        shipping = 0;
+    } else {
+        shipping = subtotalAfterDiscount >= 1800 ? 0 : 180;
+    }
+    
+    const total = subtotalAfterDiscount + shipping;
     
     const deliveryText = orderData.delivery === 'home' ? '宅配到府' : '門市自取';
     const paymentText = {
@@ -419,6 +437,63 @@ function showOrderConfirmation() {
     document.getElementById('orderConfirmation').innerHTML = confirmHTML;
 }
 
+// Google Apps Script Web App URL（請替換為您的 GAS 部署 URL）
+const GAS_WEB_APP_URL = 'YOUR_GAS_WEB_APP_URL_HERE';
+
+/**
+ * 提交訂單到 Google Sheets
+ */
+async function submitOrderToGAS(orderInfo) {
+    try {
+        const response = await fetch(GAS_WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                orderId: orderInfo.orderNumber,
+                orderDate: new Date(orderInfo.orderTime).toLocaleString('zh-TW'),
+                status: '待處理',
+                buyer: orderInfo.buyer,
+                receiver: orderInfo.receiver,
+                items: orderInfo.items.map(item => ({
+                    name: item.name,
+                    spec: item.selectedSpec || '',
+                    quantity: item.quantity,
+                    price: item.price,
+                    subtotal: item.price * item.quantity
+                })),
+                subtotal: orderInfo.subtotal,
+                shipping: orderInfo.shipping,
+                total: orderInfo.total,
+                paymentMethod: {
+                    'linepay': 'LINE Pay',
+                    'bank': '銀行轉帳',
+                    'cash': '自取現金'
+                }[orderInfo.payment],
+                note: orderInfo.note
+            })
+        });
+        
+        return { success: true };
+    } catch (error) {
+        console.error('提交訂單到 GAS 失敗:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+/**
+ * 處理 LINE Pay 付款
+ */
+function processLinePay(orderInfo) {
+    // 儲存訂單資訊到 localStorage
+    localStorage.setItem('pendingLinePayOrder', JSON.stringify(orderInfo));
+    
+    // 跳轉到 LINE Pay 頁面
+    window.location.href = 'linepay.html';
+}
+
 /**
  * 提交訂單
  */
@@ -459,9 +534,40 @@ function submitOrder() {
         note: document.getElementById('orderNote').value,
         
         // 訂單金額
-        subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-        shipping: orderData.delivery === 'pickup' ? 0 : (cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) >= 1800 ? 0 : 150),
-        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) - (orderData.discountAmount || 0) + (orderData.delivery === 'pickup' ? 0 : (cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) >= 1800 ? 0 : 150)),
+        subtotal: (() => {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const discount = orderData.discountAmount || 0;
+            const subtotalAfterDiscount = subtotal - discount;
+            let shipping = 0;
+            if (orderData.delivery === 'pickup') {
+                shipping = 0;
+            } else {
+                shipping = subtotalAfterDiscount >= 1800 ? 0 : 180;
+            }
+            return subtotal;
+        })(),
+        shipping: (() => {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const discount = orderData.discountAmount || 0;
+            const subtotalAfterDiscount = subtotal - discount;
+            if (orderData.delivery === 'pickup') {
+                return 0;
+            } else {
+                return subtotalAfterDiscount >= 1800 ? 0 : 180;
+            }
+        })(),
+        total: (() => {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const discount = orderData.discountAmount || 0;
+            const subtotalAfterDiscount = subtotal - discount;
+            let shipping = 0;
+            if (orderData.delivery === 'pickup') {
+                shipping = 0;
+            } else {
+                shipping = subtotalAfterDiscount >= 1800 ? 0 : 180;
+            }
+            return subtotalAfterDiscount + shipping;
+        })(),
         
         // 訂單時間
         orderTime: new Date().toISOString(),
@@ -472,6 +578,28 @@ function submitOrder() {
     
     // 儲存訂單到 localStorage
     localStorage.setItem('currentOrder', JSON.stringify(orderInfo));
+    localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
+    
+    // 提交訂單到 Google Sheets（如果有設定 GAS URL）
+    if (GAS_WEB_APP_URL && GAS_WEB_APP_URL !== 'YOUR_GAS_WEB_APP_URL_HERE') {
+        submitOrderToGAS(orderInfo).then(result => {
+            if (result.success) {
+                console.log('訂單已成功提交到 Google Sheets');
+            } else {
+                console.error('提交到 Google Sheets 失敗:', result.error);
+            }
+        });
+    }
+    
+    // 如果選擇 LINE Pay，跳轉到 LINE Pay 頁面
+    if (orderInfo.payment === 'linepay') {
+        processLinePay(orderInfo);
+        // 清空購物車
+        clearCart();
+        // 清空表單資料
+        localStorage.removeItem('checkoutFormData');
+        return;
+    }
     
     // 清空購物車
     clearCart();
