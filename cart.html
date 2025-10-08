@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>購物車 - 柑心果園</title>
-    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,14 +11,6 @@
             background: #f5f7fa;
         }
         
-        .cart-page {
-            max-width: 1200px;
-            margin: 40px auto 60px;
-            padding: 0 20px;
-        }
-        
-        .cart-header {
-            text-align: center;
             margin-bottom: 40px;
         }
         
@@ -277,7 +268,8 @@
         /* 響應式 */
         @media (max-width: 768px) {
             .cart-page {
-                margin: 80px auto 40px;
+                margin: 0;
+                padding: 0;
             }
             
             /* 隱藏購物車頁面的 logo 和購物車圖標 */
@@ -294,6 +286,32 @@
                 justify-content: flex-end !important;
             }
             
+            /* 購物車封面 - 手機版 */
+            .page-hero {
+                margin-top: 70px !important;
+                padding: 30px 0 25px !important;
+                background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%) !important;
+            }
+            
+            .page-hero .container {
+                padding: 0 20px !important;
+            }
+            
+            .page-hero h1 {
+                font-size: 28px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .page-hero p {
+                font-size: 14px !important;
+                margin-top: 5px !important;
+            }
+            
+            .breadcrumb {
+                margin-bottom: 15px !important;
+                font-size: 13px !important;
+            }
+            
             .steps-indicator {
                 flex-wrap: wrap;
                 gap: 10px;
@@ -303,11 +321,19 @@
                 display: none;
             }
             
+            /* 購物車內容區 */
+            .cart-content {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
             .cart-item {
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
                 padding: 20px;
+                margin: 0 0 15px 0 !important;
+                border-radius: 12px;
             }
             
             .cart-item-image {
@@ -347,6 +373,29 @@
             
             .cart-actions {
                 flex-direction: column;
+                padding: 0 20px;
+            }
+            
+            /* 步驟指示器 */
+            .steps-indicator {
+                padding: 20px;
+                margin: 0 !important;
+            }
+            
+            /* 購物車總計 */
+            .cart-summary {
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+            
+            /* 尾部 */
+            .footer {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            
+            .footer .container {
+                padding: 0 20px !important;
             }
         }
     </style>
