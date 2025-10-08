@@ -414,12 +414,76 @@
                 </div>
             </div>
 
+            <!-- 折扣碼 -->
+            <div class="cart-section" id="discountSection" style="display: none; margin-top: 30px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
+                    <i class="fas fa-tag"></i> 折扣碼
+                </h3>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                    更多優惠資訊請追蹤我們的 
+                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" style="color: var(--primary-color); text-decoration: none;">
+                        <i class="fab fa-facebook"></i> Facebook 粉絲專頁
+                    </a>
+                </p>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="cartDiscountCode" placeholder="輸入折扣碼" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+                    <button onclick="applyCartDiscount()" style="padding: 12px 24px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">套用</button>
+                </div>
+                <div id="cartDiscountMessage" style="margin-top: 10px; display: none; padding: 10px; border-radius: 6px; font-size: 14px;"></div>
+            </div>
+
+            <!-- 配送方式 -->
+            <div class="cart-section" id="deliverySection" style="display: none; margin-top: 20px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
+                    <i class="fas fa-truck"></i> 配送方式
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;" class="delivery-option-cart" data-value="home">
+                        <input type="radio" name="cartDelivery" value="home" checked style="margin-right: 8px;">
+                        <div style="display: inline-block;">
+                            <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-home"></i> 宅配到府</div>
+                            <div style="font-size: 13px; color: #666;">運費 NT$ 180</div>
+                            <div style="font-size: 12px; color: #999;">滿 $1800 免運</div>
+                        </div>
+                    </label>
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;" class="delivery-option-cart" data-value="pickup">
+                        <input type="radio" name="cartDelivery" value="pickup" style="margin-right: 8px;">
+                        <div style="display: inline-block;">
+                            <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-store"></i> 門市自取</div>
+                            <div style="font-size: 13px; color: #666;">免運費</div>
+                            <div style="font-size: 12px; color: #999;">到店自取更優惠</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 付款方式 -->
+            <div class="cart-section" id="paymentSection" style="display: none; margin-top: 20px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
+                    <i class="fas fa-credit-card"></i> 付款方式
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="bank">
+                        <input type="radio" name="cartPayment" value="bank" checked style="display: none;">
+                        <div style="font-weight: 600;"><i class="fas fa-university"></i> 匯款</div>
+                    </label>
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="linepay">
+                        <input type="radio" name="cartPayment" value="linepay" style="display: none;">
+                        <div style="font-weight: 600;"><i class="fab fa-line"></i> LINE Pay</div>
+                    </label>
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="cash">
+                        <input type="radio" name="cartPayment" value="cash" style="display: none;">
+                        <div style="font-weight: 600;"><i class="fas fa-money-bill-wave"></i> 現金</div>
+                    </label>
+                </div>
+            </div>
+
             <div class="cart-actions">
                 <a href="index.html" class="btn btn-back">
                     <i class="fas fa-arrow-left"></i> 繼續購物
                 </a>
                 <button id="checkoutButton" class="btn btn-checkout" disabled>
-                    前往結帳 <i class="fas fa-arrow-right"></i>
+                    下一步：填寫資料 <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
@@ -556,7 +620,72 @@
             
             cartSummary.style.display = 'block';
             checkoutButton.disabled = false;
+            
+            // 顯示折扣碼、配送方式和付款方式區塊
+            document.getElementById('discountSection').style.display = 'block';
+            document.getElementById('deliverySection').style.display = 'block';
+            document.getElementById('paymentSection').style.display = 'block';
         }
+        
+        // 折扣碼套用
+        function applyCartDiscount() {
+            const code = document.getElementById('cartDiscountCode').value.trim().toUpperCase();
+            const messageEl = document.getElementById('cartDiscountMessage');
+            
+            if (!code) {
+                messageEl.textContent = '請輸入折扣碼';
+                messageEl.style.display = 'block';
+                messageEl.style.background = '#fee';
+                messageEl.style.color = '#c33';
+                return;
+            }
+            
+            if (typeof discountCodes !== 'undefined' && discountCodes[code]) {
+                const discount = discountCodes[code];
+                messageEl.textContent = `✓ 已套用：${discount.description}`;
+                messageEl.style.display = 'block';
+                messageEl.style.background = '#efe';
+                messageEl.style.color = '#3c3';
+                // 儲存折扣碼到 localStorage
+                localStorage.setItem('appliedDiscountCode', code);
+            } else {
+                messageEl.textContent = '折扣碼無效或已過期';
+                messageEl.style.display = 'block';
+                messageEl.style.background = '#fee';
+                messageEl.style.color = '#c33';
+            }
+        }
+        
+        // 配送和付款方式選擇樣式
+        document.addEventListener('DOMContentLoaded', function() {
+            // 配送方式選擇
+            document.querySelectorAll('.delivery-option-cart').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.delivery-option-cart').forEach(opt => {
+                        opt.style.borderColor = '#e0e0e0';
+                        opt.style.background = 'white';
+                    });
+                    this.style.borderColor = 'var(--primary-color)';
+                    this.style.background = '#fff5f0';
+                    const value = this.dataset.value;
+                    localStorage.setItem('selectedDelivery', value);
+                });
+            });
+            
+            // 付款方式選擇
+            document.querySelectorAll('.payment-option-cart').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-option-cart').forEach(opt => {
+                        opt.style.borderColor = '#e0e0e0';
+                        opt.style.background = 'white';
+                    });
+                    this.style.borderColor = 'var(--primary-color)';
+                    this.style.background = '#fff5f0';
+                    const value = this.dataset.value;
+                    localStorage.setItem('selectedPayment', value);
+                });
+            });
+        });
         
         // 前往結帳
         document.getElementById('checkoutButton').addEventListener('click', function() {
