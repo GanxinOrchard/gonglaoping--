@@ -241,6 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('付款方式:', payMethod);
             if (payMethod === 'LINE Pay') {
                 console.log('跳轉到 LINE Pay 頁面');
+                // 保存訂單資訊給 LINE Pay 頁面使用
+                localStorage.setItem('pendingLinePayOrder', JSON.stringify(orderData));
                 // 跳轉到 LINE Pay 頁面
                 window.location.href = 'linepay.html';
             } else {

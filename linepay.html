@@ -267,8 +267,10 @@
                     }
                 }
                 
-                // 清除待付款訂單
+                // 清除待付款訂單和購物車
                 localStorage.removeItem('pendingLinePayOrder');
+                localStorage.removeItem('ganxin_cart');
+                localStorage.removeItem('ganxin_coupon');
                 
                 // 跳轉到訂單完成頁面
                 window.location.href = 'order-complete.html';
