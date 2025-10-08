@@ -6,15 +6,23 @@
 // ========== 全局變數 ==========
 
 // 確保 cart 變數存在（從 localStorage 載入）
-// cart.js 應該已經定義了 cart，但為了安全起見，這裡再次確認
-if (typeof cart === 'undefined' || !cart) {
-    var cart = [];
+// 如果 cart.js 還沒載入或 cart 為空，從 localStorage 載入
+if (typeof window.cart === 'undefined') {
+    window.cart = [];
+}
+if (!window.cart || window.cart.length === 0) {
     try {
-        cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            window.cart = JSON.parse(savedCart);
+        }
     } catch (e) {
-        cart = [];
+        console.error('載入購物車失敗:', e);
+        window.cart = [];
     }
 }
+// 使用全局 cart 變數
+const cart = window.cart;
 
 let currentStep = 1;
 let orderData = {
