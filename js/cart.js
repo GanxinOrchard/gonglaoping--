@@ -73,6 +73,93 @@ function calculatePrice() {
 }
 
 // ========================================
+// 購物車商品列表渲染
+// ========================================
+function renderCartItems() {
+    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const cartSummary = document.getElementById('cartSummary');
+    const checkoutButton = document.getElementById('checkoutButton');
+    const discountSection = document.getElementById('discountSection');
+    const deliverySection = document.getElementById('deliverySection');
+    const paymentSection = document.getElementById('paymentSection');
+    
+    if (!cartItemsList) return;
+    
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = `
+            <div class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>購物車是空的</h2>
+                <p>還沒有添加任何商品，快去選購吧！</p>
+                <a href="index.html" class="btn btn-checkout">開始購物</a>
+            </div>
+        `;
+        if (cartSummary) cartSummary.style.display = 'none';
+        if (checkoutButton) checkoutButton.disabled = true;
+        if (discountSection) discountSection.style.display = 'none';
+        if (deliverySection) deliverySection.style.display = 'none';
+        if (paymentSection) paymentSection.style.display = 'none';
+        return;
+    }
+    
+    // 渲染商品列表
+    cartItemsList.innerHTML = cart.map(item => `
+        <div class="cart-item">
+            <div class="cart-item-image">
+                <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="cart-item-info">
+                <h3>${item.name}</h3>
+                ${item.selectedSpec ? `<div class="cart-item-spec">${item.selectedSpec}</div>` : ''}
+                <div class="cart-item-price">NT$ ${item.price.toLocaleString()}</div>
+            </div>
+            <div class="cart-item-controls">
+                <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">-</button>
+                <span class="qty-display">${item.quantity}</span>
+                <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeCartItem(${item.id}, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">
+                <i class="fas fa-trash"></i> 刪除
+            </button>
+        </div>
+    `).join('');
+    
+    if (cartSummary) cartSummary.style.display = 'block';
+    if (checkoutButton) checkoutButton.disabled = false;
+    if (discountSection) discountSection.style.display = 'block';
+    if (deliverySection) deliverySection.style.display = 'block';
+    if (paymentSection) paymentSection.style.display = 'block';
+}
+
+// 更新購物車數量
+function updateCartQuantity(productId, change, specId = null) {
+    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    const itemIndex = cart.findIndex(item => item.id === productId && item.selectedSpecId === specId);
+    
+    if (itemIndex !== -1) {
+        cart[itemIndex].quantity += change;
+        if (cart[itemIndex].quantity <= 0) {
+            cart.splice(itemIndex, 1);
+        }
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart)); // 同步舊 key
+        renderCartItems();
+        updateAmounts();
+    }
+}
+
+// 移除購物車商品
+function removeCartItem(productId, specId = null) {
+    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    const filtered = cart.filter(item => !(item.id === productId && item.selectedSpecId === specId));
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(filtered));
+    localStorage.setItem('cart', JSON.stringify(filtered)); // 同步舊 key
+    renderCartItems();
+    updateAmounts();
+}
+
+// ========================================
 // 頁面初始化
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -82,7 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(STORAGE_KEYS.CART, oldCart);
     }
     
-    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    // 渲染購物車商品
+    renderCartItems();
     
     // 更新金額顯示
     function updateAmounts() {
