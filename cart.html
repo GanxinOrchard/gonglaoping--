@@ -402,15 +402,19 @@
             <div id="cartSummary" class="cart-summary" style="display: none;">
                 <div class="summary-row">
                     <span>商品總金額</span>
-                    <span id="subtotalAmount">NT$ 0</span>
+                    <span id="subtotalAmount" data-subtotal>NT$ 0</span>
                 </div>
                 <div class="summary-row">
                     <span>運費</span>
-                    <span id="shippingAmount">NT$ 180</span>
+                    <span id="shippingAmount" data-shipping>NT$ 180</span>
+                </div>
+                <div class="summary-row">
+                    <span>折扣</span>
+                    <span id="discountAmount" data-discount>NT$ 0</span>
                 </div>
                 <div class="summary-row total">
                     <span>總計</span>
-                    <span id="totalAmount">NT$ 0</span>
+                    <span id="totalAmount" data-total>NT$ 0</span>
                 </div>
             </div>
 
@@ -426,10 +430,10 @@
                     </a>
                 </p>
                 <div style="display: flex; gap: 10px;">
-                    <input type="text" id="cartDiscountCode" placeholder="輸入折扣碼" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
-                    <button onclick="applyCartDiscount()" style="padding: 12px 24px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">套用</button>
+                    <input type="text" id="cartDiscountCode" data-coupon-input placeholder="輸入折扣碼" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+                    <button data-action="apply-coupon" style="padding: 12px 24px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">套用</button>
                 </div>
-                <div id="cartDiscountMessage" style="margin-top: 10px; display: none; padding: 10px; border-radius: 6px; font-size: 14px;"></div>
+                <div id="cartDiscountMessage" data-coupon-msg style="margin-top: 10px; display: none; padding: 10px; border-radius: 6px; font-size: 14px;"></div>
             </div>
 
             <!-- 配送方式 -->
@@ -439,7 +443,7 @@
                 </h3>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;" class="delivery-option-cart" data-value="home">
-                        <input type="radio" name="cartDelivery" value="home" checked style="margin-right: 8px;">
+                        <input type="radio" name="cartDelivery" data-ship="home" value="home" checked style="margin-right: 8px;">
                         <div style="display: inline-block;">
                             <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-home"></i> 宅配到府</div>
                             <div style="font-size: 13px; color: #666;">運費 NT$ 180</div>
@@ -447,7 +451,7 @@
                         </div>
                     </label>
                     <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;" class="delivery-option-cart" data-value="pickup">
-                        <input type="radio" name="cartDelivery" value="pickup" style="margin-right: 8px;">
+                        <input type="radio" name="cartDelivery" data-ship="pickup" value="pickup" style="margin-right: 8px;">
                         <div style="display: inline-block;">
                             <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-store"></i> 門市自取</div>
                             <div style="font-size: 13px; color: #666;">免運費</div>
@@ -464,15 +468,15 @@
                 </h3>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
                     <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="bank">
-                        <input type="radio" name="cartPayment" value="bank" checked style="display: none;">
+                        <input type="radio" name="pay_method" value="bank" checked style="display: none;">
                         <div style="font-weight: 600;"><i class="fas fa-university"></i> 匯款</div>
                     </label>
                     <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="linepay">
-                        <input type="radio" name="cartPayment" value="linepay" style="display: none;">
+                        <input type="radio" name="pay_method" value="linepay" style="display: none;">
                         <div style="font-weight: 600;"><i class="fab fa-line"></i> LINE Pay</div>
                     </label>
                     <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="cash">
-                        <input type="radio" name="cartPayment" value="cash" style="display: none;">
+                        <input type="radio" name="pay_method" value="cash" style="display: none;">
                         <div style="font-weight: 600;"><i class="fas fa-money-bill-wave"></i> 現金</div>
                     </label>
                 </div>
@@ -482,8 +486,8 @@
                 <a href="index.html" class="btn btn-back">
                     <i class="fas fa-arrow-left"></i> 繼續購物
                 </a>
-                <button id="checkoutButton" class="btn btn-checkout" disabled>
-                    下一步：填寫資料 <i class="fas fa-arrow-right"></i>
+                <button id="checkoutButton" class="btn btn-checkout" data-action="confirm-order" disabled>
+                    確認訂單 <i class="fas fa-check"></i>
                 </button>
             </div>
         </div>
@@ -775,5 +779,8 @@
             }
         };
     </script>
+    
+    <!-- 購物車完整功能（折扣碼、同購買人、訂單提交） -->
+    <script src="js/cart-new.js"></script>
 </body>
 </html>
