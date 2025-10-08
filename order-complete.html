@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,7 @@
     <title>訂單完成 - 柑心果園</title>
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -262,16 +263,59 @@
     </style>
 </head>
 <body>
-    <!-- 導航欄 -->
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
                     <a href="index.html">
-                        <img src="images/logo.png" alt="柑心果園">
-                        <span>柑心果園</span>
+                        <img src="./images/商標.jpg" alt="柑心果園" width="180" height="60">
                     </a>
                 </div>
+                <div class="nav-icons">
+                    <a href="cart.html" class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-menu" id="mainMenu">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                    <li class="dropdown">
+                        <a href="season-recommend.html">本季嚴選 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="season-recommend.html">當季推薦</a></li>
+                            <li><a href="season-ponkan.html">椪柑產季</a></li>
+                            <li><a href="season-murcott.html">茂谷柑產季</a></li>
+                            <li><a href="season-water-chestnut.html">菱角產季</a></li>
+                            <li><a href="season-taro.html">芋角產季</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="products.html?category=優質水果">優質水果</a></li>
+                            <li><a href="products.html?category=新鮮蔬果">新鮮蔬果</a></li>
+                            <li><a href="products.html?category=冷凍食品">冷凍食品</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="farming.html">安心指南 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="farming.html">栽種過程</a></li>
+                            <li><a href="guide.html">選購指南</a></li>
+                            <li><a href="grading.html">分級標準</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="knowledge.html">知識專欄</a></li>
+                    <li><a href="about.html">關於我們</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
             </div>
         </div>
     </header>
@@ -315,11 +359,7 @@
             </p>
         </div>
 
-        <!-- 訂單資訊 -->
-        <div class="order-info">
-            <h2><i class="fas fa-receipt"></i> 訂單摘要</h2>
-            <div id="orderSummary"></div>
-        </div>
+        <!-- 訂單摘要已移除 -->
 
         <!-- 提示訊息 -->
         <div class="notice-box">
@@ -380,49 +420,10 @@
             const orderNumber = orderData.orderNumber || generateOrderNumber();
             document.getElementById('orderNumber').textContent = orderNumber;
             
-            // 顯示訂單摘要
-            const orderSummary = document.getElementById('orderSummary');
-            
-            if (orderData.items && orderData.items.length > 0) {
-                const subtotal = orderData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const shipping = orderData.shipping || 150;
-                const total = subtotal + shipping;
-                
-                orderSummary.innerHTML = `
-                    ${orderData.items.map(item => `
-                        <div class="info-row">
-                            <span class="info-label">${item.name} ${item.selectedSpec ? '(' + item.selectedSpec + ')' : ''} × ${item.quantity}</span>
-                            <span class="info-value">NT$ ${(item.price * item.quantity).toLocaleString()}</span>
-                        </div>
-                    `).join('')}
-                    <div class="info-row">
-                        <span class="info-label">運費</span>
-                        <span class="info-value">${shipping === 0 ? '免運費' : 'NT$ ' + shipping}</span>
-                    </div>
-                    <div class="info-row total">
-                        <span class="info-label">訂單金額</span>
-                        <span class="info-value">NT$ ${total.toLocaleString()}</span>
-                    </div>
-                `;
-            } else {
-                orderSummary.innerHTML = `
-                    <div class="info-row">
-                        <span class="info-label">商品總金額</span>
-                        <span class="info-value">NT$ 0</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">運費</span>
-                        <span class="info-value">NT$ 150</span>
-                    </div>
-                    <div class="info-row total">
-                        <span class="info-label">訂單金額</span>
-                        <span class="info-value">NT$ 150</span>
-                    </div>
-                `;
-            }
-            
             // 清空購物車
-            clearCart();
+            if (typeof clearCart === 'function') {
+                clearCart();
+            }
         }
         
         // 頁面載入時顯示訂單資訊
@@ -430,5 +431,14 @@
             displayOrderInfo();
         });
     </script>
+    
+    <!-- 回到頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到頂部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script src="./js/dropdown-menu.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>

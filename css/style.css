@@ -124,7 +124,7 @@ ul {
     /* 手機版導航列佈局 */
     .nav-content {
         justify-content: space-between !important;
-        padding-right: 70px !important;
+        padding: 0 15px !important;
     }
     
     .logo {
@@ -138,12 +138,9 @@ ul {
     .nav-icons {
         order: 2;
         margin-left: auto !important;
-        gap: 10px !important;
-    }
-    
-    /* 隱藏 nav-icons 中的漢堡按鈕，使用固定定位的 */
-    .nav-icons .mobile-menu-toggle {
-        display: none !important;
+        gap: 12px !important;
+        display: flex !important;
+        align-items: center;
     }
 }
 
@@ -2005,10 +2002,10 @@ ul {
     color: var(--white);
 }
 
-/* 手機版顯示懸浮 Menu 按鈕 */
+/* 手機版隱藏懸浮 Menu 按鈕 */
 @media (max-width: 992px) {
     .floating-menu-btn {
-        display: flex !important;
+        display: none !important;
     }
 }
 
@@ -2768,8 +2765,9 @@ ul {
     color: #999;
 }
 
-/* ===== 懸浮購物車按鈕 ===== */
+/* ===== 懸浮購物車按鈕（已停用）===== */
 .floating-cart-btn {
+    display: none !important;
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
@@ -2830,24 +2828,7 @@ ul {
     }
     
     /* 搜尋欄和按鈕佈局已移至全域規則 */
-    
-    .main-menu {
-        display: none;
-    }
-    
-    .main-menu.active {
-        display: block;
-    }
-    
-    .main-menu > ul {
-        flex-direction: column;
-        gap: 0;
-    }
-    
-    .main-menu > ul > li > a {
-        padding: 15px;
-        border-bottom: 1px solid var(--border-color);
-    }
+    /* 選單樣式已移至 mobile-menu-fix.css */
     
     .dropdown-menu {
         position: static;

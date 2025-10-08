@@ -130,6 +130,9 @@ function renderCartItems() {
     if (discountSection) discountSection.style.display = 'block';
     if (deliverySection) deliverySection.style.display = 'block';
     if (paymentSection) paymentSection.style.display = 'block';
+    
+    // 更新金額顯示
+    updateCartCount();
 }
 
 // 更新購物車數量
@@ -287,6 +290,51 @@ function removeFromCart(productId, specId = null) {
     removeCartItem(productId, specId);
 }
 
+// 生成訂單編號
+function generateOrderNumber() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    return `${year}${month}${day}${random}`;
+}
+
+// 更新金額顯示（全域函數）
+function updateAmounts() {
+    const { subtotal, discount, shipping, total } = calculatePrice();
+    
+    // cart.html 使用的 ID
+    const subtotalEl = document.getElementById('subtotalAmount');
+    const shippingEl = document.getElementById('shippingAmount');
+    const discountEl = document.getElementById('discountAmount');
+    const totalEl = document.getElementById('totalAmount');
+    
+    // 其他頁面可能使用的 ID（向後相容）
+    const subtotalEl2 = document.getElementById('subtotal');
+    const shippingEl2 = document.getElementById('shippingFee');
+    const discountEl2 = document.getElementById('discountValue');
+    const totalEl2 = document.getElementById('total');
+    const discountRow = document.getElementById('discountAmount');
+    
+    // 更新 cart.html 的元素
+    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
+    if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
+    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
+    
+    // 更新其他頁面的元素（向後相容）
+    if (subtotalEl2) subtotalEl2.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    if (shippingEl2) shippingEl2.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
+    if (discountEl2) discountEl2.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
+    if (totalEl2) totalEl2.textContent = `NT$ ${total.toLocaleString()}`;
+    
+    // 顯示/隱藏折扣行
+    if (discountRow) {
+        discountRow.style.display = discount > 0 ? 'flex' : 'none';
+    }
+}
+
 // ========================================
 // 更新金額顯示（全域函數）
 // ========================================
@@ -317,6 +365,78 @@ document.addEventListener('DOMContentLoaded', () => {
     // 渲染購物車商品
     renderCartItems();
     
+<<<<<<< HEAD
+=======
+    // 初始更新金額
+    updateAmounts();
+    
+    // 結帳表單提交處理
+    const checkoutForm = document.getElementById('checkoutForm');
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // 收集表單資料
+            const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || '[]');
+            if (cart.length === 0) {
+                alert('購物車是空的');
+                return;
+            }
+            
+            const { subtotal, discount, shipping, total } = calculatePrice();
+            const payment = document.querySelector('input[name="payment"]:checked')?.value || 'linepay';
+            
+            const formData = {
+                orderNumber: generateOrderNumber(),
+                name: document.getElementById('customerName')?.value || '',
+                phone: document.getElementById('customerPhone')?.value || '',
+                email: document.getElementById('customerEmail')?.value || '',
+                address: document.getElementById('customerAddress')?.value || '',
+                note: document.getElementById('customerNote')?.value || '',
+                payment: payment,
+                cart: cart,
+                subtotal: subtotal,
+                discount: discount,
+                shipping: shipping,
+                total: total,
+                timestamp: new Date().toISOString()
+            };
+            
+            // 儲存訂單資訊到 localStorage
+            localStorage.setItem('lastOrder', JSON.stringify(formData));
+            
+            // 關閉結帳彈窗
+            const checkoutModal = document.getElementById('checkoutModal');
+            if (checkoutModal) {
+                checkoutModal.style.display = 'none';
+            }
+            
+            // 顯示載入中
+            showLoading();
+            
+            // TODO: 發送到 Google Apps Script
+            // const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+            // try {
+            //     const response = await fetch(GAS_URL, {
+            //         method: 'POST',
+            //         mode: 'no-cors',
+            //         headers: { 'Content-Type': 'application/json' },
+            //         body: JSON.stringify(formData)
+            //     });
+            // } catch (error) {
+            //     console.error('訂單提交失敗:', error);
+            // }
+            
+            // 模擬延遲
+            setTimeout(() => {
+                hideLoading();
+                // 跳轉到完成頁面
+                window.location.href = 'order-complete.html';
+            }, 1000);
+        });
+    }
+    
+>>>>>>> 2a7198755d3134435e024d474e23d86108ef4c26
     // 折扣碼套用
     const applyBtn = document.querySelector('[data-action="apply-coupon"]');
     if (applyBtn) {
@@ -462,11 +582,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedShip = localStorage.getItem(STORAGE_KEYS.SHIP_MODE) || 'home';
     const savedPay = localStorage.getItem(STORAGE_KEYS.PAY_METHOD) || '匯款';
     
+    // 確保預設值被保存
+    if (!localStorage.getItem(STORAGE_KEYS.PAY_METHOD)) {
+        localStorage.setItem(STORAGE_KEYS.PAY_METHOD, '匯款');
+    }
+    
     const shipRadio = document.querySelector(`[data-ship="${savedShip}"]`);
     if (shipRadio) shipRadio.checked = true;
     
     const payRadio = document.querySelector(`[name="pay_method"][value="${savedPay}"]`);
-    if (payRadio) payRadio.checked = true;
+    if (payRadio) {
+        payRadio.checked = true;
+        // 觸發 change 事件確保保存
+        payRadio.dispatchEvent(new Event('change', { bubbles: true }));
+    }
 });
 
 // 頁面載入時立即更新購物車數量（不等待 DOMContentLoaded）

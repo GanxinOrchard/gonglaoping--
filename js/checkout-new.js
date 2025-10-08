@@ -169,6 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
+            // 檢查同意條款
+            const agreeTerms = document.getElementById('agreeTerms');
+            if (!agreeTerms || !agreeTerms.checked) {
+                alert('請先閱讀並同意網站退貨退款須知');
+                if (agreeTerms) {
+                    agreeTerms.focus();
+                }
+                return;
+            }
+            
             // 儲存資料
             const buyer = {
                 name: buyerName,

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>購物車 - 柑心果園</title>
-    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,14 +11,6 @@
             background: #f5f7fa;
         }
         
-        .cart-page {
-            max-width: 1200px;
-            margin: 40px auto 60px;
-            padding: 0 20px;
-        }
-        
-        .cart-header {
-            text-align: center;
             margin-bottom: 40px;
         }
         
@@ -277,7 +268,48 @@
         /* 響應式 */
         @media (max-width: 768px) {
             .cart-page {
-                margin: 80px auto 40px;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* 隱藏購物車頁面的 logo 和購物車圖標 */
+            .cart-page .header .logo {
+                display: none !important;
+            }
+            
+            .cart-page .header .cart-icon {
+                display: none !important;
+            }
+            
+            .cart-page .header .nav-icons {
+                margin-left: auto !important;
+                justify-content: flex-end !important;
+            }
+            
+            /* 購物車封面 - 手機版 */
+            .page-hero {
+                margin-top: 70px !important;
+                padding: 30px 0 25px !important;
+                background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%) !important;
+            }
+            
+            .page-hero .container {
+                padding: 0 20px !important;
+            }
+            
+            .page-hero h1 {
+                font-size: 28px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .page-hero p {
+                font-size: 14px !important;
+                margin-top: 5px !important;
+            }
+            
+            .breadcrumb {
+                margin-bottom: 15px !important;
+                font-size: 13px !important;
             }
             
             .steps-indicator {
@@ -289,10 +321,19 @@
                 display: none;
             }
             
+            /* 購物車內容區 */
+            .cart-content {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
             .cart-item {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 15px;
-                padding: 15px;
+                padding: 20px;
+                margin: 0 0 15px 0 !important;
+                border-radius: 12px;
             }
             
             .cart-item-image {
@@ -332,11 +373,34 @@
             
             .cart-actions {
                 flex-direction: column;
+                padding: 0 20px;
+            }
+            
+            /* 步驟指示器 */
+            .steps-indicator {
+                padding: 20px;
+                margin: 0 !important;
+            }
+            
+            /* 購物車總計 */
+            .cart-summary {
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+            
+            /* 尾部 */
+            .footer {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            
+            .footer .container {
+                padding: 0 20px !important;
             }
         }
     </style>
 </head>
-<body>
+<body class="cart-page">
     <!-- 導航欄 -->
     <header class="header">
         <nav class="navbar">
@@ -358,6 +422,7 @@
                         </button>
                     </div>
                 </div>
+<<<<<<< HEAD
                 
                 <div class="main-menu" id="mainMenu">
                     <ul>
@@ -415,6 +480,55 @@
                 </div>
             </div>
         </nav>
+=======
+                <div class="nav-icons">
+                    <a href="cart.html" class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="main-menu" id="mainMenu">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                    <li class="dropdown">
+                        <a href="season-recommend.html">本季嚴選 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="season-recommend.html">當季推薦</a></li>
+                            <li><a href="season-ponkan.html">椪柑產季</a></li>
+                            <li><a href="season-murcott.html">茂谷柑產季</a></li>
+                            <li><a href="season-water-chestnut.html">菱角產季</a></li>
+                            <li><a href="season-taro.html">芋角產季</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="products.html?category=優質水果">優質水果</a></li>
+                            <li><a href="products.html?category=新鮮蔬果">新鮮蔬果</a></li>
+                            <li><a href="products.html?category=冷凍食品">冷凍食品</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="farming.html">安心指南 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="farming.html">栽種過程</a></li>
+                            <li><a href="guide.html">選購指南</a></li>
+                            <li><a href="grading.html">分級標準</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="knowledge.html">知識專欄</a></li>
+                    <li><a href="about.html">關於我們</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+>>>>>>> 2a7198755d3134435e024d474e23d86108ef4c26
     </header>
 
     <!-- 購物車封面 -->
@@ -527,6 +641,7 @@
                 <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
                     <i class="fas fa-credit-card"></i> 付款方式
                 </h3>
+<<<<<<< HEAD
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
                     <label style="padding: 15px; border: 2px solid var(--primary-color); border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s; background: #fff5f5;" class="payment-option-cart selected" data-value="bank">
                         <input type="radio" name="pay_method" value="匯款" checked>
@@ -538,6 +653,19 @@
                     </label>
                     <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="cash">
                         <input type="radio" name="pay_method" value="現金">
+=======
+                <div id="paymentOptions" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <label style="padding: 15px; border: 2px solid var(--primary-color); background: rgba(255, 140, 66, 0.1); border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart active" data-value="匯款">
+                        <input type="radio" name="pay_method" value="匯款" checked style="display: none;">
+                        <div style="font-weight: 600; color: var(--primary-color);"><i class="fas fa-university"></i> 匯款</div>
+                    </label>
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="LINE Pay">
+                        <input type="radio" name="pay_method" value="LINE Pay" style="display: none;">
+                        <div style="font-weight: 600;"><i class="fab fa-line"></i> LINE Pay</div>
+                    </label>
+                    <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="現金">
+                        <input type="radio" name="pay_method" value="現金" style="display: none;">
+>>>>>>> 2a7198755d3134435e024d474e23d86108ef4c26
                         <div style="font-weight: 600;"><i class="fas fa-money-bill-wave"></i> 現金</div>
                     </label>
                 </div>
@@ -554,18 +682,18 @@
         </div>
 
         <!-- 推薦商品輪播 -->
-        <div class="cart-content" id="recommendedSection" style="margin-top: 30px; display: none;">
+        <div id="recommendedSection" style="margin-top: 30px; background: #f8f9fa; padding: 40px 0; width: 100vw; margin-left: calc(-50vw + 50%);">
             <h2 style="text-align: center; font-size: 28px; margin-bottom: 30px; color: #333;">
                 <i class="fas fa-heart" style="color: var(--primary-color);"></i> 您可能也喜歡
             </h2>
             <div style="position: relative; overflow: hidden;">
-                <button class="carousel-btn carousel-prev" onclick="scrollRecommended(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <button class="carousel-btn carousel-prev" onclick="scrollRecommended(-1)" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;">
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div id="recommendedProducts" style="display: flex; overflow-x: auto; scroll-behavior: smooth; gap: 20px; padding: 10px 60px; scrollbar-width: none; -ms-overflow-style: none;">
                     <!-- 推薦商品將由 JavaScript 動態載入 -->
                 </div>
-                <button class="carousel-btn carousel-next" onclick="scrollRecommended(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <button class="carousel-btn carousel-next" onclick="scrollRecommended(1)" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -628,8 +756,114 @@
         </div>
     </footer>
 
+    <!-- 回到頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到頂部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="./js/dropdown-menu.js"></script>
     <script src="./js/products.js?v=20251004i"></script>
     <script src="js/cart.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+        // 配送方式選擇效果
+        document.querySelectorAll('.delivery-option-cart').forEach(label => {
+            label.addEventListener('click', function() {
+                document.querySelectorAll('.delivery-option-cart').forEach(l => {
+                    l.style.border = '2px solid #e0e0e0';
+                    l.style.background = 'white';
+                });
+                this.style.border = '2px solid var(--primary-color)';
+                this.style.background = 'rgba(255, 140, 66, 0.1)';
+            });
+        });
+
+        // 付款方式選擇效果
+        document.querySelectorAll('.payment-option-cart').forEach(label => {
+            label.addEventListener('click', function() {
+                // 移除所有選項的 active 狀態
+                document.querySelectorAll('.payment-option-cart').forEach(l => {
+                    l.style.border = '2px solid #e0e0e0';
+                    l.style.background = 'white';
+                    l.classList.remove('active');
+                    const div = l.querySelector('div');
+                    if (div) div.style.color = '#333';
+                });
+                
+                // 添加當前選項的 active 狀態
+                this.style.border = '2px solid var(--primary-color)';
+                this.style.background = 'rgba(255, 140, 66, 0.1)';
+                this.classList.add('active');
+                const div = this.querySelector('div');
+                if (div) div.style.color = 'var(--primary-color)';
+                
+                // 確保 radio 被選中並觸發 change 事件
+                const radio = this.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                    // 觸發 change 事件以便 cart.js 保存到 localStorage
+                    radio.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            });
+        });
+        
+        // 載入推薦商品
+        function loadRecommendedProducts() {
+            const products = [
+                {
+                    name: '公老坪椪柑 10斤裝',
+                    price: 850,
+                    image: './images/椪柑產品圖/椪柑1.jpg',
+                    link: 'product-detail.html?id=ponkan-10-25A'
+                },
+                {
+                    name: '東勢茂谷柑 10斤裝',
+                    price: 980,
+                    image: './images/茂谷柑產品圖/茂谷柑1.jpg',
+                    link: 'product-detail.html?id=murcott-10-25A'
+                },
+                {
+                    name: '冷凍菱角仁 600g',
+                    price: 280,
+                    image: './images/菱角產品圖/菱角1.jpg',
+                    link: 'product-detail.html?id=water-chestnut-600g'
+                },
+                {
+                    name: '冷凍芋角 600g',
+                    price: 250,
+                    image: './images/芋角產品圖/芋角1.jpg',
+                    link: 'product-detail.html?id=taro-600g'
+                }
+            ];
+            
+            const container = document.getElementById('recommendedProducts');
+            if (container) {
+                container.innerHTML = products.map(product => `
+                    <div style="min-width: 250px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; display: flex; flex-direction: column;">
+                        <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover; cursor: pointer;" onclick="window.location.href='${product.link}'">
+                        <div style="padding: 15px; flex: 1; display: flex; flex-direction: column;">
+                            <h3 style="font-size: 16px; margin-bottom: 10px; color: #333; cursor: pointer;" onclick="window.location.href='${product.link}'">${product.name}</h3>
+                            <p style="color: var(--primary-color); font-size: 20px; font-weight: 700; margin-bottom: 15px;">NT$ ${product.price}</p>
+                            <a href="${product.link}" style="margin-top: auto; display: block; text-align: center; padding: 12px 20px; background: var(--primary-color); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" onmouseover="this.style.background='#d35400'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'" onmouseout="this.style.background='var(--primary-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.1)'">
+                                <i class="fas fa-shopping-bag"></i> 查看詳情
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // 輪播功能
+        function scrollRecommended(direction) {
+            const container = document.getElementById('recommendedProducts');
+            if (container) {
+                const scrollAmount = 270;
+                container.scrollLeft += scrollAmount * direction;
+            }
+        }
+        
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', loadRecommendedProducts);
+    </script>
 </body>
 </html>

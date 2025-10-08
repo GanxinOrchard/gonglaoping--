@@ -259,12 +259,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
-            // 清空購物車與折扣碼
-            localStorage.removeItem(STORAGE_KEYS.CART);
-            localStorage.removeItem(STORAGE_KEYS.COUPON);
-            
-            // 跳轉到訂單完成頁
-            window.location.href = 'order-complete.html';
+            // 檢查是否為 LINE Pay
+            console.log('付款方式:', payMethod);
+            if (payMethod === 'LINE Pay') {
+                console.log('跳轉到 LINE Pay 頁面');
+                // 保存訂單資訊給 LINE Pay 頁面使用
+                localStorage.setItem('pendingLinePayOrder', JSON.stringify(orderData));
+                // 跳轉到 LINE Pay 頁面
+                window.location.href = 'linepay.html';
+            } else {
+                console.log('跳轉到訂單完成頁');
+                // 清空購物車與折扣碼
+                localStorage.removeItem(STORAGE_KEYS.CART);
+                localStorage.removeItem(STORAGE_KEYS.COUPON);
+                
+                // 跳轉到訂單完成頁
+                window.location.href = 'order-complete.html';
+            }
         });
     }
 });

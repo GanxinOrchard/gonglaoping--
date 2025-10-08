@@ -1,0 +1,259 @@
+/* ===== 手機漢堡選單修復 CSS ===== */
+/* 此檔案專門修復手機版漢堡選單的問題 */
+
+/* 1. 明確的 z-index 層級設定 */
+:root {
+    --z-hamburger: 1001;      /* 漢堡按鈕 */
+    --z-nav-drawer: 1000;     /* 選單抽屜 */
+    --z-menu-overlay: 999;    /* 選單遮罩 */
+    --z-hero: 1;              /* Hero 區域 */
+    --z-banner: 1;            /* 公告條 */
+}
+
+/* 2. 漢堡按鈕樣式 - 顯示在導航欄購物車右邊 */
+@media (max-width: 992px) {
+    /* 確保 nav-icons 靠右對齊 */
+    .nav-icons {
+        display: flex !important;
+        align-items: center;
+        gap: 12px !important;
+        margin-left: auto !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex !important;
+        position: relative !important;
+        background: var(--white);
+        border: 2px solid var(--primary-color);
+        border-radius: 6px;
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 6px rgba(255, 140, 66, 0.2);
+        -webkit-tap-highlight-color: transparent;
+        z-index: var(--z-hamburger) !important;
+    }
+    
+    /* 隱藏懸浮按鈕 */
+    .floating-menu-btn,
+    .floating-cart-btn {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle:active,
+    .floating-menu-btn:active {
+        transform: scale(0.95);
+    }
+    
+    .mobile-menu-toggle i,
+    .floating-menu-btn i {
+        font-size: 18px;
+        color: var(--primary-color);
+        transition: transform 0.3s ease;
+    }
+    
+    .mobile-menu-toggle.active,
+    .floating-menu-btn.active {
+        background: var(--primary-color);
+    }
+    
+    .mobile-menu-toggle.active i,
+    .floating-menu-btn.active i {
+        color: var(--white);
+        transform: rotate(90deg);
+    }
+    
+    /* 確保 nav-icons 中的漢堡按鈕顯示 */
+    .nav-icons .mobile-menu-toggle {
+        display: flex !important;
+    }
+    
+    /* 隱藏懸浮漢堡按鈕 */
+    .floating-menu-btn {
+        display: none !important;
+    }
+}
+
+/* 3. 選單抽屜 - 從右側滑入 */
+@media (max-width: 992px) {
+    .main-menu {
+        display: block !important; /* 強制顯示 */
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: auto !important;
+        width: 80vw !important;
+        max-width: 320px !important;
+        background: var(--white) !important;
+        box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12) !important;
+        transform: translateX(100%) !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        z-index: 1000 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        padding-top: 20px !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+    
+    .main-menu.open {
+        transform: translateX(0);
+    }
+    
+    .main-menu > ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+    
+    .main-menu > ul > li {
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .main-menu > ul > li > a {
+        display: block !important;
+        padding: 15px 20px;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: all 0.2s ease;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .main-menu > ul > li > a:hover,
+    .main-menu > ul > li > a.active {
+        background: var(--bg-light);
+        color: var(--primary-color);
+        padding-left: 25px;
+    }
+    
+    /* 確保選單項目可見 */
+    .main-menu > ul > li {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* 4. 選單遮罩 - 點擊外部關閉 */
+.menu-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: var(--z-menu-overlay) !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 5. 確保其他元素不會遮擋選單 */
+@media (max-width: 992px) {
+    .hero-slider,
+    .announcement-bar,
+    .header {
+        position: relative;
+        z-index: var(--z-hero) !important;
+    }
+    
+    .announcement-bar {
+        z-index: var(--z-banner) !important;
+    }
+}
+
+/* 6. 下拉選單在手機版的樣式 */
+@media (max-width: 992px) {
+    .dropdown-menu {
+        position: static !important;
+        box-shadow: none !important;
+        background: var(--bg-light) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: 3px solid var(--primary-color) !important;
+        margin-left: 15px !important;
+        border-top: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .dropdown.active .dropdown-menu {
+        display: block;
+        max-height: 500px;
+    }
+    
+    .dropdown-menu li {
+        border-bottom: none !important;
+    }
+    
+    .dropdown-menu li a {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+        display: block;
+        color: var(--text-dark);
+        transition: all 0.2s ease;
+    }
+    
+    .dropdown-menu li a:hover {
+        background: var(--white);
+        padding-left: 25px !important;
+        color: var(--primary-color);
+    }
+}
+
+/* 7. 防止選單打開時背景滾動 */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* 8. 觸控優化 */
+@media (max-width: 992px) {
+    .main-menu a,
+    .mobile-menu-toggle,
+    .floating-menu-btn {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+}
+
+/* 9. 購物車頁面手機版優化 */
+@media (max-width: 768px) {
+    /* 隱藏購物車頁面的 logo 和購物車圖標 */
+    body:has(.cart-page) .header .logo,
+    .cart-page .header .logo {
+        display: none !important;
+    }
+    
+    body:has(.cart-page) .header .cart-icon,
+    .cart-page .header .cart-icon {
+        display: none !important;
+    }
+    
+    /* 讓漢堡選單在購物車頁面也靠右 */
+    body:has(.cart-page) .header .nav-icons,
+    .cart-page .header .nav-icons {
+        margin-left: auto !important;
+        justify-content: flex-end !important;
+    }
+}
