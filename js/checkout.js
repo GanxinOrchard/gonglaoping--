@@ -35,12 +35,15 @@ let orderData = {
     discountAmount: 0
 };
 
-// 折扣碼配置
-const discountCodes = {
-    'WELCOME10': { type: 'percentage', value: 10, description: '新客戶優惠 10% 折扣' },
-    'SAVE100': { type: 'fixed', value: 100, description: '滿額折抵 NT$100' },
-    'FRUIT20': { type: 'percentage', value: 20, description: '水果專區 20% 折扣' }
-};
+// 折扣碼配置（使用 cart.js 中已定義的 discountCodes）
+// 如果 cart.js 還沒載入，先定義一個
+if (typeof discountCodes === 'undefined') {
+    var discountCodes = {
+        'WELCOME10': { type: 'percentage', value: 10, description: '新客戶優惠 10% 折扣' },
+        'SAVE100': { type: 'fixed', value: 100, description: '滿額折抵 NT$100' },
+        'FRUIT20': { type: 'percentage', value: 20, description: '水果專區 20% 折扣' }
+    };
+}
 
 // ========== 步驟控制 ==========
 
