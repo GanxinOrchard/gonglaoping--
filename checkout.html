@@ -550,85 +550,8 @@
 
     <!-- 主要內容 -->
     <div class="checkout-container">
-        <!-- 第1步（步驟2）：寄送付款方式 - 包含所有資訊 -->
+        <!-- 第1步（步驟2）：填寫資料 -->
         <div class="step-content active" id="step1">
-            <!-- 折扣碼 -->
-            <div class="section-box">
-                <h2 class="section-title">
-                    <i class="fas fa-tag"></i>
-                    折扣碼
-                </h2>
-                <p style="color: #666; margin-bottom: 15px;">
-                    更多優惠資訊請追蹤我們的 
-                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="fb-link">
-                        <i class="fab fa-facebook"></i>
-                        Facebook 粉絲專頁
-                    </a>
-                </p>
-                <div class="discount-input-group">
-                    <input type="text" id="discountCode" class="discount-input" placeholder="輸入折扣碼">
-                    <button class="apply-btn" onclick="applyDiscount()">套用</button>
-                </div>
-                <div id="discountMessage" class="discount-message" style="display: none;"></div>
-            </div>
-
-            <!-- 訂單摘要 -->
-            <div class="section-box">
-                <h2 class="section-title">
-                    <i class="fas fa-shopping-cart"></i>
-                    訂單摘要
-                </h2>
-                <div id="cartItemsList"></div>
-                
-                <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f0f0f0;">
-                    <div class="summary-row">
-                        <span>商品總金額</span>
-                        <span id="subtotal">NT$ 0</span>
-                    </div>
-                    <div class="summary-row" id="discountRow" style="display: none;">
-                        <span style="color: #27ae60;">折扣優惠</span>
-                        <span id="discountAmount" style="color: #27ae60;">-NT$ 0</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>運費</span>
-                        <span id="shippingFee">NT$ 180</span>
-                    </div>
-                    <div class="summary-row total">
-                        <span>訂單總計</span>
-                        <span id="totalAmount">NT$ 0</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 配送方式 -->
-            <div class="section-box">
-                <h2 class="section-title">
-                    <i class="fas fa-truck"></i>
-                    配送方式
-                </h2>
-                <div class="delivery-options">
-                    <label class="delivery-option selected" onclick="selectDelivery('home')">
-                        <input type="radio" name="delivery" value="home" checked>
-                        <div class="delivery-content">
-                            <div class="delivery-icon"><i class="fas fa-home"></i></div>
-                            <div><strong>宅配到府</strong></div>
-                            <div style="font-size: 14px; color: #666; margin-top: 5px;">運費 NT$ 180</div>
-                            <div style="font-size: 13px; color: #999; margin-top: 5px;">滿 $1800 免運</div>
-                        </div>
-                    </label>
-                    <label class="delivery-option" onclick="selectDelivery('pickup')">
-                        <input type="radio" name="delivery" value="pickup">
-                        <div class="delivery-content">
-                            <div class="delivery-icon"><i class="fas fa-store"></i></div>
-                            <div><strong>門市自取</strong></div>
-                            <div style="font-size: 14px; color: #666; margin-top: 5px;">免運費</div>
-                            <div style="font-size: 13px; color: #999; margin-top: 5px;">到店自取更優惠</div>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            </div>
             <!-- 購買人資料 -->
             <div class="section-box">
                 <h2 class="section-title">
@@ -678,37 +601,7 @@
                 <div class="form-group" id="receiverAddressGroup">
                     <label>地址 <span class="required">*</span></label>
                     <input type="text" id="receiverAddress" placeholder="請輸入完整地址">
-                </div>
-            </div>
-
-            <!-- 付款方式 -->
-            <div class="section-box">
-                <h2 class="section-title">
-                    <i class="fas fa-credit-card"></i>
-                    付款方式
-                </h2>
-                <div class="payment-options">
-                    <label class="payment-option" onclick="selectPayment('bank')">
-                        <input type="radio" name="payment" value="bank" checked>
-                        <div class="payment-icon" style="color: #3498db;">
-                            <i class="fas fa-university"></i>
-                        </div>
-                        <div><strong>匯款</strong></div>
-                    </label>
-                    <label class="payment-option" onclick="selectPayment('linepay')">
-                        <input type="radio" name="payment" value="linepay">
-                        <div class="payment-icon" style="color: #00B900;">
-                            <i class="fab fa-line"></i>
-                        </div>
-                        <div><strong>LINE Pay</strong></div>
-                    </label>
-                    <label class="payment-option" onclick="selectPayment('cash')">
-                        <input type="radio" name="payment" value="cash">
-                        <div class="payment-icon" style="color: #27ae60;">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div><strong>現金</strong></div>
-                    </label>
+                    <div class="form-group-hint">請輸入完整地址，包括縣市、鄉鎮、路名、巷字、門牌號</div>
                 </div>
             </div>
 
