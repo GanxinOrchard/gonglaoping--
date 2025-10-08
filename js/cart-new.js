@@ -33,11 +33,15 @@
     
     // ==================== 初始化 ====================
     function init() {
-        log('初始化購物車系統');
+        log('初始化購物車增強功能');
         loadState();
         bindEvents();
-        renderTotals();
-        updateCopyBuyerState();
+        
+        // 延遲執行，等待原有的 cart.js 完成渲染
+        setTimeout(() => {
+            renderTotals();
+            updateCopyBuyerState();
+        }, 100);
     }
     
     function loadState() {
@@ -58,7 +62,10 @@
     
     // ==================== 計算邏輯 ====================
     function calcSubtotal(items) {
-        return items.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        return items.reduce((sum, item) => {
+            const qty = item.qty || item.quantity || 0;
+            return sum + (item.price * qty);
+        }, 0);
     }
     
     function calcShipping(subtotal, shipMode) {
@@ -90,6 +97,14 @@
     }
     
     function renderTotals() {
+        // 如果原有的 updateAmounts 函數存在，優先使用
+        if (typeof window.updateAmounts === 'function') {
+            window.updateAmounts();
+            log('使用原有的 updateAmounts 函數');
+            return;
+        }
+        
+        // 否則使用自己的計算邏輯
         const subtotal = calcSubtotal(state.cart);
         const shipping = calcShipping(subtotal, state.shipMode);
         const discount = calcDiscount(subtotal, shipping, state.coupon);
@@ -335,11 +350,11 @@
             id: `GX${Date.now()}`,
             time: new Date().toISOString(),
             items: state.cart.map(item => ({
-                name: item.name || item.title,
+                name: item.name || item.title || item.productName,
                 price: item.price,
-                qty: item.qty || item.quantity,
+                qty: item.quantity || item.qty || 1,
                 weight: item.weight || '',
-                size: item.size || ''
+                size: item.size || item.spec || ''
             })),
             coupon: state.coupon || '',
             buyer: {
