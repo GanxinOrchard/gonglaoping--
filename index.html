@@ -69,10 +69,6 @@
     
     <meta http-equiv="Cache-Control" content="public, max-age=31536000">
     <link rel="preload" href="./css/style.css" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    <link rel="preload" href="./js/main.js?v=20251004i" as="script">
-    <link rel="preload" href="./js/products.js?v=20251004i" as="script">
-    <link rel="preload" href="./js/cart.js?v=20251004i" as="script">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -505,112 +501,10 @@
         </div>
     </footer>
 
-    <script src="./js/cookie-consent.js"></script>
-    <script src="./js/dropdown-menu.js"></script>
-    <script src="./js/page-transitions.js"></script>
-    <script src="./js/orange-animation.js?v=20251004i"></script>
-    <script src="./js/season-timeline.js?v=20251004i"></script>
-    <script src="./js/products.js?v=20251004i"></script>
-    <script src="./js/cart.js?v=20251004i"></script>
-    <script src="./js/checkout.js?v=20251004i"></script>
-    <script src="./js/main.js?v=20251004i"></script>
-    <script>
-        // 新聞輪播控制
-        let newsPosition = 0;
-        function newsCarousel(direction) {
-            const track = document.querySelector('.news-track');
-            const cards = document.querySelectorAll('.news-card');
-            const cardWidth = cards[0].offsetWidth + 20; // 包含gap
-            const visibleCards = 3;
-            const maxPosition = -(cards.length - visibleCards);
-            
-            newsPosition += direction;
-            if (newsPosition > 0) newsPosition = 0;
-            if (newsPosition < maxPosition) newsPosition = maxPosition;
-            
-            track.style.transform = `translateX(${newsPosition * cardWidth}px)`;
-        }
-        
-        // 自動輪播
-        setInterval(() => {
-            const track = document.querySelector('.news-track');
-            const cards = document.querySelectorAll('.news-card');
-            if (cards.length > 3) {
-                newsCarousel(-1);
-                if (newsPosition <= -(cards.length - 3)) {
-                    setTimeout(() => {
-                        track.style.transition = 'none';
-                        newsPosition = 0;
-                        track.style.transform = 'translateX(0)';
-                        setTimeout(() => {
-                            track.style.transition = 'transform 0.5s ease';
-                        }, 50);
-                    }, 500);
-                }
-            }
-        }, 5000);
-        
-        // 響應式調整
-        window.addEventListener('resize', () => {
-            newsPosition = 0;
-            document.querySelector('.news-track').style.transform = 'translateX(0)';
-        });
-    </script>
-</body>
-</html>
-    // 圖片懶加載功能
-    document.addEventListener('DOMContentLoaded', function() {
-        const lazyImages = [].slice.call(document.querySelectorAll('img.lazy'));
-        
-        if ('IntersectionObserver' in window) {
-            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        let lazyImage = entry.target;
-                        lazyImage.src = lazyImage.dataset.src;
-                        lazyImage.classList.remove('lazy');
-                        lazyImageObserver.unobserve(lazyImage);
-                    }
-                });
-            });
-
-            lazyImages.forEach(function(lazyImage) {
-                lazyImageObserver.observe(lazyImage);
-            });
-        } else {
-            // 不支援 IntersectionObserver 的備用方案
-            let active = false;
-            const lazyLoad = function() {
-                if (active === false) {
-                    active = true;
-                    setTimeout(function() {
-                        lazyImages.forEach(function(lazyImage) {
-                            if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && 
-                                lazyImage.getBoundingClientRect().bottom >= 0) &&
-                                getComputedStyle(lazyImage).display !== 'none') {
-                                lazyImage.src = lazyImage.dataset.src;
-                                lazyImage.classList.remove('lazy');
-                                lazyImages = lazyImages.filter(function(image) {
-                                    return image !== lazyImage;
-                                });
-                                if (lazyImages.length === 0) {
-                                    document.removeEventListener('scroll', lazyLoad);
-                                    window.removeEventListener('resize', lazyLoad);
-                                    window.removeEventListener('orientationchange', lazyLoad);
-                                }
-                            }
-                        });
-                        active = false;
-                    }, 200);
-                }
-            };
-
-            document.addEventListener('scroll', lazyLoad);
-            window.addEventListener('resize', lazyLoad);
-            window.addEventListener('orientationchange', lazyLoad);
-            lazyLoad();
-        }
-    });
-    </script>
+    <!-- 只載入必要的 JavaScript -->
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/products.js?v=20251004i" defer></script>
+    <script src="./js/cart.js?v=20251004i" defer></script>
+    <script src="./js/main.js?v=20251004i" defer></script>
 </body>
 </html>
