@@ -20,10 +20,12 @@ const MIN_ORDER_AMOUNT = 500;
 
 // 折扣碼設定
 const discountCodes = {
-    'WELCOME10': { type: 'percentage', value: 10, description: '新客戶優惠 10% 折扣' },
-    'SAVE100': { type: 'fixed', value: 100, description: '滿額折抵 NT$100' },
-    'FRUIT20': { type: 'percentage', value: 20, description: '水果專區 20% 折扣' },
-    'VIP15': { type: 'percentage', value: 15, description: 'VIP會員 15% 折扣' }
+    'PONKAN100': { type: 'fixed', value: 100, description: '椪柑優惠 -NT$100', minAmount: 1000, validFrom: '2025-10', validTo: '2026-02' },
+    'PONKAN15': { type: 'percentage', value: 15, description: '椪柑優惠 15%', minAmount: 800, validFrom: '2025-10', validTo: '2026-02' },
+    'MURCOTT200': { type: 'fixed', value: 200, description: '茂谷柑優惠 -NT$200', minAmount: 1500, validFrom: '2025-12', validTo: '2026-03' },
+    'MURCOTT20': { type: 'percentage', value: 20, description: '茂谷柑優惠 20%', minAmount: 1000, validFrom: '2025-12', validTo: '2026-03' },
+    'FRUIT150': { type: 'fixed', value: 150, description: '水果優惠 -NT$150', minAmount: 1200, validFrom: '2025-10', validTo: '2026-03' },
+    'EARLYBIRD': { type: 'percentage', value: 10, description: '早鳥優惠 10%', minAmount: 500, validFrom: '2025-10', validTo: '2025-12' }
 };
 
 let appliedDiscount = null;
