@@ -1,17 +1,19 @@
 /**
  * 柑心果園 - 結帳流程系統
  * 三步驟結帳流程管理
+ * 
+ * 注意：此檔案依賴 cart.js 中定義的全局變數 cart 和 discountCodes
+ * 請確保 cart.js 在此檔案之前載入
  */
 
 // ========== 全局變數 ==========
 
-// 確保 cart 變數存在（從 localStorage 載入）
-// 如果 cart.js 還沒載入或 cart 為空，從 localStorage 載入
-(function() {
+// 確保 cart 變數存在（cart.js 應該已經定義）
+// 如果沒有，從 localStorage 載入
+if (typeof cart === 'undefined') {
+    console.warn('cart 變數未定義，嘗試從 localStorage 載入');
     if (typeof window.cart === 'undefined') {
         window.cart = [];
-    }
-    if (!window.cart || window.cart.length === 0) {
         try {
             const savedCart = localStorage.getItem('cart');
             if (savedCart) {
@@ -19,13 +21,9 @@
             }
         } catch (e) {
             console.error('載入購物車失敗:', e);
-            window.cart = [];
         }
     }
-})();
-
-// 直接使用 window.cart，不創建新變數避免衝突
-var cart = window.cart;
+}
 
 let currentStep = 1;
 let orderData = {
