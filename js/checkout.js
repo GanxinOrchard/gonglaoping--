@@ -25,7 +25,6 @@ let orderData = {
 };
 
 // 折扣碼配置
-{{ ... }}
 const discountCodes = {
     'WELCOME10': { type: 'percentage', value: 10, description: '新客戶優惠 10% 折扣' },
     'SAVE100': { type: 'fixed', value: 100, description: '滿額折抵 NT$100' },
@@ -242,10 +241,44 @@ function copySameAsBuyer() {
     const checked = document.getElementById('sameAsBuyer').checked;
     
     if (checked) {
-        document.getElementById('receiverName').value = document.getElementById('buyerName').value;
-        document.getElementById('receiverEmail').value = document.getElementById('buyerEmail').value;
-        document.getElementById('receiverPhone').value = document.getElementById('buyerPhone').value;
-        document.getElementById('receiverAddress').value = document.getElementById('buyerAddress').value;
+        // 複製購買人資料到收件人
+        const buyerName = document.getElementById('buyerName');
+        const buyerEmail = document.getElementById('buyerEmail');
+        const buyerPhone = document.getElementById('buyerPhone');
+        const buyerAddress = document.getElementById('buyerAddress');
+        
+        const receiverName = document.getElementById('receiverName');
+        const receiverEmail = document.getElementById('receiverEmail');
+        const receiverPhone = document.getElementById('receiverPhone');
+        const receiverAddress = document.getElementById('receiverAddress');
+        
+        if (buyerName) receiverName.value = buyerName.value;
+        if (buyerEmail) receiverEmail.value = buyerEmail.value;
+        if (buyerPhone) receiverPhone.value = buyerPhone.value;
+        if (buyerAddress) receiverAddress.value = buyerAddress.value;
+        
+        // 設置收件人欄位為唯讀
+        receiverName.readOnly = true;
+        receiverEmail.readOnly = true;
+        receiverPhone.readOnly = true;
+        receiverAddress.readOnly = true;
+        
+        // 監聽購買人資料變化，自動同步到收件人
+        buyerName.addEventListener('input', function() { receiverName.value = this.value; });
+        buyerEmail.addEventListener('input', function() { receiverEmail.value = this.value; });
+        buyerPhone.addEventListener('input', function() { receiverPhone.value = this.value; });
+        buyerAddress.addEventListener('input', function() { receiverAddress.value = this.value; });
+    } else {
+        // 取消唯讀狀態
+        const receiverName = document.getElementById('receiverName');
+        const receiverEmail = document.getElementById('receiverEmail');
+        const receiverPhone = document.getElementById('receiverPhone');
+        const receiverAddress = document.getElementById('receiverAddress');
+        
+        receiverName.readOnly = false;
+        receiverEmail.readOnly = false;
+        receiverPhone.readOnly = false;
+        receiverAddress.readOnly = false;
     }
 }
 
