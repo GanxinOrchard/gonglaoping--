@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>確認訂單 - 柑心果園</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        
+        .checkout-header {
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .checkout-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .checkout-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .checkout-logo img {
+            height: 50px;
+        }
+        
+        .checkout-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        /* 步驟指示器 */
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 120px auto 40px;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #999;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .step-item.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .step-item.completed {
+            color: #27ae60;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .step-item.active .step-number {
+            background: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .step-item.completed .step-number {
+            background: #27ae60;
+        }
+        
+        .step-arrow {
+            color: #ddd;
+            font-size: 20px;
+        }
+        
+        /* 主要內容 */
+        .checkout-container {
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+        
+        .section-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            width: 120px;
+            color: #666;
+        }
+        
+        .info-value {
+            flex: 1;
+            color: #333;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-spec {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-quantity {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+        
+        .summary-row.total {
+            border-top: 2px solid #e0e0e0;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-back {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-back:hover {
+            background: #7f8c8d;
+        }
+        
+        .btn-submit {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .steps-container {
+                gap: 15px;
+                margin-top: 100px;
+            }
+            
+            .step-label {
+                display: none;
+            }
+            
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .info-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .info-label {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="checkout-header">
+        <div class="checkout-header-content">
+            <div class="checkout-logo">
+                <img src="./images/商標.jpg" alt="柑心果園" style="height: 50px;">
+                <span class="checkout-logo-text">柑心果園</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 步驟指示器 -->
+    <div class="steps-container">
+        <div class="step-item completed">
+            <div class="step-number">1</div>
+            <span class="step-label">購物車</span>
+        </div>
+        <i class="fas fa-chevron-right step-arrow"></i>
+        <div class="step-item completed">
+            <div class="step-number">2</div>
+            <span class="step-label">填寫資料</span>
+        </div>
+        <i class="fas fa-chevron-right step-arrow"></i>
+        <div class="step-item active">
+            <div class="step-number">3</div>
+            <span class="step-label">確認訂單</span>
+        </div>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="checkout-container">
+        <!-- 訂單商品 -->
+        <div class="section-box">
+            <h2 class="section-title">
+                <i class="fas fa-shopping-cart"></i> 訂單商品
+            </h2>
+            <div data-order-items></div>
+        </div>
+
+        <!-- 訂單資訊 -->
+        <div class="section-box">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i> 訂單資訊
+            </h2>
+            <div data-order-meta></div>
+        </div>
+
+        <!-- 訂單金額 -->
+        <div class="section-box">
+            <h2 class="section-title">
+                <i class="fas fa-calculator"></i> 訂單金額
+            </h2>
+            <div class="summary-row">
+                <span>商品總金額</span>
+                <span data-order-subtotal>NT$ 0</span>
+            </div>
+            <div class="summary-row">
+                <span>運費</span>
+                <span data-order-shipping>NT$ 180</span>
+            </div>
+            <div class="summary-row">
+                <span>折扣</span>
+                <span data-order-discount>NT$ 0</span>
+            </div>
+            <div class="summary-row total">
+                <span>訂單總計</span>
+                <span data-order-total>NT$ 0</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="checkout.html" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> 返回修改
+            </a>
+            <button class="btn btn-submit" data-action="submit-order">
+                <i class="fas fa-check"></i> 確認送出訂單
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/ganxinorchard?igsh=MW1jdGJ6ZGFzYWQ4dQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://line.me/ti/p/iV-1OB_kEu" target="_blank"><i class="fab fa-line"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="policies.html?type=faq">常見問題</a></li>
+                        <li><a href="policies.html?type=shipping">配送說明</a></li>
+                        <li><a href="policies.html?type=return">退換貨政策</a></li>
+                        <li><a href="policies.html?type=privacy">隱私權政策</a></li>
+                        <li><a href="policies.html?type=terms">服務條款</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>購物指南</h4>
+                    <ul>
+                        <li><a href="policies.html?type=how-to-order">如何訂購</a></li>
+                        <li><a href="policies.html?type=payment">付款方式</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
+                        <li><i class="fas fa-envelope"></i> s9000721@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台灣台中市豐原區公老坪/東勢/柑心果園</li>
+                        <li><i class="fas fa-clock"></i> 週一至週五 12:00-18:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有，翻印必究。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/confirm.js"></script>
+</body>
+</html>
