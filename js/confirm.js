@@ -200,21 +200,43 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = '處理中...';
             
-            // 組裝訂單資料
+            // 組裝訂單資料（符合後端格式）
             const orderData = {
-                orderNumber: 'GX' + Date.now(),
-                orderTime: new Date().toISOString(),
-                items: cart,
-                buyer,
-                recv,
-                shipMode,
-                payMethod,
-                couponCode,
-                note,
-                subtotal,
-                discount,
-                shipping,
-                total
+                // 購買人資料
+                buyerName: buyer.name,
+                buyerEmail: buyer.email,
+                buyerPhone: buyer.phone,
+                buyerAddress: buyer.addr,
+                
+                // 收件人資料
+                receiverName: recv.name,
+                receiverEmail: recv.email,
+                receiverPhone: recv.phone,
+                receiverAddress: recv.addr,
+                
+                // 配送與付款
+                delivery: shipMode,  // 'home' 或 'pickup'
+                payment: payMethod,  // '匯款', 'LINE Pay', '現金'
+                
+                // 商品列表
+                items: cart.map(item => ({
+                    name: item.name,
+                    spec: item.selectedSpec || '',
+                    price: item.price,
+                    quantity: item.quantity
+                })),
+                
+                // 金額摘要
+                summary: {
+                    subtotal: subtotal,
+                    shipping: shipping,
+                    discount: discount,
+                    total: total
+                },
+                
+                // 折扣碼與備註
+                discountCode: couponCode,
+                remark: note
             };
             
             // 儲存訂單草稿

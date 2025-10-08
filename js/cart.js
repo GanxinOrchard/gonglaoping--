@@ -288,6 +288,23 @@ function removeFromCart(productId, specId = null) {
 }
 
 // ========================================
+// 更新金額顯示（全域函數）
+// ========================================
+function updateAmounts() {
+    const { subtotal, discount, shipping, total } = calculatePrice();
+    
+    const subtotalEl = document.querySelector('[data-subtotal]');
+    const shippingEl = document.querySelector('[data-shipping]');
+    const discountEl = document.querySelector('[data-discount]');
+    const totalEl = document.querySelector('[data-total]');
+    
+    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
+    if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
+    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
+}
+
+// ========================================
 // 頁面初始化
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -299,21 +316,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 渲染購物車商品
     renderCartItems();
-    
-    // 更新金額顯示
-    function updateAmounts() {
-        const { subtotal, discount, shipping, total } = calculatePrice();
-        
-        const subtotalEl = document.querySelector('[data-subtotal]');
-        const shippingEl = document.querySelector('[data-shipping]');
-        const discountEl = document.querySelector('[data-discount]');
-        const totalEl = document.querySelector('[data-total]');
-        
-        if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
-        if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
-        if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
-        if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
-    }
     
     // 折扣碼套用
     const applyBtn = document.querySelector('[data-action="apply-coupon"]');
@@ -384,14 +386,50 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-ship]').forEach(radio => {
         radio.addEventListener('change', () => {
             localStorage.setItem(STORAGE_KEYS.SHIP_MODE, radio.dataset.ship);
+            
+            // 更新視覺樣式
+            document.querySelectorAll('.delivery-option-cart').forEach(opt => {
+                opt.style.borderColor = '#e0e0e0';
+                opt.style.background = 'white';
+            });
+            const selectedLabel = radio.closest('.delivery-option-cart');
+            if (selectedLabel) {
+                selectedLabel.style.borderColor = 'var(--primary-color)';
+                selectedLabel.style.background = '#fff5f5';
+            }
+            
             updateAmounts();
         });
     });
     
-    // 付款方式
-    document.querySelectorAll('[name="pay_method"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            localStorage.setItem(STORAGE_KEYS.PAY_METHOD, radio.value);
+    // 付款方式點擊事件
+    document.querySelectorAll('.payment-option-cart').forEach(label => {
+        label.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // 移除所有選中狀態
+            document.querySelectorAll('.payment-option-cart').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.style.borderColor = '#e0e0e0';
+                opt.style.background = 'white';
+                const div = opt.querySelector('div');
+                if (div) div.style.color = '#333';
+                const radio = opt.querySelector('input[type="radio"]');
+                if (radio) radio.checked = false;
+            });
+            
+            // 設置當前選中狀態
+            label.classList.add('selected');
+            label.style.borderColor = 'var(--primary-color)';
+            label.style.background = '#fff5f5';
+            const div = label.querySelector('div');
+            if (div) div.style.color = 'var(--primary-color)';
+            
+            const radio = label.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                localStorage.setItem(STORAGE_KEYS.PAY_METHOD, radio.value);
+            }
         });
     });
     

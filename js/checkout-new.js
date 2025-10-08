@@ -16,6 +16,30 @@ const STORAGE_KEYS = {
 };
 
 // ========================================
+// 清除記憶功能
+// ========================================
+function clearSavedFormData() {
+    if (confirm('確定要清除所有已儲存的表單資料嗎？')) {
+        localStorage.removeItem(STORAGE_KEYS.BUYER);
+        localStorage.removeItem(STORAGE_KEYS.RECV);
+        localStorage.removeItem(STORAGE_KEYS.NOTE);
+        
+        // 清空表單欄位
+        document.querySelector('[name="buyer_name"]').value = '';
+        document.querySelector('[name="buyer_phone"]').value = '';
+        document.querySelector('[name="buyer_email"]').value = '';
+        document.querySelector('[name="buyer_addr"]').value = '';
+        document.querySelector('[name="recv_name"]').value = '';
+        document.querySelector('[name="recv_phone"]').value = '';
+        document.querySelector('[name="recv_email"]').value = '';
+        document.querySelector('[name="recv_addr"]').value = '';
+        document.querySelector('[data-note]').value = '';
+        
+        alert('已清除所有記憶資料');
+    }
+}
+
+// ========================================
 // 頁面初始化
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
