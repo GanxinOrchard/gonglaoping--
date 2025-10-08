@@ -1,0 +1,42 @@
+=== 檢查所有 HTML 頁面的漢堡選單和回到頂部按鈕 ===
+
+需要檢查的主要頁面（排除測試頁面）：
+1. index.html
+2. about.html
+3. contact.html
+4. cart.html
+5. checkout.html
+6. confirm.html
+7. order-complete.html
+8. order-tracking.html
+9. products.html
+10. product-detail.html
+11. news.html
+12. news-detail.html
+13. knowledge.html
+14. knowledge-detail.html
+15. policies.html
+16. farming.html
+17. guide.html
+18. grading.html
+19. season-recommend.html
+20. season-ponkan.html
+21. season-murcott.html
+22. season-taro.html
+23. season-water-chestnut.html
+24. grading-ponkan.html
+25. grading-murcott.html
+26. grading-taro.html
+27. grading-water-chestnut.html
+28. guide-ponkan.html
+29. guide-murcott.html
+30. guide-taro.html
+31. guide-water-chestnut.html
+
+每個頁面需要有：
+□ mobile-menu-fix.css
+□ mobile-menu-fix.js
+□ dropdown-menu.js
+□ main.js（用於回到頂部按鈕）
+□ 漢堡選單按鈕 (<button class="mobile-menu-toggle" id="mobileMenuToggle">)
+□ 主選單結構 (<div class="main-menu" id="mainMenu">)
