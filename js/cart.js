@@ -365,8 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 渲染購物車商品
     renderCartItems();
     
-<<<<<<< HEAD
-=======
     // 初始更新金額
     updateAmounts();
     
@@ -436,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
->>>>>>> 2a7198755d3134435e024d474e23d86108ef4c26
     // 折扣碼套用
     const applyBtn = document.querySelector('[data-action="apply-coupon"]');
     if (applyBtn) {
