@@ -4,6 +4,18 @@
  */
 
 // ========== 全局變數 ==========
+
+// 確保 cart 變數存在（從 localStorage 載入）
+// cart.js 應該已經定義了 cart，但為了安全起見，這裡再次確認
+if (typeof cart === 'undefined' || !cart) {
+    var cart = [];
+    try {
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+    } catch (e) {
+        cart = [];
+    }
+}
+
 let currentStep = 1;
 let orderData = {
     delivery: 'home', // home: 宅配, pickup: 自取
