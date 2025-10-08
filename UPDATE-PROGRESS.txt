@@ -1,0 +1,29 @@
+批次更新進度追蹤
+
+✅ 已完成（10個）：
+1. season-ponkan.html - 椪柑產季（含時間軸優化）
+2. season-murcott.html - 茂谷柑產季（含時間軸優化）
+3. about.html - 關於我們
+4. contact.html - 聯絡我們
+5. farming.html - 友善栽培
+6. products.html - 全部商品
+7. guide.html - 挑選指南
+8. grading.html - 規格分級
+9. guide-ponkan.html - 椪柑挑選
+10. guide-murcott.html - 茂谷柑挑選
+
+⏳ 進行中（剩餘13個）：
+11. guide-water-chestnut.html
+12. guide-taro.html
+13. grading-ponkan.html
+14. grading-murcott.html
+15. season-recommend.html
+16. season-water-chestnut.html
+17. season-taro.html
+18. season.html
+19. knowledge.html
+20. knowledge-detail.html
+21. news-detail.html
+22. order-tracking.html
+23. policies.html
+24. product-detail.html
