@@ -28,6 +28,7 @@
 const TZ = 'Asia/Taipei';
 const SHEET_ORDER = '訂單';
 const SHEET_ITEM  = '明細';
+const SHEET_CONTACT = '聯絡表單';  // 新增：聯絡表單工作表
 const SHEET_SUMMARY = '出貨統計';
 const SHEET_WEEK_SUMMARY = '週出貨統計';
 const SHEET_SPEC_ALL = '規格統計';
@@ -346,10 +347,16 @@ function markMailStateByOrderNo_(orderNo, note, ok){
 /////////////////////// doPost ///////////////////////
 function doPost(e) {
   try {
-    ensureHeadersSafe_();
-
     const raw = (e && e.postData && e.postData.contents) || '{}';
     const data = JSON.parse(raw);
+    
+    // 處理聯絡表單
+    if (data.type === 'contact') {
+      return handleContactForm_(data);
+    }
+    
+    // 處理訂單
+    ensureHeadersSafe_();
     
     if (!data || !Array.isArray(data.items) || data.items.length === 0) {
       return json_({ ok:false, msg:'空的訂單內容' });
@@ -924,4 +931,67 @@ function linePayFinishPage_(ok, msg, orderNo){
   </div>
 </body></html>`);
   return base;
+}
+
+/////////////////////// 聯絡表單處理 ///////////////////////
+function handleContactForm_(data) {
+  try {
+    const name = (data.name || '').trim();
+    const email = (data.email || '').trim();
+    const phone = (data.phone || '').trim();
+    const message = (data.message || '').trim();
+    const createdAt = $.now();
+    
+    if (!name || !email || !message) {
+      return json_({ ok: false, msg: '請填寫必填欄位' });
+    }
+    
+    // 確保聯絡表單工作表存在
+    const sh = $.sheet(SHEET_CONTACT);
+    if (sh.getLastRow() === 0) {
+      sh.getRange(1, 1, 1, 6).setValues([['建立時間', '姓名', 'Email', '電話', '訊息內容', '處理狀態']]);
+    }
+    
+    // 寫入資料
+    sh.appendRow([createdAt, name, email, phone, message, '待處理']);
+    
+    // 寄信通知老闆
+    if (SEND_MAIL) {
+      sendContactNotificationMail_({ name, email, phone, message, createdAt });
+    }
+    
+    return json_({ ok: true, msg: '感謝您的留言！我們已收到您的訊息，會盡快回覆您。' });
+  } catch (err) {
+    Logger.log('聯絡表單錯誤: ' + (err.message || String(err)));
+    return json_({ ok: false, msg: '系統錯誤，請稍後再試或直接聯繫我們' });
+  }
+}
+
+function sendContactNotificationMail_({ name, email, phone, message, createdAt }) {
+  const subject = `【新聯絡表單】來自 ${name}`;
+  
+  const bodyBoss = `
+    <div style="margin-bottom:10px">${adminOpenSheetBtn_()}</div>
+    <h2 style="margin:8px 0 10px">新聯絡表單通知</h2>
+    <div style="font-size:13px;color:#6b7280;margin:0 0 12px">收到時間：<b>${createdAt}</b></div>
+    
+    <div style="border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:12px 0;background:#fafafa">
+      <div style="margin-bottom:10px"><b>姓名：</b>${safe_(name)}</div>
+      <div style="margin-bottom:10px"><b>Email：</b>${safe_(email)}</div>
+      <div style="margin-bottom:10px"><b>電話：</b>${safe_(phone || '（未提供）')}</div>
+      <div style="margin-top:15px;padding-top:15px;border-top:1px solid #e5e7eb">
+        <b>訊息內容：</b><br>
+        <div style="margin-top:8px;padding:12px;background:white;border-radius:8px;white-space:pre-wrap;">${safe_(message)}</div>
+      </div>
+    </div>
+    
+    <div style="margin-top:16px;padding:12px;background:#fff7ed;border-radius:8px;color:#92400e">
+      <b>💡 提醒：</b>請盡快回覆客戶的訊息
+    </div>
+  `.trim();
+  
+  const html = emailShell_(bodyBoss);
+  const text = `【新聯絡表單】來自 ${name} (${email})：${message.substring(0, 50)}...`;
+  
+  return sendMailSafe_(NOTIFY_TO, subject, text, html);
 }

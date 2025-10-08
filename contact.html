@@ -538,19 +538,51 @@
     <script src="./js/cart.js?v=20251004i"></script>
     <script src="./js/main.js?v=20251004i"></script>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Google Apps Script 網址（部署後請更新此網址）
+        const GAS_WEB_APP_URL = 'YOUR_GAS_WEB_APP_URL_HERE';
+        
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const phone = document.getElementById('contactPhone').value;
-            const message = document.getElementById('contactMessage').value;
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             
-            // 這裡可以串接後端API或Email服務
-            alert('感謝您的留言！\n\n我們已收到您的訊息，會盡快回覆您。\n\n您也可以直接透過 Facebook 粉絲專頁與我們聯繫。');
+            // 禁用按鈕，防止重複提交
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送出中...';
             
-            // 清空表單
-            this.reset();
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const phone = document.getElementById('contactPhone').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            
+            try {
+                const response = await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'contact',
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        message: message
+                    })
+                });
+                
+                // 由於 no-cors 模式無法讀取回應，我們假設成功
+                alert('✓ 感謝您的留言！\n\n我們已收到您的訊息，會盡快回覆您。\n\n您也可以直接透過 Facebook 粉絲專頁與我們聯繫。');
+                
+                // 清空表單
+                this.reset();
+            } catch (error) {
+                console.error('提交錯誤:', error);
+                alert('❌ 提交失敗，請稍後再試\n\n或直接透過以下方式聯繫我們：\n📞 電話：0933-721-978\n📧 Email：s9000721@gmail.com');
+            } finally {
+                // 恢復按鈕狀態
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
     </script>
     <script src="./js/orange-animation.js?v=20251004i"></script>
