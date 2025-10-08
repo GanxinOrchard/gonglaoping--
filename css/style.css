@@ -420,31 +420,32 @@ ul {
 .dropdown {
     position: relative;
 }
-/* 下拉選單 */
+
+/* 下拉選單 - 完全模仿參考網站 gen-power.tw 的效果 */
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    min-width: 200px;
+    left: 0;
+    min-width: 180px;
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    padding: 15px 0;
+    border-radius: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 10001 !important;
-    margin-top: 5px;
+    margin-top: 0;
     pointer-events: none;
+    border-top: 2px solid var(--primary-color);
 }
 
 .dropdown:hover .dropdown-menu,
-.dropdown.active .dropdown-menu,
-.dropdown-menu:hover {
+.dropdown.active .dropdown-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
@@ -452,44 +453,36 @@ ul {
 .dropdown::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -2px;
     left: 0;
     right: 0;
-    height: 10px;
+    height: 2px;
+}
+
+.dropdown-menu li {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
 }
 
 .dropdown-menu li a {
     display: block;
-    padding: 12px 25px;
-    color: #333;
+    padding: 12px 20px;
+    color: #555;
     text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 15px;
+    transition: all 0.2s ease;
+    font-size: 14px;
     white-space: nowrap;
     position: relative;
-    overflow: hidden;
-}
-
-.dropdown-menu li a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 4px;
-    background: var(--primary-color);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    background: white;
 }
 
 .dropdown-menu li a:hover {
-    background: linear-gradient(90deg, #fff5f0 0%, white 100%);
+    background: #f8f8f8;
     color: var(--primary-color);
-    padding-left: 30px;
-}
-
-.dropdown-menu li a:hover::before {
-    transform: translateX(0);
+    padding-left: 25px;
 }
 
 /* ===== Hero Slider ===== */

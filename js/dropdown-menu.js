@@ -1,6 +1,7 @@
 /**
  * 導覽列下拉選單功能
  * 支援桌面版和手機版
+ * 仿照參考網站的滑動動畫效果
  */
 
 (function() {
@@ -17,87 +18,48 @@
                 display: flex;
                 align-items: center;
                 gap: 5px;
+                position: relative;
             }
             
             .dropdown-arrow {
                 font-size: 10px;
-                transition: transform 0.3s;
+                transition: transform 0.3s ease;
             }
             
-            .dropdown.active .dropdown-arrow {
+            .dropdown.active .dropdown-arrow,
+            .dropdown:hover .dropdown-arrow {
                 transform: rotate(180deg);
-            }
-            
-            .dropdown-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                min-width: 200px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-                padding: 10px 0;
-                z-index: 1000;
-                margin-top: 5px;
-            }
-            
-            .dropdown.active .dropdown-menu {
-                display: block;
-                animation: fadeInDown 0.3s ease;
-            }
-            
-            @keyframes fadeInDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .dropdown-menu a {
-                display: block;
-                padding: 12px 20px;
-                color: #333;
-                text-decoration: none;
-                transition: all 0.3s;
-                font-size: 14px;
-            }
-            
-            .dropdown-menu a:hover {
-                background: #fff5f0;
-                color: var(--primary-color);
-                padding-left: 25px;
-            }
-            
-            .dropdown-menu a i {
-                margin-right: 8px;
-                color: var(--primary-color);
             }
             
             /* 手機版樣式 */
             @media (max-width: 992px) {
                 .dropdown-menu {
-                    position: static;
-                    box-shadow: none;
-                    background: #f8f9fa;
-                    margin: 0;
-                    padding: 0;
-                    border-radius: 0;
-                    border-left: 3px solid var(--primary-color);
-                    margin-left: 15px;
+                    position: static !important;
+                    box-shadow: none !important;
+                    background: #f8f9fa !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    border-radius: 0 !important;
+                    border-left: 3px solid var(--primary-color) !important;
+                    margin-left: 15px !important;
+                    border-top: none !important;
+                    transform: none !important;
+                    left: auto !important;
                 }
                 
-                .dropdown-menu a {
-                    padding: 10px 15px;
-                    font-size: 14px;
+                .dropdown-menu li {
+                    opacity: 1 !important;
+                    transform: none !important;
                 }
                 
-                .dropdown-menu a:hover {
-                    padding-left: 20px;
+                .dropdown-menu li a {
+                    padding: 10px 15px !important;
+                    font-size: 14px !important;
+                    border-bottom: none !important;
+                }
+                
+                .dropdown-menu li a:hover {
+                    padding-left: 20px !important;
                 }
             }
         </style>
@@ -185,28 +147,49 @@
             }
         });
         
-        // 桌面版：使用 hover 效果
-        if (window.innerWidth > 992) {
-            document.querySelectorAll('.dropdown').forEach(dropdown => {
-                dropdown.addEventListener('mouseenter', function() {
-                    this.classList.add('active');
+        // 桌面版：使用 hover 效果（CSS 已處理，這裡只是備用）
+        function initDesktopDropdown() {
+            if (window.innerWidth > 992) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    // 桌面版主要依賴 CSS :hover，這裡添加額外的支援
+                    dropdown.addEventListener('mouseenter', function() {
+                        // 關閉其他下拉選單
+                        document.querySelectorAll('.dropdown').forEach(d => {
+                            if (d !== this) d.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    });
+                    
+                    dropdown.addEventListener('mouseleave', function() {
+                        this.classList.remove('active');
+                    });
                 });
-                
-                dropdown.addEventListener('mouseleave', function() {
-                    this.classList.remove('active');
-                });
-            });
-        } else {
-            // 手機版：使用點擊事件
-            document.querySelectorAll('.dropdown > a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const dropdown = this.parentElement;
-                    dropdown.classList.toggle('active');
-                });
-            });
+            }
         }
+        
+        // 手機版：使用點擊事件
+        function initMobileDropdown() {
+            if (window.innerWidth <= 992) {
+                document.querySelectorAll('.dropdown > a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const dropdown = this.parentElement;
+                        
+                        // 關閉其他下拉選單
+                        document.querySelectorAll('.dropdown').forEach(d => {
+                            if (d !== dropdown) d.classList.remove('active');
+                        });
+                        
+                        dropdown.classList.toggle('active');
+                    });
+                });
+            }
+        }
+        
+        // 初始化
+        initDesktopDropdown();
+        initMobileDropdown();
         
         // 確保下拉選單內的連結可以正常導航
         document.querySelectorAll('.dropdown-menu a').forEach(link => {
@@ -225,26 +208,19 @@
             }
         });
         
-        // 手機版：點擊箭頭展開/收合
-        function handleMobileDropdown() {
-            if (window.innerWidth <= 992) {
-                document.querySelectorAll('.dropdown > a').forEach(link => {
-                    // 移除桌面版的事件監聽器，添加手機版的行為
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const dropdown = this.parentElement;
-                        dropdown.classList.toggle('active');
-                    });
-                });
-            }
-        }
-        
-        handleMobileDropdown();
-        
         // 視窗大小改變時重新初始化
+        let resizeTimer;
         window.addEventListener('resize', function() {
-            handleMobileDropdown();
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                // 清除所有 active 狀態
+                document.querySelectorAll('.dropdown').forEach(d => {
+                    d.classList.remove('active');
+                });
+                // 重新初始化
+                initDesktopDropdown();
+                initMobileDropdown();
+            }, 250);
         });
     });
     
