@@ -25,12 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initOtherFeatures();
 });
 
-// 舊的選單初始化函數已被 mobile-menu-fix.js 取代
-// 保留此函數以避免其他地方的引用錯誤，但不執行任何操作
-function initMobileMenu() {
-    console.log('選單初始化已由 mobile-menu-fix.js 處理');
-}
-
 // 初始化其他功能
 function initOtherFeatures() {
     
@@ -116,17 +110,7 @@ function initOtherFeatures() {
     createBackToTopButton();
 }
 
-// 頁面可見性變化時重新初始化選單（修復頁面跳轉後選單失效問題）
-document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-        // 延遲一點時間確保 DOM 已完全載入
-        setTimeout(() => {
-            if (document.getElementById('mobileMenuToggle')) {
-                initMobileMenu();
-            }
-        }, 100);
-    }
-});
+// 頁面可見性變化處理已由 mobile-menu-fix.js 處理
 
 // 創建回到頂部按鈕
 function createBackToTopButton() {
