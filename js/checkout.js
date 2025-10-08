@@ -179,12 +179,33 @@ function applyDiscount() {
     
     const discount = discountCodes[code];
     if (!discount) {
-        showDiscountMessage('折扣碼無效或已過期', 'error');
+        showDiscountMessage('折扣碼無效', 'error');
         return;
     }
     
+    // 檢查日期有效性
+    const now = new Date();
+    const currentYearMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+    
+    if (discount.validFrom && currentYearMonth < discount.validFrom) {
+        showDiscountMessage('折扣碼尚未生效', 'error');
+        return;
+    }
+    
+    if (discount.validTo && currentYearMonth > discount.validTo) {
+        showDiscountMessage('折扣碼已過期', 'error');
+        return;
+    }
+    
+    // 檢查最低消費金額
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
+    if (discount.minAmount && subtotal < discount.minAmount) {
+        showDiscountMessage(`此折扣碼需消費滿 NT$ ${discount.minAmount.toLocaleString()}`, 'error');
+        return;
+    }
+    
+    // 計算折扣金額
     if (discount.type === 'percentage') {
         orderData.discountAmount = Math.round(subtotal * (discount.value / 100));
     } else {
@@ -247,51 +268,102 @@ function selectDelivery(type) {
 
 // ========== 第2步：表單處理 ==========
 
+// 儲存事件監聽器引用，以便移除
+let buyerInputListeners = {
+    name: null,
+    email: null,
+    phone: null,
+    address: null
+};
+
 /**
  * 同購買人資料
  */
 function copySameAsBuyer() {
     const checked = document.getElementById('sameAsBuyer').checked;
     
+    const buyerName = document.getElementById('buyerName');
+    const buyerEmail = document.getElementById('buyerEmail');
+    const buyerPhone = document.getElementById('buyerPhone');
+    const buyerAddress = document.getElementById('buyerAddress');
+    
+    const receiverName = document.getElementById('receiverName');
+    const receiverEmail = document.getElementById('receiverEmail');
+    const receiverPhone = document.getElementById('receiverPhone');
+    const receiverAddress = document.getElementById('receiverAddress');
+    
     if (checked) {
         // 複製購買人資料到收件人
-        const buyerName = document.getElementById('buyerName');
-        const buyerEmail = document.getElementById('buyerEmail');
-        const buyerPhone = document.getElementById('buyerPhone');
-        const buyerAddress = document.getElementById('buyerAddress');
+        receiverName.value = buyerName.value || '';
+        receiverEmail.value = buyerEmail.value || '';
+        receiverPhone.value = buyerPhone.value || '';
+        receiverAddress.value = buyerAddress.value || '';
         
-        const receiverName = document.getElementById('receiverName');
-        const receiverEmail = document.getElementById('receiverEmail');
-        const receiverPhone = document.getElementById('receiverPhone');
-        const receiverAddress = document.getElementById('receiverAddress');
-        
-        if (buyerName) receiverName.value = buyerName.value;
-        if (buyerEmail) receiverEmail.value = buyerEmail.value;
-        if (buyerPhone) receiverPhone.value = buyerPhone.value;
-        if (buyerAddress) receiverAddress.value = buyerAddress.value;
-        
-        // 設置收件人欄位為唯讀
+        // 設置收件人欄位為唯讀並添加視覺提示
         receiverName.readOnly = true;
         receiverEmail.readOnly = true;
         receiverPhone.readOnly = true;
         receiverAddress.readOnly = true;
         
-        // 監聽購買人資料變化，自動同步到收件人
-        buyerName.addEventListener('input', function() { receiverName.value = this.value; });
-        buyerEmail.addEventListener('input', function() { receiverEmail.value = this.value; });
-        buyerPhone.addEventListener('input', function() { receiverPhone.value = this.value; });
-        buyerAddress.addEventListener('input', function() { receiverAddress.value = this.value; });
-    } else {
-        // 取消唯讀狀態
-        const receiverName = document.getElementById('receiverName');
-        const receiverEmail = document.getElementById('receiverEmail');
-        const receiverPhone = document.getElementById('receiverPhone');
-        const receiverAddress = document.getElementById('receiverAddress');
+        receiverName.style.backgroundColor = '#f0f0f0';
+        receiverEmail.style.backgroundColor = '#f0f0f0';
+        receiverPhone.style.backgroundColor = '#f0f0f0';
+        receiverAddress.style.backgroundColor = '#f0f0f0';
         
+        // 移除舊的事件監聽器（如果存在）
+        if (buyerInputListeners.name) {
+            buyerName.removeEventListener('input', buyerInputListeners.name);
+        }
+        if (buyerInputListeners.email) {
+            buyerEmail.removeEventListener('input', buyerInputListeners.email);
+        }
+        if (buyerInputListeners.phone) {
+            buyerPhone.removeEventListener('input', buyerInputListeners.phone);
+        }
+        if (buyerInputListeners.address) {
+            buyerAddress.removeEventListener('input', buyerInputListeners.address);
+        }
+        
+        // 創建新的事件監聽器並儲存引用
+        buyerInputListeners.name = function() { receiverName.value = this.value; };
+        buyerInputListeners.email = function() { receiverEmail.value = this.value; };
+        buyerInputListeners.phone = function() { receiverPhone.value = this.value; };
+        buyerInputListeners.address = function() { receiverAddress.value = this.value; };
+        
+        // 監聽購買人資料變化，自動同步到收件人
+        buyerName.addEventListener('input', buyerInputListeners.name);
+        buyerEmail.addEventListener('input', buyerInputListeners.email);
+        buyerPhone.addEventListener('input', buyerInputListeners.phone);
+        buyerAddress.addEventListener('input', buyerInputListeners.address);
+    } else {
+        // 移除事件監聽器
+        if (buyerInputListeners.name) {
+            buyerName.removeEventListener('input', buyerInputListeners.name);
+            buyerInputListeners.name = null;
+        }
+        if (buyerInputListeners.email) {
+            buyerEmail.removeEventListener('input', buyerInputListeners.email);
+            buyerInputListeners.email = null;
+        }
+        if (buyerInputListeners.phone) {
+            buyerPhone.removeEventListener('input', buyerInputListeners.phone);
+            buyerInputListeners.phone = null;
+        }
+        if (buyerInputListeners.address) {
+            buyerAddress.removeEventListener('input', buyerInputListeners.address);
+            buyerInputListeners.address = null;
+        }
+        
+        // 取消唯讀狀態並恢復原始樣式
         receiverName.readOnly = false;
         receiverEmail.readOnly = false;
         receiverPhone.readOnly = false;
         receiverAddress.readOnly = false;
+        
+        receiverName.style.backgroundColor = '';
+        receiverEmail.style.backgroundColor = '';
+        receiverPhone.style.backgroundColor = '';
+        receiverAddress.style.backgroundColor = '';
     }
 }
 
@@ -575,8 +647,24 @@ function processLinePay(orderInfo) {
  * 提交訂單
  */
 function submitOrder() {
+    console.log('submitOrder 函數被調用');
+    
+    // 防止重複提交
+    const submitBtn = document.querySelector('.btn-submit');
+    if (submitBtn && submitBtn.disabled) {
+        console.log('訂單正在處理中，請勿重複提交');
+        return;
+    }
+    
     if (!confirm('確定要送出訂單嗎？')) {
         return;
+    }
+    
+    // 禁用提交按鈕，防止重複提交
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '處理中...';
+        submitBtn.style.opacity = '0.6';
     }
     
     // 收集訂單資料
@@ -653,39 +741,55 @@ function submitOrder() {
         orderNumber: 'GX' + Date.now()
     };
     
-    // 儲存訂單到 localStorage
-    localStorage.setItem('currentOrder', JSON.stringify(orderInfo));
-    localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
-    
-    // 提交訂單到 Google Sheets（如果有設定 GAS URL）
-    if (GAS_WEB_APP_URL && GAS_WEB_APP_URL !== 'YOUR_GAS_WEB_APP_URL_HERE') {
-        submitOrderToGAS(orderInfo).then(result => {
-            if (result.success) {
-                console.log('訂單已成功提交到 Google Sheets');
-            } else {
-                console.error('提交到 Google Sheets 失敗:', result.error);
-            }
-        });
-    }
-    
-    // 如果選擇 LINE Pay，跳轉到 LINE Pay 頁面
-    if (orderInfo.payment === 'linepay') {
-        processLinePay(orderInfo);
+    try {
+        // 儲存訂單到 localStorage
+        localStorage.setItem('currentOrder', JSON.stringify(orderInfo));
+        localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
+        
+        console.log('訂單資料已儲存:', orderInfo);
+        
+        // 提交訂單到 Google Sheets（如果有設定 GAS URL）
+        if (GAS_WEB_APP_URL && GAS_WEB_APP_URL !== 'YOUR_GAS_WEB_APP_URL_HERE') {
+            submitOrderToGAS(orderInfo).then(result => {
+                if (result.success) {
+                    console.log('訂單已成功提交到 Google Sheets');
+                } else {
+                    console.error('提交到 Google Sheets 失敗:', result.error);
+                }
+            });
+        }
+        
+        // 如果選擇 LINE Pay，跳轉到 LINE Pay 頁面
+        if (orderInfo.payment === 'linepay') {
+            processLinePay(orderInfo);
+            // 清空購物車
+            clearCart();
+            // 清空表單資料
+            localStorage.removeItem('checkoutFormData');
+            return;
+        }
+        
         // 清空購物車
         clearCart();
+        
         // 清空表單資料
         localStorage.removeItem('checkoutFormData');
-        return;
+        
+        console.log('準備跳轉到訂單完成頁面');
+        
+        // 跳轉到訂單完成頁面
+        window.location.href = 'order-complete.html';
+    } catch (error) {
+        console.error('提交訂單時發生錯誤:', error);
+        alert('提交訂單時發生錯誤，請稍後再試');
+        
+        // 重新啟用提交按鈕
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> 確認送出訂單';
+            submitBtn.style.opacity = '1';
+        }
     }
-    
-    // 清空購物車
-    clearCart();
-    
-    // 清空表單資料
-    localStorage.removeItem('checkoutFormData');
-    
-    // 跳轉到訂單完成頁面
-    window.location.href = 'order-complete.html';
 }
 
 // ========== 初始化 ==========
@@ -776,5 +880,21 @@ document.addEventListener('DOMContentLoaded', function() {
         orderNote.addEventListener('input', function() {
             noteCharCount.textContent = this.value.length;
         });
+    }
+    
+    // 確保提交按鈕事件正確綁定
+    const submitBtn = document.querySelector('.btn-submit');
+    if (submitBtn) {
+        console.log('找到提交按鈕，綁定點擊事件');
+        // 移除可能存在的舊事件監聽器
+        submitBtn.onclick = null;
+        // 添加新的事件監聽器
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('提交按鈕被點擊');
+            submitOrder();
+        });
+    } else {
+        console.warn('未找到提交按鈕');
     }
 });
