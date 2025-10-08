@@ -425,7 +425,12 @@ function doPost(e) {
     });
     if (rows.length) shI.getRange(shI.getLastRow()+1, 1, rows.length, 10).setValues(rows);
 
-    if (SEND_MAIL) {
+    // 檢查是否使用 LINE Pay
+    const isLinePay = LINEPAY.enabled && String(data.payMethod||'').toLowerCase() === 'linepay';
+    
+    // LINE Pay 付款：先不寄信，等付款成功後再寄
+    // 銀行轉帳：立即寄信
+    if (!isLinePay && SEND_MAIL) {
       const ok = sendOrderCreatedMail_({ 
         orderNo, 
         buyerName, buyerEmail, buyerPhone, buyerAddr,
@@ -438,7 +443,8 @@ function doPost(e) {
       markMailStateByOrderNo_(orderNo, ok===true ? '已寄信(成立)' : '寄信失敗(成立)：'+ok, ok===true);
     }
 
-    if (LINEPAY.enabled && String(data.payMethod||'').toLowerCase() === 'linepay') {
+    // 處理 LINE Pay 付款
+    if (isLinePay) {
       const lp = linePayRequest_({ orderNo, amount: total, productName: LINEPAY.title });
       return json_({ ok:true, order_no: orderNo, linepay: { webUrl: lp.webUrl, appUrl: lp.appUrl, transactionId: lp.transactionId } });
     }
@@ -763,20 +769,65 @@ function doGet(e) {
         const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
         const cNo = head.indexOf('訂單編號')+1;
         const cTotal = head.indexOf('應付金額')+1;
+        
+        // 取得訂單完整資料
         let amount = 0;
+        let orderData = null;
         if (cNo>0 && cTotal>0) {
           const last = sh.getLastRow();
           if (last>=2){
-            const vals = sh.getRange(2,1,last-1, Math.max(cTotal, cNo)).getValues();
+            const vals = sh.getRange(2,1,last-1, sh.getLastColumn()).getValues();
             for (let i=0;i<vals.length;i++){
-              if (String(vals[i][cNo-1]).trim() === orderNo) { amount = Number(vals[i][cTotal-1])||0; break; }
+              if (String(vals[i][cNo-1]).trim() === orderNo) { 
+                amount = Number(vals[i][cTotal-1])||0;
+                orderData = vals[i];
+                break;
+              }
             }
           }
         }
         if (!amount) return linePayFinishPage_(false, '查無訂單金額，無法確認付款', orderNo);
 
+        // 確認 LINE Pay 付款
         linePayConfirm_(transactionId, amount);
         setOrderPayState_(orderNo, '已匯款');
+
+        // 付款成功後寄送訂單確認信
+        if (SEND_MAIL && orderData) {
+          try {
+            const buyerName = orderData[head.indexOf('購買人姓名')] || '';
+            const buyerEmail = orderData[head.indexOf('購買人Email')] || '';
+            const buyerPhone = orderData[head.indexOf('購買人手機')] || '';
+            const buyerAddr = orderData[head.indexOf('購買人地址')] || '';
+            const receiverName = orderData[head.indexOf('收件人姓名')] || '';
+            const receiverEmail = orderData[head.indexOf('收件人Email')] || '';
+            const receiverPhone = orderData[head.indexOf('收件人手機')] || '';
+            const receiverAddr = orderData[head.indexOf('收件人地址')] || '';
+            const delivery = orderData[head.indexOf('配送方式')] || '';
+            const payment = orderData[head.indexOf('付款方式')] || '';
+            const subtotal = Number(orderData[head.indexOf('商品小計')]) || 0;
+            const shipping = Number(orderData[head.indexOf('運費')]) || 0;
+            const discountCode = orderData[head.indexOf('折扣碼')] || '';
+            const discountAmount = Number(orderData[head.indexOf('折扣金額')]) || 0;
+            const remark = orderData[head.indexOf('訂單備註')] || '';
+            
+            // 取得訂單明細
+            const items = getItemsByOrderNo_(orderNo);
+            
+            const ok = sendOrderCreatedMail_({ 
+              orderNo, 
+              buyerName, buyerEmail, buyerPhone, buyerAddr,
+              receiverName, receiverEmail, receiverPhone, receiverAddr,
+              delivery, payment,
+              subtotal, shipping, discountCode, discountAmount, total: amount,
+              items, 
+              remark 
+            });
+            markMailStateByOrderNo_(orderNo, ok===true ? '已寄信(LINE Pay付款成功)' : '寄信失敗(LINE Pay)：'+ok, ok===true);
+          } catch (mailErr) {
+            Logger.log('LINE Pay 付款成功但寄信失敗: ' + mailErr);
+          }
+        }
 
         return linePayFinishPage_(true, '我們已收到您的款項，將儘速安排出貨。', orderNo);
       }catch(err){
