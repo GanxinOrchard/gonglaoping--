@@ -3,13 +3,15 @@
 // 版本：2.0 - 2025-10-04
 // ========================================
 
-// 購物車資料
-let cart = [];
+// 購物車資料 - 使用 var 確保全局作用域
+var cart = [];
 try {
     cart = JSON.parse(localStorage.getItem('cart')) || [];
 } catch (e) {
     cart = [];
 }
+// 同時賦值給 window.cart 確保全局可訪問
+window.cart = cart;
 
 // 運費設定
 const FREE_SHIPPING_THRESHOLD = 1800;
@@ -124,6 +126,7 @@ function clearCart() {
 // 儲存購物車
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
+    window.cart = cart; // 同步到 window.cart
 }
 
 // 計算總計
