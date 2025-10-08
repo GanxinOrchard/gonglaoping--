@@ -704,15 +704,16 @@
             const container = document.getElementById('recommendedProducts');
             if (container) {
                 container.innerHTML = products.map(product => `
-                    <a href="${product.link}" style="min-width: 250px; text-decoration: none; color: inherit;">
-                        <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s;">
-                            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover;">
-                            <div style="padding: 15px;">
-                                <h3 style="font-size: 16px; margin-bottom: 10px; color: #333;">${product.name}</h3>
-                                <p style="color: var(--primary-color); font-size: 20px; font-weight: 700;">NT$ ${product.price}</p>
-                            </div>
+                    <div style="min-width: 250px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; display: flex; flex-direction: column;">
+                        <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover; cursor: pointer;" onclick="window.location.href='${product.link}'">
+                        <div style="padding: 15px; flex: 1; display: flex; flex-direction: column;">
+                            <h3 style="font-size: 16px; margin-bottom: 10px; color: #333; cursor: pointer;" onclick="window.location.href='${product.link}'">${product.name}</h3>
+                            <p style="color: var(--primary-color); font-size: 20px; font-weight: 700; margin-bottom: 15px;">NT$ ${product.price}</p>
+                            <a href="${product.link}" style="margin-top: auto; display: block; text-align: center; padding: 12px 20px; background: var(--primary-color); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" onmouseover="this.style.background='#d35400'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'" onmouseout="this.style.background='var(--primary-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.1)'">
+                                <i class="fas fa-shopping-bag"></i> 查看詳情
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 `).join('');
             }
         }
