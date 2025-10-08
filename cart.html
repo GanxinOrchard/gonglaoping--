@@ -280,6 +280,20 @@
                 margin: 80px auto 40px;
             }
             
+            /* 隱藏購物車頁面的 logo 和購物車圖標 */
+            .cart-page .header .logo {
+                display: none !important;
+            }
+            
+            .cart-page .header .cart-icon {
+                display: none !important;
+            }
+            
+            .cart-page .header .nav-icons {
+                margin-left: auto !important;
+                justify-content: flex-end !important;
+            }
+            
             .steps-indicator {
                 flex-wrap: wrap;
                 gap: 10px;
@@ -290,9 +304,10 @@
             }
             
             .cart-item {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 15px;
-                padding: 15px;
+                padding: 20px;
             }
             
             .cart-item-image {
@@ -656,6 +671,63 @@
                 }
             });
         });
+        
+        // 載入推薦商品
+        function loadRecommendedProducts() {
+            const products = [
+                {
+                    name: '公老坪椪柑 10斤裝',
+                    price: 850,
+                    image: './images/椪柑產品圖/椪柑1.jpg',
+                    link: 'product-detail.html?id=ponkan-10-25A'
+                },
+                {
+                    name: '東勢茂谷柑 10斤裝',
+                    price: 980,
+                    image: './images/茂谷柑產品圖/茂谷柑1.jpg',
+                    link: 'product-detail.html?id=murcott-10-25A'
+                },
+                {
+                    name: '冷凍菱角仁 600g',
+                    price: 280,
+                    image: './images/菱角產品圖/菱角1.jpg',
+                    link: 'product-detail.html?id=water-chestnut-600g'
+                },
+                {
+                    name: '冷凍芋角 600g',
+                    price: 250,
+                    image: './images/芋角產品圖/芋角1.jpg',
+                    link: 'product-detail.html?id=taro-600g'
+                }
+            ];
+            
+            const container = document.getElementById('recommendedProducts');
+            if (container) {
+                container.innerHTML = products.map(product => `
+                    <a href="${product.link}" style="min-width: 250px; text-decoration: none; color: inherit;">
+                        <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div style="padding: 15px;">
+                                <h3 style="font-size: 16px; margin-bottom: 10px; color: #333;">${product.name}</h3>
+                                <p style="color: var(--primary-color); font-size: 20px; font-weight: 700;">NT$ ${product.price}</p>
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+        }
+        
+        // 輪播功能
+        function scrollRecommended(direction) {
+            const container = document.getElementById('recommendedProducts');
+            if (container) {
+                const scrollAmount = 270;
+                container.scrollLeft += scrollAmount * direction;
+            }
+        }
+        
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', loadRecommendedProducts);
     </script>
 </body>
 </html>
