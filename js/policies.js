@@ -428,8 +428,9 @@ const policiesData = {
             
             <div class="highlight-box">
                 <p><strong>運費說明</strong><br>
-                全館消費滿 NT$1,800 免運費！<br>
-                未滿 NT$1,800 需加收運費 NT$150</p>
+                最低訂購金額 NT$500<br>
+                未滿 NT$1,800 需加收運費 NT$180<br>
+                全館消費滿 NT$1,800 免運費！</p>
             </div>
             
             <div class="highlight-box">

@@ -13,7 +13,8 @@ try {
 
 // 運費設定
 const FREE_SHIPPING_THRESHOLD = 1800;
-const SHIPPING_FEE = 150;
+const SHIPPING_FEE = 180;
+const MIN_ORDER_AMOUNT = 500;
 
 // 折扣碼設定
 const discountCodes = {
