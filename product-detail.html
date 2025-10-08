@@ -685,6 +685,33 @@
                 font-size: 16px;
             }
             
+            /* 手機版元素順序調整 - 加入購物車按鈕移到商品特色上方 */
+            .product-detail-info {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .spec-selector {
+                order: 1;
+            }
+            
+            #preorderNotice {
+                order: 2;
+            }
+            
+            .product-actions {
+                order: 3;
+                margin-bottom: 20px;
+            }
+            
+            .product-detail-features {
+                order: 4;
+            }
+            
+            #flavorIndicators {
+                order: 5;
+            }
+            
             /* 評論區 - 手機版 */
             .reviews-header {
                 flex-direction: column;
