@@ -42,10 +42,11 @@
             isAnimating = true;
             isOpen = true;
             
-            // 更新 class
-            drawer.classList.add('open');
-            overlay.classList.add('active');
-            document.body.classList.add('menu-open');
+        // 更新 class
+        drawer.classList.add('open');
+        drawer.classList.add('active');
+        overlay.classList.add('active');
+        document.body.classList.add('menu-open');
             
             // 更新按鈕狀態
             if (button) {
@@ -77,6 +78,7 @@
             
             // 更新 class
             drawer.classList.remove('open');
+            drawer.classList.remove('active');
             overlay.classList.remove('active');
             document.body.classList.remove('menu-open');
             

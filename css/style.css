@@ -2844,9 +2844,46 @@ ul {
         display: block;
     }
     
-    /* 隱藏原來的漢堡按鈕 */
+    /* 顯示漢堡按鈕 */
     .mobile-menu-toggle {
-        display: none !important;
+        display: flex !important;
+        background: var(--white);
+        border: 2px solid var(--primary-color);
+        border-radius: 8px;
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 6px rgba(255, 140, 66, 0.2);
+        z-index: 1001 !important;
+        position: relative;
+    }
+    
+    .mobile-menu-toggle:hover {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: scale(1.05);
+    }
+    
+    .mobile-menu-toggle i {
+        font-size: 18px;
+        color: var(--primary-color);
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-toggle:hover i {
+        color: var(--white);
+    }
+    
+    .mobile-menu-toggle.active {
+        background: var(--primary-color);
+    }
+    
+    .mobile-menu-toggle.active i {
+        color: var(--white);
+        transform: rotate(90deg);
     }
     
     .hero-slider {
@@ -3405,6 +3442,12 @@ ul {
         margin-top: 0 !important;
         border-top: none !important;
         display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .main-menu.open {
+        right: 0 !important;
     }
     
     .main-menu.active {
@@ -3417,7 +3460,7 @@ ul {
         margin: 0 !important;
     }
     
-    /* 手機選單背景遮罩 - 只作為視覺效果，不阻擋點擊 */
+    /* 手機選單背景遮罩 - 可點擊關閉 */
     .menu-overlay {
         position: fixed !important;
         top: 0 !important;
@@ -3425,19 +3468,17 @@ ul {
         width: 100vw !important;
         height: 100vh !important;
         background: rgba(0, 0, 0, 0.5) !important;
-        z-index: 50 !important;
+        z-index: 999998 !important;
         opacity: 0 !important;
         visibility: hidden !important;
         transition: all 0.3s ease !important;
-        display: none !important;
         pointer-events: none !important;
     }
     
     .menu-overlay.active {
-        display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
-        pointer-events: none !important;
+        pointer-events: auto !important;
     }
     
     /* 選單在最上層，完全可點選 */
