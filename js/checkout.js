@@ -7,22 +7,25 @@
 
 // 確保 cart 變數存在（從 localStorage 載入）
 // 如果 cart.js 還沒載入或 cart 為空，從 localStorage 載入
-if (typeof window.cart === 'undefined') {
-    window.cart = [];
-}
-if (!window.cart || window.cart.length === 0) {
-    try {
-        const savedCart = localStorage.getItem('cart');
-        if (savedCart) {
-            window.cart = JSON.parse(savedCart);
-        }
-    } catch (e) {
-        console.error('載入購物車失敗:', e);
+(function() {
+    if (typeof window.cart === 'undefined') {
         window.cart = [];
     }
-}
-// 使用全局 cart 變數
-const cart = window.cart;
+    if (!window.cart || window.cart.length === 0) {
+        try {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                window.cart = JSON.parse(savedCart);
+            }
+        } catch (e) {
+            console.error('載入購物車失敗:', e);
+            window.cart = [];
+        }
+    }
+})();
+
+// 直接使用 window.cart，不創建新變數避免衝突
+var cart = window.cart;
 
 let currentStep = 1;
 let orderData = {
