@@ -124,7 +124,7 @@ ul {
     /* 手機版導航列佈局 */
     .nav-content {
         justify-content: space-between !important;
-        padding-right: 70px !important;
+        padding: 0 15px !important;
     }
     
     .logo {
@@ -138,12 +138,9 @@ ul {
     .nav-icons {
         order: 2;
         margin-left: auto !important;
-        gap: 10px !important;
-    }
-    
-    /* 隱藏 nav-icons 中的漢堡按鈕，使用固定定位的 */
-    .nav-icons .mobile-menu-toggle {
-        display: none !important;
+        gap: 12px !important;
+        display: flex !important;
+        align-items: center;
     }
 }
 
