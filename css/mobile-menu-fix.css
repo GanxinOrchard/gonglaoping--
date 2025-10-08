@@ -57,13 +57,14 @@
         transform: rotate(90deg);
     }
     
-    /* 隱藏 nav-icons 中的按鈕，只使用固定定位的 */
+    /* 確保 nav-icons 中的漢堡按鈕顯示 */
     .nav-icons .mobile-menu-toggle {
-        display: none !important;
+        display: flex !important;
     }
     
+    /* 隱藏懸浮漢堡按鈕 */
     .floating-menu-btn {
-        display: flex !important;
+        display: none !important;
     }
 }
 

@@ -2768,8 +2768,9 @@ ul {
     color: #999;
 }
 
-/* ===== 懸浮購物車按鈕 ===== */
+/* ===== 懸浮購物車按鈕（已停用）===== */
 .floating-cart-btn {
+    display: none !important;
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
