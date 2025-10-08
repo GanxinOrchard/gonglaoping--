@@ -575,18 +575,50 @@
             const shuffled = [...products].sort(() => 0.5 - Math.random());
             const recommended = shuffled; // 顯示所有商品
             
-            container.innerHTML = recommended.map(product => `
+            container.innerHTML = recommended.map(product => {
+                const hasSpecs = product.specs && product.specs.length > 0;
+                const specOptions = hasSpecs ? product.specs.map(spec => 
+                    `<option value="${spec}">${spec}</option>`
+                ).join('') : '';
+                
+                return `
                 <div style="min-width: 280px; max-width: 280px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                     <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
                     <h4 style="font-size: 18px; margin-bottom: 10px; color: #333; min-height: 48px;">${product.name}</h4>
                     <p style="color: var(--primary-color); font-weight: bold; font-size: 20px; margin-bottom: 15px;">NT$ ${product.price.toLocaleString()}</p>
-                    <button onclick="addToCart(${product.id}); renderCartPage();" style="width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; transition: all 0.3s;" onmouseover="this.style.background='var(--secondary-color)'" onmouseout="this.style.background='var(--primary-color)'">
+                    ${hasSpecs ? `
+                        <select id="spec-${product.id}" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 14px; cursor: pointer;">
+                            <option value="">請選擇規格</option>
+                            ${specOptions}
+                        </select>
+                    ` : ''}
+                    <button onclick="addToCartWithSpec(${product.id}, ${hasSpecs}); renderCartPage();" style="width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; transition: all 0.3s;" onmouseover="this.style.background='var(--secondary-color)'" onmouseout="this.style.background='var(--primary-color)'">
                         <i class="fas fa-cart-plus"></i> 加入購物車
                     </button>
                 </div>
-            `).join('');
+            `;
+            }).join('');
             
             section.style.display = 'block';
+        }
+        
+        // 加入購物車（含規格選擇）
+        function addToCartWithSpec(productId, hasSpecs) {
+            if (hasSpecs) {
+                const specSelect = document.getElementById(`spec-${productId}`);
+                const selectedSpec = specSelect.value;
+                
+                if (!selectedSpec) {
+                    alert('請選擇商品規格');
+                    return;
+                }
+                
+                // 使用選擇的規格加入購物車
+                addToCart(productId, selectedSpec);
+            } else {
+                // 沒有規格的商品直接加入
+                addToCart(productId);
+            }
         }
         
         // 輪播滾動功能
