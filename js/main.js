@@ -18,115 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 初始化選單功能
-    initMobileMenu();
+    // 選單功能已由 mobile-menu-fix.js 處理，此處不再初始化
+    // initMobileMenu();
+    
+    // 初始化其他功能
+    initOtherFeatures();
 });
 
-// 將選單初始化獨立成函數，確保每次都能正確綁定
+// 舊的選單初始化函數已被 mobile-menu-fix.js 取代
+// 保留此函數以避免其他地方的引用錯誤，但不執行任何操作
 function initMobileMenu() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const floatingMenuBtn = document.getElementById('floatingMenuBtn');
-    const mainMenu = document.getElementById('mainMenu');
-    
-    // 創建手機選單遮罩（純視覺效果，不阻擋點擊）
-    let menuOverlay = document.getElementById('menuOverlay');
-    if (!menuOverlay) {
-        menuOverlay = document.createElement('div');
-        menuOverlay.id = 'menuOverlay';
-        menuOverlay.className = 'menu-overlay';
-        document.body.appendChild(menuOverlay);
-    }
-    
-    // 點擊選單外的區域關閉選單
-    document.addEventListener('click', (e) => {
-        if (mainMenu && mainMenu.classList.contains('active')) {
-            // 如果點擊的不是選單內容，也不是 Menu 按鈕
-            if (!mainMenu.contains(e.target) && 
-                !e.target.closest('#floatingMenuBtn') && 
-                !e.target.closest('#mobileMenuToggle')) {
-                closeMenu();
-            }
-        }
-    });
-    
-    // 關閉選單的統一函數
-    function closeMenu() {
-        if (mainMenu) mainMenu.classList.remove('active');
-        if (menuOverlay) menuOverlay.classList.remove('active');
-        if (mobileMenuToggle) {
-            mobileMenuToggle.classList.remove('active');
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        }
-        if (floatingMenuBtn) {
-            floatingMenuBtn.classList.remove('active');
-            const icon = floatingMenuBtn.querySelector('i');
-            if (icon) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        }
-        document.body.style.overflow = '';
-    }
-    
-    // 開啟選單的統一函數
-    function openMenu(button) {
-        if (mainMenu) mainMenu.classList.add('active');
-        if (menuOverlay) menuOverlay.classList.add('active');
-        if (button) {
-            button.classList.add('active');
-            const icon = button.querySelector('i');
-            if (icon) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            }
-        }
-        document.body.style.overflow = 'hidden';
-    }
-    
-    // 綁定原來的漢堡按鈕（如果存在）
-    if (mobileMenuToggle && mainMenu) {
-        // 移除舊的事件監聽器（如果存在）
-        const newToggle = mobileMenuToggle.cloneNode(true);
-        mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
-        
-        newToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const isActive = mainMenu.classList.contains('active');
-            if (isActive) {
-                closeMenu();
-            } else {
-                openMenu(newToggle);
-            }
-        });
-    }
-    
-    // 綁定懸浮 Menu 按鈕
-    if (floatingMenuBtn && mainMenu) {
-        // 移除舊的事件監聽器（如果存在）
-        const newFloatingBtn = floatingMenuBtn.cloneNode(true);
-        floatingMenuBtn.parentNode.replaceChild(newFloatingBtn, floatingMenuBtn);
-        
-        newFloatingBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const isActive = mainMenu.classList.contains('active');
-            if (isActive) {
-                closeMenu();
-            } else {
-                openMenu(newFloatingBtn);
-            }
-        });
-    }
-    
-    // 手機版下拉選單（由 dropdown-menu.js 處理）
-    // 此處已移除重複的處理邏輯，避免與 dropdown-menu.js 衝突
+    console.log('選單初始化已由 mobile-menu-fix.js 處理');
+}
+
+// 初始化其他功能
+function initOtherFeatures() {
     
     // 平滑滾動
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -142,11 +48,6 @@ function initMobileMenu() {
             
             if (target) {
                 e.preventDefault();
-                
-                // 關閉手機選單
-                if (mainMenu) {
-                    mainMenu.classList.remove('active');
-                }
                 
                 // 平滑滾動到目標
                 target.scrollIntoView({

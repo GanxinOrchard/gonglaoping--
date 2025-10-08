@@ -70,6 +70,7 @@
     <meta http-equiv="Cache-Control" content="public, max-age=31536000">
     <link rel="preload" href="./css/style.css" as="style">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
@@ -113,11 +114,11 @@
                     </div>
                     
                     <div class="nav-icons">
-                        <a href="#" class="cart-icon" id="cartIcon">
+                        <a href="cart.html" class="cart-icon" id="cartIcon">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="cart-count" id="cartCount">0</span>
                         </a>
-                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
                             <i class="fas fa-bars"></i>
                         </button>
                     </div>
@@ -381,7 +382,7 @@
     </section>
 
     <!-- 懸浮 Menu 按鈕 -->
-    <button class="floating-menu-btn" id="floatingMenuBtn" aria-label="開啟選單">
+    <button type="button" class="floating-menu-btn" id="floatingMenuBtn" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
         <i class="fas fa-bars"></i>
     </button>
 
@@ -545,6 +546,7 @@
     </footer>
 
     <!-- 只載入必要的 JavaScript -->
+    <script src="./js/mobile-menu-fix.js" defer></script>
     <script src="./js/dropdown-menu.js" defer></script>
     <script src="./js/products.js?v=20251004i" defer></script>
     <script src="./js/cart.js?v=20251004i" defer></script>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手機選單測試頁面 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            padding-top: 100px;
+        }
+        .test-section {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .test-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .test-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .test-card li:last-child {
+            border-bottom: none;
+        }
+        .test-card li::before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .status-pass {
+            background: #4caf50;
+            color: white;
+        }
+        .status-fail {
+            background: #f44336;
+            color: white;
+        }
+        .test-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        .test-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        #testResults {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        .result-item {
+            padding: 8px 0;
+            font-family: monospace;
+        }
+        .result-pass {
+            color: #4caf50;
+        }
+        .result-fail {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <!-- 跑馬燈 -->
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <i class="fas fa-bullhorn"></i>
+            <span>🧪 手機選單測試頁面 - 請在手機或開發者工具的行動模擬模式下測試</span>
+        </div>
+    </div>
+    
+    <!-- 導航欄 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="./images/商標.jpg" alt="柑心果園" width="180" height="60">
+                        </a>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)">本季嚴選 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="season-recommend.html">當季推薦</a></li>
+                                <li><a href="season-ponkan.html">椪柑產季</a></li>
+                                <li><a href="season-murcott.html">茂谷柑產季</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)">全部商品 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="products.html?category=優質水果">優質水果</a></li>
+                                <li><a href="products.html?category=新鮮蔬果">新鮮蔬果</a></li>
+                                <li><a href="products.html?category=冷凍食品">冷凍食品</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 懸浮 Menu 按鈕 -->
+    <button type="button" class="floating-menu-btn" id="floatingMenuBtn" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- 測試內容 -->
+    <main class="test-section">
+        <div class="test-card">
+            <h2>📱 手機選單修復測試</h2>
+            <p><strong>測試環境：</strong>請在 iOS Safari、Android Chrome 或瀏覽器的行動模擬模式下測試</p>
+            <p><strong>螢幕寬度：</strong><span id="screenWidth"></span>px</p>
+        </div>
+
+        <div class="test-card">
+            <h2>✅ 驗收標準</h2>
+            <ul>
+                <li>點擊漢堡按鈕，選單從右側滑入</li>
+                <li>選單打開時，按鈕圖示變成 ✕</li>
+                <li>點擊選單外部（遮罩），選單關閉</li>
+                <li>點擊選單內部，選單不關閉</li>
+                <li>點擊下拉選單，子選單展開/收合</li>
+                <li>點擊選單內的連結，選單自動關閉並導航</li>
+                <li>按 ESC 鍵，選單關閉</li>
+                <li>連續快速點擊漢堡按鈕，不會出現異常</li>
+                <li>在 iOS 和 Android 上都能 100% 觸發</li>
+                <li>沒有「瞬間打開又關閉」的問題</li>
+            </ul>
+        </div>
+
+        <div class="test-card">
+            <h2>🧪 自動測試</h2>
+            <button class="test-button" onclick="runTests()">執行自動測試</button>
+            <button class="test-button" onclick="testRapidClick()">測試快速點擊</button>
+            <button class="test-button" onclick="clearResults()">清除結果</button>
+            <div id="testResults"></div>
+        </div>
+
+        <div class="test-card">
+            <h2>🔍 問題排查清單</h2>
+            <ul>
+                <li>檢查按鈕是否有 type="button" 屬性</li>
+                <li>檢查是否有 aria-expanded 屬性</li>
+                <li>檢查 z-index 層級是否正確</li>
+                <li>檢查是否有重複的事件監聽器</li>
+                <li>檢查點擊外部關閉的延遲是否足夠</li>
+                <li>檢查是否有 stopPropagation() 阻止冒泡</li>
+                <li>檢查 transform 動畫是否流暢</li>
+                <li>檢查是否有 -webkit-tap-highlight-color</li>
+            </ul>
+        </div>
+
+        <div class="test-card">
+            <h2>📝 原因分析</h2>
+            <h3>為什麼原站會「偶發失敗」？</h3>
+            <ol style="padding-left: 20px;">
+                <li><strong>事件衝突：</strong>使用 cloneNode() 重複綁定事件，導致事件監聽器失效或重複觸發</li>
+                <li><strong>時序問題：</strong>點擊外部關閉的事件在選單打開瞬間就被綁定，導致立即觸發關閉</li>
+                <li><strong>z-index 混亂：</strong>多個元素的 z-index 設定不明確，導致按鈕被其他元素遮擋</li>
+                <li><strong>缺少防抖：</strong>沒有 isAnimating 標記，快速點擊會導致狀態混亂</li>
+                <li><strong>觸控優化不足：</strong>缺少 -webkit-tap-highlight-color 和 touch-action 設定</li>
+            </ol>
+        </div>
+
+        <div class="test-card">
+            <h2>✨ 修復方案</h2>
+            <ol style="padding-left: 20px;">
+                <li><strong>移除 cloneNode：</strong>直接綁定事件，不重複創建節點</li>
+                <li><strong>延遲綁定外部點擊：</strong>使用 setTimeout 延遲 300ms 綁定外部點擊事件</li>
+                <li><strong>明確 z-index：</strong>設定清晰的層級：漢堡(1001) > 抽屜(1000) > 遮罩(999)</li>
+                <li><strong>添加動畫鎖：</strong>使用 isAnimating 標記防止動畫期間的重複操作</li>
+                <li><strong>觸控優化：</strong>添加 -webkit-tap-highlight-color 和 touch-action</li>
+                <li><strong>使用 type="button"：</strong>防止按鈕觸發表單提交</li>
+                <li><strong>添加 stopPropagation：</strong>防止事件冒泡導致的誤觸發</li>
+            </ol>
+        </div>
+    </main>
+
+    <script src="./js/mobile-menu-fix.js"></script>
+    <script>
+        // 顯示螢幕寬度
+        function updateScreenWidth() {
+            document.getElementById('screenWidth').textContent = window.innerWidth;
+        }
+        updateScreenWidth();
+        window.addEventListener('resize', updateScreenWidth);
+
+        // 自動測試
+        function runTests() {
+            const results = document.getElementById('testResults');
+            results.style.display = 'block';
+            results.innerHTML = '<h3>測試結果：</h3>';
+            
+            const tests = [
+                {
+                    name: '按鈕是否有 type="button"',
+                    test: () => {
+                        const btn = document.getElementById('mobileMenuToggle');
+                        return btn && btn.getAttribute('type') === 'button';
+                    }
+                },
+                {
+                    name: '按鈕是否有 aria-expanded',
+                    test: () => {
+                        const btn = document.getElementById('mobileMenuToggle');
+                        return btn && btn.hasAttribute('aria-expanded');
+                    }
+                },
+                {
+                    name: '選單是否存在',
+                    test: () => {
+                        return document.getElementById('mainMenu') !== null;
+                    }
+                },
+                {
+                    name: '遮罩是否存在',
+                    test: () => {
+                        return document.getElementById('menuOverlay') !== null;
+                    }
+                },
+                {
+                    name: '懸浮按鈕是否存在',
+                    test: () => {
+                        return document.getElementById('floatingMenuBtn') !== null;
+                    }
+                },
+                {
+                    name: 'CSS 檔案是否載入',
+                    test: () => {
+                        const links = document.querySelectorAll('link[rel="stylesheet"]');
+                        return Array.from(links).some(link => link.href.includes('mobile-menu-fix.css'));
+                    }
+                },
+                {
+                    name: 'JS 檔案是否載入',
+                    test: () => {
+                        const scripts = document.querySelectorAll('script');
+                        return Array.from(scripts).some(script => script.src.includes('mobile-menu-fix.js'));
+                    }
+                }
+            ];
+            
+            tests.forEach(test => {
+                const passed = test.test();
+                const className = passed ? 'result-pass' : 'result-fail';
+                const icon = passed ? '✓' : '✗';
+                results.innerHTML += `<div class="result-item ${className}">${icon} ${test.name}</div>`;
+            });
+        }
+
+        // 測試快速點擊
+        function testRapidClick() {
+            const btn = document.getElementById('mobileMenuToggle');
+            if (!btn) return;
+            
+            alert('將進行 10 次快速點擊測試，請觀察選單是否正常開關');
+            
+            let count = 0;
+            const interval = setInterval(() => {
+                btn.click();
+                count++;
+                if (count >= 10) {
+                    clearInterval(interval);
+                    alert('快速點擊測試完成！如果選單狀態正常，表示測試通過。');
+                }
+            }, 200);
+        }
+
+        // 清除結果
+        function clearResults() {
+            document.getElementById('testResults').style.display = 'none';
+            document.getElementById('testResults').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
