@@ -55,8 +55,8 @@ function goToStep(step) {
     // 滾動到頂部
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    // 如果是第3步，顯示確認資訊
-    if (step === 3) {
+    // 如果是第2步，顯示確認資訊
+    if (step === 2) {
         showOrderConfirmation();
     }
     
@@ -70,15 +70,27 @@ function goToStep(step) {
  * 更新步驟指示器
  */
 function updateStepIndicator(activeStep) {
-    for (let i = 1; i <= 3; i++) {
-        const indicator = document.getElementById(`step${i}-indicator`);
-        indicator.classList.remove('active', 'completed');
-        
-        if (i === activeStep) {
-            indicator.classList.add('active');
-        } else if (i < activeStep) {
-            indicator.classList.add('completed');
-        }
+    // 步驟1（購物車）永遠是已完成
+    const step1 = document.getElementById('step1-indicator');
+    step1.classList.remove('active');
+    step1.classList.add('completed');
+    
+    // 步驟2（寄送付款方式）
+    const step2 = document.getElementById('step2-indicator');
+    step2.classList.remove('active', 'completed');
+    if (activeStep === 1) {
+        step2.classList.add('active');
+    } else if (activeStep > 1) {
+        step2.classList.add('completed');
+    }
+    
+    // 步驟3（完成訂單）
+    const step3 = document.getElementById('step3-indicator');
+    step3.classList.remove('active', 'completed');
+    if (activeStep === 2) {
+        step3.classList.add('active');
+    } else if (activeStep > 2) {
+        step3.classList.add('completed');
     }
 }
 
@@ -251,9 +263,9 @@ function selectPayment(type) {
 }
 
 /**
- * 驗證並前往第3步
+ * 驗證並前往第2步（完成訂單）
  */
-function validateAndGoToStep3() {
+function validateAndGoToStep2() {
     // 驗證必填欄位
     const buyerName = document.getElementById('buyerName').value.trim();
     const buyerEmail = document.getElementById('buyerEmail').value.trim();
@@ -318,8 +330,8 @@ function validateAndGoToStep3() {
     // 儲存表單資料
     saveFormData();
     
-    // 前往第3步
-    goToStep(3);
+    // 前往第2步（完成訂單）
+    goToStep(2);
 }
 
 /**
@@ -685,9 +697,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 渲染購物車
     renderCartItems();
-    
-    // 渲染推薦商品
-    renderRecommendedProducts();
     
     // 載入表單資料
     loadFormData();
