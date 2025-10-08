@@ -554,9 +554,11 @@
         <div class="step-content active" id="step1">
             <!-- 購買人資料 -->
             <div class="section-box">
-                <h2 class="section-title">
-                    <i class="fas fa-user"></i>
-                    購買人資料
+                <h2 class="section-title" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span><i class="fas fa-user"></i> 購買人資料</span>
+                    <button type="button" onclick="clearSavedFormData()" style="font-size: 14px; padding: 6px 12px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">
+                        <i class="fas fa-trash"></i> 清除記憶
+                    </button>
                 </h2>
                 <div class="form-group">
                     <label>姓名 <span class="required">*</span></label>

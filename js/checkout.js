@@ -511,6 +511,41 @@ function loadFormData() {
     }
 }
 
+/**
+ * 清除儲存的表單資料
+ */
+function clearSavedFormData() {
+    if (confirm('確定要清除所有儲存的表單資料嗎？\n下次填寫時將不會自動帶入資料。')) {
+        // 清除 localStorage
+        localStorage.removeItem('checkoutFormData');
+        
+        // 清空所有表單欄位
+        document.getElementById('buyerName').value = '';
+        document.getElementById('buyerEmail').value = '';
+        document.getElementById('buyerPhone').value = '';
+        document.getElementById('buyerAddress').value = '';
+        document.getElementById('receiverName').value = '';
+        if (document.getElementById('receiverEmail')) {
+            document.getElementById('receiverEmail').value = '';
+        }
+        document.getElementById('receiverPhone').value = '';
+        document.getElementById('receiverAddress').value = '';
+        if (document.getElementById('orderNote')) {
+            document.getElementById('orderNote').value = '';
+        }
+        
+        // 取消勾選「同購買人資料」
+        const sameAsBuyer = document.getElementById('sameAsBuyer');
+        if (sameAsBuyer && sameAsBuyer.checked) {
+            sameAsBuyer.checked = false;
+            copySameAsBuyer(); // 觸發一次以恢復收件人欄位狀態
+        }
+        
+        alert('✓ 已清除所有儲存的表單資料');
+        console.log('表單記憶已清除');
+    }
+}
+
 // ========== 第3步：訂單確認 ==========
 
 /**
