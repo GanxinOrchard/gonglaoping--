@@ -539,9 +539,9 @@
             const section = document.getElementById('recommendedSection');
             if (!container || typeof products === 'undefined') return;
             
-            // 隨機選擇6個商品（輪播顯示）
-            const shuffled = products.sort(() => 0.5 - Math.random());
-            const recommended = shuffled.slice(0, 6);
+            // 顯示所有商品，隨機排序
+            const shuffled = [...products].sort(() => 0.5 - Math.random());
+            const recommended = shuffled; // 顯示所有商品
             
             container.innerHTML = recommended.map(product => `
                 <div style="min-width: 280px; max-width: 280px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
