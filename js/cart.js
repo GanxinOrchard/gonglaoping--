@@ -290,6 +290,16 @@ function removeFromCart(productId, specId = null) {
     removeCartItem(productId, specId);
 }
 
+// 生成訂單編號
+function generateOrderNumber() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    return `${year}${month}${day}${random}`;
+}
+
 // 更新金額顯示（全域函數）
 function updateAmounts() {
     const { subtotal, discount, shipping, total } = calculatePrice();
@@ -327,6 +337,72 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 初始更新金額
     updateAmounts();
+    
+    // 結帳表單提交處理
+    const checkoutForm = document.getElementById('checkoutForm');
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // 收集表單資料
+            const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || '[]');
+            if (cart.length === 0) {
+                alert('購物車是空的');
+                return;
+            }
+            
+            const { subtotal, discount, shipping, total } = calculatePrice();
+            const payment = document.querySelector('input[name="payment"]:checked')?.value || 'linepay';
+            
+            const formData = {
+                orderNumber: generateOrderNumber(),
+                name: document.getElementById('customerName')?.value || '',
+                phone: document.getElementById('customerPhone')?.value || '',
+                email: document.getElementById('customerEmail')?.value || '',
+                address: document.getElementById('customerAddress')?.value || '',
+                note: document.getElementById('customerNote')?.value || '',
+                payment: payment,
+                cart: cart,
+                subtotal: subtotal,
+                discount: discount,
+                shipping: shipping,
+                total: total,
+                timestamp: new Date().toISOString()
+            };
+            
+            // 儲存訂單資訊到 localStorage
+            localStorage.setItem('lastOrder', JSON.stringify(formData));
+            
+            // 關閉結帳彈窗
+            const checkoutModal = document.getElementById('checkoutModal');
+            if (checkoutModal) {
+                checkoutModal.style.display = 'none';
+            }
+            
+            // 顯示載入中
+            showLoading();
+            
+            // TODO: 發送到 Google Apps Script
+            // const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+            // try {
+            //     const response = await fetch(GAS_URL, {
+            //         method: 'POST',
+            //         mode: 'no-cors',
+            //         headers: { 'Content-Type': 'application/json' },
+            //         body: JSON.stringify(formData)
+            //     });
+            // } catch (error) {
+            //     console.error('訂單提交失敗:', error);
+            // }
+            
+            // 模擬延遲
+            setTimeout(() => {
+                hideLoading();
+                // 跳轉到完成頁面
+                window.location.href = 'order-complete.html';
+            }, 1000);
+        });
+    }
     
     // 折扣碼套用
     const applyBtn = document.querySelector('[data-action="apply-coupon"]');
