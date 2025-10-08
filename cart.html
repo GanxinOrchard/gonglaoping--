@@ -596,18 +596,18 @@
         </div>
 
         <!-- 推薦商品輪播 -->
-        <div class="cart-content" id="recommendedSection" style="margin-top: 30px;">
+        <div id="recommendedSection" style="margin-top: 30px; background: #f8f9fa; padding: 40px 0; width: 100vw; margin-left: calc(-50vw + 50%);">
             <h2 style="text-align: center; font-size: 28px; margin-bottom: 30px; color: #333;">
                 <i class="fas fa-heart" style="color: var(--primary-color);"></i> 您可能也喜歡
             </h2>
             <div style="position: relative; overflow: hidden;">
-                <button class="carousel-btn carousel-prev" onclick="scrollRecommended(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <button class="carousel-btn carousel-prev" onclick="scrollRecommended(-1)" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;">
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div id="recommendedProducts" style="display: flex; overflow-x: auto; scroll-behavior: smooth; gap: 20px; padding: 10px 60px; scrollbar-width: none; -ms-overflow-style: none;">
                     <!-- 推薦商品將由 JavaScript 動態載入 -->
                 </div>
-                <button class="carousel-btn carousel-next" onclick="scrollRecommended(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <button class="carousel-btn carousel-next" onclick="scrollRecommended(1)" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
