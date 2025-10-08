@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // 初始化選單功能
+    initMobileMenu();
+});
+
+// 將選單初始化獨立成函數，確保每次都能正確綁定
+function initMobileMenu() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const floatingMenuBtn = document.getElementById('floatingMenuBtn');
     const mainMenu = document.getElementById('mainMenu');
@@ -83,7 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 綁定原來的漢堡按鈕（如果存在）
     if (mobileMenuToggle && mainMenu) {
-        mobileMenuToggle.addEventListener('click', (e) => {
+        // 移除舊的事件監聽器（如果存在）
+        const newToggle = mobileMenuToggle.cloneNode(true);
+        mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
+        
+        newToggle.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             
@@ -91,14 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isActive) {
                 closeMenu();
             } else {
-                openMenu(mobileMenuToggle);
+                openMenu(newToggle);
             }
         });
     }
     
     // 綁定懸浮 Menu 按鈕
     if (floatingMenuBtn && mainMenu) {
-        floatingMenuBtn.addEventListener('click', (e) => {
+        // 移除舊的事件監聽器（如果存在）
+        const newFloatingBtn = floatingMenuBtn.cloneNode(true);
+        floatingMenuBtn.parentNode.replaceChild(newFloatingBtn, floatingMenuBtn);
+        
+        newFloatingBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             
@@ -106,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isActive) {
                 closeMenu();
             } else {
-                openMenu(floatingMenuBtn);
+                openMenu(newFloatingBtn);
             }
         });
     }
@@ -199,6 +213,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 回到頂部按鈕
     createBackToTopButton();
+}
+
+// 頁面可見性變化時重新初始化選單（修復頁面跳轉後選單失效問題）
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        // 延遲一點時間確保 DOM 已完全載入
+        setTimeout(() => {
+            if (document.getElementById('mobileMenuToggle')) {
+                initMobileMenu();
+            }
+        }, 100);
+    }
 });
 
 // 創建回到頂部按鈕
