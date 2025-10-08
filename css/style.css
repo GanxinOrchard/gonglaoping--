@@ -440,6 +440,7 @@ ul {
 }
 
 .dropdown:hover .dropdown-menu,
+.dropdown.active .dropdown-menu,
 .dropdown-menu:hover {
     opacity: 1;
     visibility: visible;

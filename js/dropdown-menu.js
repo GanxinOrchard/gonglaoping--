@@ -115,6 +115,9 @@
         const menuItems = mainMenu.querySelectorAll('li');
         
         menuItems.forEach(item => {
+            // 跳過已經有 dropdown class 的項目（HTML 中已手動設定）
+            if (item.classList.contains('dropdown')) return;
+            
             const link = item.querySelector('a');
             if (!link) return;
             
@@ -182,25 +185,28 @@
             }
         });
         
-        // 添加點擊事件（桌面版）
-        document.querySelectorAll('.dropdown > a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const dropdown = this.parentElement;
-                const isActive = dropdown.classList.contains('active');
-                
-                // 關閉所有下拉選單
-                document.querySelectorAll('.dropdown').forEach(d => {
-                    d.classList.remove('active');
+        // 桌面版：使用 hover 效果
+        if (window.innerWidth > 992) {
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    this.classList.add('active');
                 });
                 
-                // 切換當前下拉選單
-                if (!isActive) {
-                    dropdown.classList.add('active');
-                }
+                dropdown.addEventListener('mouseleave', function() {
+                    this.classList.remove('active');
+                });
             });
-        });
+        } else {
+            // 手機版：使用點擊事件
+            document.querySelectorAll('.dropdown > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const dropdown = this.parentElement;
+                    dropdown.classList.toggle('active');
+                });
+            });
+        }
         
         // 確保下拉選單內的連結可以正常導航
         document.querySelectorAll('.dropdown-menu a').forEach(link => {
