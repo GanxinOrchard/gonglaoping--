@@ -2,7 +2,7 @@
 // 結帳頁面 JS (checkout.html)
 // ========================================
 
-const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw1nW-SRQDCWtABT0uB5IBPb4pk2jBusZlbm3_bwCBdcwBUGwH1wjyRm3PB9Is0Ysej/exec';
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxnAaMzz10UpbJ0WFJwhH_1b93GC1VA3JFw464vi122koHCoHjrSD_Ou4FHUjo266CB/exec';
 
 // localStorage keys
 const STORAGE_KEYS = {

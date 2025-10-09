@@ -622,7 +622,7 @@ function showOrderConfirmation() {
 }
 
 // Google Apps Script Web App URL（請替換為您的 GAS 部署 URL）
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw1nW-SRQDCWtABT0uB5IBPb4pk2jBusZlbm3_bwCBdcwBUGwH1wjyRm3PB9Is0Ysej/exec';
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxnAaMzz10UpbJ0WFJwhH_1b93GC1VA3JFw464vi122koHCoHjrSD_Ou4FHUjo266CB/exec';
 
 /**
  * 提交訂單到 Google Sheets

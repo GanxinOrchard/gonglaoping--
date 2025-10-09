@@ -12,7 +12,7 @@
         SHIPPING_FEE: 180,
         FREE_SHIPPING_THRESHOLD: 1800,
         MIN_ORDER: 500,
-        GAS_ENDPOINT: 'https://script.google.com/macros/s/AKfycbw1nW-SRQDCWtABT0uB5IBPb4pk2jBusZlbm3_bwCBdcwBUGwH1wjyRm3PB9Is0Ysej/exec',
+        GAS_ENDPOINT: 'https://script.google.com/macros/s/AKfycbxnAaMzz10UpbJ0WFJwhH_1b93GC1VA3JFw464vi122koHCoHjrSD_Ou4FHUjo266CB/exec',
         
         COUPONS: {
             'GANXIN100': { type: 'amount', value: 100, min: 1000, desc: '滿1000折100' },
