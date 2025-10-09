@@ -1566,7 +1566,7 @@ function showBulkMailDialog() {
           
           google.script.run
             .withSuccessHandler(result => {
-              showResult(`發送完成！成功：${result.success} 封，失敗：${result.failed} 封`, 'success');
+              showResult('發送完成！成功：' + result.success + ' 封，失敗：' + result.failed + ' 封', 'success');
             })
             .withFailureHandler(error => {
               showResult('發送失敗：' + error.message, 'error');
@@ -1766,67 +1766,7 @@ function confirmLinePayPayment_(transactionId, amount) {
   }
 }
 
-// 更新訂單狀態
-function updateOrderStatus_(orderId, status) {
-  try {
-    const sh = $.sheet(SHEET_ORDER);
-    const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
-    const orderIdCol = head.indexOf('訂單編號')+1;
-    const statusCol = head.indexOf('款項狀態')+1;
-    
-    if (orderIdCol < 1) return false;
-    
-    const last = sh.getLastRow();
-    if (last < 2) return false;
-    
-    const vals = sh.getRange(2, orderIdCol, last-1, 1).getValues();
-    for (let i = 0; i < vals.length; i++) {
-      if (String(vals[i][0]).trim() === orderId) {
-        if (statusCol > 0) {
-          sh.getRange(i + 2, statusCol).setValue(status);
-        }
-        return true;
-      }
-    }
-    
-    return false;
-    
-  } catch (error) {
-    Logger.log('更新訂單狀態錯誤: ' + error.toString());
-    return false;
-  }
-}
 
-// 根據訂單編號查詢訂單
-function getOrderById_(orderId) {
-  try {
-    const sh = $.sheet(SHEET_ORDER);
-    const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
-    const orderIdCol = head.indexOf('訂單編號')+1;
-    
-    if (orderIdCol < 1) return null;
-    
-    const last = sh.getLastRow();
-    if (last < 2) return null;
-    
-    const vals = sh.getRange(2,1,last-1, sh.getLastColumn()).getValues();
-    for (let i = 0; i < vals.length; i++) {
-      if (String(vals[i][orderIdCol-1]).trim() === orderId) {
-        const order = {};
-        head.forEach(function(header, index) {
-          order[header] = vals[i][index];
-        });
-        return order;
-      }
-    }
-    
-    return null;
-    
-  } catch (error) {
-    Logger.log('查詢訂單錯誤: ' + error.toString());
-    return null;
-  }
-}
 
 // 寫入訂單到試算表
 function writeOrderToSheet_(orderData) {
