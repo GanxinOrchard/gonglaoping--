@@ -94,13 +94,17 @@
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
         z-index: 2147483647 !important; /* 最高層：確保抽屜在遮罩之上 */
         overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch !important;
         padding: 0 !important;
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: auto !important;
         contain: layout paint style; /* 建立獨立繪製上下文，減少外部影響 */
         position: relative;
+        /* 改善滑動體驗 */
+        overscroll-behavior: contain !important;
+        touch-action: manipulation !important;
+        will-change: transform !important;
     }
     
     /* 橘子背景裝飾 */
@@ -365,9 +369,18 @@
 
 /* 7. 防止選單打開時背景滾動 */
 body.menu-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
+    overflow: hidden !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100vh !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    /* 改善滑動體驗 */
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    touch-action: pan-y !important;
 }
 
 /* 當選單開啟時，關閉外部懸浮按鈕/小工具互動與顯示（覆蓋第三方極端 z-index） */
