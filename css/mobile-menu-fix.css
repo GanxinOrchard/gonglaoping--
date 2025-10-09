@@ -237,6 +237,28 @@ body.menu-open {
     width: 100%;
 }
 
+/* 當選單開啟時，關閉外部懸浮按鈕/小工具互動與顯示（覆蓋第三方極端 z-index） */
+@media (max-width: 992px) {
+    body.menu-open .back-to-top,
+    body.menu-open .floating-cart,
+    body.menu-open .floating-cart-btn,
+    body.menu-open .floating-menu-btn,
+    body.menu-open .grecaptcha-badge,
+    body.menu-open .fb_dialog,
+    body.menu-open [class*="chat"],
+    body.menu-open [class*="Chat"],
+    body.menu-open [class*="widget"],
+    body.menu-open [class*="Widget"],
+    body.menu-open [class*="float"],
+    body.menu-open [class*="Float"],
+    body.menu-open [class*="bubble"],
+    body.menu-open [class*="Bubble"] {
+        z-index: 0 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+}
+
 /* 8. 觸控優化 */
 @media (max-width: 992px) {
     .main-menu a,
