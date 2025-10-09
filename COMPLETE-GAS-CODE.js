@@ -59,6 +59,7 @@ function onOpen() {
     .createMenu('柑心果園')
       .addItem('📊 打開統計面板', 'showDashboard')
       .addSeparator()
+      .addItem('🚀 初始化系統（第一次使用）', 'initializeSystem')
       .addItem('⚙️ 安裝/更新觸發器', 'setupTriggers')
       .addItem('✉️ 授權 Gmail（跑一次）', 'authorizeGmail_')
       .addSeparator()
@@ -1136,6 +1137,369 @@ function buildWeeklySummary_({useShipDate, scope, targetDate}){
     Logger.log('buildWeeklySummary_ 錯誤: ' + error.toString());
     SpreadsheetApp.getUi().alert('統計失敗：' + error.toString());
   }
+}
+
+/////////////////////// 系統初始化 ///////////////////////
+function initializeSystem() {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let createdSheets = [];
+    let createdTemplates = [];
+    
+    // 1. 創建主要工作表
+    const mainSheets = [
+      { name: SHEET_ORDER, headers: getOrderHeaders() },
+      { name: SHEET_ITEM, headers: getItemHeaders() },
+      { name: SHEET_CONTACT, headers: getContactHeaders() },
+      { name: SHEET_SUMMARY, headers: getSummaryHeaders() },
+      { name: '規格統計', headers: ['規格', '數量', '統計範圍', '統計條件'] },
+      { name: '週統計', headers: ['日期', '訂單數', '總金額', '統計條件'] },
+      { name: '郵件模板', headers: getEmailTemplateHeaders() },
+      { name: '客戶名單', headers: ['姓名', 'Email', '手機', '地址', '註冊時間', '最後購買', '購買次數', '總金額', '標籤'] }
+    ];
+    
+    mainSheets.forEach(sheetInfo => {
+      let sheet = ss.getSheetByName(sheetInfo.name);
+      if (!sheet) {
+        sheet = ss.insertSheet(sheetInfo.name);
+        createdSheets.push(sheetInfo.name);
+      }
+      
+      // 設定標題行
+      if (sheet.getLastRow() === 0) {
+        sheet.getRange(1, 1, 1, sheetInfo.headers.length).setValues([sheetInfo.headers]);
+        sheet.getRange(1, 1, 1, sheetInfo.headers.length).setFontWeight('bold');
+        sheet.getRange(1, 1, 1, sheetInfo.headers.length).setBackground('#f0f0f0');
+      }
+    });
+    
+    // 2. 創建郵件模板
+    const emailTemplates = [
+      {
+        name: '訂單確認信',
+        subject: '【柑心果園】訂單確認 - {{orderNo}}',
+        content: getOrderConfirmationTemplate()
+      },
+      {
+        name: '出貨通知信',
+        subject: '【柑心果園】商品已出貨 - {{orderNo}}',
+        content: getShippingNotificationTemplate()
+      },
+      {
+        name: '優惠活動通知',
+        subject: '【柑心果園】限時優惠活動 - {{title}}',
+        content: getPromotionTemplate()
+      },
+      {
+        name: '折扣碼通知',
+        subject: '【柑心果園】專屬折扣碼 - {{code}}',
+        content: getDiscountTemplate()
+      },
+      {
+        name: '預購通知',
+        subject: '【柑心果園】預購商品上架通知 - {{productName}}',
+        content: getPreOrderTemplate()
+      }
+    ];
+    
+    let templateSheet = ss.getSheetByName('郵件模板');
+    if (templateSheet) {
+      emailTemplates.forEach(template => {
+        const lastRow = templateSheet.getLastRow() + 1;
+        templateSheet.getRange(lastRow, 1, 1, 3).setValues([
+          [template.name, template.subject, template.content]
+        ]);
+        createdTemplates.push(template.name);
+      });
+    }
+    
+    // 3. 創建功能說明工作表
+    const helpSheet = ss.getSheetByName('系統說明');
+    if (!helpSheet) {
+      const help = ss.insertSheet('系統說明');
+      help.getRange(1, 1, 1, 2).setValues([['功能', '說明']]);
+      help.getRange(1, 1, 1, 2).setFontWeight('bold');
+      help.getRange(1, 1, 1, 2).setBackground('#e8f4fd');
+      
+      const helpData = [
+        ['📊 統計面板', '查看各種統計數據和報表'],
+        ['📧 郵件模板', '管理各種郵件模板'],
+        ['📋 訂單管理', '查看和管理所有訂單'],
+        ['📦 明細管理', '查看訂單商品明細'],
+        ['📞 聯絡表單', '查看客戶聯絡訊息'],
+        ['📈 出貨統計', '查看出貨相關統計'],
+        ['🏷️ 規格統計', '按規格統計商品數量'],
+        ['📅 週統計', '按週查看統計數據'],
+        ['👥 客戶名單', '管理客戶資料'],
+        ['⚙️ 觸發器', '自動化功能設定'],
+        ['✉️ Gmail授權', '郵件發送功能設定']
+      ];
+      
+      help.getRange(2, 1, helpData.length, 2).setValues(helpData);
+      help.autoResizeColumns(1, 2);
+      createdSheets.push('系統說明');
+    }
+    
+    // 4. 顯示結果
+    let message = '🎉 系統初始化完成！\n\n';
+    
+    if (createdSheets.length > 0) {
+      message += '✅ 已創建工作表：\n';
+      createdSheets.forEach(name => message += `   • ${name}\n`);
+      message += '\n';
+    }
+    
+    if (createdTemplates.length > 0) {
+      message += '✅ 已創建郵件模板：\n';
+      createdTemplates.forEach(name => message += `   • ${name}\n`);
+      message += '\n';
+    }
+    
+    message += '📋 接下來請：\n';
+    message += '1. 執行「授權 Gmail」\n';
+    message += '2. 執行「安裝/更新觸發器」\n';
+    message += '3. 查看「系統說明」工作表了解各功能\n';
+    message += '4. 在「郵件模板」中自訂郵件內容';
+    
+    SpreadsheetApp.getUi().alert(message);
+    
+  } catch (error) {
+    Logger.log('系統初始化錯誤: ' + error.toString());
+    SpreadsheetApp.getUi().alert('初始化失敗：' + error.toString());
+  }
+}
+
+// 輔助函數：獲取各工作表的標題
+function getOrderHeaders() {
+  return [
+    '訂單編號', '建立時間', '購買人姓名', '購買人Email', '購買人手機', '購買人地址',
+    '收件人姓名', '收件人Email', '收件人手機', '收件人地址', '配送方式', '付款方式',
+    '商品小計', '運費', '折扣碼', '折扣金額', '應付金額', '款項狀態', '出貨狀態',
+    '物流單號', '出貨日期', '訂單備註', '寄信狀態', '寄信結果', 'LINE Pay交易ID'
+  ];
+}
+
+function getItemHeaders() {
+  return [
+    '訂單編號', '商品名稱', '規格', '數量', '單價', '小計', '建立時間', '出貨狀態', '出貨日期'
+  ];
+}
+
+function getContactHeaders() {
+  return [
+    '姓名', 'Email', '手機', '訊息內容', '提交時間', '處理狀態', '回覆內容', '回覆時間'
+  ];
+}
+
+function getSummaryHeaders() {
+  return [
+    '日期', '訂單數', '總金額', '已出貨數', '已出貨金額', '待出貨數', '待出貨金額'
+  ];
+}
+
+function getEmailTemplateHeaders() {
+  return ['模板名稱', '主旨', '內容'];
+}
+
+// 郵件模板內容
+function getOrderConfirmationTemplate() {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>訂單確認</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="color: #ff6b35;">🍊 柑心果園</h1>
+      <h2>訂單確認通知</h2>
+    </div>
+    
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <h3>訂單資訊</h3>
+      <p><strong>訂單編號：</strong>{{orderNo}}</p>
+      <p><strong>訂單時間：</strong>{{orderTime}}</p>
+      <p><strong>付款方式：</strong>{{paymentMethod}}</p>
+      <p><strong>總金額：</strong>NT$ {{totalAmount}}</p>
+    </div>
+    
+    <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+      <h3>商品明細</h3>
+      {{itemList}}
+    </div>
+    
+    <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; text-align: center;">
+      <p><strong>感謝您的購買！</strong></p>
+      <p>我們將盡快為您處理訂單，如有任何問題請聯繫我們。</p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+      <p>柑心果園 | 台中市石岡區石岡街61號 | 0933721978</p>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+function getShippingNotificationTemplate() {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>出貨通知</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="color: #ff6b35;">🍊 柑心果園</h1>
+      <h2>商品已出貨</h2>
+    </div>
+    
+    <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <h3>出貨資訊</h3>
+      <p><strong>訂單編號：</strong>{{orderNo}}</p>
+      <p><strong>出貨時間：</strong>{{shippingTime}}</p>
+      <p><strong>物流單號：</strong>{{trackingNumber}}</p>
+    </div>
+    
+    <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+      <h3>商品明細</h3>
+      {{itemList}}
+    </div>
+    
+    <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; text-align: center;">
+      <p><strong>商品已出貨！</strong></p>
+      <p>請注意查收，如有任何問題請聯繫我們。</p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+      <p>柑心果園 | 台中市石岡區石岡街61號 | 0933721978</p>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+function getPromotionTemplate() {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>優惠活動</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="color: #ff6b35;">🍊 柑心果園</h1>
+      <h2>{{title}}</h2>
+    </div>
+    
+    <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+      <h3 style="color: #856404;">🎉 限時優惠活動</h3>
+      <p style="font-size: 18px; color: #856404;"><strong>{{description}}</strong></p>
+    </div>
+    
+    <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+      <h3>活動詳情</h3>
+      {{content}}
+    </div>
+    
+    <div style="background: #d4edda; padding: 15px; border-radius: 8px; text-align: center;">
+      <p><strong>立即搶購！</strong></p>
+      <p>活動期間：{{startDate}} - {{endDate}}</p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+      <p>柑心果園 | 台中市石岡區石岡街61號 | 0933721978</p>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+function getDiscountTemplate() {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>折扣碼通知</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="color: #ff6b35;">🍊 柑心果園</h1>
+      <h2>專屬折扣碼</h2>
+    </div>
+    
+    <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+      <h3>您的專屬折扣碼</h3>
+      <div style="background: #fff; border: 2px dashed #28a745; padding: 15px; margin: 10px 0; border-radius: 8px;">
+        <p style="font-size: 24px; font-weight: bold; color: #28a745; margin: 0;">{{code}}</p>
+      </div>
+      <p><strong>折扣：{{discount}}%</strong></p>
+    </div>
+    
+    <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+      <h3>使用說明</h3>
+      <ul>
+        <li>結帳時輸入折扣碼即可享受優惠</li>
+        <li>使用期限：{{expiryDate}}</li>
+        <li>每人限用一次</li>
+        <li>不與其他優惠併用</li>
+      </ul>
+    </div>
+    
+    <div style="background: #d1ecf1; padding: 15px; border-radius: 8px; text-align: center;">
+      <p><strong>立即使用！</strong></p>
+      <p>前往官網選購您喜愛的商品</p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+      <p>柑心果園 | 台中市石岡區石岡街61號 | 0933721978</p>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+function getPreOrderTemplate() {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>預購通知</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="color: #ff6b35;">🍊 柑心果園</h1>
+      <h2>預購商品上架通知</h2>
+    </div>
+    
+    <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <h3>🎉 您關注的預購商品已上架！</h3>
+      <p><strong>商品名稱：</strong>{{productName}}</p>
+      <p><strong>上架時間：</strong>{{availableDate}}</p>
+      <p><strong>預購價格：</strong>NT$ {{price}}</p>
+    </div>
+    
+    <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+      <h3>商品介紹</h3>
+      {{productDescription}}
+    </div>
+    
+    <div style="background: #d4edda; padding: 15px; border-radius: 8px; text-align: center;">
+      <p><strong>立即預購！</strong></p>
+      <p>數量有限，先到先得</p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+      <p>柑心果園 | 台中市石岡區石岡街61號 | 0933721978</p>
+    </div>
+  </div>
+</body>
+</html>`;
 }
 function generateSpecCountsTodayAll(){ 
   buildSpecCount_({scope: 'today', shippedOnly: false});
