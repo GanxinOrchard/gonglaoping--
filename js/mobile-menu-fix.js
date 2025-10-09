@@ -215,30 +215,44 @@
             e.stopPropagation();
         });
         
-        // 處理下拉選單
+        // 處理下拉選單 - 移除舊的事件監聽器避免重複綁定
         const dropdowns = drawer.querySelectorAll('.dropdown > a');
         dropdowns.forEach(link => {
-            link.addEventListener('click', function(e) {
-                // 只在手機版才阻止默認行為
-                if (window.innerWidth <= 992) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const dropdown = this.parentElement;
-                    const wasActive = dropdown.classList.contains('active');
-                    
-                    // 關閉其他下拉選單
-                    drawer.querySelectorAll('.dropdown').forEach(d => {
-                        if (d !== dropdown) {
-                            d.classList.remove('active');
-                        }
-                    });
-                    
-                    // 切換當前下拉選單
-                    dropdown.classList.toggle('active');
-                }
-            });
+            // 移除舊的事件監聽器
+            link.removeEventListener('click', handleDropdownClick);
+            // 添加新的事件監聽器
+            link.addEventListener('click', handleDropdownClick);
         });
+        
+        // 下拉選單點擊處理函數
+        function handleDropdownClick(e) {
+            // 只在手機版才阻止默認行為
+            if (window.innerWidth <= 992) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dropdown = this.parentElement;
+                
+                // 關閉其他下拉選單
+                drawer.querySelectorAll('.dropdown').forEach(d => {
+                    if (d !== dropdown) {
+                        d.classList.remove('active');
+                    }
+                });
+                
+                // 切換當前下拉選單
+                dropdown.classList.toggle('active');
+                
+                // 確保下拉選單可見
+                if (dropdown.classList.contains('active')) {
+                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                    if (dropdownMenu) {
+                        dropdownMenu.style.display = 'block';
+                        dropdownMenu.style.maxHeight = '600px';
+                    }
+                }
+            }
+        }
         
         // 點擊選單內的連結後關閉選單（排除下拉選單的父連結）
         const menuLinks = drawer.querySelectorAll('a:not(.dropdown > a)');
@@ -271,6 +285,15 @@
                 }
             }, 250);
         });
+        
+        // 確保下拉選單事件正確綁定
+        setTimeout(() => {
+            const dropdowns = drawer.querySelectorAll('.dropdown > a');
+            dropdowns.forEach(link => {
+                link.removeEventListener('click', handleDropdownClick);
+                link.addEventListener('click', handleDropdownClick);
+            });
+        }, 200);
         
         console.log('✅ 手機選單已成功初始化');
     }

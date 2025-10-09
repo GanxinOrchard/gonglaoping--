@@ -303,35 +303,50 @@
     .dropdown-menu a {
         display: flex !important;
         align-items: center !important;
-        padding: 16px 25px !important;
+        padding: 18px 25px !important;
         font-size: 16px !important;
         font-weight: 500 !important;
         color: var(--text-dark) !important;
         text-decoration: none !important;
         border-bottom: 1px solid rgba(255,255,255,0.2) !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         position: relative !important;
+        line-height: 1.4 !important;
+        min-height: 52px !important;
     }
     
     .dropdown-menu a:before {
         content: "🍊" !important;
-        margin-right: 12px !important;
-        font-size: 16px !important;
+        margin-right: 15px !important;
+        font-size: 18px !important;
         transition: transform 0.3s ease !important;
+        flex-shrink: 0 !important;
     }
     
     .dropdown-menu a:hover {
         background: var(--primary-color) !important;
         color: var(--white) !important;
         padding-left: 35px !important;
+        transform: translateX(3px) !important;
     }
     
     .dropdown-menu a:hover:before {
-        transform: scale(1.2) !important;
+        transform: scale(1.2) rotate(5deg) !important;
     }
     
     .dropdown-menu a:last-child {
         border-bottom: none !important;
+    }
+    
+    /* 確保所有下拉選單項目樣式一致 */
+    .dropdown-menu li {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .dropdown-menu li a {
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
 
