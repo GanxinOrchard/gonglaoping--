@@ -52,6 +52,20 @@
             }
         }
         
+        @media (max-width: 992px) {
+            .knowledge-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                justify-content: center;
+            }
+            
+            .knowledge-card {
+                flex: none;
+                width: 100%;
+            }
+        }
+        
         .knowledge-card {
             flex: 0 0 350px;
             background: white;
