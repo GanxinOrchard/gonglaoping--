@@ -86,13 +86,13 @@
         right: 0 !important;
         bottom: 0 !important;
         left: auto !important;
-        width: 80vw !important;
-        max-width: 320px !important;
+        width: 85vw !important;
+        max-width: 360px !important;
         background: var(--white) !important;
         box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12) !important;
         transform: translateX(100%) !important; /* 統一用 transform 控制 */
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        z-index: 1000 !important;
+        z-index: 2147482999 !important; /* 高於多數第三方懸浮元件 */
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         padding-top: 20px !important;
@@ -151,7 +151,7 @@
     width: 100% !important;
     height: 100% !important;
     background: rgba(0, 0, 0, 0.5);
-    z-index: var(--z-menu-overlay) !important;
+    z-index: 2147483000 !important; /* 最高層，覆蓋外部懸浮按鈕 */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -219,6 +219,14 @@
         background: var(--white);
         padding-left: 25px !important;
         color: var(--primary-color);
+    }
+}
+
+/* 超小螢幕（<= 390px）- 滿版抽屜 */
+@media (max-width: 390px) {
+    .main-menu {
+        width: 100vw !important;
+        max-width: 100vw !important;
     }
 }
 
