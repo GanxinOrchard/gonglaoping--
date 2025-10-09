@@ -48,7 +48,7 @@ const LINEPAY = {
   sandbox: true,
   channelId: '1657163831',
   channelSecret: '492cf50453a0a694dd5b70d1a8a33aa4',
-  title: '柑心果園Line pay支付',
+  title: 'Line pay支付',
   currency: 'TWD'
 };
 
@@ -228,6 +228,16 @@ const $ = {
   cur(n){ return 'NT$ ' + (Number(n) || 0).toLocaleString('en-US'); }
 };
 
+// 生成統一訂單編號
+function generateOrderId_() {
+  const now = new Date();
+  const year = now.getFullYear().toString().slice(-2);
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const time = now.getTime().toString().slice(-6);
+  return `GX${year}${month}${day}${time}`;
+}
+
 function setMailCells_(sh, row, C, note, ok){
   if (C.mail > 0)    sh.getRange(row, C.mail).setValue((note||'') + ' ' + $.now());
   if (C.mailRes > 0) sh.getRange(row, C.mailRes).setValue(ok ? '成功' : '失敗');
@@ -358,23 +368,39 @@ function doPost(e) {
     const raw = (e && e.postData && e.postData.contents) || '{}';
     const data = JSON.parse(raw);
     
-    // 處理聯絡表單
-    if (data.type === 'contact') {
+    // 檢查請求類型
+    const action = e.parameter.action;
+    
+    if (action === 'createLinePayPayment') {
+      // 處理 LINE Pay 付款請求
+      return handleLinePayPayment_(data);
+    } else if (action === 'confirmLinePayPayment') {
+      // 處理 LINE Pay 付款確認
+      return handleLinePayConfirm_(data);
+    } else if (data.type === 'contact') {
+      // 處理聯絡表單
       return handleContactForm_(data);
+    } else {
+      // 處理一般訂單
+      return handleRegularOrder_(data);
     }
     
-    // 處理訂單
+  } catch (err) {
+    return json_({ ok:false, msg: err.message || String(err) });
+  }
+}
+
+// 處理一般訂單
+function handleRegularOrder_(data) {
+  try {
     ensureHeadersSafe_();
     
     if (!data || !Array.isArray(data.items) || data.items.length === 0) {
       return json_({ ok:false, msg:'空的訂單內容' });
     }
 
-    const today = new Date();
-    const yy = (today.getFullYear() % 100).toString().padStart(2,'0');
-    const ymd = Utilities.formatDate(today, TZ, 'yyyyMMdd');
-    const rand4 = Math.floor(1000 + Math.random() * 9000);
-    const orderNo = `K${yy}-${ymd}-${rand4}`;
+    // 生成統一訂單編號
+    const orderNo = generateOrderId_();
 
     const createdAt = $.now();
     
@@ -416,12 +442,19 @@ function doPost(e) {
       remark, '', ''
     ]);
 
+    // 寫入訂單明細（確保正確接收品名、規格、數量、金額）
     const shI = $.sheet(SHEET_ITEM);
     const rows = data.items.map(it => {
       const price = Number(it.price)||0;
-      const qty   = Number(it.qty)||0;
+      const qty   = Number(it.quantity || it.qty)||0;
       const amount= price*qty;
-      return [createdAt, orderNo, buyerName, buyerEmail, it.title||'', it.weight||'', it.size||'', price, qty, amount];
+      return [
+        createdAt, orderNo, buyerName, buyerEmail, 
+        it.name || it.title || '',  // 品名
+        it.weight || '',            // 重量
+        it.spec || it.size || '',   // 規格
+        price, qty, amount
+      ];
     });
     if (rows.length) shI.getRange(shI.getLastRow()+1, 1, rows.length, 10).setValues(rows);
 
@@ -455,6 +488,129 @@ function doPost(e) {
   }
 }
 
+// 處理 LINE Pay 付款請求
+function handleLinePayPayment_(data) {
+  try {
+    // 生成訂單編號
+    const orderId = data.orderId || generateOrderId_();
+    
+    // 準備 LINE Pay 請求
+    const linePayRequest = {
+      amount: data.amount,
+      currency: data.currency,
+      orderId: orderId,
+      packages: data.packages,
+      redirectUrls: data.redirectUrls
+    };
+    
+    // 建立 LINE Pay 付款請求
+    const paymentUrl = createLinePayRequest_(linePayRequest);
+    
+    if (paymentUrl) {
+      // 儲存訂單資料（待付款狀態）
+      const orderData = {
+        orderId: orderId,
+        orderDate: $.now(),
+        status: '待付款 (LINE Pay)',
+        buyer: {
+          name: data.orderData.buyerName,
+          email: data.orderData.buyerEmail,
+          phone: data.orderData.buyerPhone,
+          address: data.orderData.buyerAddress
+        },
+        receiver: {
+          name: data.orderData.receiverName,
+          email: data.orderData.receiverEmail,
+          phone: data.orderData.receiverPhone,
+          address: data.orderData.receiverAddress
+        },
+        items: data.orderData.items || [],
+        subtotal: data.orderData.summary?.subtotal || 0,
+        shipping: data.orderData.summary?.shipping || 0,
+        discount: data.orderData.summary?.discount || 0,
+        total: data.orderData.summary?.total || 0,
+        paymentMethod: 'LINE Pay',
+        delivery: data.orderData.delivery === 'home' ? '宅配到府' : '門市自取',
+        note: data.orderData.remark || ''
+      };
+      
+      // 寫入試算表（待付款狀態）
+      writeOrderToSheet_(orderData);
+      writeOrderDetailsToSheet_(orderData);
+      
+      return json_({
+        success: true,
+        paymentUrl: paymentUrl,
+        orderId: orderId
+      });
+    } else {
+      throw new Error('建立 LINE Pay 付款失敗');
+    }
+    
+  } catch (error) {
+    Logger.log('LINE Pay 付款請求錯誤: ' + error.toString());
+    return json_({
+      success: false,
+      error: error.toString()
+    });
+  }
+}
+
+// 處理 LINE Pay 付款確認
+function handleLinePayConfirm_(data) {
+  try {
+    const orderId = data.orderId;
+    const transactionId = data.transactionId;
+    
+    // 確認 LINE Pay 付款
+    const confirmResult = confirmLinePayPayment_(transactionId, data.amount);
+    
+    if (confirmResult.success) {
+      // 更新訂單狀態為已付款
+      updateOrderStatus_(orderId, '已付款 (LINE Pay)');
+      
+      // 發送確認 Email
+      const orderData = getOrderById_(orderId);
+      if (orderData) {
+        sendOrderCreatedMail_({
+          orderNo: orderId,
+          buyerName: orderData.buyerName,
+          buyerEmail: orderData.buyerEmail,
+          buyerPhone: orderData.buyerPhone,
+          buyerAddr: orderData.buyerAddress,
+          receiverName: orderData.receiverName,
+          receiverEmail: orderData.receiverEmail,
+          receiverPhone: orderData.receiverPhone,
+          receiverAddr: orderData.receiverAddress,
+          delivery: orderData.delivery,
+          payment: 'LINE Pay',
+          subtotal: orderData.subtotal,
+          shipping: orderData.shipping,
+          discountCode: '',
+          discountAmount: orderData.discount,
+          total: orderData.total,
+          items: orderData.items,
+          remark: orderData.note
+        });
+      }
+      
+      return json_({
+        success: true,
+        message: '付款確認成功'
+      });
+    } else {
+      throw new Error('付款確認失敗');
+    }
+    
+  } catch (error) {
+    Logger.log('LINE Pay 付款確認錯誤: ' + error.toString());
+    return json_({
+      success: false,
+      error: error.toString()
+    });
+  }
+}
+
 function getItemsByOrderNo_(orderNo){
   const sh = $.sheet(SHEET_ITEM);
   const vals = sh.getDataRange().getValues();
@@ -462,9 +618,9 @@ function getItemsByOrderNo_(orderNo){
   const head = vals[0];
   const ix = {
     no: head.indexOf('訂單編號'),
-    title: head.indexOf('品名'),
+    name: head.indexOf('品名'),
     weight: head.indexOf('重量'),
-    size: head.indexOf('規格'),
+    spec: head.indexOf('規格'),
     price: head.indexOf('單價'),
     qty: head.indexOf('數量'),
     amount: head.indexOf('小計')
@@ -473,11 +629,14 @@ function getItemsByOrderNo_(orderNo){
   for (let r=1; r<vals.length; r++){
     if (String(vals[r][ix.no]||'').trim() === orderNo){
       items.push({
-        title: vals[r][ix.title],
-        weight: vals[r][ix.weight],
-        size: vals[r][ix.size],
+        name: vals[r][ix.name],      // 品名
+        title: vals[r][ix.name],     // 向後相容
+        weight: vals[r][ix.weight],  // 重量
+        spec: vals[r][ix.spec],      // 規格
+        size: vals[r][ix.spec],      // 向後相容
         price: Number(vals[r][ix.price])||0,
-        qty: Number(vals[r][ix.qty])||0,
+        quantity: Number(vals[r][ix.qty])||0,  // 數量
+        qty: Number(vals[r][ix.qty])||0,       // 向後相容
         amount: Number(vals[r][ix.amount])||0
       });
     }
@@ -508,14 +667,16 @@ function emailShell_(contentHtml){
 
 function orderLinesHtml_(items){
   return (items||[]).map(i=>{
-    const amt = (Number(i.price)||0) * (Number(i.qty)||0);
+    const price = Number(i.price) || 0;
+    const qty = Number(i.quantity || i.qty) || 0;
+    const amt = price * qty;
     return `
       <tr>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${safe_(i.title)}</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${safe_(i.name || i.title)}</td>
         <td style="padding:8px;border:1px solid #eee;text-align:center">${safe_(i.weight||'')}</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${safe_(i.size||'')}</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${fmtCur_(i.price)}</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${i.qty}</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${safe_(i.spec || i.size||'')}</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${fmtCur_(price)}</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${qty}</td>
         <td style="padding:8px;border:1px solid #eee;text-align:center">${fmtCur_(amt)}</td>
       </tr>`;
   }).join('');
@@ -1078,6 +1239,180 @@ function linePayFinishPage_(ok, msg, orderNo){
   </div>
 </body></html>`);
   return base;
+}
+
+// 建立 LINE Pay 請求
+function createLinePayRequest_(requestData) {
+  try {
+    const url = linePayBase_() + '/v2/payments/request';
+    
+    const payload = {
+      amount: requestData.amount,
+      currency: requestData.currency,
+      orderId: requestData.orderId,
+      packages: requestData.packages,
+      redirectUrls: requestData.redirectUrls
+    };
+    
+    const options = {
+      method: 'POST',
+      headers: linePayHeaders_(),
+      payload: JSON.stringify(payload)
+    };
+    
+    const response = UrlFetchApp.fetch(url, options);
+    const result = JSON.parse(response.getContentText());
+    
+    if (result.returnCode === '0000') {
+      return result.info.paymentUrl.web;
+    } else {
+      Logger.log('LINE Pay API 錯誤: ' + result.returnMessage);
+      return null;
+    }
+    
+  } catch (error) {
+    Logger.log('建立 LINE Pay 請求錯誤: ' + error.toString());
+    return null;
+  }
+}
+
+// 確認 LINE Pay 付款
+function confirmLinePayPayment_(transactionId, amount) {
+  try {
+    const url = linePayBase_() + '/v2/payments/' + transactionId + '/confirm';
+    
+    const payload = {
+      amount: amount,
+      currency: 'TWD'
+    };
+    
+    const options = {
+      method: 'POST',
+      headers: linePayHeaders_(),
+      payload: JSON.stringify(payload)
+    };
+    
+    const response = UrlFetchApp.fetch(url, options);
+    const result = JSON.parse(response.getContentText());
+    
+    return {
+      success: result.returnCode === '0000',
+      message: result.returnMessage
+    };
+    
+  } catch (error) {
+    Logger.log('確認 LINE Pay 付款錯誤: ' + error.toString());
+    return { success: false, message: error.toString() };
+  }
+}
+
+// 更新訂單狀態
+function updateOrderStatus_(orderId, status) {
+  try {
+    const sh = $.sheet(SHEET_ORDER);
+    const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
+    const orderIdCol = head.indexOf('訂單編號')+1;
+    const statusCol = head.indexOf('款項狀態')+1;
+    
+    if (orderIdCol < 1) return false;
+    
+    const last = sh.getLastRow();
+    if (last < 2) return false;
+    
+    const vals = sh.getRange(2, orderIdCol, last-1, 1).getValues();
+    for (let i = 0; i < vals.length; i++) {
+      if (String(vals[i][0]).trim() === orderId) {
+        if (statusCol > 0) {
+          sh.getRange(i + 2, statusCol).setValue(status);
+        }
+        return true;
+      }
+    }
+    
+    return false;
+    
+  } catch (error) {
+    Logger.log('更新訂單狀態錯誤: ' + error.toString());
+    return false;
+  }
+}
+
+// 根據訂單編號查詢訂單
+function getOrderById_(orderId) {
+  try {
+    const sh = $.sheet(SHEET_ORDER);
+    const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
+    const orderIdCol = head.indexOf('訂單編號')+1;
+    
+    if (orderIdCol < 1) return null;
+    
+    const last = sh.getLastRow();
+    if (last < 2) return null;
+    
+    const vals = sh.getRange(2,1,last-1, sh.getLastColumn()).getValues();
+    for (let i = 0; i < vals.length; i++) {
+      if (String(vals[i][orderIdCol-1]).trim() === orderId) {
+        const order = {};
+        head.forEach(function(header, index) {
+          order[header] = vals[i][index];
+        });
+        return order;
+      }
+    }
+    
+    return null;
+    
+  } catch (error) {
+    Logger.log('查詢訂單錯誤: ' + error.toString());
+    return null;
+  }
+}
+
+// 寫入訂單到試算表
+function writeOrderToSheet_(orderData) {
+  try {
+    const shO = $.sheet(SHEET_ORDER);
+    shO.appendRow([
+      orderData.orderId, orderData.orderDate,
+      orderData.buyer.name, orderData.buyer.email, orderData.buyer.phone, orderData.buyer.address,
+      orderData.receiver.name, orderData.receiver.email, orderData.receiver.phone, orderData.receiver.address,
+      orderData.delivery, orderData.paymentMethod,
+      orderData.subtotal, orderData.shipping, '', orderData.discount, orderData.total,
+      orderData.status, '待出貨', '', '',
+      orderData.note, '', ''
+    ]);
+    
+    return { success: true };
+    
+  } catch (error) {
+    Logger.log('寫入訂單錯誤: ' + error.toString());
+    throw error;
+  }
+}
+
+// 寫入訂單明細到試算表
+function writeOrderDetailsToSheet_(orderData) {
+  try {
+    const shI = $.sheet(SHEET_ITEM);
+    
+    orderData.items.forEach(function(item) {
+      const price = Number(item.price) || 0;
+      const qty = Number(item.quantity) || 0;
+      const amount = price * qty;
+      
+      shI.appendRow([
+        orderData.orderDate, orderData.orderId, orderData.buyer.name, orderData.buyer.email,
+        item.name || '', item.weight || '', item.spec || '',
+        price, qty, amount
+      ]);
+    });
+    
+    return { success: true };
+    
+  } catch (error) {
+    Logger.log('寫入訂單明細錯誤: ' + error.toString());
+    throw error;
+  }
 }
 
 /////////////////////// 聯絡表單處理 ///////////////////////
