@@ -315,7 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 初始化輪播功能（只在桌面版，且商品數量 > 3 時）
     const isHomePage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
-    if (isHomePage && window.innerWidth > 768) {
+    // 只在桌面版啟動輪播，手機版使用網格佈局
+    if (isHomePage && window.innerWidth > 1024) {
         initProductCarousel();
     }
     
