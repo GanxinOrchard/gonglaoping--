@@ -248,29 +248,6 @@
             color: white;
         }
         
-        .btn-add-cart {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: white;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .btn-add-cart:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255,107,53,0.4);
-        }
-        
-        .btn-add-cart:active {
-            transform: translateY(0);
-        }
         
         @media (max-width: 768px) {
             .breadcrumb {
@@ -292,8 +269,7 @@
                 justify-content: space-between;
             }
             
-            .btn-view-detail,
-            .btn-add-cart {
+            .btn-view-detail {
                 flex: 1;
                 text-align: center;
             }
@@ -539,11 +515,6 @@
 
     <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- 懸浮按鈕 -->
-    <button class="floating-cart-btn" id="floatingCartBtn">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-badge" id="floatingCartCount">0</span>
-    </button>
 
     <button class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
@@ -603,10 +574,6 @@
                             <span class="product-price">NT$ ${product.price.toLocaleString()}</span>
                             <div class="product-actions">
                                 <a href="product-detail.html?id=${product.id}" class="btn-view-detail">查看詳情</a>
-                                <button class="btn-add-cart" onclick="addToCart(${product.id})">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    加入購物車
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -636,7 +603,6 @@
         
         // 購物車側邊欄功能
         function initCartSidebar() {
-            const floatingCartBtn = document.getElementById('floatingCartBtn');
             const cartIcon = document.getElementById('cartIcon');
             const cartSidebar = document.getElementById('cartSidebar');
             const cartOverlay = document.getElementById('cartOverlay');
@@ -648,11 +614,6 @@
                 cartSidebar.classList.add('active');
                 cartOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            }
-
-            // 懸浮購物車按鈕
-            if (floatingCartBtn) {
-                floatingCartBtn.addEventListener('click', openCart);
             }
 
             // 右上角購物車圖標

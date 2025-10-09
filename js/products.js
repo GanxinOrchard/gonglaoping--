@@ -23,10 +23,10 @@ const products = [
         isPreorder: true,
         hasSpecs: true,
         specs: [
-            { id: '23A', name: '23A', diameter: '6.7–7.3 cm', price: 699, description: '入門人氣款，超值體驗' },
-            { id: '25A', name: '25A', diameter: '7.3–7.9 cm', price: 799, description: '經典送禮，最受歡迎' },
-            { id: '27A', name: '27A', diameter: '7.9–8.5 cm', price: 899, description: '精選大果，送禮首選' },
-            { id: '30A', name: '30A', diameter: '8.5–9.5 cm', price: 1080, description: '限量尊榮，稀缺稀選' }
+            { id: '23A', name: '23A', diameter: '6.7–7.3 cm', weight: '10斤禮盒', price: 699, description: '入門人氣款，超值體驗' },
+            { id: '25A', name: '25A', diameter: '7.3–7.9 cm', weight: '10斤禮盒', price: 799, description: '經典送禮，最受歡迎' },
+            { id: '27A', name: '27A', diameter: '7.9–8.5 cm', weight: '10斤禮盒', price: 899, description: '精選大果，送禮首選' },
+            { id: '30A', name: '30A', diameter: '8.5–9.5 cm', weight: '10斤禮盒', price: 1080, description: '限量尊榮，稀缺稀選' }
         ],
         detailImages: [
             'images/椪柑產品圖/椪柑商品介紹1.png',
@@ -57,10 +57,10 @@ const products = [
         isPreorder: true,
         hasSpecs: true,
         specs: [
-            { id: '23A', name: '23A', diameter: '6.7–7.3 cm', price: 880, description: '入門茂谷，香甜體驗款' },
-            { id: '25A', name: '25A', diameter: '7.3–7.9 cm', price: 980, description: '熱銷款，家庭/伴手禮首選' },
-            { id: '27A', name: '27A', diameter: '7.9–8.5 cm', price: 1080, description: '精選大果，送禮有面子' },
-            { id: '30A', name: '30A', diameter: '8.5–9.5 cm', price: 1280, description: '限量稀缺，高端禮盒' }
+            { id: '23A', name: '23A', diameter: '6.7–7.3 cm', weight: '10斤禮盒', price: 880, description: '入門茂谷，香甜體驗款' },
+            { id: '25A', name: '25A', diameter: '7.3–7.9 cm', weight: '10斤禮盒', price: 980, description: '熱銷款，家庭/伴手禮首選' },
+            { id: '27A', name: '27A', diameter: '7.9–8.5 cm', weight: '10斤禮盒', price: 1080, description: '精選大果，送禮有面子' },
+            { id: '30A', name: '30A', diameter: '8.5–9.5 cm', weight: '10斤禮盒', price: 1280, description: '限量稀缺，高端禮盒' }
         ],
         detailImages: [
             'images/茂谷柑產品圖/茂谷柑商品介紹1.png',
