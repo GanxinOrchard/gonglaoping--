@@ -661,6 +661,7 @@ function updateOrderStatus_(orderId, status) {
   const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
   const cOrder = head.indexOf('訂單編號') + 1;
   const cPay = head.indexOf('款項狀態') + 1;
+  const cPayment = head.indexOf('付款方式') + 1;
   
   if (cOrder < 1 || cPay < 1) return;
   
@@ -671,6 +672,10 @@ function updateOrderStatus_(orderId, status) {
   for (let i = 0; i < vals.length; i++) {
     if (String(vals[i][0]).trim() === orderId) {
       sh.getRange(i + 2, cPay).setValue(status);
+      // 如果是已匯款狀態，確保付款方式顯示為 LINE Pay
+      if (status === '已匯款' && cPayment > 0) {
+        sh.getRange(i + 2, cPayment).setValue('LINE Pay');
+      }
       break;
     }
   }

@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         body {
             background: linear-gradient(135deg, #00B900 0%, #00C300 100%);
@@ -18,7 +19,7 @@
         }
         
         .linepay-container {
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             background: white;
             padding: 40px;
@@ -26,6 +27,32 @@
             text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             animation: slideUp 0.5s ease-out;
+        }
+        
+        @media (min-width: 1024px) {
+            .linepay-container {
+                max-width: 800px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                text-align: left;
+                padding: 60px;
+            }
+            
+            .payment-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .qr-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border-left: 1px solid #e5e7eb;
+                padding-left: 40px;
+            }
         }
         
         @keyframes slideUp {
@@ -36,6 +63,17 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
         
@@ -95,19 +133,42 @@
             border-radius: 12px;
         }
         
-        .notice {
-            background: #fff7ed;
-            border-left: 4px solid #f59e0b;
-            padding: 15px;
-            border-radius: 8px;
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: #f8f9fa;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 20px 0;
-            text-align: left;
-            font-size: 14px;
-            color: #666;
+            position: relative;
         }
         
-        .notice strong {
-            color: #f59e0b;
+        .qr-code img {
+            max-width: 180px;
+            max-height: 180px;
+        }
+        
+        .qr-placeholder {
+            color: #9ca3af;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .qr-instructions {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #166534;
+        }
+        
+        .qr-instructions strong {
+            color: #15803d;
         }
         
         .btn {
@@ -157,7 +218,7 @@
             flex: 1;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1023px) {
             .linepay-container {
                 padding: 30px 20px;
             }
@@ -172,6 +233,25 @@
             
             .actions {
                 flex-direction: column;
+            }
+            
+            .qr-section {
+                border-left: none;
+                border-top: 1px solid #e5e7eb;
+                padding-left: 0;
+                padding-top: 30px;
+                margin-top: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .linepay-container {
+                padding: 20px 15px;
+            }
+            
+            .qr-code {
+                width: 150px;
+                height: 150px;
             }
         }
     </style>
@@ -206,42 +286,53 @@
         </div>
     </header>
     <div class="linepay-container">
-        <div class="linepay-icon">
-            <i class="fab fa-line"></i>
+        <div class="payment-info">
+            <div class="linepay-icon">
+                <i class="fab fa-line"></i>
+            </div>
+            <h1>LINE Pay 付款</h1>
+            <p class="subtitle">安全、快速、便利的行動支付</p>
+            
+            <div class="order-info">
+                <p><strong>訂單編號：</strong><span id="orderNumber">-</span></p>
+                <p><strong>訂單時間：</strong><span id="orderTime">-</span></p>
+                <p><strong>付款方式：</strong>LINE Pay</p>
+            </div>
+            
+            <div class="amount">
+                NT$ <span id="totalAmount">0</span>
+            </div>
+            
+            <button class="btn btn-linepay" onclick="handleLinePayment()">
+                <i class="fab fa-line"></i> 前往 LINE Pay 付款
+            </button>
+            
+            <div class="actions">
+                <a href="cart.html" class="btn btn-back">
+                    <i class="fas fa-shopping-cart"></i> 返回購物車
+                </a>
+                <a href="index.html" class="btn btn-back">
+                    <i class="fas fa-home"></i> 返回首頁
+                </a>
+            </div>
         </div>
-        <h1>LINE Pay 付款</h1>
-        <p class="subtitle">安全、快速、便利的行動支付</p>
         
-        <div class="order-info">
-            <p><strong>訂單編號：</strong><span id="orderNumber">-</span></p>
-            <p><strong>訂單時間：</strong><span id="orderTime">-</span></p>
-            <p><strong>付款方式：</strong>LINE Pay</p>
-        </div>
-        
-        <div class="amount">
-            NT$ <span id="totalAmount">0</span>
-        </div>
-        
-        <div class="notice">
-            <strong><i class="fas fa-info-circle"></i> 重要提示</strong>
-            <ul style="margin: 10px 0 0 20px; padding: 0;">
-                <li>LINE Pay 整合需要後端 API 支援</li>
-                <li>請聯繫開發人員設定 LINE Pay Merchant API</li>
-                <li>設定完成後即可使用 LINE Pay 付款功能</li>
-            </ul>
-        </div>
-        
-        <button class="btn btn-linepay" onclick="handleLinePayment()">
-            <i class="fab fa-line"></i> 前往 LINE Pay 付款
-        </button>
-        
-        <div class="actions">
-            <a href="cart.html" class="btn btn-back">
-                <i class="fas fa-shopping-cart"></i> 返回購物車
-            </a>
-            <a href="index.html" class="btn btn-back">
-                <i class="fas fa-home"></i> 返回首頁
-            </a>
+        <div class="qr-section">
+            <h3>掃描 QR Code 付款</h3>
+            <div class="qr-code" id="qrCode">
+                <div class="qr-placeholder">
+                    <i class="fas fa-qrcode" style="font-size: 48px; margin-bottom: 10px;"></i>
+                    <div>點擊上方按鈕生成 QR Code</div>
+                </div>
+            </div>
+            <div class="qr-instructions">
+                <strong><i class="fas fa-mobile-alt"></i> 使用方式：</strong>
+                <ol style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>開啟 LINE App</li>
+                    <li>點擊「錢包」→「LINE Pay」</li>
+                    <li>掃描上方 QR Code 或點擊按鈕直接跳轉</li>
+                </ol>
+            </div>
         </div>
     </div>
 
@@ -311,7 +402,8 @@
                     redirectUrls: {
                         confirmUrl: window.location.origin + '/linepay-confirm.html',
                         cancelUrl: window.location.origin + '/linepay.html'
-                    }
+                    },
+                    orderData: orderInfo
                 };
                 
                 // 發送到後端處理 LINE Pay 請求
@@ -320,19 +412,23 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        ...paymentRequest,
-                        orderData: orderInfo
-                    })
+                    body: JSON.stringify(paymentRequest)
                 });
                 
                 const result = await response.json();
                 
                 if (result.success && result.paymentUrl) {
-                    // 跳轉到 LINE Pay 付款頁面
-                    window.location.href = result.paymentUrl;
+                    // 生成 QR Code
+                    generateQRCode(result.paymentUrl);
+                    
+                    // 更新按鈕為跳轉按鈕
+                    btn.innerHTML = '<i class="fab fa-line"></i> 前往 LINE Pay 付款';
+                    btn.onclick = () => window.open(result.paymentUrl, '_blank');
+                    
+                    // 顯示成功訊息
+                    showSuccessMessage('QR Code 已生成！請掃描或點擊按鈕前往 LINE Pay 付款');
                 } else {
-                    throw new Error(result.error || '建立 LINE Pay 付款失敗');
+                    throw new Error(result.error || result.msg || '建立 LINE Pay 付款失敗');
                 }
                 
             } catch (error) {
@@ -342,6 +438,51 @@
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fab fa-line"></i> 前往 LINE Pay 付款';
             }
+        }
+        
+        // 生成 QR Code
+        function generateQRCode(url) {
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = '';
+            
+            // 使用 QR Code 生成庫
+            QRCode.toCanvas(qrContainer, url, {
+                width: 180,
+                height: 180,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function (error) {
+                if (error) {
+                    console.error('QR Code 生成失敗:', error);
+                    qrContainer.innerHTML = '<div class="qr-placeholder"><i class="fas fa-exclamation-triangle"></i><br>QR Code 生成失敗</div>';
+                }
+            });
+        }
+        
+        // 顯示成功訊息
+        function showSuccessMessage(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
         
         // 生成訂單編號
