@@ -80,6 +80,14 @@ function onOpen() {
           .addItem('本週 出貨統計（舊）', 'generateThisWeekSummaryCreated')
       )
       .addSeparator()
+      .addSubMenu(
+        SpreadsheetApp.getUi().createMenu('📧 郵件模板')
+          .addItem('發送優惠通知', 'showPromotionMailDialog')
+          .addItem('發送折扣碼', 'showDiscountMailDialog')
+          .addItem('發送預購通知', 'showPreOrderMailDialog')
+          .addItem('批量發送郵件', 'showBulkMailDialog')
+      )
+      .addSeparator()
       .addItem('今日出貨統計（舊功能）', 'generateTodaySummary')
       .addItem('指定日期出貨統計（舊功能）', 'generateSummaryByInput')
     .addToUi();
@@ -270,7 +278,7 @@ function ensureHeadersSafe_() {
     '配送方式','付款方式',
     '商品小計','運費','折扣碼','折扣金額','應付金額',
     '款項狀態','出貨狀態','物流單號','出貨日期',
-    '訂單備註','寄信狀態','寄信結果'
+    '訂單備註','寄信狀態','寄信結果','LINE Pay交易ID'
   ];
   const needItem  = ['建立時間','訂單編號','購買人姓名','購買人Email','品名','重量','規格','單價','數量','小計'];
 
@@ -439,7 +447,7 @@ function handleRegularOrder_(data) {
       delivery, payment,
       subtotal, shipping, discountCode, discountAmount, total,
       '待匯款', '待出貨', '', '',
-      remark, '', ''
+      remark, '', '', ''
     ]);
 
     // 寫入訂單明細（確保正確接收品名、規格、數量、金額）
@@ -459,9 +467,8 @@ function handleRegularOrder_(data) {
     if (rows.length) shI.getRange(shI.getLastRow()+1, 1, rows.length, 10).setValues(rows);
 
     // 檢查是否使用 LINE Pay
-    const isLinePay = LINEPAY.enabled && String(data.payMethod||'').toLowerCase() === 'linepay';
+    const isLinePay = LINEPAY.enabled && String(payment||'').toLowerCase() === 'linepay';
     
-    // LINE Pay 付款：先不寄信，等付款成功後再寄
     // 銀行轉帳：立即寄信
     if (!isLinePay && SEND_MAIL) {
       const ok = sendOrderCreatedMail_({ 
@@ -567,12 +574,15 @@ function handleLinePayConfirm_(data) {
     
     if (confirmResult.success) {
       // 更新訂單狀態為已付款
-      updateOrderStatus_(orderId, '已付款 (LINE Pay)');
+      updateOrderStatus_(orderId, '已匯款');
       
-      // 發送確認 Email
+      // 更新 LINE Pay 交易 ID
+      updateLinePayTransactionId_(orderId, transactionId);
+      
+      // 發送確認 Email（只有成功付款才寄信）
       const orderData = getOrderById_(orderId);
-      if (orderData) {
-        sendOrderCreatedMail_({
+      if (orderData && SEND_MAIL) {
+        const ok = sendOrderCreatedMail_({
           orderNo: orderId,
           buyerName: orderData.buyerName,
           buyerEmail: orderData.buyerEmail,
@@ -586,12 +596,13 @@ function handleLinePayConfirm_(data) {
           payment: 'LINE Pay',
           subtotal: orderData.subtotal,
           shipping: orderData.shipping,
-          discountCode: '',
+          discountCode: orderData.discountCode || '',
           discountAmount: orderData.discount,
           total: orderData.total,
           items: orderData.items,
           remark: orderData.note
         });
+        markMailStateByOrderNo_(orderId, ok===true ? '已寄信(LINE Pay成功)' : '寄信失敗(LINE Pay成功)：'+ok, ok===true);
       }
       
       return json_({
@@ -642,6 +653,88 @@ function getItemsByOrderNo_(orderNo){
     }
   }
   return items;
+}
+
+// 更新訂單狀態
+function updateOrderStatus_(orderId, status) {
+  const sh = $.sheet(SHEET_ORDER);
+  const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
+  const cOrder = head.indexOf('訂單編號') + 1;
+  const cPay = head.indexOf('款項狀態') + 1;
+  
+  if (cOrder < 1 || cPay < 1) return;
+  
+  const last = sh.getLastRow();
+  if (last < 2) return;
+  
+  const vals = sh.getRange(2, cOrder, last-1, 1).getValues();
+  for (let i = 0; i < vals.length; i++) {
+    if (String(vals[i][0]).trim() === orderId) {
+      sh.getRange(i + 2, cPay).setValue(status);
+      break;
+    }
+  }
+}
+
+// 更新 LINE Pay 交易 ID
+function updateLinePayTransactionId_(orderId, transactionId) {
+  const sh = $.sheet(SHEET_ORDER);
+  const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
+  const cOrder = head.indexOf('訂單編號') + 1;
+  const cLinePay = head.indexOf('LINE Pay交易ID') + 1;
+  
+  if (cOrder < 1 || cLinePay < 1) return;
+  
+  const last = sh.getLastRow();
+  if (last < 2) return;
+  
+  const vals = sh.getRange(2, cOrder, last-1, 1).getValues();
+  for (let i = 0; i < vals.length; i++) {
+    if (String(vals[i][0]).trim() === orderId) {
+      sh.getRange(i + 2, cLinePay).setValue(transactionId);
+      break;
+    }
+  }
+}
+
+// 根據訂單編號查詢訂單
+function getOrderById_(orderId) {
+  const sh = $.sheet(SHEET_ORDER);
+  const head = sh.getRange(1,1,1, sh.getLastColumn()).getValues()[0];
+  const cOrder = head.indexOf('訂單編號') + 1;
+  
+  if (cOrder < 1) return null;
+  
+  const last = sh.getLastRow();
+  if (last < 2) return null;
+  
+  const vals = sh.getRange(2, cOrder, last-1, 1).getValues();
+  for (let i = 0; i < vals.length; i++) {
+    if (String(vals[i][0]).trim() === orderId) {
+      const row = sh.getRange(i + 2, 1, 1, sh.getLastColumn()).getValues()[0];
+      return {
+        orderId: orderId,
+        buyerName: row[head.indexOf('購買人姓名')] || '',
+        buyerEmail: row[head.indexOf('購買人Email')] || '',
+        buyerPhone: row[head.indexOf('購買人手機')] || '',
+        buyerAddress: row[head.indexOf('購買人地址')] || '',
+        receiverName: row[head.indexOf('收件人姓名')] || '',
+        receiverEmail: row[head.indexOf('收件人Email')] || '',
+        receiverPhone: row[head.indexOf('收件人手機')] || '',
+        receiverAddress: row[head.indexOf('收件人地址')] || '',
+        delivery: row[head.indexOf('配送方式')] || '',
+        payment: row[head.indexOf('付款方式')] || '',
+        subtotal: Number(row[head.indexOf('商品小計')]) || 0,
+        shipping: Number(row[head.indexOf('運費')]) || 0,
+        discountCode: row[head.indexOf('折扣碼')] || '',
+        discount: Number(row[head.indexOf('折扣金額')]) || 0,
+        total: Number(row[head.indexOf('應付金額')]) || 0,
+        note: row[head.indexOf('訂單備註')] || '',
+        items: getItemsByOrderNo_(orderId)
+      };
+    }
+  }
+  return null;
 }
 
 /////////////////////// Email ///////////////////////
@@ -1125,6 +1218,373 @@ function bankCopyPage_(){
 
 function safe_(s){ return String(s||'').replace(/[<>&]/g, c=>({ '<':'&lt;','>':'&gt;','&':'&amp;' }[c])); }
 function fmtCur_(n){ return 'NT$ ' + (Number(n)||0).toLocaleString('en-US'); }
+
+/////////////////////// 郵件模板系統 ///////////////////////
+// 發送優惠通知郵件
+function sendPromotionMail_(email, subject, content) {
+  if (!SEND_MAIL || !email) return false;
+  
+  const html = emailShell_(`
+    <h2 style="margin:8px 0 10px;color:#ff8c42">🎉 ${subject}</h2>
+    <div style="line-height:1.6;color:#333">
+      ${content}
+    </div>
+    <div style="margin:20px 0;padding:15px;background:#f8f9fa;border-radius:8px;border-left:4px solid #ff8c42">
+      <div style="font-weight:600;margin-bottom:8px">柑心果園</div>
+      <div style="font-size:14px;color:#666">
+        地址：${BRAND.address}<br>
+        電話：${BRAND.phone}
+      </div>
+    </div>
+  `);
+  
+  return sendMailSafe_(email, subject, '', html);
+}
+
+// 發送折扣碼通知郵件
+function sendDiscountMail_(email, discountCode, discountValue, validUntil) {
+  if (!SEND_MAIL || !email) return false;
+  
+  const subject = `🎁 專屬折扣碼：${discountCode}`;
+  const content = `
+    <p>感謝您的支持！我們為您準備了專屬折扣碼：</p>
+    <div style="text-align:center;margin:20px 0">
+      <div style="display:inline-block;padding:15px 30px;background:linear-gradient(135deg, #ff8c42, #ff6b35);color:white;border-radius:25px;font-size:24px;font-weight:bold;letter-spacing:2px">
+        ${discountCode}
+      </div>
+    </div>
+    <p><strong>折扣金額：</strong>${discountValue}</p>
+    <p><strong>有效期限：</strong>${validUntil}</p>
+    <p>請在結帳時輸入折扣碼即可享受優惠！</p>
+  `;
+  
+  return sendPromotionMail_(email, subject, content);
+}
+
+// 發送預購通知郵件
+function sendPreOrderMail_(email, productName, expectedDate) {
+  if (!SEND_MAIL || !email) return false;
+  
+  const subject = `📦 預購商品通知：${productName}`;
+  const content = `
+    <p>您預購的商品即將到貨！</p>
+    <div style="margin:20px 0;padding:15px;background:#e8f5e8;border-radius:8px;border-left:4px solid #28a745">
+      <div style="font-weight:600;margin-bottom:8px">預購商品</div>
+      <div style="font-size:16px;color:#333">${productName}</div>
+    </div>
+    <p><strong>預計到貨日期：</strong>${expectedDate}</p>
+    <p>我們將在商品到貨後立即為您安排出貨，請留意後續通知。</p>
+  `;
+  
+  return sendPromotionMail_(email, subject, content);
+}
+
+// 批量發送郵件功能
+function sendBulkMail_(recipients, subject, content) {
+  if (!SEND_MAIL || !recipients || !Array.isArray(recipients)) return { success: 0, failed: 0 };
+  
+  let success = 0;
+  let failed = 0;
+  
+  recipients.forEach(email => {
+    if (email && email.includes('@')) {
+      const result = sendPromotionMail_(email, subject, content);
+      if (result === true) {
+        success++;
+      } else {
+        failed++;
+        Logger.log(`郵件發送失敗 ${email}: ${result}`);
+      }
+    } else {
+      failed++;
+    }
+  });
+  
+  return { success, failed };
+}
+
+// 郵件模板對話框
+function showPromotionMailDialog() {
+  const html = HtmlService.createHtmlOutput(`
+    <html><head><meta charset="UTF-8">
+    <style>
+      body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans TC',sans-serif;padding:20px}
+      .form-group{margin-bottom:15px}
+      label{display:block;margin-bottom:5px;font-weight:600}
+      input,textarea{width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;font-size:14px}
+      textarea{height:100px;resize:vertical}
+      button{padding:10px 20px;background:#ff8c42;color:white;border:none;border-radius:4px;cursor:pointer;font-size:14px}
+      button:hover{background:#ff6b35}
+      .result{margin-top:15px;padding:10px;border-radius:4px}
+      .success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+      .error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+    </style></head><body>
+      <h3>發送優惠通知</h3>
+      <div class="form-group">
+        <label>收件人 Email：</label>
+        <input type="email" id="email" placeholder="example@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>郵件標題：</label>
+        <input type="text" id="subject" placeholder="例如：限時優惠！全館8折" required>
+      </div>
+      <div class="form-group">
+        <label>郵件內容：</label>
+        <textarea id="content" placeholder="請輸入優惠內容..." required></textarea>
+      </div>
+      <button onclick="sendMail()">發送郵件</button>
+      <div id="result"></div>
+      
+      <script>
+        function sendMail() {
+          const email = document.getElementById('email').value;
+          const subject = document.getElementById('subject').value;
+          const content = document.getElementById('content').value;
+          
+          if (!email || !subject || !content) {
+            showResult('請填寫所有欄位', 'error');
+            return;
+          }
+          
+          google.script.run
+            .withSuccessHandler(result => {
+              if (result === true) {
+                showResult('郵件發送成功！', 'success');
+              } else {
+                showResult('郵件發送失敗：' + result, 'error');
+              }
+            })
+            .withFailureHandler(error => {
+              showResult('發送失敗：' + error.message, 'error');
+            })
+            .sendPromotionMail_(email, subject, content);
+        }
+        
+        function showResult(message, type) {
+          const result = document.getElementById('result');
+          result.innerHTML = message;
+          result.className = 'result ' + type;
+        }
+      </script>
+    </body></html>
+  `).setWidth(500).setHeight(400);
+  
+  SpreadsheetApp.getUi().showModalDialog(html, '發送優惠通知');
+}
+
+function showDiscountMailDialog() {
+  const html = HtmlService.createHtmlOutput(`
+    <html><head><meta charset="UTF-8">
+    <style>
+      body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans TC',sans-serif;padding:20px}
+      .form-group{margin-bottom:15px}
+      label{display:block;margin-bottom:5px;font-weight:600}
+      input{width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;font-size:14px}
+      button{padding:10px 20px;background:#ff8c42;color:white;border:none;border-radius:4px;cursor:pointer;font-size:14px}
+      button:hover{background:#ff6b35}
+      .result{margin-top:15px;padding:10px;border-radius:4px}
+      .success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+      .error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+    </style></head><body>
+      <h3>發送折扣碼</h3>
+      <div class="form-group">
+        <label>收件人 Email：</label>
+        <input type="email" id="email" placeholder="example@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>折扣碼：</label>
+        <input type="text" id="discountCode" placeholder="例如：SAVE100" required>
+      </div>
+      <div class="form-group">
+        <label>折扣金額：</label>
+        <input type="text" id="discountValue" placeholder="例如：100元" required>
+      </div>
+      <div class="form-group">
+        <label>有效期限：</label>
+        <input type="text" id="validUntil" placeholder="例如：2025年12月31日" required>
+      </div>
+      <button onclick="sendMail()">發送折扣碼</button>
+      <div id="result"></div>
+      
+      <script>
+        function sendMail() {
+          const email = document.getElementById('email').value;
+          const discountCode = document.getElementById('discountCode').value;
+          const discountValue = document.getElementById('discountValue').value;
+          const validUntil = document.getElementById('validUntil').value;
+          
+          if (!email || !discountCode || !discountValue || !validUntil) {
+            showResult('請填寫所有欄位', 'error');
+            return;
+          }
+          
+          google.script.run
+            .withSuccessHandler(result => {
+              if (result === true) {
+                showResult('折扣碼發送成功！', 'success');
+              } else {
+                showResult('發送失敗：' + result, 'error');
+              }
+            })
+            .withFailureHandler(error => {
+              showResult('發送失敗：' + error.message, 'error');
+            })
+            .sendDiscountMail_(email, discountCode, discountValue, validUntil);
+        }
+        
+        function showResult(message, type) {
+          const result = document.getElementById('result');
+          result.innerHTML = message;
+          result.className = 'result ' + type;
+        }
+      </script>
+    </body></html>
+  `).setWidth(500).setHeight(350);
+  
+  SpreadsheetApp.getUi().showModalDialog(html, '發送折扣碼');
+}
+
+function showPreOrderMailDialog() {
+  const html = HtmlService.createHtmlOutput(`
+    <html><head><meta charset="UTF-8">
+    <style>
+      body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans TC',sans-serif;padding:20px}
+      .form-group{margin-bottom:15px}
+      label{display:block;margin-bottom:5px;font-weight:600}
+      input{width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;font-size:14px}
+      button{padding:10px 20px;background:#ff8c42;color:white;border:none;border-radius:4px;cursor:pointer;font-size:14px}
+      button:hover{background:#ff6b35}
+      .result{margin-top:15px;padding:10px;border-radius:4px}
+      .success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+      .error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+    </style></head><body>
+      <h3>發送預購通知</h3>
+      <div class="form-group">
+        <label>收件人 Email：</label>
+        <input type="email" id="email" placeholder="example@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>商品名稱：</label>
+        <input type="text" id="productName" placeholder="例如：新鮮椪柑" required>
+      </div>
+      <div class="form-group">
+        <label>預計到貨日期：</label>
+        <input type="text" id="expectedDate" placeholder="例如：2025年1月15日" required>
+      </div>
+      <button onclick="sendMail()">發送預購通知</button>
+      <div id="result"></div>
+      
+      <script>
+        function sendMail() {
+          const email = document.getElementById('email').value;
+          const productName = document.getElementById('productName').value;
+          const expectedDate = document.getElementById('expectedDate').value;
+          
+          if (!email || !productName || !expectedDate) {
+            showResult('請填寫所有欄位', 'error');
+            return;
+          }
+          
+          google.script.run
+            .withSuccessHandler(result => {
+              if (result === true) {
+                showResult('預購通知發送成功！', 'success');
+              } else {
+                showResult('發送失敗：' + result, 'error');
+              }
+            })
+            .withFailureHandler(error => {
+              showResult('發送失敗：' + error.message, 'error');
+            })
+            .sendPreOrderMail_(email, productName, expectedDate);
+        }
+        
+        function showResult(message, type) {
+          const result = document.getElementById('result');
+          result.innerHTML = message;
+          result.className = 'result ' + type;
+        }
+      </script>
+    </body></html>
+  `).setWidth(500).setHeight(300);
+  
+  SpreadsheetApp.getUi().showModalDialog(html, '發送預購通知');
+}
+
+function showBulkMailDialog() {
+  const html = HtmlService.createHtmlOutput(`
+    <html><head><meta charset="UTF-8">
+    <style>
+      body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans TC',sans-serif;padding:20px}
+      .form-group{margin-bottom:15px}
+      label{display:block;margin-bottom:5px;font-weight:600}
+      input,textarea{width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;font-size:14px}
+      textarea{height:100px;resize:vertical}
+      button{padding:10px 20px;background:#ff8c42;color:white;border:none;border-radius:4px;cursor:pointer;font-size:14px}
+      button:hover{background:#ff6b35}
+      .result{margin-top:15px;padding:10px;border-radius:4px}
+      .success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+      .error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+      .info{background:#d1ecf1;color:#0c5460;border:1px solid #bee5eb}
+    </style></head><body>
+      <h3>批量發送郵件</h3>
+      <div class="info" style="padding:10px;margin-bottom:15px;border-radius:4px">
+        <strong>注意：</strong>請在 Email 欄位中輸入多個郵件地址，每行一個。
+      </div>
+      <div class="form-group">
+        <label>收件人 Email（每行一個）：</label>
+        <textarea id="emails" placeholder="example1@email.com&#10;example2@email.com&#10;example3@email.com" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>郵件標題：</label>
+        <input type="text" id="subject" placeholder="例如：重要通知" required>
+      </div>
+      <div class="form-group">
+        <label>郵件內容：</label>
+        <textarea id="content" placeholder="請輸入郵件內容..." required></textarea>
+      </div>
+      <button onclick="sendMail()">批量發送</button>
+      <div id="result"></div>
+      
+      <script>
+        function sendMail() {
+          const emailsText = document.getElementById('emails').value;
+          const subject = document.getElementById('subject').value;
+          const content = document.getElementById('content').value;
+          
+          if (!emailsText || !subject || !content) {
+            showResult('請填寫所有欄位', 'error');
+            return;
+          }
+          
+          const emails = emailsText.split('\n').filter(email => email.trim() !== '');
+          
+          if (emails.length === 0) {
+            showResult('請輸入至少一個有效的 Email 地址', 'error');
+            return;
+          }
+          
+          google.script.run
+            .withSuccessHandler(result => {
+              showResult(`發送完成！成功：${result.success} 封，失敗：${result.failed} 封`, 'success');
+            })
+            .withFailureHandler(error => {
+              showResult('發送失敗：' + error.message, 'error');
+            })
+            .sendBulkMail_(emails, subject, content);
+        }
+        
+        function showResult(message, type) {
+          const result = document.getElementById('result');
+          result.innerHTML = message;
+          result.className = 'result ' + type;
+        }
+      </script>
+    </body></html>
+  `).setWidth(500).setHeight(450);
+  
+  SpreadsheetApp.getUi().showModalDialog(html, '批量發送郵件');
+}
 
 /////////////////////// LINE Pay ///////////////////////
 function linePayBase_() {

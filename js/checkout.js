@@ -855,8 +855,8 @@ async function submitOrder() {
         // 訂單時間
         orderTime: new Date().toISOString(),
         
-        // 訂單編號
-        orderNumber: 'GX' + Date.now()
+        // 訂單編號（由後端生成，前端不生成）
+        orderNumber: ''
     };
     
     try {
