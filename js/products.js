@@ -2,7 +2,7 @@
 const products = [
     {
         id: 1,
-        name: '公老坪椪柑 10斤裝',
+        name: '公老坪椪柑',
         category: '優質水果',
         price: 699,
         image: 'images/椪柑產品圖/椪柑1.jpg',
@@ -19,7 +19,7 @@ const products = [
         salesCount: 1250,
         shippingType: 'normal',
         shippingMethod: '常溫宅配',
-        weight: '10台斤/箱',
+        weight: '箱裝',
         isPreorder: true,
         hasSpecs: true,
         specs: [
@@ -36,7 +36,7 @@ const products = [
     },
     {
         id: 2,
-        name: '東勢茂谷柑 10斤裝',
+        name: '東勢茂谷柑',
         category: '優質水果',
         price: 880,
         image: 'images/茂谷柑產品圖/茂谷柑1.png',
@@ -53,7 +53,7 @@ const products = [
         salesCount: 980,
         shippingType: 'normal',
         shippingMethod: '常溫宅配',
-        weight: '10台斤/箱',
+        weight: '箱裝',
         isPreorder: true,
         hasSpecs: true,
         specs: [

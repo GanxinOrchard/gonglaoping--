@@ -27,27 +27,33 @@
         }
         
         .knowledge-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 30px;
             padding: 20px 0;
+            justify-content: center;
         }
         
         @media (max-width: 992px) {
             .knowledge-grid {
-                grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
             }
         }
         
         @media (max-width: 576px) {
             .knowledge-grid {
-                grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
         }
         
+        @media (max-width: 768px) {
+            .knowledge-card {
+                flex: 0 0 280px;
+            }
+        }
+        
         .knowledge-card {
+            flex: 0 0 350px;
             background: white;
             border-radius: 16px;
             overflow: hidden;

@@ -1640,7 +1640,17 @@
         
         function loadRecommendedProducts() {
             const currentId = getProductIdFromURL();
-            const recommended = products.filter(p => p.id !== currentId).slice(0, 3);
+            let recommended = products.filter(p => p.id !== currentId);
+            
+            // 確保芋角總是出現在推薦中（如果當前商品不是芋角）
+            if (currentId !== 6) {
+                const taroProduct = products.find(p => p.id === 6);
+                if (taroProduct) {
+                    recommended = [taroProduct, ...recommended.filter(p => p.id !== 6)].slice(0, 3);
+                }
+            }
+            
+            recommended = recommended.slice(0, 3);
             
             const container = document.getElementById('recommendedProducts');
             if (!container) return;
