@@ -244,7 +244,7 @@ function addToCart(productId, specId = null, quantity = 1) {
     }
     
     updateCartCount();
-    showCartNotification('已加入購物車！');
+    showNotification('✅ 已加入購物車！');
 }
 
 // 更新購物車數量顯示
@@ -281,14 +281,37 @@ function showNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
-    notification.style.cssText = 'position:fixed;top:20px;right:20px;background:#27ae60;color:white;padding:15px 25px;border-radius:8px;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+    notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-20px);
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        color: white;
+        padding: 16px 28px;
+        border-radius: 50px;
+        z-index: 99999;
+        box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
+        font-size: 16px;
+        font-weight: 600;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+    `;
     document.body.appendChild(notification);
     
+    // 顯示動畫
+    requestAnimationFrame(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    
+    // 隱藏動畫
     setTimeout(() => {
         notification.style.opacity = '0';
-        notification.style.transition = 'opacity 0.3s';
+        notification.style.transform = 'translateX(-50%) translateY(-20px)';
         setTimeout(() => notification.remove(), 300);
-    }, 2000);
+    }, 2500);
 }
 
 // 更新數量（舊系統相容）
