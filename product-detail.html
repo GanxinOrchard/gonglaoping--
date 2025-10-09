@@ -1408,15 +1408,17 @@
                             <div class="spec-detail-label">規格等級</div>
                             <div class="spec-detail-value">${spec.name}</div>
                         </div>
+                        ${spec.diameter ? `
                         <div class="spec-detail-item">
                             <i class="fas fa-ruler-combined"></i>
                             <div class="spec-detail-label">果粒大小</div>
-                            <div class="spec-detail-value">${spec.diameter || spec.weight || '-'}</div>
+                            <div class="spec-detail-value">${spec.diameter}</div>
                         </div>
+                        ` : ''}
                         <div class="spec-detail-item">
                             <i class="fas fa-box"></i>
                             <div class="spec-detail-label">包裝規格</div>
-                            <div class="spec-detail-value">10台斤/箱</div>
+                            <div class="spec-detail-value">${spec.weight || '-'}</div>
                         </div>
                         <div class="spec-detail-item">
                             <i class="fas fa-dollar-sign"></i>
