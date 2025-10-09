@@ -774,7 +774,62 @@ async function submitOrder() {
         return;
     }
     
-    if (!confirm('確定要送出訂單嗎？')) {
+    // 收集訂單資料用於確認
+    const orderInfo = {
+        items: cart,
+        buyer: {
+            name: document.getElementById('buyerName').value,
+            email: document.getElementById('buyerEmail').value,
+            phone: document.getElementById('buyerPhone').value,
+            address: document.getElementById('buyerAddress').value
+        },
+        receiver: {
+            name: document.getElementById('receiverName').value,
+            phone: document.getElementById('receiverPhone').value,
+            address: document.getElementById('receiverAddress').value
+        },
+        delivery: orderData.delivery,
+        payment: orderData.payment,
+        discountCode: orderData.discountCode,
+        discountAmount: orderData.discountAmount,
+        remark: document.getElementById('orderRemark').value
+    };
+    
+    // 生成確認訊息
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = orderData.delivery === 'home' ? 100 : 0;
+    const total = subtotal + shipping - (orderData.discountAmount || 0);
+    
+    let confirmMessage = `📋 訂單確認\n\n`;
+    confirmMessage += `👤 購買人：${orderInfo.buyer.name}\n`;
+    confirmMessage += `📞 聯絡電話：${orderInfo.buyer.phone}\n`;
+    confirmMessage += `📧 電子郵件：${orderInfo.buyer.email}\n\n`;
+    
+    confirmMessage += `📦 收件人：${orderInfo.receiver.name}\n`;
+    confirmMessage += `📞 收件電話：${orderInfo.receiver.phone}\n`;
+    confirmMessage += `🏠 收件地址：${orderInfo.receiver.address}\n\n`;
+    
+    confirmMessage += `🚚 配送方式：${orderData.delivery === 'home' ? '宅配到府' : '門市自取'}\n`;
+    confirmMessage += `💳 付款方式：${orderData.payment === 'linepay' ? 'LINE Pay' : '貨到付款'}\n\n`;
+    
+    confirmMessage += `🛒 商品明細：\n`;
+    orderInfo.items.forEach(item => {
+        confirmMessage += `• ${item.name} (${item.spec}) x${item.quantity} = NT$ ${(item.price * item.quantity).toLocaleString()}\n`;
+    });
+    
+    confirmMessage += `\n💰 費用明細：\n`;
+    confirmMessage += `商品小計：NT$ ${subtotal.toLocaleString()}\n`;
+    if (shipping > 0) {
+        confirmMessage += `運費：NT$ ${shipping.toLocaleString()}\n`;
+    }
+    if (orderData.discountAmount > 0) {
+        confirmMessage += `折扣：-NT$ ${orderData.discountAmount.toLocaleString()}\n`;
+    }
+    confirmMessage += `總計：NT$ ${total.toLocaleString()}\n\n`;
+    
+    confirmMessage += `⚠️ 請確認以上資訊無誤後送出訂單`;
+    
+    if (!confirm(confirmMessage)) {
         return;
     }
     

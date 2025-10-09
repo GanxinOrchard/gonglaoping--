@@ -205,7 +205,7 @@ function onEdit(e){
         }
       } else if (/已匯款|已收款/i.test(val)) {
         updateDetailByOrder_(orderNo, { '付款狀態':'已匯款' });
-        setMailCells_(sh, r, C, '（狀態：已匯款；未寄信）', true);
+        setMailCells_(sh, r, C, '已寄信(成立)', true);
       }
       return;
     }
@@ -216,7 +216,7 @@ function onEdit(e){
         const trackNo = String(get('track')||'').trim();
         if (C.shipDate > 0) sh.getRange(r, C.shipDate).setValue($.today());
         updateDetailByOrder_(orderNo, { '出貨狀態':'已出貨','出貨日期':$.today(),'物流單號':trackNo||'' });
-        if (trackNo && SEND_MAIL && orderNo && email){
+        if (SEND_MAIL && orderNo && email){
           const ok2 = sendShippedMail_({ orderNo, name, email, trackNo, shipDate: $.today() });
           setMailCells_(sh, r, C, (ok2===true?'已寄信(出貨)':'寄信失敗(出貨)：'+ok2), ok2===true);
         }
@@ -386,6 +386,9 @@ function doPost(e) {
     } else if (action === 'confirmLinePayPayment') {
       // 處理 LINE Pay 付款確認
       return handleLinePayConfirm_(data);
+    } else if (action === 'getOrder') {
+      // 處理訂單查詢
+      return handleGetOrder_(e.parameter.orderId, e.parameter.email);
     } else if (data.type === 'contact') {
     // 處理聯絡表單
       return handleContactForm_(data);
@@ -542,7 +545,7 @@ function handleLinePayPayment_(data) {
         note: data.orderData.remark || ''
       };
       
-      // 寫入試算表（待付款狀態）
+      // 寫入試算表（待付款狀態，不寄信）
       writeOrderToSheet_(orderData);
       writeOrderDetailsToSheet_(orderData);
       
@@ -576,6 +579,9 @@ function handleLinePayConfirm_(data) {
     if (confirmResult.success) {
       // 更新訂單狀態為已付款
       updateOrderStatus_(orderId, '已匯款');
+      
+      // 更新付款方式為 LINE Pay
+      updateOrderPaymentMethod_(orderId, 'LINE Pay');
       
       // 更新 LINE Pay 交易 ID
       updateLinePayTransactionId_(orderId, transactionId);
@@ -1626,6 +1632,37 @@ function buildSpecCount_({scope, shippedOnly}){
   } catch (error) {
     Logger.log('buildSpecCount_ 錯誤: ' + error.toString());
     SpreadsheetApp.getUi().alert('統計失敗：' + error.toString());
+  }
+}
+
+// 處理訂單查詢
+function handleGetOrder_(orderId, email) {
+  try {
+    const sh = $.sheet(SHEET_ORDER);
+    const data = sh.getDataRange().getValues();
+    
+    if (data.length < 2) {
+      return json_({ success: false, message: '找不到訂單' });
+    }
+    
+    const headers = data[0];
+    const orderRow = data.find(row => row[0] === orderId && row[3] === email);
+    
+    if (!orderRow) {
+      return json_({ success: false, message: '找不到訂單，請確認訂單編號和Email是否正確' });
+    }
+    
+    // 建立訂單物件
+    const order = {};
+    headers.forEach((header, index) => {
+      order[header] = orderRow[index];
+    });
+    
+    return json_({ success: true, order: order });
+    
+  } catch (error) {
+    Logger.log('訂單查詢錯誤: ' + error.toString());
+    return json_({ success: false, message: '查詢失敗，請稍後再試' });
   }
 }
 

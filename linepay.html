@@ -381,14 +381,10 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 處理中...';
             
             try {
-                // 生成訂單編號
-                const orderNumber = generateOrderNumber();
-                
-                // 準備 LINE Pay 付款請求
+                // 準備 LINE Pay 付款請求（不生成訂單編號，讓後端生成）
                 const paymentRequest = {
                     amount: orderInfo.summary.total,
                     currency: 'TWD',
-                    orderId: orderNumber,
                     packages: [{
                         id: 'package1',
                         amount: orderInfo.summary.total,
