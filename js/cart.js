@@ -123,13 +123,15 @@ function renderCartItems() {
                 <div class="cart-item-price">NT$ ${item.price.toLocaleString()}</div>
             </div>
             <div class="cart-item-controls">
-                <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">-</button>
-                <span class="qty-display">${item.quantity}</span>
-                <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">+</button>
+                <div class="qty-controls">
+                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">-</button>
+                    <span class="qty-display">${item.quantity}</span>
+                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">+</button>
+                </div>
+                <button class="remove-btn" onclick="removeCartItem(${item.id}, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">
+                    <i class="fas fa-trash"></i> 刪除
+                </button>
             </div>
-            <button class="remove-btn" onclick="removeCartItem(${item.id}, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">
-                <i class="fas fa-trash"></i> 刪除
-            </button>
         </div>
         `;
     }).join('');
