@@ -99,8 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (itemsContainer) {
         itemsContainer.innerHTML = cart.map(item => `
             <div class="cart-item">
-                <div class="cart-item-image">
-                    <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-text">
+                    <div class="cart-item-icon">🍊</div>
+                    <div class="cart-item-description">
+                        <div class="cart-item-category">${item.category || '優質水果'}</div>
+                        <div class="cart-item-origin">產地直送</div>
+                    </div>
                 </div>
                 <div class="cart-item-info">
                     <div class="cart-item-name">${item.name}</div>
