@@ -444,6 +444,28 @@
             transform: none;
         }
         
+        .btn-clear {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-clear:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+        
         /* 響應式 */
         @media (max-width: 768px) {
             .cart-page {
@@ -919,6 +941,9 @@
                 <a href="index.html" class="btn btn-back">
                     <i class="fas fa-arrow-left"></i> 繼續購物
                 </a>
+                <button id="clearCartButton" class="btn btn-clear" onclick="clearCart()">
+                    <i class="fas fa-trash"></i> 清空購物車
+                </button>
                 <button id="checkoutButton" class="btn btn-checkout" data-action="go-checkout" disabled>
                     下一步：填寫資料 <i class="fas fa-arrow-right"></i>
                 </button>
