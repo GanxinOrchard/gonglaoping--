@@ -82,7 +82,7 @@ ul {
 }
 
 /* ===== 全域 z-index 優先級（手機版） ===== */
-@media (max-width: 992px) {
+@media (max-width: 768px) {
     /* 隱藏桌面版選單，避免與手機版選單重複 */
     .main-menu {
         display: none !important;
