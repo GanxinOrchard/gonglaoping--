@@ -30,6 +30,15 @@
             console.warn('未找到主選單，已建立基本的主選單容器');
         }
         
+        // 將抽屜提到 <body>，避免受到任何父層 stacking context/overflow 影響
+        if (drawer && drawer.parentElement !== document.body) {
+            try {
+                document.body.appendChild(drawer);
+            } catch (e) {
+                console.warn('移動主選單到 body 失敗', e);
+            }
+        }
+        
         // 若沒有漢堡按鈕則自動注入到 .nav-icons（或 header 末端）
         if (!toggle) {
             const navIcons = document.querySelector('.nav-icons') || document.querySelector('.navbar .container') || document.querySelector('.header .container') || document.body;

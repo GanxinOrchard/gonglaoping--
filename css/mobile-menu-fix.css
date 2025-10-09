@@ -99,6 +99,7 @@
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: auto !important;
+        contain: layout paint style; /* 建立獨立繪製上下文，減少外部影響 */
     }
     
     .main-menu.open,
