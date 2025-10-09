@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Pay 付款確認 - 柑心果園</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #00B900 0%, #00C300 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .confirm-container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #00B900;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .error-icon {
+            font-size: 80px;
+            color: #ef4444;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .order-info {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .order-info p {
+            margin: 10px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .order-info strong {
+            color: #333;
+        }
+        
+        .amount {
+            font-size: 36px;
+            color: #00B900;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 12px;
+        }
+        
+        .error-amount {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .notice {
+            background: #fff7ed;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .error-notice {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .notice strong {
+            color: #f59e0b;
+        }
+        
+        .error-notice strong {
+            color: #ef4444;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-success {
+            background: #00B900;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .btn-success:hover {
+            background: #00A000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,185,0,0.3);
+        }
+        
+        .btn-back {
+            background: white;
+            color: #666;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-back:hover {
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .actions .btn {
+            flex: 1;
+        }
+        
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #00B900;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .confirm-container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .amount {
+                font-size: 28px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
+</head>
+<body>
+    <!-- 簡化導航欄 -->
+    <header class="header" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="./images/商標.jpg" alt="柑心果園" loading="lazy" width="120" height="40">
+                    </a>
+                </div>
+                
+                <div class="nav-icons">
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="main-menu" id="mainMenu">
+                <ul>
+                    <li><a href="index.html">返回首頁</a></li>
+                    <li><a href="cart.html">購物車</a></li>
+                    <li><a href="order-tracking.html">訂單查詢</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <div class="confirm-container">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>正在處理付款確認...</p>
+        </div>
+        
+        <div class="success-content" id="successContent" style="display: none;">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1>付款成功！</h1>
+            <p class="subtitle">感謝您的購買，訂單已確認</p>
+            
+            <div class="order-info">
+                <p><strong>訂單編號：</strong><span id="orderNumber">-</span></p>
+                <p><strong>付款時間：</strong><span id="paymentTime">-</span></p>
+                <p><strong>付款方式：</strong>LINE Pay</p>
+            </div>
+            
+            <div class="amount">
+                NT$ <span id="totalAmount">0</span>
+            </div>
+            
+            <div class="notice">
+                <strong><i class="fas fa-info-circle"></i> 付款確認</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>付款已成功完成</li>
+                    <li>訂單確認信已發送至您的信箱</li>
+                    <li>我們將盡快為您處理訂單</li>
+                </ul>
+            </div>
+            
+            <a href="order-complete.html" class="btn btn-success">
+                <i class="fas fa-check"></i> 完成
+            </a>
+        </div>
+        
+        <div class="error-content" id="errorContent" style="display: none;">
+            <div class="error-icon">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h1>付款失敗</h1>
+            <p class="subtitle">很抱歉，付款處理時發生錯誤</p>
+            
+            <div class="order-info">
+                <p><strong>錯誤訊息：</strong><span id="errorMessage">-</span></p>
+                <p><strong>發生時間：</strong><span id="errorTime">-</span></p>
+            </div>
+            
+            <div class="amount error-amount">
+                NT$ <span id="errorAmount">0</span>
+            </div>
+            
+            <div class="notice error-notice">
+                <strong><i class="fas fa-exclamation-triangle"></i> 處理建議</strong>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>請檢查您的 LINE Pay 帳戶餘額</li>
+                    <li>確認網路連線正常</li>
+                    <li>如問題持續，請聯繫客服</li>
+                </ul>
+            </div>
+            
+            <div class="actions">
+                <a href="linepay.html" class="btn btn-back">
+                    <i class="fas fa-redo"></i> 重新付款
+                </a>
+                <a href="cart.html" class="btn btn-back">
+                    <i class="fas fa-shopping-cart"></i> 返回購物車
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Google Apps Script Web App URL
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwaZRzFlrt1O5dOSpgkmp-g3YrsdEVpjdw9UyAt7S2jmr4ZStflXJBllt-TjxpidDrt/exec';
+        
+        // 頁面載入時處理付款確認
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loading = document.getElementById('loading');
+            const successContent = document.getElementById('successContent');
+            const errorContent = document.getElementById('errorContent');
+            
+            // 顯示載入中
+            loading.style.display = 'block';
+            
+            try {
+                // 從 URL 參數取得付款資訊
+                const urlParams = new URLSearchParams(window.location.search);
+                const transactionId = urlParams.get('transactionId');
+                const orderId = urlParams.get('orderId');
+                const amount = urlParams.get('amount');
+                
+                if (!transactionId || !orderId || !amount) {
+                    throw new Error('缺少付款確認參數');
+                }
+                
+                // 發送付款確認請求到後端
+                const response = await fetch(GAS_WEB_APP_URL + '?action=confirmLinePayPayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        transactionId: transactionId,
+                        orderId: orderId,
+                        amount: parseInt(amount)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // 付款成功
+                    showSuccess(orderId, amount);
+                } else {
+                    // 付款失敗
+                    showError(result.error || '付款確認失敗', amount);
+                }
+                
+            } catch (error) {
+                console.error('付款確認錯誤:', error);
+                showError(error.message, '0');
+            } finally {
+                // 隱藏載入中
+                loading.style.display = 'none';
+            }
+        });
+        
+        // 顯示成功頁面
+        function showSuccess(orderId, amount) {
+            const successContent = document.getElementById('successContent');
+            const orderNumber = document.getElementById('orderNumber');
+            const paymentTime = document.getElementById('paymentTime');
+            const totalAmount = document.getElementById('totalAmount');
+            
+            orderNumber.textContent = orderId;
+            paymentTime.textContent = new Date().toLocaleString('zh-TW');
+            totalAmount.textContent = parseInt(amount).toLocaleString();
+            
+            successContent.style.display = 'block';
+            
+            // 清除待付款訂單和購物車
+            localStorage.removeItem('pendingLinePayOrder');
+            localStorage.removeItem('ganxin_cart');
+            localStorage.removeItem('ganxin_coupon');
+        }
+        
+        // 顯示錯誤頁面
+        function showError(message, amount) {
+            const errorContent = document.getElementById('errorContent');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorTime = document.getElementById('errorTime');
+            const errorAmount = document.getElementById('errorAmount');
+            
+            errorMessage.textContent = message;
+            errorTime.textContent = new Date().toLocaleString('zh-TW');
+            errorAmount.textContent = parseInt(amount).toLocaleString();
+            
+            errorContent.style.display = 'block';
+        }
+    </script>
+    
+    <!-- 載入必要的 JavaScript -->
+    <script src="./js/mobile-menu-fix.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+</body>
+</html>

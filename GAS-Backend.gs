@@ -4,9 +4,18 @@
 // 試算表 ID（請替換為您的試算表 ID）
 const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
 const SHEET_NAME = '訂單資料';
+const DETAIL_SHEET_NAME = '訂單明細';
 
 // Email 設定
 const ADMIN_EMAIL = 'your-email@example.com'; // 管理員 Email
+
+// LINE Pay 設定
+const LINE_PAY_CONFIG = {
+  channelId: '1657163831',
+  channelSecret: '492cf50453a0a694dd5b70d1a8a33aa4',
+  sandbox: true, // 測試環境，正式上線時改為 false
+  apiUrl: 'https://sandbox-api-pay.line.me' // 測試環境，正式環境為 'https://api-pay.line.me'
+};
 
 // 處理 POST 請求（接收訂單）
 function doPost(e) {
@@ -14,20 +23,19 @@ function doPost(e) {
     // 解析請求資料
     const data = JSON.parse(e.postData.contents);
     
-    // 寫入試算表
-    const result = writeToSheet(data);
+    // 檢查請求類型
+    const action = e.parameter.action;
     
-    // 發送 Email 通知
-    sendOrderEmail(data);
-    
-    // 返回成功訊息
-    return ContentService
-      .createTextOutput(JSON.stringify({
-        success: true,
-        orderId: data.orderId,
-        message: '訂單已成功建立'
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
+    if (action === 'createLinePayPayment') {
+      // 處理 LINE Pay 付款請求
+      return handleLinePayPayment(data);
+    } else if (action === 'confirmLinePayPayment') {
+      // 處理 LINE Pay 付款確認
+      return handleLinePayConfirm(data);
+    } else {
+      // 一般訂單處理
+      return handleRegularOrder(data);
+    }
       
   } catch (error) {
     Logger.log('Error: ' + error.toString());
@@ -38,6 +46,63 @@ function doPost(e) {
         error: error.toString()
       }))
       .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// 處理一般訂單
+function handleRegularOrder(data) {
+  try {
+    // 生成統一訂單編號
+    const orderId = generateOrderId();
+    
+    // 準備訂單資料
+    const orderData = {
+      orderId: orderId,
+      orderDate: new Date().toLocaleString('zh-TW'),
+      status: '待付款',
+      buyer: {
+        name: data.buyerName || data.buyer?.name,
+        email: data.buyerEmail || data.buyer?.email,
+        phone: data.buyerPhone || data.buyer?.phone,
+        address: data.buyerAddress || data.buyer?.addr
+      },
+      receiver: {
+        name: data.receiverName || data.receiver?.name,
+        email: data.receiverEmail || data.receiver?.email,
+        phone: data.receiverPhone || data.receiver?.phone,
+        address: data.receiverAddress || data.receiver?.addr
+      },
+      items: data.items || [],
+      subtotal: data.summary?.subtotal || 0,
+      shipping: data.summary?.shipping || 0,
+      discount: data.summary?.discount || 0,
+      total: data.summary?.total || 0,
+      paymentMethod: data.payment || data.paymentMethod || '銀行匯款',
+      delivery: data.delivery === 'home' ? '宅配到府' : '門市自取',
+      note: data.remark || data.note || ''
+    };
+    
+    // 寫入試算表
+    const result = writeToSheet(orderData);
+    
+    // 寫入訂單明細
+    writeOrderDetails(orderData);
+    
+    // 發送 Email 通知
+    sendOrderEmail(orderData);
+    
+    // 返回成功訊息
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: true,
+        orderId: orderId,
+        message: '訂單已成功建立'
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    Logger.log('處理一般訂單錯誤: ' + error.toString());
+    throw error;
   }
 }
 
@@ -93,6 +158,201 @@ function doGet(e) {
   }
 }
 
+// 生成統一訂單編號
+function generateOrderId() {
+  const now = new Date();
+  const year = now.getFullYear().toString().slice(-2);
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const time = now.getTime().toString().slice(-6);
+  return `GX${year}${month}${day}${time}`;
+}
+
+// 處理 LINE Pay 付款請求
+function handleLinePayPayment(data) {
+  try {
+    // 生成訂單編號
+    const orderId = data.orderId || generateOrderId();
+    
+    // 準備 LINE Pay 請求
+    const linePayRequest = {
+      amount: data.amount,
+      currency: data.currency,
+      orderId: orderId,
+      packages: data.packages,
+      redirectUrls: data.redirectUrls
+    };
+    
+    // 建立 LINE Pay 付款請求
+    const paymentUrl = createLinePayRequest(linePayRequest);
+    
+    if (paymentUrl) {
+      // 儲存訂單資料（待付款狀態）
+      const orderData = {
+        orderId: orderId,
+        orderDate: new Date().toLocaleString('zh-TW'),
+        status: '待付款 (LINE Pay)',
+        buyer: {
+          name: data.orderData.buyerName,
+          email: data.orderData.buyerEmail,
+          phone: data.orderData.buyerPhone,
+          address: data.orderData.buyerAddress
+        },
+        receiver: {
+          name: data.orderData.receiverName,
+          email: data.orderData.receiverEmail,
+          phone: data.orderData.receiverPhone,
+          address: data.orderData.receiverAddress
+        },
+        items: data.orderData.items || [],
+        subtotal: data.orderData.summary?.subtotal || 0,
+        shipping: data.orderData.summary?.shipping || 0,
+        discount: data.orderData.summary?.discount || 0,
+        total: data.orderData.summary?.total || 0,
+        paymentMethod: 'LINE Pay',
+        delivery: data.orderData.delivery === 'home' ? '宅配到府' : '門市自取',
+        note: data.orderData.remark || ''
+      };
+      
+      // 寫入試算表（待付款狀態）
+      writeToSheet(orderData);
+      writeOrderDetails(orderData);
+      
+      return ContentService
+        .createTextOutput(JSON.stringify({
+          success: true,
+          paymentUrl: paymentUrl,
+          orderId: orderId
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    } else {
+      throw new Error('建立 LINE Pay 付款失敗');
+    }
+    
+  } catch (error) {
+    Logger.log('LINE Pay 付款請求錯誤: ' + error.toString());
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: false,
+        error: error.toString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// 建立 LINE Pay 請求
+function createLinePayRequest(requestData) {
+  try {
+    const url = LINE_PAY_CONFIG.apiUrl + '/v2/payments/request';
+    
+    const payload = {
+      amount: requestData.amount,
+      currency: requestData.currency,
+      orderId: requestData.orderId,
+      packages: requestData.packages,
+      redirectUrls: requestData.redirectUrls
+    };
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-LINE-ChannelId': LINE_PAY_CONFIG.channelId,
+        'X-LINE-ChannelSecret': LINE_PAY_CONFIG.channelSecret
+      },
+      payload: JSON.stringify(payload)
+    };
+    
+    const response = UrlFetchApp.fetch(url, options);
+    const result = JSON.parse(response.getContentText());
+    
+    if (result.returnCode === '0000') {
+      return result.info.paymentUrl.web;
+    } else {
+      Logger.log('LINE Pay API 錯誤: ' + result.returnMessage);
+      return null;
+    }
+    
+  } catch (error) {
+    Logger.log('建立 LINE Pay 請求錯誤: ' + error.toString());
+    return null;
+  }
+}
+
+// 處理 LINE Pay 付款確認
+function handleLinePayConfirm(data) {
+  try {
+    const orderId = data.orderId;
+    const transactionId = data.transactionId;
+    
+    // 確認 LINE Pay 付款
+    const confirmResult = confirmLinePayPayment(transactionId, data.amount);
+    
+    if (confirmResult.success) {
+      // 更新訂單狀態為已付款
+      updateOrderStatus(orderId, '已付款 (LINE Pay)');
+      
+      // 發送確認 Email
+      const orderData = getOrderById(orderId);
+      if (orderData) {
+        sendOrderEmail(orderData);
+      }
+      
+      return ContentService
+        .createTextOutput(JSON.stringify({
+          success: true,
+          message: '付款確認成功'
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    } else {
+      throw new Error('付款確認失敗');
+    }
+    
+  } catch (error) {
+    Logger.log('LINE Pay 付款確認錯誤: ' + error.toString());
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: false,
+        error: error.toString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// 確認 LINE Pay 付款
+function confirmLinePayPayment(transactionId, amount) {
+  try {
+    const url = LINE_PAY_CONFIG.apiUrl + '/v2/payments/' + transactionId + '/confirm';
+    
+    const payload = {
+      amount: amount,
+      currency: 'TWD'
+    };
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-LINE-ChannelId': LINE_PAY_CONFIG.channelId,
+        'X-LINE-ChannelSecret': LINE_PAY_CONFIG.channelSecret
+      },
+      payload: JSON.stringify(payload)
+    };
+    
+    const response = UrlFetchApp.fetch(url, options);
+    const result = JSON.parse(response.getContentText());
+    
+    return {
+      success: result.returnCode === '0000',
+      message: result.returnMessage
+    };
+    
+  } catch (error) {
+    Logger.log('確認 LINE Pay 付款錯誤: ' + error.toString());
+    return { success: false, message: error.toString() };
+  }
+}
+
 // 寫入試算表
 function writeToSheet(orderData) {
   try {
@@ -128,7 +388,7 @@ function writeToSheet(orderData) {
       orderData.receiver.phone,             // 手機
       '待寄送',                             // 寄信狀態
       '',                                   // 寄信是否成功
-      '待付款',                             // 款項狀態
+      orderData.status,                     // 款項狀態
       '待處理',                             // 出貨狀態
       orderData.paymentMethod,              // 物流方式
       orderData.receiver.address,           // 收件地址
@@ -150,6 +410,57 @@ function writeToSheet(orderData) {
     
   } catch (error) {
     Logger.log('寫入試算表錯誤: ' + error.toString());
+    throw error;
+  }
+}
+
+// 寫入訂單明細
+function writeOrderDetails(orderData) {
+  try {
+    // 開啟試算表
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    let detailSheet = ss.getSheetByName(DETAIL_SHEET_NAME);
+    
+    // 如果明細工作表不存在，建立新的
+    if (!detailSheet) {
+      detailSheet = ss.insertSheet(DETAIL_SHEET_NAME);
+      
+      // 建立標題列
+      const headers = [
+        '訂單編號', '品名', '規格', '數量', '單價', '小計', '建立時間'
+      ];
+      detailSheet.appendRow(headers);
+      
+      // 設定標題列格式
+      const headerRange = detailSheet.getRange(1, 1, 1, headers.length);
+      headerRange.setBackground('#ff8c42');
+      headerRange.setFontColor('#ffffff');
+      headerRange.setFontWeight('bold');
+      headerRange.setHorizontalAlignment('center');
+    }
+    
+    // 寫入每個商品明細
+    orderData.items.forEach(function(item) {
+      const detailRow = [
+        orderData.orderId,                  // 訂單編號
+        item.name,                          // 品名
+        item.spec || '',                    // 規格
+        item.quantity,                      // 數量
+        item.price,                         // 單價
+        item.price * item.quantity,         // 小計
+        orderData.orderDate                 // 建立時間
+      ];
+      
+      detailSheet.appendRow(detailRow);
+    });
+    
+    // 自動調整欄寬
+    detailSheet.autoResizeColumns(1, 7);
+    
+    return { success: true };
+    
+  } catch (error) {
+    Logger.log('寫入訂單明細錯誤: ' + error.toString());
     throw error;
   }
 }
@@ -242,7 +553,7 @@ function createCustomerEmailBody(orderData) {
     if (item.spec) html += ' (' + item.spec + ')';
     html += '</td>';
     html += '<td style="padding: 10px; text-align: center; border-bottom: 1px solid #e5e7eb;">' + item.quantity + '</td>';
-    html += '<td style="padding: 10px; text-align: right; border-bottom: 1px solid #e5e7eb;">NT$ ' + item.subtotal + '</td>';
+    html += '<td style="padding: 10px; text-align: right; border-bottom: 1px solid #e5e7eb;">NT$ ' + (item.price * item.quantity).toLocaleString() + '</td>';
     html += '</tr>';
   });
   
@@ -299,13 +610,78 @@ function createAdminEmailBody(orderData) {
   orderData.items.forEach(function(item) {
     html += '<li>' + item.name;
     if (item.spec) html += ' (' + item.spec + ')';
-    html += ' x ' + item.quantity + ' = NT$ ' + item.subtotal + '</li>';
+    html += ' x ' + item.quantity + ' = NT$ ' + (item.price * item.quantity).toLocaleString() + '</li>';
   });
   html += '</ul>';
   html += '<p><strong>請盡快處理此訂單</strong></p>';
   html += '</div>';
   
   return html;
+}
+
+// 更新訂單狀態
+function updateOrderStatus(orderId, status) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    
+    if (!sheet) {
+      return false;
+    }
+    
+    const data = sheet.getDataRange().getValues();
+    const headers = data[0];
+    const orderIdCol = headers.indexOf('訂單編號');
+    const statusCol = headers.indexOf('款項狀態');
+    
+    // 搜尋並更新訂單狀態
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][orderIdCol] === orderId) {
+        sheet.getRange(i + 1, statusCol + 1).setValue(status);
+        return true;
+      }
+    }
+    
+    return false;
+    
+  } catch (error) {
+    Logger.log('更新訂單狀態錯誤: ' + error.toString());
+    return false;
+  }
+}
+
+// 根據訂單編號查詢訂單
+function getOrderById(orderId) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    
+    if (!sheet) {
+      return null;
+    }
+    
+    const data = sheet.getDataRange().getValues();
+    const headers = data[0];
+    const orderIdCol = headers.indexOf('訂單編號');
+    
+    // 搜尋訂單
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][orderIdCol] === orderId) {
+        // 找到訂單，返回資料
+        const order = {};
+        headers.forEach(function(header, index) {
+          order[header] = data[i][index];
+        });
+        return order;
+      }
+    }
+    
+    return null;
+    
+  } catch (error) {
+    Logger.log('查詢訂單錯誤: ' + error.toString());
+    return null;
+  }
 }
 
 // 查詢訂單（依訂單編號和Email）
