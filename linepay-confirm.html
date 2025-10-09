@@ -18,7 +18,7 @@
         }
         
         .confirm-container {
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             background: white;
             padding: 40px;
@@ -26,6 +26,32 @@
             text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             animation: slideUp 0.5s ease-out;
+        }
+        
+        @media (min-width: 1024px) {
+            .confirm-container {
+                max-width: 800px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                text-align: left;
+                padding: 60px;
+            }
+            
+            .payment-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .status-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border-left: 1px solid #e5e7eb;
+                padding-left: 40px;
+            }
         }
         
         @keyframes slideUp {
@@ -197,7 +223,7 @@
             100% { transform: rotate(360deg); }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1023px) {
             .confirm-container {
                 padding: 30px 20px;
             }
@@ -212,6 +238,20 @@
             
             .actions {
                 flex-direction: column;
+            }
+            
+            .status-section {
+                border-left: none;
+                border-top: 1px solid #e5e7eb;
+                padding-left: 0;
+                padding-top: 30px;
+                margin-top: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .confirm-container {
+                padding: 20px 15px;
             }
         }
     </style>
@@ -253,68 +293,78 @@
         </div>
         
         <div class="success-content" id="successContent" style="display: none;">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h1>付款成功！</h1>
-            <p class="subtitle">感謝您的購買，訂單已確認</p>
-            
-            <div class="order-info">
-                <p><strong>訂單編號：</strong><span id="orderNumber">-</span></p>
-                <p><strong>付款時間：</strong><span id="paymentTime">-</span></p>
-                <p><strong>付款方式：</strong>LINE Pay</p>
-            </div>
-            
-            <div class="amount">
-                NT$ <span id="totalAmount">0</span>
-            </div>
-            
-            <div class="notice">
-                <strong><i class="fas fa-info-circle"></i> 付款確認</strong>
-                <ul style="margin: 10px 0 0 20px; padding: 0;">
-                    <li>付款已成功完成</li>
-                    <li>訂單確認信已發送至您的信箱</li>
-                    <li>我們將盡快為您處理訂單</li>
-                </ul>
+            <div class="payment-info">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>付款成功！</h1>
+                <p class="subtitle">感謝您的購買，訂單已確認</p>
+                
+                <div class="order-info">
+                    <p><strong>訂單編號：</strong><span id="orderNumber">-</span></p>
+                    <p><strong>付款時間：</strong><span id="paymentTime">-</span></p>
+                    <p><strong>付款方式：</strong>LINE Pay</p>
+                </div>
+                
+                <div class="amount">
+                    NT$ <span id="totalAmount">0</span>
+                </div>
+                
+                <a href="order-complete.html" class="btn btn-success">
+                    <i class="fas fa-check"></i> 完成
+                </a>
             </div>
             
-            <a href="order-complete.html" class="btn btn-success">
-                <i class="fas fa-check"></i> 完成
-            </a>
+            <div class="status-section">
+                <h3>付款狀態</h3>
+                <div class="notice">
+                    <strong><i class="fas fa-info-circle"></i> 付款確認</strong>
+                    <ul style="margin: 10px 0 0 20px; padding: 0;">
+                        <li>付款已成功完成</li>
+                        <li>訂單確認信已發送至您的信箱</li>
+                        <li>我們將盡快為您處理訂單</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         
         <div class="error-content" id="errorContent" style="display: none;">
-            <div class="error-icon">
-                <i class="fas fa-times-circle"></i>
+            <div class="payment-info">
+                <div class="error-icon">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <h1>付款失敗</h1>
+                <p class="subtitle">很抱歉，付款處理時發生錯誤</p>
+                
+                <div class="order-info">
+                    <p><strong>錯誤訊息：</strong><span id="errorMessage">-</span></p>
+                    <p><strong>發生時間：</strong><span id="errorTime">-</span></p>
+                </div>
+                
+                <div class="amount error-amount">
+                    NT$ <span id="errorAmount">0</span>
+                </div>
+                
+                <div class="actions">
+                    <a href="linepay.html" class="btn btn-back">
+                        <i class="fas fa-redo"></i> 重新付款
+                    </a>
+                    <a href="cart.html" class="btn btn-back">
+                        <i class="fas fa-shopping-cart"></i> 返回購物車
+                    </a>
+                </div>
             </div>
-            <h1>付款失敗</h1>
-            <p class="subtitle">很抱歉，付款處理時發生錯誤</p>
             
-            <div class="order-info">
-                <p><strong>錯誤訊息：</strong><span id="errorMessage">-</span></p>
-                <p><strong>發生時間：</strong><span id="errorTime">-</span></p>
-            </div>
-            
-            <div class="amount error-amount">
-                NT$ <span id="errorAmount">0</span>
-            </div>
-            
-            <div class="notice error-notice">
-                <strong><i class="fas fa-exclamation-triangle"></i> 處理建議</strong>
-                <ul style="margin: 10px 0 0 20px; padding: 0;">
-                    <li>請檢查您的 LINE Pay 帳戶餘額</li>
-                    <li>確認網路連線正常</li>
-                    <li>如問題持續，請聯繫客服</li>
-                </ul>
-            </div>
-            
-            <div class="actions">
-                <a href="linepay.html" class="btn btn-back">
-                    <i class="fas fa-redo"></i> 重新付款
-                </a>
-                <a href="cart.html" class="btn btn-back">
-                    <i class="fas fa-shopping-cart"></i> 返回購物車
-                </a>
+            <div class="status-section">
+                <h3>錯誤狀態</h3>
+                <div class="notice error-notice">
+                    <strong><i class="fas fa-exclamation-triangle"></i> 處理建議</strong>
+                    <ul style="margin: 10px 0 0 20px; padding: 0;">
+                        <li>請檢查您的 LINE Pay 帳戶餘額</li>
+                        <li>確認網路連線正常</li>
+                        <li>如問題持續，請聯繫客服</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

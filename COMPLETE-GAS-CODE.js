@@ -386,7 +386,7 @@ function doPost(e) {
       // 處理 LINE Pay 付款確認
       return handleLinePayConfirm_(data);
     } else if (data.type === 'contact') {
-      // 處理聯絡表單
+    // 處理聯絡表單
       return handleContactForm_(data);
     } else {
       // 處理一般訂單
@@ -1000,18 +1000,270 @@ function sendShippedMail_({ orderNo, name, email, trackNo, shipDate }) {
 /////////////////////// 統計功能（省略詳細實作，保留函數框架） ///////////////////////
 function getSummarySheet_() { return $.sheet(SHEET_SUMMARY); }
 function buildDailyShippingSummary_(dateStr) { /* 實作省略 */ }
-function generateTodaySummary() { /* 實作省略 */ }
-function generateSummaryByInput() { /* 實作省略 */ }
-function generateThisWeekSummaryCreated(){ /* 實作省略 */ }
-function generateThisWeekSummaryShipped(){ /* 實作省略 */ }
-function buildWeeklySummary_({useShipDate}){ /* 實作省略 */ }
-function generateSpecCountsTodayAll(){ /* 實作省略 */ }
-function generateSpecCountsThisMonthAll(){ /* 實作省略 */ }
-function generateSpecCountsThisYearAll(){ /* 實作省略 */ }
-function generateSpecCountsTodayShipped(){ /* 實作省略 */ }
-function generateSpecCountsThisMonthShipped(){ /* 實作省略 */ }
-function generateSpecCountsThisYearShipped(){ /* 實作省略 */ }
-function buildSpecCount_({scope, shippedOnly}){ /* 實作省略 */ }
+function generateTodaySummary() { 
+  buildWeeklySummary_({useShipDate: false, scope: 'today'});
+}
+
+function generateSummaryByInput() { 
+  const ui = SpreadsheetApp.getUi();
+  const response = ui.prompt('指定日期統計', '請輸入日期 (YYYY-MM-DD):', ui.ButtonSet.OK_CANCEL);
+  
+  if (response.getSelectedButton() === ui.Button.OK) {
+    const inputDate = response.getResponseText();
+    const targetDate = new Date(inputDate);
+    if (isNaN(targetDate.getTime())) {
+      ui.alert('日期格式錯誤，請使用 YYYY-MM-DD 格式');
+      return;
+    }
+    buildWeeklySummary_({useShipDate: false, scope: 'custom', targetDate: targetDate});
+  }
+}
+
+function generateThisWeekSummaryCreated(){ 
+  buildWeeklySummary_({useShipDate: false, scope: 'week'});
+}
+
+function generateThisWeekSummaryShipped(){ 
+  buildWeeklySummary_({useShipDate: true, scope: 'week'});
+}
+
+function buildWeeklySummary_({useShipDate, scope, targetDate}){ 
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName('週統計');
+    if (!sheet) {
+      sheet = ss.insertSheet('週統計');
+    }
+    
+    // 清空現有內容
+    sheet.clear();
+    
+    // 設定標題
+    const headers = ['日期', '訂單數', '總金額', '統計條件'];
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    
+    // 取得訂單資料
+    const orderSheet = ss.getSheetByName('訂單');
+    if (!orderSheet) {
+      sheet.getRange(2, 1, 1, 4).setValues([['無訂單資料', '', '', '']]);
+      return;
+    }
+    
+    const data = orderSheet.getDataRange().getValues();
+    const headerRow = data[0];
+    const createTimeIndex = headerRow.indexOf('建立時間');
+    const shipDateIndex = headerRow.indexOf('出貨日期');
+    const totalIndex = headerRow.indexOf('應付金額');
+    const orderNoIndex = headerRow.indexOf('訂單編號');
+    
+    if (createTimeIndex === -1 || totalIndex === -1) {
+      sheet.getRange(2, 1, 1, 4).setValues([['缺少必要欄位', '', '', '']]);
+      return;
+    }
+    
+    // 篩選資料
+    const now = new Date();
+    let filteredData = data.slice(1).filter(row => {
+      let dateToCheck;
+      
+      if (useShipDate && shipDateIndex !== -1) {
+        const shipDate = row[shipDateIndex];
+        if (!shipDate) return false;
+        dateToCheck = new Date(shipDate);
+      } else {
+        const createTime = row[createTimeIndex];
+        if (!createTime) return false;
+        dateToCheck = new Date(createTime);
+      }
+      
+      if (scope === 'today') {
+        return dateToCheck.toDateString() === now.toDateString();
+      } else if (scope === 'week') {
+        const weekStart = new Date(now);
+        weekStart.setDate(now.getDate() - now.getDay());
+        weekStart.setHours(0, 0, 0, 0);
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekStart.getDate() + 6);
+        weekEnd.setHours(23, 59, 59, 999);
+        return dateToCheck >= weekStart && dateToCheck <= weekEnd;
+      } else if (scope === 'custom' && targetDate) {
+        return dateToCheck.toDateString() === targetDate.toDateString();
+      }
+      
+      return false;
+    });
+    
+    // 按日期分組統計
+    const dailyStats = {};
+    filteredData.forEach(row => {
+      let dateToCheck;
+      if (useShipDate && shipDateIndex !== -1) {
+        dateToCheck = new Date(row[shipDateIndex]);
+      } else {
+        dateToCheck = new Date(row[createTimeIndex]);
+      }
+      
+      const dateStr = dateToCheck.toISOString().split('T')[0];
+      const total = parseFloat(row[totalIndex]) || 0;
+      
+      if (!dailyStats[dateStr]) {
+        dailyStats[dateStr] = { count: 0, total: 0 };
+      }
+      dailyStats[dateStr].count += 1;
+      dailyStats[dateStr].total += total;
+    });
+    
+    // 寫入結果
+    const results = Object.entries(dailyStats)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, stats]) => [
+        date,
+        stats.count,
+        stats.total,
+        useShipDate ? '依出貨日期' : '依建立時間'
+      ]);
+    
+    if (results.length > 0) {
+      sheet.getRange(2, 1, results.length, 4).setValues(results);
+    } else {
+      sheet.getRange(2, 1, 1, 4).setValues([['無符合條件的資料', '', '', '']]);
+    }
+    
+    const scopeText = scope === 'today' ? '今日' : scope === 'week' ? '本週' : '指定日期';
+    SpreadsheetApp.getUi().alert(`${scopeText}統計完成！請查看「週統計」工作表。`);
+    
+  } catch (error) {
+    Logger.log('buildWeeklySummary_ 錯誤: ' + error.toString());
+    SpreadsheetApp.getUi().alert('統計失敗：' + error.toString());
+  }
+}
+function generateSpecCountsTodayAll(){ 
+  buildSpecCount_({scope: 'today', shippedOnly: false});
+}
+
+function generateSpecCountsThisMonthAll(){ 
+  buildSpecCount_({scope: 'month', shippedOnly: false});
+}
+
+function generateSpecCountsThisYearAll(){ 
+  buildSpecCount_({scope: 'year', shippedOnly: false});
+}
+
+function generateSpecCountsTodayShipped(){ 
+  buildSpecCount_({scope: 'today', shippedOnly: true});
+}
+
+function generateSpecCountsThisMonthShipped(){ 
+  buildSpecCount_({scope: 'month', shippedOnly: true});
+}
+
+function generateSpecCountsThisYearShipped(){ 
+  buildSpecCount_({scope: 'year', shippedOnly: true});
+}
+
+function buildSpecCount_({scope, shippedOnly}){ 
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName('規格統計');
+    if (!sheet) {
+      sheet = ss.insertSheet('規格統計');
+    }
+    
+    // 清空現有內容
+    sheet.clear();
+    
+    // 設定標題
+    const headers = ['規格', '數量', '統計範圍', '統計條件'];
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    
+    // 取得訂單明細資料
+    const orderSheet = ss.getSheetByName('訂單明細');
+    if (!orderSheet) {
+      sheet.getRange(2, 1, 1, 4).setValues([['無訂單明細資料', '', '', '']]);
+      return;
+    }
+    
+    const data = orderSheet.getDataRange().getValues();
+    const headerRow = data[0];
+    const specIndex = headerRow.indexOf('規格');
+    const qtyIndex = headerRow.indexOf('數量');
+    const createTimeIndex = headerRow.indexOf('建立時間');
+    const shipStatusIndex = headerRow.indexOf('出貨狀態');
+    const shipDateIndex = headerRow.indexOf('出貨日期');
+    
+    if (specIndex === -1 || qtyIndex === -1) {
+      sheet.getRange(2, 1, 1, 4).setValues([['缺少必要欄位', '', '', '']]);
+      return;
+    }
+    
+    // 篩選資料
+    const now = new Date();
+    let filteredData = data.slice(1).filter(row => {
+      if (shippedOnly) {
+        const shipStatus = row[shipStatusIndex] || '';
+        const shipDate = row[shipDateIndex];
+        if (shipStatus !== '已出貨' || !shipDate) return false;
+        
+        const shipDateObj = new Date(shipDate);
+        switch (scope) {
+          case 'today':
+            return shipDateObj.toDateString() === now.toDateString();
+          case 'month':
+            return shipDateObj.getMonth() === now.getMonth() && shipDateObj.getFullYear() === now.getFullYear();
+          case 'year':
+            return shipDateObj.getFullYear() === now.getFullYear();
+          default:
+            return false;
+        }
+      } else {
+        const createTime = row[createTimeIndex];
+        if (!createTime) return false;
+        
+        const createTimeObj = new Date(createTime);
+        switch (scope) {
+          case 'today':
+            return createTimeObj.toDateString() === now.toDateString();
+          case 'month':
+            return createTimeObj.getMonth() === now.getMonth() && createTimeObj.getFullYear() === now.getFullYear();
+          case 'year':
+            return createTimeObj.getFullYear() === now.getFullYear();
+          default:
+            return false;
+        }
+      }
+    });
+    
+    // 統計規格
+    const specCount = {};
+    filteredData.forEach(row => {
+      const spec = row[specIndex] || '';
+      const qty = parseInt(row[qtyIndex]) || 0;
+      if (spec) {
+        specCount[spec] = (specCount[spec] || 0) + qty;
+      }
+    });
+    
+    // 寫入結果
+    const results = Object.entries(specCount).map(([spec, count]) => [
+      spec, 
+      count, 
+      scope === 'today' ? '本日' : scope === 'month' ? '本月' : '本年',
+      shippedOnly ? '僅已出貨' : '全部訂單'
+    ]);
+    
+    if (results.length > 0) {
+      sheet.getRange(2, 1, results.length, 4).setValues(results);
+    } else {
+      sheet.getRange(2, 1, 1, 4).setValues([['無符合條件的資料', '', '', '']]);
+    }
+    
+    SpreadsheetApp.getUi().alert('規格統計完成！請查看「規格統計」工作表。');
+    
+  } catch (error) {
+    Logger.log('buildSpecCount_ 錯誤: ' + error.toString());
+    SpreadsheetApp.getUi().alert('統計失敗：' + error.toString());
+  }
+}
 
 /////////////////////// doGet ///////////////////////
 function doGet(e) {
