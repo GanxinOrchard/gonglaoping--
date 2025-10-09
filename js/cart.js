@@ -104,14 +104,22 @@ function renderCartItems() {
     }
     
     // 渲染商品列表
-    cartItemsList.innerHTML = cart.map(item => `
+    cartItemsList.innerHTML = cart.map(item => {
+        // 解析規格資訊
+        let specButtons = '';
+        if (item.selectedSpec) {
+            const specs = item.selectedSpec.split(' ');
+            specButtons = specs.map(spec => `<button class="spec-button">${spec}</button>`).join('');
+        }
+        
+        return `
         <div class="cart-item">
-            <div class="cart-item-image">
+            <div class="cart-item-image" onclick="window.location.href='product-detail.html?id=${item.id}'">
                 <img src="${item.image}" alt="${item.name}">
             </div>
             <div class="cart-item-info">
                 <h3>${item.name}</h3>
-                ${item.selectedSpec ? `<div class="cart-item-spec">${item.selectedSpec}</div>` : ''}
+                ${specButtons ? `<div class="cart-item-spec">${specButtons}</div>` : ''}
                 <div class="cart-item-price">NT$ ${item.price.toLocaleString()}</div>
             </div>
             <div class="cart-item-controls">
@@ -123,7 +131,8 @@ function renderCartItems() {
                 <i class="fas fa-trash"></i> 刪除
             </button>
         </div>
-    `).join('');
+        `;
+    }).join('');
     
     if (cartSummary) cartSummary.style.display = 'block';
     if (checkoutButton) checkoutButton.disabled = false;

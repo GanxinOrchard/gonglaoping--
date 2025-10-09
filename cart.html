@@ -103,16 +103,22 @@
         
         .cart-item {
             display: grid;
-            grid-template-columns: 100px 2fr 1fr auto;
+            grid-template-columns: 120px 2fr 1fr auto;
             gap: 20px;
-            padding: 20px;
+            padding: 25px;
             border-bottom: 1px solid #f0f0f0;
             align-items: center;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
         .cart-item:hover {
             background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .cart-item:last-child {
@@ -120,16 +126,48 @@
         }
         
         .cart-item-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 8px;
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
             overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .cart-item-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
         .cart-item-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .cart-item-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        .cart-item-image::after {
+            content: '點擊查看詳情';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 10px;
+            text-align: center;
+            padding: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .cart-item-image:hover::after {
+            opacity: 1;
         }
         
         .cart-item-info h3 {
@@ -139,9 +177,32 @@
         }
         
         .cart-item-spec {
-            color: #666;
-            font-size: 14px;
+            display: flex;
+            gap: 8px;
             margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .spec-button {
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(255,107,53,0.3);
+        }
+        
+        .spec-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(255,107,53,0.4);
+        }
+        
+        .spec-button:active {
+            transform: translateY(0);
         }
         
         .cart-item-price {
@@ -329,17 +390,17 @@
             
             .cart-item {
                 display: grid;
-                grid-template-columns: 80px 2fr 1fr auto;
+                grid-template-columns: 100px 2fr 1fr auto;
                 gap: 15px;
-                padding: 15px;
-                margin: 0 0 10px 0 !important;
+                padding: 20px;
+                margin: 0 0 15px 0 !important;
                 border-radius: 12px;
                 align-items: center;
             }
             
             .cart-item-image {
-                width: 80px;
-                height: 80px;
+                width: 100px;
+                height: 100px;
                 margin-bottom: 0;
             }
             
@@ -426,21 +487,26 @@
     </header>
 
     <!-- 購物車封面 -->
-    <section class="page-hero" style="background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%); padding: 60px 0 40px; margin-top: 0;">
-        <div class="container">
-            <div class="breadcrumb" style="margin-bottom: 20px;">
-                <a href="index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px;">
+    <section class="page-hero" style="background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%); padding: 30px 0 25px; margin-top: 0; position: relative; overflow: hidden;">
+        <!-- 背景裝飾 -->
+        <div style="position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; transform: rotate(45deg);"></div>
+        <div style="position: absolute; bottom: -20px; left: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.08); border-radius: 50%; transform: rotate(-30deg);"></div>
+        
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="breadcrumb" style="margin-bottom: 15px;">
+                <a href="index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 5px;">
                     <i class="fas fa-home"></i> 首頁
                 </a>
                 <span style="color: rgba(255,255,255,0.6); margin: 0 10px;">/</span>
                 <span style="color: white; font-size: 14px;">購物車</span>
             </div>
-            <h1 style="color: white; font-size: 42px; font-weight: 700; margin: 0;">
-                <i class="fas fa-shopping-cart"></i> 購物車
-            </h1>
-            <p style="color: rgba(255,255,255,0.9); font-size: 16px; margin-top: 10px;">
-                查看您選購的商品，準備結帳
-            </p>
+            <div style="text-align: center;">
+                <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; backdrop-filter: blur(10px);">
+                    <i class="fas fa-shopping-cart" style="font-size: 20px; color: white;"></i>
+                </div>
+                <h1 style="color: white; font-size: 24px; font-weight: 700; margin: 0 0 5px 0;">購物車</h1>
+                <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0;">查看您選購的商品，準備結帳</p>
+            </div>
         </div>
     </section>
 
