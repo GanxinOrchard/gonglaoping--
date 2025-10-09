@@ -129,7 +129,7 @@ function renderCartItems() {
                     <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">+</button>
                 </div>
                 <button class="remove-btn" onclick="removeCartItem(${item.id}, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">
-                    <i class="fas fa-trash"></i> 刪除
+                    刪除
                 </button>
             </div>
         </div>
