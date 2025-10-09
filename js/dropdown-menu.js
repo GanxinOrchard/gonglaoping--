@@ -171,20 +171,26 @@
         function initMobileDropdown() {
             if (window.innerWidth <= 992) {
                 document.querySelectorAll('.dropdown > a').forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const dropdown = this.parentElement;
-                        
-                        // 關閉其他下拉選單
-                        document.querySelectorAll('.dropdown').forEach(d => {
-                            if (d !== dropdown) d.classList.remove('active');
-                        });
-                        
-                        dropdown.classList.toggle('active');
-                    });
+                    // 移除舊的事件監聽器
+                    link.removeEventListener('click', handleMobileDropdownClick);
+                    // 添加新的事件監聽器
+                    link.addEventListener('click', handleMobileDropdownClick);
                 });
             }
+        }
+        
+        // 手機版下拉選單點擊處理函數
+        function handleMobileDropdownClick(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const dropdown = this.parentElement;
+            
+            // 關閉其他下拉選單
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if (d !== dropdown) d.classList.remove('active');
+            });
+            
+            dropdown.classList.toggle('active');
         }
         
         // 初始化
