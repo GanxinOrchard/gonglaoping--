@@ -244,7 +244,7 @@ function addToCart(productId, specId = null, quantity = 1) {
     }
     
     updateCartCount();
-    showNotification('已加入購物車！');
+    showCartNotification('已加入購物車！');
 }
 
 // 更新購物車數量顯示
