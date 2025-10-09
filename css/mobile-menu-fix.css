@@ -90,7 +90,7 @@
         max-width: 320px !important;
         background: var(--white) !important;
         box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12) !important;
-        transform: translateX(100%) !important;
+        transform: translateX(100%) !important; /* 統一用 transform 控制 */
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         z-index: 1000 !important;
         overflow-y: auto !important;
@@ -101,8 +101,10 @@
         pointer-events: auto !important;
     }
     
-    .main-menu.open {
-        transform: translateX(0);
+    .main-menu.open,
+    .main-menu.active {
+        transform: translateX(0) !important;
+        right: 0 !important; /* 保底，避免舊 right 規則覆蓋 */
     }
     
     .main-menu > ul {

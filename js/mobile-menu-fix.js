@@ -14,13 +14,36 @@
     }
     
     function initMobileMenu() {
-        const toggle = document.getElementById('mobileMenuToggle');
+        let toggle = document.getElementById('mobileMenuToggle');
         const floatingBtn = document.getElementById('floatingMenuBtn');
-        const drawer = document.getElementById('mainMenu');
+        let drawer = document.getElementById('mainMenu') || document.querySelector('.main-menu');
         
+        // 若找不到主選單，嘗試建立一個基本容器，避免無法初始化
         if (!drawer) {
-            console.warn('找不到選單元素 #mainMenu');
-            return;
+            const header = document.querySelector('.header .container') || document.querySelector('header .container') || document.body;
+            const menuEl = document.createElement('nav');
+            menuEl.className = 'main-menu';
+            menuEl.id = 'mainMenu';
+            menuEl.innerHTML = '<ul></ul>';
+            header.appendChild(menuEl);
+            drawer = menuEl;
+            console.warn('未找到主選單，已建立基本的主選單容器');
+        }
+        
+        // 若沒有漢堡按鈕則自動注入到 .nav-icons（或 header 末端）
+        if (!toggle) {
+            const navIcons = document.querySelector('.nav-icons') || document.querySelector('.navbar .container') || document.querySelector('.header .container') || document.body;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'mobile-menu-toggle';
+            btn.id = 'mobileMenuToggle';
+            btn.setAttribute('aria-controls', 'mainMenu');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.setAttribute('aria-label', '開啟選單');
+            btn.innerHTML = '<i class="fas fa-bars"></i>';
+            navIcons.appendChild(btn);
+            toggle = btn;
+            console.log('未找到漢堡按鈕，已自動注入');
         }
         
         // 創建遮罩
@@ -59,6 +82,12 @@
         drawer.classList.add('active');
         overlay.classList.add('active');
         document.body.classList.add('menu-open');
+
+            // 強制確保遮罩可見且可點擊（避免部分瀏覽器/外掛干擾）
+            overlay.style.display = 'block';
+            overlay.style.opacity = '1';
+            overlay.style.visibility = 'visible';
+            overlay.style.pointerEvents = 'auto';
             
             // 更新按鈕狀態
             if (button) {
@@ -93,6 +122,13 @@
             drawer.classList.remove('active');
             overlay.classList.remove('active');
             document.body.classList.remove('menu-open');
+
+            // 關閉時同步還原遮罩狀態
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            overlay.style.pointerEvents = 'none';
+            // 延遲隱藏，配合過場
+            setTimeout(() => { overlay.style.display = 'none'; }, 200);
             
             // 更新所有按鈕狀態
             [toggle, floatingBtn].forEach(button => {
