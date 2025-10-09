@@ -622,45 +622,63 @@ function showOrderConfirmation() {
 }
 
 // Google Apps Script Web App URL（請替換為您的 GAS 部署 URL）
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwaZRzFlrt1O5dOSpgkmp-g3YrsdEVpjdw9UyAt7S2jmr4ZStflXJBllt-TjxpidDrt/exec';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw1nW-SRQDCWtABT0uB5IBPb4pk2jBusZlbm3_bwCBdcwBUGwH1wjyRm3PB9Is0Ysej/exec';
 
 /**
  * 提交訂單到 Google Sheets
  */
 async function submitOrderToGAS(orderInfo) {
     try {
+        // 準備符合 GAS 後端期望的資料格式
+        const orderData = {
+            buyerName: orderInfo.buyer.name,
+            buyerEmail: orderInfo.buyer.email,
+            buyerPhone: orderInfo.buyer.phone,
+            buyerAddress: orderInfo.buyer.address,
+            receiverName: orderInfo.receiver.name,
+            receiverEmail: orderInfo.receiver.email,
+            receiverPhone: orderInfo.receiver.phone,
+            receiverAddress: orderInfo.receiver.address,
+            delivery: orderInfo.delivery,
+            payment: orderInfo.payment,
+            items: orderInfo.items.map(item => ({
+                name: item.name,
+                spec: item.selectedSpec || '',
+                quantity: item.quantity,
+                price: item.price,
+                weight: '', // 如果需要可以從商品資料中取得
+                size: item.selectedSpec || ''
+            })),
+            summary: {
+                subtotal: orderInfo.subtotal,
+                shipping: orderInfo.shipping,
+                discount: orderInfo.discount || 0,
+                total: orderInfo.total
+            },
+            remark: orderInfo.note || ''
+        };
+
         const response = await fetch(GAS_WEB_APP_URL, {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                orderId: orderInfo.orderNumber,
-                orderDate: new Date(orderInfo.orderTime).toLocaleString('zh-TW'),
-                status: '待處理',
-                buyer: orderInfo.buyer,
-                receiver: orderInfo.receiver,
-                items: orderInfo.items.map(item => ({
-                    name: item.name,
-                    spec: item.selectedSpec || '',
-                    quantity: item.quantity,
-                    price: item.price,
-                    subtotal: item.price * item.quantity
-                })),
-                subtotal: orderInfo.subtotal,
-                shipping: orderInfo.shipping,
-                total: orderInfo.total,
-                paymentMethod: {
-                    'linepay': 'LINE Pay',
-                    'bank': '銀行轉帳',
-                    'cash': '自取現金'
-                }[orderInfo.payment],
-                note: orderInfo.note
-            })
+            body: JSON.stringify(orderData)
         });
         
-        return { success: true };
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        console.log('訂單提交結果:', result);
+        
+        if (result.ok) {
+            console.log('訂單已成功提交到 Google Sheets，訂單編號:', result.order_no);
+            return { success: true, orderNumber: result.order_no };
+        } else {
+            throw new Error(result.msg || '訂單提交失敗');
+        }
     } catch (error) {
         console.error('提交訂單到 GAS 失敗:', error);
         return { success: false, error: error.message };
@@ -670,18 +688,83 @@ async function submitOrderToGAS(orderInfo) {
 /**
  * 處理 LINE Pay 付款
  */
-function processLinePay(orderInfo) {
-    // 儲存訂單資訊到 localStorage
-    localStorage.setItem('pendingLinePayOrder', JSON.stringify(orderInfo));
-    
-    // 跳轉到 LINE Pay 頁面
-    window.location.href = 'linepay.html';
+async function processLinePay(orderInfo) {
+    try {
+        // 準備 LINE Pay 付款請求資料
+        const linePayData = {
+            amount: orderInfo.total,
+            currency: 'TWD',
+            packages: [{
+                id: 'package1',
+                amount: orderInfo.total,
+                name: '柑心果園訂單',
+                products: orderInfo.items.map(item => ({
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price
+                }))
+            }],
+            redirectUrls: {
+                confirmUrl: window.location.origin + '/linepay-confirm.html',
+                cancelUrl: window.location.origin + '/linepay.html'
+            },
+            orderData: {
+                buyerName: orderInfo.buyer.name,
+                buyerEmail: orderInfo.buyer.email,
+                buyerPhone: orderInfo.buyer.phone,
+                buyerAddress: orderInfo.buyer.address,
+                receiverName: orderInfo.receiver.name,
+                receiverEmail: orderInfo.receiver.email,
+                receiverPhone: orderInfo.receiver.phone,
+                receiverAddress: orderInfo.receiver.address,
+                delivery: orderInfo.delivery,
+                items: orderInfo.items,
+                summary: {
+                    subtotal: orderInfo.subtotal,
+                    shipping: orderInfo.shipping,
+                    discount: orderInfo.discount || 0,
+                    total: orderInfo.total
+                },
+                remark: orderInfo.note || ''
+            }
+        };
+
+        // 發送到後端處理 LINE Pay 請求
+        const response = await fetch(GAS_WEB_APP_URL + '?action=createLinePayPayment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(linePayData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success && result.paymentUrl) {
+            // 跳轉到 LINE Pay 付款頁面
+            window.location.href = result.paymentUrl;
+        } else {
+            throw new Error(result.error || '建立 LINE Pay 付款失敗');
+        }
+        
+    } catch (error) {
+        console.error('LINE Pay 付款處理錯誤:', error);
+        alert('LINE Pay 付款處理失敗：' + error.message);
+        
+        // 重新啟用提交按鈕
+        const submitBtn = document.querySelector('.btn-submit');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '送出訂單';
+            submitBtn.style.opacity = '1';
+        }
+    }
 }
 
 /**
  * 提交訂單
  */
-function submitOrder() {
+async function submitOrder() {
     console.log('submitOrder 函數被調用');
     
     // 防止重複提交
@@ -796,7 +879,7 @@ function submitOrder() {
         
         // 如果選擇 LINE Pay，跳轉到 LINE Pay 頁面
         if (orderInfo.payment === 'linepay') {
-            processLinePay(orderInfo);
+            await processLinePay(orderInfo);
             // 清空購物車
             clearCart();
             // 清空表單資料
