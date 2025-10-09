@@ -232,11 +232,21 @@
                 e.stopPropagation();
                 
                 const dropdown = this.parentElement;
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                
+                console.log('🍊 下拉選單被點擊:', dropdown);
+                console.log('🍊 下拉選單元素:', dropdownMenu);
+                console.log('🍊 當前狀態:', dropdown.classList.contains('active'));
                 
                 // 關閉其他下拉選單
                 drawer.querySelectorAll('.dropdown').forEach(d => {
                     if (d !== dropdown) {
                         d.classList.remove('active');
+                        const otherMenu = d.querySelector('.dropdown-menu');
+                        if (otherMenu) {
+                            otherMenu.style.display = 'none';
+                            otherMenu.style.maxHeight = '0';
+                        }
                     }
                 });
                 
@@ -245,10 +255,18 @@
                 
                 // 確保下拉選單可見
                 if (dropdown.classList.contains('active')) {
-                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
                     if (dropdownMenu) {
                         dropdownMenu.style.display = 'block';
                         dropdownMenu.style.maxHeight = '600px';
+                        console.log('🍊 下拉選單已展開');
+                    } else {
+                        console.error('🍊 找不到下拉選單元素');
+                    }
+                } else {
+                    if (dropdownMenu) {
+                        dropdownMenu.style.display = 'none';
+                        dropdownMenu.style.maxHeight = '0';
+                        console.log('🍊 下拉選單已收合');
                     }
                 }
             }

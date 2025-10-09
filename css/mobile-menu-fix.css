@@ -313,6 +313,8 @@
         position: relative !important;
         line-height: 1.4 !important;
         min-height: 52px !important;
+        font-family: inherit !important;
+        letter-spacing: 0.02em !important;
     }
     
     .dropdown-menu a:before {

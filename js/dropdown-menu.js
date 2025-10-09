@@ -31,9 +31,9 @@
                 transform: rotate(180deg);
             }
             
-            /* 手機版樣式 */
+            /* 手機版樣式 - 僅適用於非手機選單抽屜中的下拉選單 */
             @media (max-width: 992px) {
-                .dropdown-menu {
+                .dropdown-menu:not(.main-menu .dropdown-menu) {
                     position: static !important;
                     box-shadow: none !important;
                     background: #f8f9fa !important;
@@ -47,18 +47,18 @@
                     left: auto !important;
                 }
                 
-                .dropdown-menu li {
+                .dropdown-menu:not(.main-menu .dropdown-menu) li {
                     opacity: 1 !important;
                     transform: none !important;
                 }
                 
-                .dropdown-menu li a {
+                .dropdown-menu:not(.main-menu .dropdown-menu) li a {
                     padding: 10px 15px !important;
                     font-size: 14px !important;
                     border-bottom: none !important;
                 }
                 
-                .dropdown-menu li a:hover {
+                .dropdown-menu:not(.main-menu .dropdown-menu) li a:hover {
                     padding-left: 20px !important;
                 }
             }
@@ -167,14 +167,19 @@
             }
         }
         
-        // 手機版：使用點擊事件
+        // 手機版：使用點擊事件（僅在非手機選單抽屜中）
         function initMobileDropdown() {
             if (window.innerWidth <= 992) {
+                // 只處理不在手機選單抽屜中的下拉選單
                 document.querySelectorAll('.dropdown > a').forEach(link => {
-                    // 移除舊的事件監聽器
-                    link.removeEventListener('click', handleMobileDropdownClick);
-                    // 添加新的事件監聽器
-                    link.addEventListener('click', handleMobileDropdownClick);
+                    // 檢查是否在手機選單抽屜中
+                    const isInMobileDrawer = link.closest('#mainMenu') || link.closest('.main-menu');
+                    if (!isInMobileDrawer) {
+                        // 移除舊的事件監聽器
+                        link.removeEventListener('click', handleMobileDropdownClick);
+                        // 添加新的事件監聽器
+                        link.addEventListener('click', handleMobileDropdownClick);
+                    }
                 });
             }
         }
