@@ -18,7 +18,7 @@
     --z-cart: 99999;
     --z-cart-overlay: 99998;
     --z-modal: 9999;
-    --z-header: 1000;
+    --z-header: 10000;
 }
 
 /* ===== Skip to main content (無障礙) ===== */
@@ -114,10 +114,14 @@ ul {
     /* 確保內容區域不會遮擋選單 */
     .content-wrapper,
     .floating-oranges,
-    .hero-slider,
     section,
     main {
         z-index: auto !important;
+    }
+    
+    /* 確保 hero-slider 不會遮擋導覽列 */
+    .hero-slider {
+        z-index: 1 !important;
     }
     
     /* 手機版導航列佈局 */
