@@ -92,7 +92,7 @@
         box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12) !important;
         transform: translateX(100%) !important; /* 統一用 transform 控制 */
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        z-index: 2147483646 !important; /* 幾乎最高層，僅次於遮罩 */
+        z-index: 2147483647 !important; /* 最高層：確保抽屜在遮罩之上 */
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         padding-top: 20px !important;
@@ -152,7 +152,7 @@
     width: 100% !important;
     height: 100% !important;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 2147483647 !important; /* 最高層，覆蓋外部懸浮按鈕 */
+    z-index: 2147483646 !important; /* 低於抽屜，仍高於第三方懸浮元件 */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -162,6 +162,7 @@
 .menu-overlay.active {
     opacity: 1;
     visibility: visible;
+    backdrop-filter: saturate(120%) blur(1px);
 }
 
 /* 5. 確保其他元素不會遮擋選單 */
