@@ -8,75 +8,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 浮動橘子背景動畫 */
-        .floating-oranges {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .orange {
-            position: absolute;
-            font-size: 40px;
-            opacity: 0.3;
-            animation: float 15s infinite ease-in-out;
-        }
-        
-        .orange:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 50px; }
-        .orange:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 35px; }
-        .orange:nth-child(3) { left: 40%; animation-delay: 4s; font-size: 45px; }
-        .orange:nth-child(4) { left: 60%; animation-delay: 1s; font-size: 38px; }
-        .orange:nth-child(5) { left: 75%; animation-delay: 3s; font-size: 42px; }
-        .orange:nth-child(6) { left: 90%; animation-delay: 5s; font-size: 48px; }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        .content-wrapper {
-            position: relative;
-            z-index: 2;
-        }
-        
-        @media (max-width: 992px) {
-            .content-wrapper {
-                z-index: 2 !important;
-            }
-        }
-    </style>
-</head>
-    <style>
-        /* 封面圖動畫 */
-        @keyframes heroZoom {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        
+        /* 動畫效果 */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -88,167 +20,476 @@
             }
         }
         
-        .about-hero-image img {
-            animation: heroZoom 20s ease-in-out infinite;
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
-        .about-hero-image .container > div {
-            animation: fadeInUp 1s ease-out;
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* 英雄區域 */
         .about-hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--white);
-            padding: 100px 0 60px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            color: white;
+            padding: 120px 0 80px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 6s ease-in-out infinite;
         }
         
         .about-hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
         
         .about-hero p {
             font-size: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            opacity: 0.95;
         }
         
-        .about-content {
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* 故事區域 */
+        .story-section {
             padding: 80px 0;
+            background: #f9fafb;
         }
         
-        .about-section {
-            max-width: 900px;
-            margin: 0 auto 60px;
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 20px;
         }
         
-        .about-section h2 {
-            font-size: 32px;
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .about-section p {
-            font-size: 18px;
-            line-height: 2;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-        
-        .about-values {
+        .story-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+        
+        .story-content {
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .story-image {
+            animation: slideInRight 1s ease-out;
+        }
+        
+        .story-content h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .story-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            border-radius: 2px;
+        }
+        
+        .story-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .story-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .story-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* 價值觀區域 */
+        .values-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .values-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .values-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .values-title p {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
         }
         
         .value-card {
-            background: var(--bg-light);
-            padding: 40px 30px;
-            border-radius: 12px;
             text-align: center;
-            border-left: 4px solid var(--primary-color);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            padding: 40px 20px;
+            border-radius: 20px;
+            background: #f9fafb;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
         }
         
-        .value-card.animate {
-            opacity: 1;
-            transform: translateY(0);
+        .value-card:nth-child(2) {
+            animation-delay: 0.2s;
         }
         
-        .value-card:nth-child(1).animate {
-            transition-delay: 0.1s;
-        }
-        
-        .value-card:nth-child(2).animate {
-            transition-delay: 0.2s;
-        }
-        
-        .value-card:nth-child(3).animate {
-            transition-delay: 0.3s;
-        }
-        
-        .value-card:nth-child(4).animate {
-            transition-delay: 0.4s;
+        .value-card:nth-child(3) {
+            animation-delay: 0.4s;
         }
         
         .value-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(255, 140, 66, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: white;
         }
         
-        .value-card i {
-            font-size: 48px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-        
-        .value-card:hover i {
-            transform: scale(1.2) rotate(5deg);
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
         }
         
         .value-card h3 {
-            font-size: 22px;
+            font-size: 24px;
+            color: #2c3e50;
             margin-bottom: 15px;
-            color: var(--text-dark);
         }
         
         .value-card p {
             font-size: 16px;
-            line-height: 1.8;
-            color: var(--text-light);
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 時間軸區域 */
+        .timeline-section {
+            padding: 80px 0;
+            background: #f9fafb;
+        }
+        
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .timeline-title {
             text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .timeline-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .timeline-item:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #ff8c42;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #ff8c42;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 45%;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            left: 55%;
+        }
+        
+        .timeline-content h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content .year {
+            color: #ff8c42;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 團隊區域 */
+        .team-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .team-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .team-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .team-member {
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .team-member:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .team-member:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        .member-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 60px;
+            color: white;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .member-name {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .member-role {
+            color: #ff8c42;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .member-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 992px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero-stats {
+                gap: 40px;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                left: 80px !important;
+            }
         }
         
         @media (max-width: 768px) {
-            .about-hero-image {
-                height: 400px !important;
+            .about-hero h1 {
+                font-size: 36px;
             }
             
-            .about-hero h1, 
-            .about-hero-image h1 {
-                font-size: 28px !important;
-                margin-bottom: 15px !important;
+            .about-hero p {
+                font-size: 18px;
             }
             
-            .about-hero p,
-            .about-hero-image p {
-                font-size: 16px !important;
-                margin-bottom: 12px !important;
-                line-height: 1.6 !important;
-            }
-            
-            .about-hero-image .container {
-                padding: 0 15px !important;
-            }
-            
-            .about-section h2 {
-                font-size: 24px;
-            }
-            
-            .about-section p {
-                font-size: 16px;
-            }
-            
-            .about-values {
-                grid-template-columns: 1fr;
+            .hero-stats {
+                flex-direction: column;
                 gap: 20px;
+            }
+            
+            .story-content h2,
+            .values-title h2,
+            .timeline-title h2,
+            .team-title h2 {
+                font-size: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Skip to main content -->
-    <a href="#main-content" class="skip-link">跳到主要內容</a>
-    
     <!-- 浮動橘子背景 -->
     <div class="floating-oranges">
         <div class="orange">🍊</div>
@@ -260,407 +501,312 @@
     </div>
 
     <div class="content-wrapper">
-    <!-- 跑馬燈 -->
-    <div class="announcement-bar">
-        <div class="announcement-content">
-            <i class="fas fa-bullhorn"></i>
-            <span>🎉 新春優惠活動開跑！滿 NT$1,800 免運｜產地直送新鮮到府</span>
-        </div>
-    </div>
-    
-    <!-- 導航列 -->
-    <header class="header">
-        <nav class="navbar">
+        <!-- 導航欄 -->
+        <header class="header">
             <div class="container">
-                <div class="nav-content">
+                <div class="header-content">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="./images/商標.jpg" alt="柑心果園" width="180" height="60" loading="lazy">
+                            <img src="images/logo.png" alt="柑心果園" style="height: 50px;">
                         </a>
                     </div>
                     
-                    <div class="nav-icons">
-                        <a href="cart.html" class="cart-icon" id="cartIcon">
+                    <div class="main-menu" id="mainMenu">
+                        <ul>
+                            <li><a href="index.html">首頁</a></li>
+                            <li><a href="news.html">最新消息</a></li>
+                            <li><a href="knowledge.html">蔬果知識</a></li>
+                            <li class="dropdown">
+                                <a href="season-recommend.html">本季嚴選 <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="season-recommend.html">當季推薦</a></li>
+                                    <li><a href="season-ponkan.html">椪柑產季</a></li>
+                                    <li><a href="season-murcott.html">茂谷柑產季</a></li>
+                                    <li><a href="season-water-chestnut.html">菱角產季</a></li>
+                                    <li><a href="season-taro.html">芋角產季</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="products.html">所有商品</a></li>
+                                    <li><a href="grading.html">規格分級</a></li>
+                                    <li><a href="farming.html">友善栽培</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="guide.html">挑選指南 <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="guide-ponkan.html">椪柑挑選</a></li>
+                                    <li><a href="guide-murcott.html">茂谷柑挑選</a></li>
+                                    <li><a href="guide-water-chestnut.html">菱角挑選</a></li>
+                                    <li><a href="guide-taro.html">芋角挑選</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="about.html" class="active">關於我們 <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="about.html" class="active">關於柑心果園</a></li>
+                                    <li><a href="contact.html">聯絡我們</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="order-tracking.html">訂單查詢</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <div class="cart-icon" id="cartIcon">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="cart-count" id="cartCount">0</span>
-                        </a>
-                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                            <i class="fas fa-bars"></i>
-                        </button>
+                        </div>
+                        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 英雄區域 -->
+        <section class="about-hero">
+            <div class="container">
+                <h1>關於柑心果園</h1>
+                <p>百年傳承，用心栽培每一顆果實</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">年傳承歷史</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">種植品種</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10000+</span>
+                        <span class="stat-label">滿意客戶</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 故事區域 -->
+        <section class="story-section">
+            <div class="story-container">
+                <div class="story-grid">
+                    <div class="story-content">
+                        <h2>百年果園的傳承</h2>
+                        <p>公老坪的椪柑種植歷史可以追溯到百年前，這裡的氣候、土壤、海拔高度，造就了椪柑獨特的風味。柑心果園的椪柑栽培技術，是祖輩一代代傳承下來的。</p>
+                        <p>從修枝、疏果、套袋到採收，每個環節都有其獨特的節奏與時機。老一輩的果農常說：「種柑橘不能急，要跟著季節走。」這句話道出了柑橘栽培的精髓 - 尊重自然、順應時節。</p>
+                    </div>
+                    <div class="story-image">
+                        <img src="images/orchard-traditional.jpg" alt="傳統果園" onerror="this.style.display='none'">
                     </div>
                 </div>
                 
-                <div class="main-menu" id="mainMenu">
-                    <ul>
-                        <li><a href="index.html">首頁</a></li>
-                        <li><a href="news.html">最新消息</a></li>
-                        <li><a href="knowledge.html">蔬果知識</a></li>
-                        <li class="dropdown">
-                            <a href="season-recommend.html">本季嚴選 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="season-recommend.html">當季推薦</a></li>
-                                <li><a href="season-ponkan.html">椪柑產季</a></li>
-                                <li><a href="season-murcott.html">茂谷柑產季</a></li>
-                                <li><a href="season-water-chestnut.html">菱角產季</a></li>
-                                <li><a href="season-taro.html">芋角產季</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="products.html?category=優質水果">優質水果</a></li>
-                                <li><a href="products.html?category=新鮮蔬果">新鮮蔬果</a></li>
-                                <li><a href="products.html?category=冷凍食品">冷凍食品</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="farming.html">安心指南 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="farming.html">友善栽培</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="guide.html">挑選指南 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="guide-ponkan.html">椪柑挑選</a></li>
-                                <li><a href="guide-murcott.html">茂谷柑挑選</a></li>
-                                <li><a href="guide-water-chestnut.html">菱角挑選</a></li>
-                                <li><a href="guide-taro.html">芋角挑選</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="grading.html">規格分級 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="grading-ponkan.html">椪柑規格</a></li>
-                                <li><a href="grading-murcott.html">茂谷柑規格</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="about.html" class="active">關於我們 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="about.html">關於柑心果園</a></li>
-                                <li><a href="contact.html">聯絡我們</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="order-tracking.html">訂單查詢</a></li>
-                    </ul>
+                <div class="story-grid">
+                    <div class="story-image">
+                        <img src="images/orchard-modern.jpg" alt="現代果園" onerror="this.style.display='none'">
+                    </div>
+                    <div class="story-content">
+                        <h2>現代化的堅持</h2>
+                        <p>雖然傳承百年技藝，但我們也與時俱進，採用現代化的管理方式。我們堅持不使用生長激素，讓果實自然成熟；採用草生栽培，維護土壤生態。</p>
+                        <p>手工採收，確保每顆果實品質；嚴格篩選，只將最好的果實送到您手中。我們相信，用心種植的果實，會帶給您最真實的美味。</p>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
+        </section>
 
-    <!-- 麵包屑導航 -->
-    <nav class="breadcrumb">
-        <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
-        <span class="breadcrumb-separator">/</span>
-        <span>關於我們</span>
-    </nav>
-
-    <script>
-        // 四個主題卡片滾動動畫
-        document.addEventListener('DOMContentLoaded', function() {
-            const valueCards = document.querySelectorAll('.value-card');
-            
-            const observerOptions = {
-                threshold: 0.2,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
-                    }
-                });
-            }, observerOptions);
-            
-            valueCards.forEach(card => {
-                observer.observe(card);
-            });
-        });
-
-        // 產季時間軸動畫
-        function highlightMonth(month) {
-            // 移除所有高亮
-            document.querySelectorAll('.season-month').forEach(function(el) {
-                el.style.background = '#f9fafb';
-                el.style.transform = 'scale(1)';
-                el.style.boxShadow = 'none';
-                const icon = el.querySelector('.season-icon');
-                icon.style.transform = 'scale(1)';
-                icon.style.filter = 'grayscale(50%)';
-            });
-            
-            // 高亮選中的月份
-            const selected = document.querySelector('.season-month[data-month="' + month + '"]');
-            if (selected) {
-                selected.style.background = 'linear-gradient(135deg, #10b981 0%, #34d399 100%)';
-                selected.style.transform = 'scale(1.1)';
-                selected.style.boxShadow = '0 10px 30px rgba(16, 185, 129, 0.3)';
-                
-                const icon = selected.querySelector('.season-icon');
-                icon.style.transform = 'scale(1.2)';
-                icon.style.filter = 'brightness(1.2) drop-shadow(0 0 10px rgba(255, 215, 0, 0.8))';
-                
-                // 改變文字顏色
-                selected.querySelector('h4').style.color = 'white';
-                selected.querySelector('p').style.color = 'rgba(255, 255, 255, 0.9)';
-            }
-        }
-
-        // 聯絡表單提交
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('感謝您的留言！我們會盡快回覆您。');
-            this.reset();
-        });
-    </script>
-
-    <!-- Hero Section -->
-    <main id="main-content">
-    <section class="about-hero">
-        <div class="about-hero-image" style="position: relative; height: 500px; overflow: hidden;">
-            <img src="images/關於我們的封面首頁.png" alt="柑心果園果園景觀，山坡上的椪柑樹林" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);" loading="lazy">
-            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7));"></div>
-            <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; z-index: 2;">
-                <div style="color: white; text-shadow: 3px 3px 10px rgba(0,0,0,0.9);">
-                    <h1 style="font-size: 48px; margin-bottom: 20px; color: white; font-weight: 700;">柑心手摘 × 產地直送</h1>
-                    <p style="font-size: 24px; margin-bottom: 30px; color: white; font-weight: 500;">把最自然的好味道，從山頂帶到你心裡</p>
-                    <p style="font-size: 20px; color: #ffd700; font-weight: 600;">用心種柑，與你柑心相伴</p>
+        <!-- 價值觀區域 -->
+        <section class="values-section">
+            <div class="values-container">
+                <div class="values-title">
+                    <h2>我們的價值觀</h2>
+                    <p>堅持品質，用心服務，讓每一顆果實都承載著我們的承諾</p>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>自然栽培</h3>
+                        <p>堅持友善農法，不使用化學農藥，讓果實自然成長，保持最純淨的風味。</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>用心服務</h3>
+                        <p>從種植到配送，每個環節都用心對待，確保您收到最新鮮、最優質的果實。</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>誠信經營</h3>
+                        <p>百年傳承的誠信理念，讓每一筆交易都建立在信任與品質的基礎上。</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 關於內容 -->
-    <section class="about-content">
-        <div class="container">
-            <div class="about-section">
-                <h2>我們的故事</h2>
-                <p>
-                    從台中公老坪的清晨，到東勢曬著午後的陽光，柑心果園一直做著同一件事──把時間、耐心與土地的恩典，慢慢養成一顆好柑。
-                </p>
-                <p>
-                    我們相信，水果的甜，不只是糖度，而是從種下的那天起，對土地與人的善意：尊重季節、不急著催熟；減少不必要的處理，讓果實帶著陽光與風的味道來到你手上。
-                </p>
-            </div>
-
-            <div class="about-section">
-                <h2>產地與傳承</h2>
-                <p>
-                    公老坪是台灣著名的柑橘山城，百年來人與山相依；東勢的茂谷，更在長年經驗中累積出濃郁香氣與細緻口感。我們把這兩個地方的好，攤開給你看、也端正地交到你餐桌前。
-                </p>
-            </div>
-
-            <div class="about-section">
-                <h2>我們的承諾</h2>
-                <p>
-                    為了讓你吃得安心，我們把每一次採收都當成一次承諾——清楚標示、來源可追、包裝妥善，並提供到貨開箱錄影保障的售後協助。你吃到的每一瓣，都是我們對土地的敬意，也是送給日常生活的一份溫柔。
-                </p>
-            </div>
-
-            <!-- 核心價值 -->
-            <div class="about-values">
-                <div class="value-card">
-                    <i class="fas fa-heart"></i>
-                    <h3>用心種植</h3>
-                    <p>尊重季節、不急催熟，讓陽光與山風決定風味</p>
+        <!-- 時間軸區域 -->
+        <section class="timeline-section">
+            <div class="timeline-container">
+                <div class="timeline-title">
+                    <h2>發展歷程</h2>
+                    <p>從傳統到現代，見證柑心果園的成長軌跡</p>
                 </div>
-                <div class="value-card">
-                    <i class="fas fa-leaf"></i>
-                    <h3>友善環境</h3>
-                    <p>生態保育、產地直送、降低碳排，落實良好農業規範</p>
-                </div>
-                <div class="value-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>安心保障</h3>
-                    <p>清楚標示、來源可追，提供到貨開箱錄影保障</p>
-                </div>
-                <div class="value-card">
-                    <i class="fas fa-truck"></i>
-                    <h3>產地直送</h3>
-                    <p>從果園到餐桌，最短距離、最新鮮風味</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="year">1920年代</div>
+                            <h3>開墾初期</h3>
+                            <p>祖輩在公老坪開墾果園，開始種植椪柑，奠定了百年果園的基礎。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="year">1950年代</div>
+                            <h3>技術傳承</h3>
+                            <p>第二代接手經營，傳承傳統栽培技術，擴大種植規模。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="year">1980年代</div>
+                            <h3>品種改良</h3>
+                            <p>引進茂谷柑品種，豐富產品線，提升果園競爭力。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="year">2010年代</div>
+                            <h3>現代化轉型</h3>
+                            <p>採用現代化管理方式，建立品牌形象，開始網路銷售。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="year">2020年代</div>
+                            <h3>數位化發展</h3>
+                            <p>建立官方網站，推出線上購物平台，讓更多人品嚐到優質果實。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 回到頂部按鈕 -->
-    <button class="back-to-top" id="backToTop" aria-label="回到頂部">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+        <!-- 團隊區域 -->
+        <section class="team-section">
+            <div class="team-container">
+                <div class="team-title">
+                    <h2>我們的團隊</h2>
+                    <p>專業、熱忱、傳承，共同守護這片土地</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="member-name">陳果農</h3>
+                        <div class="member-role">第三代園主</div>
+                        <p class="member-desc">傳承百年栽培技術，專精椪柑與茂谷柑種植，對果園管理有豐富經驗。</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3 class="member-name">李農藝師</h3>
+                        <div class="member-role">技術顧問</div>
+                        <p class="member-desc">農業專家，負責品種改良與栽培技術指導，確保果實品質。</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3 class="member-name">王物流</h3>
+                        <div class="member-role">配送專員</div>
+                        <p class="member-desc">負責果實採收與配送，確保新鮮果實能及時送達客戶手中。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- 頁腳 -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>柑心果園</h3>
+                        <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>客戶服務</h3>
+                        <ul>
+                            <li><a href="#">常見問題</a></li>
+                            <li><a href="#">配送說明</a></li>
+                            <li><a href="#">退換貨政策</a></li>
+                            <li><a href="#">隱私權政策</a></li>
+                            <li><a href="#">服務條款</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>購物指南</h3>
+                        <ul>
+                            <li><a href="#">如何訂購</a></li>
+                            <li><a href="#">付款方式</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>聯絡我們</h3>
+                        <ul>
+                            <li><i class="fas fa-phone"></i> 0933-721-978</li>
+                            <li><i class="fas fa-envelope"></i> s9000721@gmail.com</li>
+                            <li><i class="fas fa-map-marker-alt"></i> 台灣台中市豐原區公老坪/東勢/柑心果園</li>
+                            <li><i class="fas fa-clock"></i> 週一至週五 12:00-18:00</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有，翻印必究。</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <!-- 購物車側邊欄 -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <div class="cart-header-left">
-                <img src="./images/商標.jpg" alt="柑心果園" class="cart-header-logo">
-                <h3>購物車</h3>
-            </div>
-            <button class="close-cart" id="closeCart">
+            <h3>購物車</h3>
+            <button class="cart-close" id="cartClose">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <div class="cart-items" id="cartItems">
-            <!-- 購物車項目將由 JavaScript 動態載入 -->
+        <div class="cart-content" id="cartContent">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>購物車是空的</p>
+            </div>
         </div>
         <div class="cart-footer">
-            <div class="cart-total">
-                <div class="subtotal">
-                    <span>商品小計：</span>
-                    <span id="subtotal">NT$ 0</span>
-                </div>
-                <div class="shipping-row">
-                    <span>運費：</span>
-                    <span id="shippingFee">NT$ 150</span>
-                </div>
-                <div class="discount-amount" id="discountAmount" style="display: none;">
-                    <span>折扣：</span>
-                    <span id="discountValue">-NT$ 0</span>
-                </div>
-                <div class="total">
+            <div class="cart-summary">
+                <div class="cart-total">
                     <span>總計：</span>
-                    <span id="total">NT$ 0</span>
+                    <span id="cartTotal">NT$ 0</span>
                 </div>
-                <div class="shipping-notice">
-                    <i class="fas fa-truck"></i> 滿 NT$1,800 免運費
-                </div>`n                <div class="discount-notice" style="margin-top: 10px; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 8px;">`n                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" style="color: #ff8c42; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">`n                        <i class="fab fa-facebook"></i> `n                        <span>查看 Facebook 最新優惠折扣</span>`n                    </a>`n                </div>`n            </div>
-            <button class="btn-checkout" id="checkoutBtn">前往結帳</button>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn" disabled>
+                前往結帳
+            </button>
         </div>
     </div>
 
-    <!-- 結帳彈窗 -->
-    <div class="modal" id="checkoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>結帳資訊</h3>
-                <button class="close-modal" id="closeCheckoutModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="checkoutForm">
-                    <div class="form-group">
-                        <label for="customerName">姓名 *</label>
-                        <input type="text" id="customerName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerPhone">電話 *</label>
-                        <input type="tel" id="customerPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerEmail">Email *</label>
-                        <input type="email" id="customerEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerAddress">配送地址 *</label>
-                        <textarea id="customerAddress" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerNote">備註</label>
-                        <textarea id="customerNote" rows="2"></textarea>
-                    </div>
-                    <div class="order-summary">
-                        <h4>訂單摘要</h4>
-                        <div id="checkoutSummary"></div>
-                        <div class="checkout-total">
-                            <span>總金額：</span>
-                            <span id="checkoutTotal">NT$ 0</span>
-                        </div>
-                    </div>
-                    <div class="payment-methods">
-                        <h4>付款方式</h4>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="linepay" checked>
-                            <span><i class="fab fa-line"></i> LINE Pay</span>
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="cod">
-                            <span><i class="fas fa-money-bill-wave"></i> 貨到付款</span>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn-submit-order">確認訂單並付款</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    </main>
+    <!-- 購物車遮罩 -->
+    <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- 頁尾 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>關於柑心果園</h4>
-                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-line"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>客戶服務</h4>
-                    <ul>
-                        <li><a href="policies.html?type=faq">常見問題</a></li>
-                        <li><a href="policies.html?type=shipping">配送說明</a></li>
-                        <li><a href="policies.html?type=return">退換貨政策</a></li>
-                        <li><a href="policies.html?type=privacy">隱私權政策</a></li>
-                        <li><a href="policies.html?type=terms">服務條款</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>購物指南</h4>
-                    <ul>
-                        <li><a href="policies.html?type=how-to-order">如何訂購</a></li>
-                        <li><a href="policies.html?type=payment">付款方式</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>聯絡我們</h4>
-                    <ul class="contact-list">
-                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
-                        <li><i class="fas fa-envelope"></i> s9000721@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 台灣台中市豐原區公老坪/東勢/柑心果園</li>
-                        <li><i class="fas fa-clock"></i> 週一至週五 12:00-18:00</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有，翻印必究。</p>
-            </div>
-        </div>
-    </footer>
-    </div><!-- end content-wrapper -->
-    <script src="./js/cookie-consent.js"></script>
-    <script src="./js/orange-animation.js?v=20251004i"></script>
-    <script src="./js/products.js?v=20251004i"></script>
-    <script src="./js/dropdown-menu.js"></script>
-    <script src="./js/cart.js?v=20251004i"></script>
-    <script src="./js/main.js?v=20251004i"></script>
-    
-    <!-- 手機選單修復腳本 -->
-    <script src="js/mobile-menu-fix.js?v=20250104"></script>
-    <link rel="stylesheet" href="css/mobile-menu-fix.css?v=20250104">
-    
-    <script>
-        // 購物車功能 - 跳轉到購物車頁面
-        function initCartSidebar() {
-            const cartIcon = document.getElementById('cartIcon');
-
-            // 點擊購物車圖標跳轉到購物車頁面
-            if (cartIcon) {
-                cartIcon.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.location.href = 'cart.html';
-                });
-            }
-        }
-
-        // 初始化購物車功能
-        document.addEventListener('DOMContentLoaded', initCartSidebar);
-    </script>
+    <script src="js/cart.js"></script>
+    <script src="js/mobile-menu-fix.js"></script>
 </body>
 </html>
