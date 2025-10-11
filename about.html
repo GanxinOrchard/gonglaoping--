@@ -1,399 +1,575 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>關於柑心果園｜百年傳承・友善栽培・產地直送</title>
-  <meta name="description" content="柑心果園 About：百年公老坪傳承 × 友善栽培 × 現代化品管 × 產地直送。以更好的動態體驗，帶你走進我們的土地與人。"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* ===== Design Tokens ===== */
-    :root{
-      --bg:#fffaf2;            /* 背景米色 */
-      --surface:#ffffff;       /* 卡片底色 */
-      --ink:#1f2937;           /* 內文 */
-      --ink-weak:#6b7280;      /* 次要內文 */
-      --brand:#f97316;         /* 主色-橘 */
-      --brand-deep:#c2410c;    /* 深橘 */
-      --accent:#16a34a;        /* 輔色-綠 */
-      --line:#ece7df;          /* 分隔線 */
-      --radius:20px;
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --shadow-sm:0 6px 18px rgba(0,0,0,.06);
-      --max:1200px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    
+    <!-- SEO Meta Tags -->
+    <title>關於柑心果園｜百年傳承・友善栽培・產地直送</title>
+    <meta name="description" content="柑心果園 About：百年公老坪傳承 × 友善栽培 × 現代化品管 × 產地直送。以更好的動態體驗，帶你走進我們的土地與人。">
+    <meta name="keywords" content="柑心果園,關於我們,公老坪,椪柑,茂谷柑,友善栽培,產地直送,百年傳承,台灣水果">
+    <meta name="author" content="柑心果園 Ganxin Orchard">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ganxinorchard.github.io/gonglaoping--/about.html">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ganxinorchard.github.io/gonglaoping--/about.html">
+    <meta property="og:title" content="關於柑心果園｜百年傳承・友善栽培・產地直送">
+    <meta property="og:description" content="柑心果園 About：百年公老坪傳承 × 友善栽培 × 現代化品管 × 產地直送。以更好的動態體驗，帶你走進我們的土地與人。">
+    <meta property="og:image" content="https://ganxinorchard.github.io/gonglaoping--/images/關於我們的封面首頁.jpg">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:site_name" content="柑心果園">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ganxinorchard.github.io/gonglaoping--/about.html">
+    <meta name="twitter:title" content="關於柑心果園｜百年傳承・友善栽培・產地直送">
+    <meta name="twitter:description" content="柑心果園 About：百年公老坪傳承 × 友善栽培 × 現代化品管 × 產地直送。以更好的動態體驗，帶你走進我們的土地與人。">
+    <meta name="twitter:image" content="https://ganxinorchard.github.io/gonglaoping--/images/關於我們的封面首頁.jpg">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="TW-TXG">
+    <meta name="geo.placename" content="台灣台中市豐原區公老坪/東勢/柑心果園">
+    <meta name="geo.position" content="24.2522;120.8203">
+    <meta name="ICBM" content="24.2522, 120.8203">
+    
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+    <link rel="preload" href="./css/style.css" as="style">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <style>
+        /* ===== Design Tokens ===== */
+        :root{
+            --bg:#fffaf2;            /* 背景米色 */
+            --surface:#ffffff;       /* 卡片底色 */
+            --ink:#1f2937;           /* 內文 */
+            --ink-weak:#6b7280;      /* 次要內文 */
+            --brand:#f97316;         /* 主色-橘 */
+            --brand-deep:#c2410c;    /* 深橘 */
+            --accent:#16a34a;        /* 輔色-綠 */
+            --line:#ece7df;          /* 分隔線 */
+            --radius:20px;
+            --shadow:0 10px 30px rgba(0,0,0,.08);
+            --shadow-sm:0 6px 18px rgba(0,0,0,.06);
+            --max:1200px;
+        }
 
-    /* ===== Base ===== */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family: 'Noto Sans TC', system-ui, -apple-system, Segoe UI, Roboto, "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
-      margin:0; color:var(--ink); background:var(--bg);
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
-    img{max-width:100%; display:block}
-    a{color:inherit; text-decoration:none}
-    .container{width:min(92%, var(--max)); margin-inline:auto}
-    .section{padding:clamp(48px, 6vw, 96px) 0}
-    .eyebrow{letter-spacing:.22em; font-size:.88rem; color:var(--brand-deep); font-weight:700}
-    h1{font-size:clamp(32px, 5vw, 56px); line-height:1.06; margin:0 0 10px; font-weight:900}
-    h2{font-size:clamp(26px, 4vw, 40px); line-height:1.15; margin:0 0 16px; font-weight:800}
-    h3{font-size:clamp(20px, 3vw, 28px); line-height:1.2; margin:0 0 10px; font-weight:800}
-    p{font-size:clamp(15px, 2.5vw, 17px); line-height:1.8; color:var(--ink)}
-    .muted{color:var(--ink-weak)}
-    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; background:#fff; border:1px solid var(--line); border-radius:999px; box-shadow:var(--shadow-sm)}
+        /* ===== Base ===== */
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            font-family: 'Noto Sans TC', system-ui, -apple-system, Segoe UI, Roboto, "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+            margin:0; color:var(--ink); background:var(--bg);
+            -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+        }
+        img{max-width:100%; display:block}
+        a{color:inherit; text-decoration:none}
+        .container{width:min(92%, var(--max)); margin-inline:auto}
+        .section{padding:clamp(48px, 6vw, 96px) 0}
+        .eyebrow{letter-spacing:.22em; font-size:.88rem; color:var(--brand-deep); font-weight:700}
+        h1{font-size:clamp(32px, 5vw, 56px); line-height:1.06; margin:0 0 10px; font-weight:900}
+        h2{font-size:clamp(26px, 4vw, 40px); line-height:1.15; margin:0 0 16px; font-weight:800}
+        h3{font-size:clamp(20px, 3vw, 28px); line-height:1.2; margin:0 0 10px; font-weight:800}
+        p{font-size:clamp(15px, 2.5vw, 17px); line-height:1.8; color:var(--ink)}
+        .muted{color:var(--ink-weak)}
+        .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; background:#fff; border:1px solid var(--line); border-radius:999px; box-shadow:var(--shadow-sm)}
 
-    /* ===== Header (simple, sticky) ===== */
-    .hdr{position:sticky; top:0; z-index:40; backdrop-filter:saturate(180%) blur(8px); background:rgba(255,250,242,.8); border-bottom:1px solid var(--line)}
-    .hdr-wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; height:64px}
-    .brand{display:flex; align-items:center; gap:10px}
-    .brand img{width:36px; height:36px; border-radius:10px}
-    .brand b{font-weight:900; letter-spacing:.02em}
-    .nav{display:flex; gap:18px; align-items:center}
-    .nav a{font-weight:600; font-size:15px}
-    .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:12px 18px; border-radius:12px; background:var(--brand); color:#fff; font-weight:800; box-shadow:var(--shadow); border:1px solid #0000; transition: transform 0.2s ease}
-    .btn:hover{transform:translateY(-1px)}
+        /* ===== Hero (parallax) ===== */
+        .hero{position:relative; min-height:68vh; display:grid; place-items:center; overflow:hidden; border-bottom:1px solid var(--line)}
+        .hero .bg{
+            position:absolute; inset:0; background:
+                linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.35)),
+                url('images/關於我們的封面首頁.jpg') center/cover no-repeat;
+            transform:scale(1.08);
+            will-change:transform; /* parallax */
+        }
+        .hero .content{position:relative; z-index:1; color:#fff; text-align:center; padding:14vh 0 10vh}
+        .hero h1{color:#fff; font-size:clamp(28px, 4.5vw, 48px); line-height:1.1; margin-bottom:16px}
+        .hero p{color:#f7f7f7; font-size:clamp(16px, 2.8vw, 20px); line-height:1.6; margin-bottom:20px}
+        .hero .chips{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
 
-    /* ===== Hero (parallax) ===== */
-    .hero{position:relative; min-height:68vh; display:grid; place-items:center; overflow:hidden; border-bottom:1px solid var(--line)}
-    .hero .bg{
-      position:absolute; inset:0; background:
-        linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.35)),
-        url('images/orchard-hero.jpg') center/cover no-repeat;
-      transform:scale(1.08);
-      will-change:transform; /* parallax */
-    }
-    .hero .content{position:relative; z-index:1; color:#fff; text-align:center; padding:14vh 0 10vh}
-    .hero h1{color:#fff}
-    .hero p{color:#f7f7f7}
-    .hero .chips{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
+        /* ===== KPI Counters ===== */
+        .kpis{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:28px}
+        .kpi{background:rgba(255,255,255,.9); border:1px solid var(--line); border-radius:16px; padding:18px 14px; text-align:center; box-shadow:var(--shadow-sm); transition: transform 0.3s ease}
+        .kpi .num{font-size:clamp(28px,5vw,44px); font-weight:900; color:#fff; -webkit-text-stroke: 1px rgba(0,0,0,.2); background:
+            linear-gradient(120deg, var(--brand), var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent}
+        .kpi .cap{font-weight:700; color:var(--ink-weak)}
 
-    /* ===== KPI Counters ===== */
-    .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px}
-    .kpi{background:rgba(255,255,255,.9); border:1px solid var(--line); border-radius:16px; padding:18px 14px; text-align:center; box-shadow:var(--shadow-sm); transition: transform 0.3s ease}
-    .kpi .num{font-size:clamp(28px,5vw,44px); font-weight:900; color:#fff; -webkit-text-stroke: 1px rgba(0,0,0,.2); background:
-      linear-gradient(120deg, var(--brand), var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    .kpi .cap{font-weight:700; color:var(--ink-weak)}
+        /* ===== Split Panels (image ↔ text) ===== */
+        .split{display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center}
+        .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; transition: transform 0.3s ease}
+        .card:hover{transform:translateY(-5px)}
+        .card .body{padding:clamp(16px,3vw,28px)}
+        .photo{aspect-ratio: 16/10; background:#ddd url('images/orchard-traditional.jpg') center/cover no-repeat}
 
-    /* ===== Split Panels (image ↔ text) ===== */
-    .split{display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center}
-    .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; transition: transform 0.3s ease}
-    .card:hover{transform:translateY(-5px)}
-    .card .body{padding:clamp(16px,3vw,28px)}
-    .photo{aspect-ratio: 16/10; background:#ddd url('images/orchard-traditional.jpg') center/cover no-repeat}
+        /* ===== Values ===== */
+        .values{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+        .val{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:var(--shadow-sm); transition: transform 0.3s ease}
+        .val:hover{transform:translateY(-4px)}
+        .val .ico{width:44px; height:44px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(120deg, #fff, #fff8); border:1px solid var(--line); box-shadow:var(--shadow-sm); margin-bottom:10px}
 
-    /* ===== Values ===== */
-    .values{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-    .val{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:var(--shadow-sm); transition: transform 0.3s ease}
-    .val:hover{transform:translateY(-4px)}
-    .val .ico{width:44px; height:44px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(120deg, #fff, #fff8); border:1px solid var(--line); box-shadow:var(--shadow-sm); margin-bottom:10px}
+        /* ===== Timeline (desktop: horizontal, mobile: stacked) ===== */
+        .timeline{position:relative}
+        .tl-track{display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:6px; scrollbar-width: none; -ms-overflow-style: none}
+        .tl-track::-webkit-scrollbar{display: none}
+        .tl-card{min-width:300px; scroll-snap-align:start; background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-sm); padding:18px; transition: box-shadow 0.3s ease}
+        .tl-card:hover{box-shadow: 0 12px 30px rgba(249,115,22,.18)}
+        .tl-year{font-weight:900; color:var(--brand-deep); margin-bottom:8px}
 
-    /* ===== Timeline (desktop: horizontal, mobile: stacked) ===== */
-    .timeline{position:relative}
-    .tl-track{display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:6px; scrollbar-width: none; -ms-overflow-style: none}
-    .tl-track::-webkit-scrollbar{display: none}
-    .tl-card{min-width:300px; scroll-snap-align:start; background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-sm); padding:18px; transition: box-shadow 0.3s ease}
-    .tl-card:hover{box-shadow: 0 12px 30px rgba(249,115,22,.18)}
-    .tl-year{font-weight:900; color:var(--brand-deep); margin-bottom:8px}
+        /* ===== Team ===== */
+        .team{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+        .member{grid-column:span 12; background:var(--surface); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow-sm); padding:16px; display:grid; grid-template-columns:84px 1fr; gap:14px; align-items:center; transition: transform 0.3s ease}
+        .member:hover{transform:translateY(-2px)}
+        .avatar{width:84px; height:84px; border-radius:16px; background:linear-gradient(120deg, #ffe8d6, #e6f7ea); display:grid; place-items:center; font-weight:900; color:var(--brand-deep)}
+        .role{font-weight:800; color:var(--accent)}
 
-    /* ===== Team ===== */
-    .team{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
-    .member{grid-column:span 12; background:var(--surface); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow-sm); padding:16px; display:grid; grid-template-columns:84px 1fr; gap:14px; align-items:center; transition: transform 0.3s ease}
-    .member:hover{transform:translateY(-2px)}
-    .avatar{width:84px; height:84px; border-radius:16px; background:linear-gradient(120deg, #ffe8d6, #e6f7ea); display:grid; place-items:center; font-weight:900; color:var(--brand-deep)}
-    .role{font-weight:800; color:var(--accent)}
+        /* ===== CTA ===== */
+        .cta{position:relative; background:linear-gradient(120deg, #fff 0%, #fff5eb 35%, #eefaf1 100%); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); padding:clamp(18px,4vw,28px)}
 
-    /* ===== CTA ===== */
-    .cta{position:relative; background:linear-gradient(120deg, #fff 0%, #fff5eb 35%, #eefaf1 100%); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); padding:clamp(18px,4vw,28px)}
+        /* ===== Animations (prefers-reduced-motion safe) ===== */
+        [data-animate]{opacity:0; transform:translateY(24px)}
+        @media (prefers-reduced-motion:no-preference){
+            .kpi:hover{transform:translateY(-3px)}
+            .val:hover{transform:translateY(-4px)}
+        }
 
-    /* ===== Footer ===== */
-    .ftr{border-top:1px solid var(--line); padding:28px 0; color:var(--ink-weak)}
-
-    /* ===== Animations (prefers-reduced-motion safe) ===== */
-    [data-animate]{opacity:0; transform:translateY(24px)}
-    @media (prefers-reduced-motion:no-preference){
-      .kpi:hover{transform:translateY(-3px)}
-      .val:hover{transform:translateY(-4px)}
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 1024px){
-      .split{grid-template-columns:1fr; gap:16px}
-      .values{grid-template-columns:1fr 1fr}
-    }
-    @media (max-width: 720px){
-      .hdr-wrap{height:58px}
-      .nav{display:none}
-      .kpis{grid-template-columns:1fr 1fr; gap:10px}
-      .values{grid-template-columns:1fr}
-      .team{grid-template-columns:repeat(6,1fr)}
-      .member{grid-column:span 6}
-      .member{grid-template-columns:64px 1fr}
-      .avatar{width:64px; height:64px}
-      .tl-track{flex-direction: column; overflow-x: visible; gap: 12px}
-      .tl-card{min-width: auto; width: 100%}
-    }
-  </style>
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px){
+            .split{grid-template-columns:1fr; gap:16px}
+            .values{grid-template-columns:1fr 1fr}
+        }
+        @media (max-width: 720px){
+            .kpis{grid-template-columns:1fr; gap:10px}
+            .values{grid-template-columns:1fr}
+            .team{grid-template-columns:repeat(6,1fr)}
+            .member{grid-column:span 6}
+            .member{grid-template-columns:64px 1fr}
+            .avatar{width:64px; height:64px}
+            .tl-track{flex-direction: column; overflow-x: visible; gap: 12px}
+            .tl-card{min-width: auto; width: 100%}
+            .hero h1{font-size:clamp(24px, 6vw, 36px)}
+            .hero p{font-size:clamp(14px, 3.5vw, 18px)}
+        }
+    </style>
 </head>
 <body>
-  <!-- ===== Header ===== -->
-  <header class="hdr">
-    <div class="container hdr-wrap">
-      <a class="brand" href="index.html" aria-label="回到首頁">
-        <img src="images/logo.png" alt="柑心果園 LOGO" />
-        <b>柑心果園 Ganxin Orchard</b>
-      </a>
-      <nav class="nav" aria-label="主選單">
-        <a href="index.html">首頁</a>
-        <a href="news.html">最新消息</a>
-        <a href="knowledge.html">蔬果知識</a>
-        <a href="products.html">全部商品</a>
-        <a href="about.html" class="active">關於我們</a>
-        <a href="contact.html">聯絡我們</a>
-        <a class="btn" href="products.html">前往選購</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- ===== Hero with parallax background ===== -->
-  <section class="hero" aria-label="關於柑心果園">
-    <div class="bg" id="heroBg" role="img" aria-label="果園日出風景"></div>
-    <div class="container content">
-      <div class="eyebrow">ABOUT</div>
-      <h1>百年傳承，從公老坪到你的餐桌</h1>
-      <p class="muted">堅持友善栽培、現代化品管與產地直送的速度，<br/>把最單純的柑橘好味道，交到你手裡。</p>
-      <div class="chips" aria-label="品牌標籤">
-        <span class="chip">百年傳承</span>
-        <span class="chip">友善栽培</span>
-        <span class="chip">產地直送</span>
-        <span class="chip">品質保證</span>
-      </div>
-
-      <!-- KPI Counters -->
-      <div class="kpis" style="margin-top:26px">
-        <div class="kpi" data-counter="100" data-suffix="+">
-          <div class="num">0</div>
-          <div class="cap">年傳承歷史</div>
-        </div>
-        <div class="kpi" data-counter="50" data-suffix="+">
-          <div class="num">0</div>
-          <div class="cap">品種與規格</div>
-        </div>
-        <div class="kpi" data-counter="10000" data-suffix="+">
-          <div class="num">0</div>
-          <div class="cap">滿意顧客</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Split: 傳承 × 現代 ===== -->
-  <section class="section">
-    <div class="container split">
-      <div class="card" data-animate>
-        <div class="photo" style="background-image:url('images/orchard-traditional.jpg')" aria-label="果園傳承影像"></div>
-        <div class="body">
-          <div class="eyebrow">百年果園的傳承</div>
-          <h2>跟著季節走，尊重土地的節奏</h2>
-          <p>公老坪的椪柑可以追溯至百年前。修枝、疏果、套袋、採收，每一步都依循節氣。<b>「種柑橘不能急，要跟著季節走。」</b> 我們把祖輩的智慧，轉成今天的穩定品質。</p>
-        </div>
-      </div>
-      <div class="card" data-animate>
-        <div class="photo" style="background-image:url('images/orchard-modern.jpg')" aria-label="現代化栽培影像"></div>
-        <div class="body">
-          <div class="eyebrow">現代化的堅持</div>
-          <h2>友善栽培 × 嚴謹品管</h2>
-          <p>採草生栽培與分級驗果，讓果實自然成熟。我們用現代化流程控管甜度、酸度與香氣，<b>只把最好的果實送到你手中。</b></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Values ===== -->
-  <section class="section" aria-label="品牌價值">
-    <div class="container">
-      <div class="eyebrow" data-animate>OUR VALUES</div>
-      <h2 data-animate>堅持品質，用心服務，誠信經營</h2>
-      <div class="values" style="margin-top:16px">
-        <article class="val" data-animate>
-          <div class="ico" aria-hidden="true">
-            <i class="fas fa-leaf" style="color: var(--accent); font-size: 26px;"></i>
-          </div>
-          <h3>自然栽培</h3>
-          <p class="muted">友善農法、維護生態，讓風味更乾淨純粹。</p>
-        </article>
-        <article class="val" data-animate>
-          <div class="ico" aria-hidden="true">
-            <i class="fas fa-heart" style="color: var(--brand); font-size: 26px;"></i>
-          </div>
-          <h3>用心服務</h3>
-          <p class="muted">從採收到配送，步步把關，確保到你手中的新鮮。</p>
-        </article>
-        <article class="val" data-animate>
-          <div class="ico" aria-hidden="true">
-            <i class="fas fa-handshake" style="color: var(--brand-deep); font-size: 26px;"></i>
-          </div>
-          <h3>誠信經營</h3>
-          <p class="muted">以口碑與成果說話，建立長久的信任關係。</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Timeline ===== -->
-  <section class="section" aria-label="發展歷程">
-    <div class="container">
-      <div class="eyebrow" data-animate>TIMELINE</div>
-      <h2 data-animate>從傳統到現代，見證成長軌跡</h2>
-      <div class="timeline" style="margin-top:14px">
-        <div class="tl-track" id="tlTrack">
-          <article class="tl-card" data-animate>
-            <div class="tl-year">1920s</div>
-            <h3>開墾初期</h3>
-            <p class="muted">祖輩在公老坪開墾果園，開始種植椪柑，奠定百年基礎。</p>
-          </article>
-          <article class="tl-card" data-animate>
-            <div class="tl-year">1950s</div>
-            <h3>技術傳承</h3>
-            <p class="muted">第二代接手經營，延續傳統栽培技術並擴大規模。</p>
-          </article>
-          <article class="tl-card" data-animate>
-            <div class="tl-year">1980s</div>
-            <h3>品種改良</h3>
-            <p class="muted">引進茂谷柑，豐富產品線，提升競爭力與穩定度。</p>
-          </article>
-          <article class="tl-card" data-animate>
-            <div class="tl-year">2010s</div>
-            <h3>現代化轉型</h3>
-            <p class="muted">導入分級設備與流程管理，建立品牌形象與規範。</p>
-          </article>
-          <article class="tl-card" data-animate>
-            <div class="tl-year">2020s</div>
-            <h3>數位化發展</h3>
-            <p class="muted">建置官網與線上商店，擴大品牌觸及，讓更多人嚐到好果。</p>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Team ===== -->
-  <section class="section" aria-label="我們的團隊">
-    <div class="container">
-      <div class="eyebrow" data-animate>THE TEAM</div>
-      <h2 data-animate>專業、熱忱、傳承，守護這片土地</h2>
-      <div class="team" style="margin-top:14px">
-        <article class="member" data-animate>
-          <div class="avatar">陳</div>
-          <div>
-            <h3>陳果農 <span class="role">第三代園主</span></h3>
-            <p class="muted">專精椪柑與茂谷栽培與採後管理，整合傳承與現代標準。</p>
-          </div>
-        </article>
-        <article class="member" data-animate>
-          <div class="avatar">李</div>
-          <div>
-            <h3>李農藝師 <span class="role">技術顧問</span></h3>
-            <p class="muted">聚焦品種改良、病蟲害管理與土壤養護，守住風味根本。</p>
-          </div>
-        </article>
-        <article class="member" data-animate>
-          <div class="avatar">王</div>
-          <div>
-            <h3>王物流 <span class="role">配送專員</span></h3>
-            <p class="muted">以冷鏈與時效為優先，讓新鮮不打折的抵達你的餐桌。</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CTA ===== -->
-  <section class="section">
-    <div class="container cta" data-animate>
-      <div class="eyebrow">READY TO TASTE</div>
-      <h2 style="margin:6px 0 10px">台灣柑橘的新勢力，從公老坪走向全台街頭</h2>
-      <p class="muted" style="margin:0 0 14px">熱賣現採椪柑與東勢茂谷已陸續上架，立即前往選購或私訊了解更多產季資訊。</p>
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn" href="products.html">前往選購</a>
-        <a class="btn" style="background:var(--accent)" href="contact.html">聯絡我們</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Footer ===== -->
-  <footer class="ftr" id="contact">
-    <div class="container">
-      <b>柑心果園 Ganxin Orchard</b>
-      <p class="muted" style="margin:6px 0 0">台中市豐原區公老坪 / 東勢｜客服 12:00–18:00｜s9000721@gmail.com｜0933‑721‑978</p>
-      <p class="muted" style="margin:6px 0 0">© 2025 柑心果園. 柑心手摘 × 產地直送</p>
-    </div>
-  </footer>
-
-  <!-- ===== Scripts ===== -->
-  <script>
-    // Parallax hero background
-    const heroBg = document.getElementById('heroBg');
-    const onScroll = () => {
-      const y = window.scrollY || document.documentElement.scrollTop;
-      heroBg && (heroBg.style.transform = `translateY(${y * 0.15}px) scale(1.08)`);
-    };
-    document.addEventListener('scroll', onScroll, {passive:true});
-
-    // Intersection-based fade-up fallback
-    const els = document.querySelectorAll('[data-animate]');
-    const io = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
-      entries.forEach(e => { 
-        if (e.isIntersecting) { 
-          e.target.style.opacity = 1; 
-          e.target.style.transform = 'none'; 
-          io.unobserve(e.target); 
-        } 
-      });
-    }, {rootMargin:'0px 0px -10% 0px'}) : null;
-    els.forEach(el => io && io.observe(el));
-
-    // KPI count-up when visible
-    const countUp = (el, to, suffix = '') => {
-      if (!el) return;
-      const dur = 1200; 
-      const start = performance.now(); 
-      const from = 0;
-      const step = (t) => {
-        const p = Math.min(1, (t - start)/dur);
-        const val = Math.floor(from + (to - from) * p);
-        el.textContent = val.toLocaleString('en-US') + suffix;
-        p < 1 && requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-link">跳到主要內容</a>
     
-    const kpis = document.querySelectorAll('.kpi');
-    const kpiIO = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const numEl = e.target.querySelector('.num');
-          const to = parseInt(e.target.dataset.counter, 10) || 0;
-          const suffix = e.target.dataset.suffix || '';
-          countUp(numEl, to, suffix);
-          kpiIO.unobserve(e.target);
-        }
-      });
-    }, {threshold:.5});
-    kpis.forEach(k => kpiIO.observe(k));
+    <!-- 跑馬燈 -->
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <i class="fas fa-bullhorn"></i>
+            <span>🎉 新春優惠活動開跑！滿 NT$1,800 免運｜產地直送新鮮到府</span>
+        </div>
+    </div>
+    
+    <!-- 導航欄 -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 客服專線：0933-721-978</span>
+                        <span><i class="fas fa-clock"></i> 服務時間：週一至週五 12:00-18:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="./images/商標.jpg" alt="柑心果園" loading="lazy" width="180" height="60">
+                        </a>
+                    </div>
+                    
+                    <div class="search-bar">
+                        <input type="text" placeholder="搜尋商品..." id="searchInput">
+                        <button type="button" id="searchBtn"><i class="fas fa-search"></i></button>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <a href="cart.html" class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-menu" id="mainMenu">
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li><a href="knowledge.html">蔬果知識</a></li>
+                        <li class="dropdown">
+                            <a href="season-recommend.html">本季嚴選 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="season-recommend.html">當季推薦</a></li>
+                                <li><a href="season-ponkan.html">椪柑產季</a></li>
+                                <li><a href="season-murcott.html">茂谷柑產季</a></li>
+                                <li><a href="season-water-chestnut.html">菱角產季</a></li>
+                                <li><a href="season-taro.html">芋角產季</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="products.html?category=優質水果">優質水果</a></li>
+                                <li><a href="products.html?category=新鮮蔬果">新鮮蔬果</a></li>
+                                <li><a href="products.html?category=冷凍食品">冷凍食品</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="farming.html">安心指南 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="farming.html">友善栽培</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="guide.html">挑選指南 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="guide-ponkan.html">椪柑挑選</a></li>
+                                <li><a href="guide-murcott.html">茂谷柑挑選</a></li>
+                                <li><a href="guide-water-chestnut.html">菱角挑選</a></li>
+                                <li><a href="guide-taro.html">芋角挑選</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="grading.html">規格分級 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="grading-ponkan.html">椪柑規格</a></li>
+                                <li><a href="grading-murcott.html">茂谷柑規格</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="about.html" class="active">關於我們 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="about.html">關於柑心果園</a></li>
+                                <li><a href="contact.html">聯絡我們</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="order-tracking.html">訂單查詢</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-    // Smooth scroll for timeline on mobile
-    const tlTrack = document.getElementById('tlTrack');
-    if (tlTrack && window.innerWidth <= 720) {
-      tlTrack.style.overflowX = 'visible';
-      tlTrack.style.flexDirection = 'column';
-    }
-  </script>
-  <script src="js/cart.js"></script>
-  <script src="js/mobile-menu-fix.js"></script>
+    <!-- ===== Hero with parallax background ===== -->
+    <main id="main-content">
+    <section class="hero" aria-label="關於柑心果園">
+        <div class="bg" id="heroBg" role="img" aria-label="果園日出風景"></div>
+        <div class="container content">
+            <div class="eyebrow">ABOUT</div>
+            <h1>百年傳承，從公老坪到你的餐桌</h1>
+            <p class="muted">堅持友善栽培、現代化品管與產地直送的速度，<br/>把最單純的柑橘好味道，交到你手裡。</p>
+            <div class="chips" aria-label="品牌標籤">
+                <span class="chip">百年傳承</span>
+                <span class="chip">友善栽培</span>
+                <span class="chip">產地直送</span>
+                <span class="chip">品質保證</span>
+            </div>
+
+            <!-- KPI Counters -->
+            <div class="kpis" style="margin-top:26px">
+                <div class="kpi" data-counter="100" data-suffix="+">
+                    <div class="num">0</div>
+                    <div class="cap">年傳承歷史</div>
+                </div>
+                <div class="kpi" data-counter="10000" data-suffix="+">
+                    <div class="num">0</div>
+                    <div class="cap">滿意顧客</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Split: 傳承 × 現代 ===== -->
+    <section class="section">
+        <div class="container split">
+            <div class="card" data-animate>
+                <div class="photo" style="background-image:url('images/orchard-traditional.jpg')" aria-label="果園傳承影像"></div>
+                <div class="body">
+                    <div class="eyebrow">百年果園的傳承</div>
+                    <h2>跟著季節走，尊重土地的節奏</h2>
+                    <p>公老坪的椪柑可以追溯至百年前。修枝、疏果、套袋、採收，每一步都依循節氣。<b>「種柑橘不能急，要跟著季節走。」</b> 我們把祖輩的智慧，轉成今天的穩定品質。</p>
+                </div>
+            </div>
+            <div class="card" data-animate>
+                <div class="photo" style="background-image:url('images/orchard-modern.jpg')" aria-label="現代化栽培影像"></div>
+                <div class="body">
+                    <div class="eyebrow">現代化的堅持</div>
+                    <h2>友善栽培 × 嚴謹品管</h2>
+                    <p>採草生栽培與分級驗果，讓果實自然成熟。我們用現代化流程控管甜度、酸度與香氣，<b>只把最好的果實送到你手中。</b></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Values ===== -->
+    <section class="section" aria-label="品牌價值">
+        <div class="container">
+            <div class="eyebrow" data-animate>OUR VALUES</div>
+            <h2 data-animate>堅持品質，用心服務，誠信經營</h2>
+            <div class="values" style="margin-top:16px">
+                <article class="val" data-animate>
+                    <div class="ico" aria-hidden="true">
+                        <i class="fas fa-leaf" style="color: var(--accent); font-size: 26px;"></i>
+                    </div>
+                    <h3>自然栽培</h3>
+                    <p class="muted">友善農法、維護生態，讓風味更乾淨純粹。</p>
+                </article>
+                <article class="val" data-animate>
+                    <div class="ico" aria-hidden="true">
+                        <i class="fas fa-heart" style="color: var(--brand); font-size: 26px;"></i>
+                    </div>
+                    <h3>用心服務</h3>
+                    <p class="muted">從採收到配送，步步把關，確保到你手中的新鮮。</p>
+                </article>
+                <article class="val" data-animate>
+                    <div class="ico" aria-hidden="true">
+                        <i class="fas fa-handshake" style="color: var(--brand-deep); font-size: 26px;"></i>
+                    </div>
+                    <h3>誠信經營</h3>
+                    <p class="muted">以口碑與成果說話，建立長久的信任關係。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Timeline ===== -->
+    <section class="section" aria-label="發展歷程">
+        <div class="container">
+            <div class="eyebrow" data-animate>TIMELINE</div>
+            <h2 data-animate>從傳統到現代，見證成長軌跡</h2>
+            <div class="timeline" style="margin-top:14px">
+                <div class="tl-track" id="tlTrack">
+                    <article class="tl-card" data-animate>
+                        <div class="tl-year">1920s</div>
+                        <h3>開墾初期</h3>
+                        <p class="muted">祖輩在公老坪開墾果園，開始種植椪柑，奠定百年基礎。</p>
+                    </article>
+                    <article class="tl-card" data-animate>
+                        <div class="tl-year">1950s</div>
+                        <h3>技術傳承</h3>
+                        <p class="muted">第二代接手經營，延續傳統栽培技術並擴大規模。</p>
+                    </article>
+                    <article class="tl-card" data-animate>
+                        <div class="tl-year">1980s</div>
+                        <h3>品種改良</h3>
+                        <p class="muted">引進茂谷柑，豐富產品線，提升競爭力與穩定度。</p>
+                    </article>
+                    <article class="tl-card" data-animate>
+                        <div class="tl-year">2010s</div>
+                        <h3>現代化轉型</h3>
+                        <p class="muted">導入分級設備與流程管理，建立品牌形象與規範。</p>
+                    </article>
+                    <article class="tl-card" data-animate>
+                        <div class="tl-year">2020s</div>
+                        <h3>數位化發展</h3>
+                        <p class="muted">建置官網與線上商店，擴大品牌觸及，讓更多人嚐到好果。</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Team ===== -->
+    <section class="section" aria-label="我們的團隊">
+        <div class="container">
+            <div class="eyebrow" data-animate>THE TEAM</div>
+            <h2 data-animate>專業、熱忱、傳承，守護這片土地</h2>
+            <div class="team" style="margin-top:14px">
+                <article class="member" data-animate>
+                    <div class="avatar">張</div>
+                    <div>
+                        <h3>張果農 <span class="role">第三代園主</span></h3>
+                        <p class="muted">專精椪柑與茂谷栽培與採後管理，整合傳承與現代標準。</p>
+                    </div>
+                </article>
+                <article class="member" data-animate>
+                    <div class="avatar">張</div>
+                    <div>
+                        <h3>張農藝師 <span class="role">技術顧問</span></h3>
+                        <p class="muted">聚焦品種改良、病蟲害管理與土壤養護，守住風味根本。</p>
+                    </div>
+                </article>
+                <article class="member" data-animate>
+                    <div class="avatar">王</div>
+                    <div>
+                        <h3>王銷售 <span class="role">銷售顧問</span></h3>
+                        <p class="muted">以客戶需求為導向，提供專業的產品諮詢與服務。</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="section">
+        <div class="container cta" data-animate>
+            <div class="eyebrow">READY TO TASTE</div>
+            <h2 style="margin:6px 0 10px">台灣柑橘的新勢力，從公老坪走向全台街頭</h2>
+            <p class="muted" style="margin:0 0 14px">熱賣現採椪柑與東勢茂谷已陸續上架，立即前往選購或私訊了解更多產季資訊。</p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <a class="btn" href="products.html">前往選購</a>
+                <a class="btn" style="background:var(--accent)" href="contact.html">聯絡我們</a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於柑心果園</h4>
+                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-line"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="policies.html?type=faq">常見問題</a></li>
+                        <li><a href="policies.html?type=shipping">配送說明</a></li>
+                        <li><a href="policies.html?type=return">退換貨政策</a></li>
+                        <li><a href="policies.html?type=privacy">隱私權政策</a></li>
+                        <li><a href="policies.html?type=terms">服務條款</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>購物指南</h4>
+                    <ul>
+                        <li><a href="policies.html?type=how-to-order">如何訂購</a></li>
+                        <li><a href="policies.html?type=payment">付款方式</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
+                        <li><i class="fas fa-envelope"></i> s9000721@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 台灣台中市豐原區公老坪/東勢/柑心果園</li>
+                        <li><i class="fas fa-clock"></i> 週一至週五 12:00-18:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有，翻印必究。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到頂部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 全域錯誤保護（避免外掛/第三方未捕捉錯誤中斷主程式） -->
+    <script>
+    window.addEventListener('unhandledrejection', function(e){
+      console.warn('Silenced unhandledrejection:', e.reason);
+    });
+    window.addEventListener('error', function(e){
+      console.warn('Silenced error:', e.message);
+    });
+    </script>
+
+    <!-- 只載入必要的 JavaScript -->
+    <script src="./js/mobile-menu-fix.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js?v=20251004i" defer></script>
+    <script src="./js/main.js?v=20251004i" defer></script>
+    <script>
+        // 購物車功能 - 跳轉到購物車頁面
+        function initCartSidebar() {
+            const cartIcon = document.getElementById('cartIcon');
+
+            // 點擊購物車圖標跳轉到購物車頁面
+            if (cartIcon) {
+                cartIcon.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'cart.html';
+                });
+            }
+        }
+
+        // 初始化購物車功能
+        document.addEventListener('DOMContentLoaded', initCartSidebar);
+
+        // Parallax hero background
+        const heroBg = document.getElementById('heroBg');
+        const onScroll = () => {
+            const y = window.scrollY || document.documentElement.scrollTop;
+            heroBg && (heroBg.style.transform = `translateY(${y * 0.15}px) scale(1.08)`);
+        };
+        document.addEventListener('scroll', onScroll, {passive:true});
+
+        // Intersection-based fade-up fallback
+        const els = document.querySelectorAll('[data-animate]');
+        const io = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
+            entries.forEach(e => { 
+                if (e.isIntersecting) { 
+                    e.target.style.opacity = 1; 
+                    e.target.style.transform = 'none'; 
+                    io.unobserve(e.target); 
+                } 
+            });
+        }, {rootMargin:'0px 0px -10% 0px'}) : null;
+        els.forEach(el => io && io.observe(el));
+
+        // KPI count-up when visible
+        const countUp = (el, to, suffix = '') => {
+            if (!el) return;
+            const dur = 1200; 
+            const start = performance.now(); 
+            const from = 0;
+            const step = (t) => {
+                const p = Math.min(1, (t - start)/dur);
+                const val = Math.floor(from + (to - from) * p);
+                el.textContent = val.toLocaleString('en-US') + suffix;
+                p < 1 && requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+        
+        const kpis = document.querySelectorAll('.kpi');
+        const kpiIO = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const numEl = e.target.querySelector('.num');
+                    const to = parseInt(e.target.dataset.counter, 10) || 0;
+                    const suffix = e.target.dataset.suffix || '';
+                    countUp(numEl, to, suffix);
+                    kpiIO.unobserve(e.target);
+                }
+            });
+        }, {threshold:.5});
+        kpis.forEach(k => kpiIO.observe(k));
+
+        // Smooth scroll for timeline on mobile
+        const tlTrack = document.getElementById('tlTrack');
+        if (tlTrack && window.innerWidth <= 720) {
+            tlTrack.style.overflowX = 'visible';
+            tlTrack.style.flexDirection = 'column';
+        }
+    </script>
 </body>
 </html>
