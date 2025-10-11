@@ -1104,6 +1104,107 @@ ul {
     background: var(--bg-light);
 }
 
+/* 蔬果知識庫卡片樣式 - 與最新消息一致 */
+.knowledge-section .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.knowledge-section .news-card {
+    flex: 0 0 350px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.knowledge-section .news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.knowledge-section .news-card-image {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.knowledge-section .news-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.knowledge-section .news-card:hover .news-card-image img {
+    transform: scale(1.1);
+}
+
+.knowledge-section .news-card-date {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.95);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ff8c42;
+}
+
+.knowledge-section .news-card-content {
+    padding: 25px;
+}
+
+.knowledge-section .news-card-tag {
+    display: inline-block;
+    background: #fff7ed;
+    color: #ff8c42;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.knowledge-section .news-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.knowledge-section .news-card-description {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* 響應式設計 */
+@media (max-width: 992px) {
+    .knowledge-section .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .knowledge-section .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .knowledge-section .news-card {
+        flex: 0 0 280px;
+    }
+}
+
 .knowledge-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
