@@ -30,8 +30,8 @@
             console.warn('未找到主選單，已建立基本的主選單容器');
         }
         
-        // 將抽屜提到 <body>，避免受到任何父層 stacking context/overflow 影響
-        if (drawer && drawer.parentElement !== document.body) {
+        // 只在手機版時將抽屜提到 <body>，避免受到任何父層 stacking context/overflow 影響
+        if (drawer && drawer.parentElement !== document.body && window.innerWidth <= 768) {
             try {
                 document.body.appendChild(drawer);
             } catch (e) {

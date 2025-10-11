@@ -405,9 +405,17 @@ ul {
 
 /* ===== Main Menu ===== */
 .main-menu {
+    display: block;
     margin-top: 15px;
     border-top: 1px solid var(--border-color);
     padding-top: 15px;
+}
+
+/* 確保在桌面版顯示導覽選單 */
+@media (min-width: 769px) {
+    .main-menu {
+        display: block !important;
+    }
 }
 
 
