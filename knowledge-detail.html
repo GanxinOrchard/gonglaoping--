@@ -254,7 +254,7 @@
         <span class="breadcrumb-separator">/</span>
         <a href="knowledge.html">蔬果知識</a>
         <span class="breadcrumb-separator">/</span>
-        <span>茂谷柑4刀6塊切法</span>
+        <span id="breadcrumb-title">載入中...</span>
     </nav>
 
     <!-- 文章內容 -->
@@ -770,6 +770,8 @@
             if (articleId && knowledgeArticles[articleId]) {
                 document.getElementById('articleContent').innerHTML = knowledgeArticles[articleId].content;
                 document.title = knowledgeArticles[articleId].title + ' - 柑心果園';
+                // 更新麵包屑標題
+                document.getElementById('breadcrumb-title').textContent = knowledgeArticles[articleId].title;
             } else {
                 document.getElementById('articleContent').innerHTML = `
                     <div class="article-header">
@@ -780,6 +782,8 @@
                         <a href="knowledge.html" class="back-btn">返回蔬果知識+</a>
                     </div>
                 `;
+                // 更新麵包屑標題
+                document.getElementById('breadcrumb-title').textContent = '文章不存在';
             }
         }
 

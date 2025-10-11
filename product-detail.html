@@ -1311,6 +1311,7 @@
     <script src="./js/cache-clear.js?v=20251004i"></script>
     <script src="./js/products.js?v=20251004i"></script>
     <script src="./js/reviews.js?v=20251004i"></script>
+    <script src="./js/auto-sales.js?v=20251004i"></script>
     <script src="./js/cart.js?v=20251004i"></script>
     <script src="./js/main.js?v=20251004i"></script>
     <script src="./js/product-gallery.js?v=20251004i"></script>
@@ -1698,14 +1699,7 @@
             alert(`已加入 ${currentQuantity} 件${specText}到購物車！`);
         }
         
-        let currentReviewLimit = 10;
-        function loadMoreReviews() {
-            currentReviewLimit += 10;
-            renderReviews(currentProduct.id, currentReviewLimit);
-            if (currentReviewLimit >= 100) {
-                document.querySelector('.btn-load-more').style.display = 'none';
-            }
-        }
+        // 評論系統由 reviews.js 處理
         
         function loadRecommendedProducts() {
             const currentId = getProductIdFromURL();

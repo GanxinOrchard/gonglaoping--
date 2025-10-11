@@ -45,14 +45,18 @@
     <style>
         /* ===== Design Tokens ===== */
         :root{
-            --bg:#fffaf2;            /* 背景米色 */
+            --bg:#f8fafc;            /* 背景淺灰藍 */
             --surface:#ffffff;       /* 卡片底色 */
             --ink:#1f2937;           /* 內文 */
             --ink-weak:#6b7280;      /* 次要內文 */
             --brand:#f97316;         /* 主色-橘 */
             --brand-deep:#c2410c;    /* 深橘 */
             --accent:#16a34a;        /* 輔色-綠 */
-            --line:#ece7df;          /* 分隔線 */
+            --accent-light:#dcfce7;  /* 淺綠背景 */
+            --brand-light:#fed7aa;   /* 淺橘背景 */
+            --purple:#8b5cf6;        /* 紫色點綴 */
+            --purple-light:#f3e8ff;  /* 淺紫背景 */
+            --line:#e2e8f0;          /* 分隔線 */
             --radius:20px;
             --shadow:0 10px 30px rgba(0,0,0,.08);
             --shadow-sm:0 6px 18px rgba(0,0,0,.06);
@@ -109,23 +113,31 @@
 
         /* ===== Values ===== */
         .values{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-        .val{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:var(--shadow-sm); transition: transform 0.3s ease}
+        .val{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:var(--shadow-sm); transition: transform 0.3s ease; position:relative; overflow:hidden}
         .val:hover{transform:translateY(-4px)}
+        .val:nth-child(1){background:linear-gradient(135deg, var(--accent-light) 0%, var(--surface) 100%)}
+        .val:nth-child(2){background:linear-gradient(135deg, var(--brand-light) 0%, var(--surface) 100%)}
+        .val:nth-child(3){background:linear-gradient(135deg, var(--purple-light) 0%, var(--surface) 100%)}
         .val .ico{width:44px; height:44px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(120deg, #fff, #fff8); border:1px solid var(--line); box-shadow:var(--shadow-sm); margin-bottom:10px}
 
         /* ===== Timeline (desktop: horizontal, mobile: stacked) ===== */
         .timeline{position:relative}
         .tl-track{display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:6px; scrollbar-width: none; -ms-overflow-style: none}
         .tl-track::-webkit-scrollbar{display: none}
-        .tl-card{min-width:300px; scroll-snap-align:start; background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-sm); padding:18px; transition: box-shadow 0.3s ease}
-        .tl-card:hover{box-shadow: 0 12px 30px rgba(249,115,22,.18)}
+        .tl-card{min-width:300px; scroll-snap-align:start; background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-sm); padding:18px; transition: box-shadow 0.3s ease; position:relative; overflow:hidden}
+        .tl-card:nth-child(odd){background:linear-gradient(135deg, var(--brand-light) 0%, var(--surface) 100%)}
+        .tl-card:nth-child(even){background:linear-gradient(135deg, var(--accent-light) 0%, var(--surface) 100%)}
+        .tl-card:hover{box-shadow: 0 12px 30px rgba(249,115,22,.18); transform:translateY(-2px)}
         .tl-year{font-weight:900; color:var(--brand-deep); margin-bottom:8px}
 
         /* ===== Team ===== */
         .team{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
-        .member{grid-column:span 12; background:var(--surface); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow-sm); padding:16px; display:grid; grid-template-columns:84px 1fr; gap:14px; align-items:center; transition: transform 0.3s ease}
+        .member{grid-column:span 12; background:var(--surface); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow-sm); padding:16px; display:grid; grid-template-columns:84px 1fr; gap:14px; align-items:center; transition: transform 0.3s ease; position:relative; overflow:hidden}
+        .member:nth-child(1){background:linear-gradient(135deg, var(--brand-light) 0%, var(--surface) 100%)}
+        .member:nth-child(2){background:linear-gradient(135deg, var(--accent-light) 0%, var(--surface) 100%)}
+        .member:nth-child(3){background:linear-gradient(135deg, var(--purple-light) 0%, var(--surface) 100%)}
         .member:hover{transform:translateY(-2px)}
-        .avatar{width:84px; height:84px; border-radius:16px; background:linear-gradient(120deg, #ffe8d6, #e6f7ea); display:grid; place-items:center; font-weight:900; color:var(--brand-deep)}
+        .avatar{width:84px; height:84px; border-radius:16px; background:linear-gradient(120deg, #ffe8d6, #e6f7ea); display:grid; place-items:center; font-weight:900; color:var(--brand-deep); box-shadow:var(--shadow-sm)}
         .role{font-weight:800; color:var(--accent)}
 
         /* ===== CTA ===== */
@@ -274,12 +286,6 @@
             <div class="eyebrow">ABOUT</div>
             <h1>百年傳承，從公老坪到你的餐桌</h1>
             <p class="muted">堅持友善栽培、現代化品管與產地直送的速度，<br/>把最單純的柑橘好味道，交到你手裡。</p>
-            <div class="chips" aria-label="品牌標籤">
-                <span class="chip">百年傳承</span>
-                <span class="chip">友善栽培</span>
-                <span class="chip">產地直送</span>
-                <span class="chip">品質保證</span>
-            </div>
 
             <!-- KPI Counters -->
             <div class="kpis" style="margin-top:26px">
@@ -299,19 +305,21 @@
     <section class="section">
         <div class="container split">
             <div class="card" data-animate>
-                <div class="photo" style="background-image:url('images/orchard-traditional.jpg')" aria-label="果園傳承影像"></div>
+                <div class="photo" style="background-image:url('images/椪柑產品圖/椪柑1.jpg')" aria-label="果園傳承影像"></div>
                 <div class="body">
                     <div class="eyebrow">百年果園的傳承</div>
                     <h2>跟著季節走，尊重土地的節奏</h2>
                     <p>公老坪的椪柑可以追溯至百年前。修枝、疏果、套袋、採收，每一步都依循節氣。<b>「種柑橘不能急，要跟著季節走。」</b> 我們把祖輩的智慧，轉成今天的穩定品質。</p>
+                    <a href="knowledge-detail.html?article=heritage" class="btn" style="margin-top:12px; display:inline-block">閱讀完整文章</a>
                 </div>
             </div>
             <div class="card" data-animate>
-                <div class="photo" style="background-image:url('images/orchard-modern.jpg')" aria-label="現代化栽培影像"></div>
+                <div class="photo" style="background-image:url('images/茂谷柑產品圖/茂谷柑1.jpg')" aria-label="現代化栽培影像"></div>
                 <div class="body">
                     <div class="eyebrow">現代化的堅持</div>
                     <h2>友善栽培 × 嚴謹品管</h2>
                     <p>採草生栽培與分級驗果，讓果實自然成熟。我們用現代化流程控管甜度、酸度與香氣，<b>只把最好的果實送到你手中。</b></p>
+                    <a href="knowledge-detail.html?article=modern" class="btn" style="margin-top:12px; display:inline-block">閱讀完整文章</a>
                 </div>
             </div>
         </div>
