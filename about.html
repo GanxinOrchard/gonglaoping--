@@ -88,7 +88,7 @@
         .hero .bg{
             position:absolute; inset:0; background:
                 linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.35)),
-                url('images/關於我們的封面首頁.PNG') center/cover no-repeat;
+                url('images/關於我們的封面首頁.png') center/cover no-repeat;
             transform:scale(1.08);
             will-change:transform; /* parallax */
         }
@@ -425,14 +425,25 @@
     </section>
 
     <!-- ===== CTA ===== -->
-    <section class="section">
+    <section class="section cta-section">
+        <div class="cta-background">
+            <div class="cta-pattern"></div>
+        </div>
         <div class="container cta" data-animate>
-            <div class="eyebrow">READY TO TASTE</div>
-            <h2 style="margin:6px 0 10px">台灣柑橘的新勢力，從公老坪走向全台街頭</h2>
-            <p class="muted" style="margin:0 0 14px">熱賣現採椪柑與東勢茂谷已陸續上架，立即前往選購或私訊了解更多產季資訊。</p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap">
-                <a class="btn" href="products.html">前往選購</a>
-                <a class="btn" style="background:var(--accent)" href="contact.html">聯絡我們</a>
+            <div class="cta-content">
+                <div class="eyebrow cta-eyebrow">READY TO TASTE</div>
+                <h2 class="cta-title">台灣柑橘的新勢力，從公老坪走向全台街頭</h2>
+                <p class="cta-description">熱賣現採椪柑與東勢茂谷已陸續上架，立即前往選購或私訊了解更多產季資訊。</p>
+                <div class="cta-buttons">
+                    <a class="btn btn-primary cta-btn" href="products.html">
+                        <span class="btn-text">前往選購</span>
+                        <i class="fas fa-shopping-cart btn-icon"></i>
+                    </a>
+                    <a class="btn btn-secondary cta-btn" href="contact.html">
+                        <span class="btn-text">聯絡我們</span>
+                        <i class="fas fa-envelope btn-icon"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
