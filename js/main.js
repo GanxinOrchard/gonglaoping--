@@ -81,8 +81,32 @@ function initKainanNavigation() {
         });
     }
     
+    // 初始化最新消息輪播
+    initNewsTicker();
+    
     // 購物車數量更新
     updateCartCount();
+}
+
+// 初始化最新消息輪播
+function initNewsTicker() {
+    const newsTickerArrow = document.querySelector('.news-ticker-arrow');
+    const newsTickerWrapper = document.querySelector('.news-ticker-wrapper');
+    
+    if (newsTickerArrow && newsTickerWrapper) {
+        newsTickerArrow.addEventListener('click', function() {
+            // 點擊箭頭跳轉到最新消息頁面
+            window.location.href = 'news.html';
+        });
+    }
+    
+    // 點擊最新消息內容也可以跳轉
+    const newsTickerItems = document.querySelectorAll('.news-ticker-item');
+    newsTickerItems.forEach(item => {
+        item.addEventListener('click', function() {
+            window.location.href = 'news.html';
+        });
+    });
 }
 
 // 更新購物車數量
