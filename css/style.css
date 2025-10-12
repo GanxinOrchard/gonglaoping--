@@ -1008,6 +1008,16 @@ ul {
 
 /* 手機版優化 */
 @media (max-width: 768px) {
+    /* 隱藏桌面版導覽列 */
+    .desktop-nav {
+        display: none !important;
+    }
+    
+    /* 隱藏桌面版 header-content */
+    .header-content.desktop-header {
+        display: none !important;
+    }
+    
     .header-actions {
         gap: 15px;
     }
