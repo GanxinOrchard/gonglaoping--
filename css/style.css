@@ -994,15 +994,19 @@ ul {
 /* 響應式設計 */
 @media (max-width: 1024px) {
     .desktop-header {
-        display: none; /* Hide desktop header on smaller screens */
+        display: none !important; /* Hide desktop header on smaller screens */
+    }
+    
+    .desktop-nav {
+        display: none !important; /* Hide desktop navigation on smaller screens */
     }
     
     .mobile-header {
-        display: block; /* Show mobile header on smaller screens */
-}
+        display: block !important; /* Show mobile header on smaller screens */
+    }
 
-.mobile-menu-toggle {
-        display: flex; /* Show hamburger menu on smaller screens */
+    .mobile-menu-toggle {
+        display: flex !important; /* Show hamburger menu on smaller screens */
     }
 }
 
