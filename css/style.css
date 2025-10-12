@@ -222,27 +222,73 @@ ul {
     font-size: 12px;
 }
 
-/* 主要導航列 - 橘色背景 */
+/* 主要導航列 - 透明背景疊加在封面圖上 */
 .main-header {
-    background: var(--primary-color);
+    background: transparent;
     color: var(--white);
-    padding: 15px 0;
-    position: sticky;
+    padding: 20px 0;
+    position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
 /* 滑動時半透明效果 */
 .main-header.scrolled {
-    background: rgba(255, 140, 66, 0.95);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
+    position: fixed;
 }
 
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.header-action:hover {
+    color: var(--primary-color);
+}
+
+.header-action i {
+    font-size: 16px;
+}
+
+.cart-link {
+    position: relative;
+}
+
+.cart-count {
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 4px;
 }
 
 .logo-section {
@@ -523,23 +569,22 @@ ul {
 
 /* 手機版優化 */
 @media (max-width: 768px) {
-    .toolbar-content {
+    .header-actions {
         gap: 15px;
+    }
+
+    .header-action {
         font-size: 13px;
     }
-    
-    .toolbar-link {
-        font-size: 13px;
-    }
-    
-    .toolbar-link span {
+
+    .header-action span {
         display: none;
     }
-    
-    .toolbar-link i {
+
+    .header-action i {
         font-size: 18px;
     }
-    
+
     .language-switcher span {
         display: none;
     }
@@ -821,6 +866,7 @@ ul {
     height: 600px;
     overflow: hidden;
     z-index: 1;
+    margin-top: 0;
 }
 
 

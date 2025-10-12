@@ -91,7 +91,7 @@ function initKainanNavigation() {
     // 滑動時添加半透明效果
     if (mainHeader) {
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
+            if (window.scrollY > 100) {
                 mainHeader.classList.add('scrolled');
             } else {
                 mainHeader.classList.remove('scrolled');
