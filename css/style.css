@@ -1235,7 +1235,7 @@ ul {
     }
     
     .news-ticker-wrapper {
-        background: #ff6b35;
+        background: var(--primary-color);
         padding: 8px 15px;
         display: flex;
         align-items: center;
@@ -1264,6 +1264,7 @@ ul {
     
     .news-text {
         font-size: 13px;
+        color: white;
     }
     
     .news-ticker-arrow {
