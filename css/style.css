@@ -1226,19 +1226,21 @@ ul {
         font-size: 12px;
         margin-bottom: 0;
         justify-content: center;
-        background: #d4edda;
+        background: #28a745;
         padding: 8px 15px;
         border-radius: 0;
         text-align: center;
         width: 100%;
+        color: white;
     }
     
     .news-ticker-wrapper {
-        background: #d4edda;
+        background: #28a745;
         padding: 8px 15px;
         display: flex;
         align-items: center;
         gap: 8px;
+        color: white;
     }
     
     .news-ticker-title i {
