@@ -158,17 +158,90 @@ function updateCartCount() {
     const cartCount = document.getElementById('cartCount');
     const topCartCount = document.getElementById('topCartCount');
     const mobileCartCount = document.getElementById('mobileCartCount');
+    const count = parseInt(localStorage.getItem('cartCount') || '0');
 
     if (cartCount && topCartCount) {
-        const count = localStorage.getItem('cartCount') || '0';
         cartCount.textContent = count;
         topCartCount.textContent = count;
+        topCartCount.style.display = count > 0 ? 'block' : 'none';
     }
     
     if (mobileCartCount) {
-        const count = localStorage.getItem('cartCount') || '0';
         mobileCartCount.textContent = count;
+        mobileCartCount.style.display = count > 0 ? 'block' : 'none';
     }
+}
+
+// 添加到購物車功能
+function addToCart(productId, productName, productPrice, productImage) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let cartCount = parseInt(localStorage.getItem('cartCount') || '0');
+    
+    // 檢查商品是否已存在
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            id: productId,
+            name: productName,
+            price: productPrice,
+            image: productImage,
+            quantity: 1
+        });
+    }
+    
+    cartCount += 1;
+    
+    // 保存到localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('cartCount', cartCount.toString());
+    
+    // 更新顯示
+    updateCartCount();
+    
+    // 顯示成功訊息
+    showNotification('商品已加入購物車！');
+}
+
+// 顯示通知
+function showNotification(message) {
+    // 創建通知元素
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--primary-color);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 6px;
+        z-index: 10000;
+        font-size: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // 顯示動畫
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // 3秒後自動隱藏
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
 }
 
 // 初始化其他功能
@@ -579,7 +652,63 @@ function initFeaturedProductsCarousel() {
     updateCarousel();
 }
 
+// 初始化封面輪播
+function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slider .slide');
+    const sliderContainer = document.querySelector('.hero-slider .slider-container');
+    
+    if (!slides.length || !sliderContainer) return;
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    
+    function showSlide(index) {
+        // 移除所有active類別
+        slides.forEach(slide => slide.classList.remove('active'));
+        
+        // 顯示當前幻燈片
+        if (slides[index]) {
+            slides[index].classList.add('active');
+        }
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }
+    
+    // 自動輪播（每5秒切換）
+    setInterval(nextSlide, 5000);
+    
+    // 初始化顯示第一張
+    showSlide(0);
+}
+
+// 初始化商品卡片點擊事件
+function initProductCardEvents() {
+    const addToCartButtons = document.querySelectorAll('.btn-add-cart');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const card = this.closest('.featured-card');
+            if (!card) return;
+            
+            const productId = card.dataset.productId || 'product-' + Math.random().toString(36).substr(2, 9);
+            const productName = card.querySelector('.product-title')?.textContent || '商品';
+            const productPrice = card.querySelector('.product-price')?.textContent || '0';
+            const productImage = card.querySelector('.product-image img')?.src || '';
+            
+            addToCart(productId, productName, productPrice, productImage);
+        });
+    });
+}
+
 // 在DOM載入完成後初始化輪播
 document.addEventListener('DOMContentLoaded', () => {
+    initHeroSlider();
     initFeaturedProductsCarousel();
+    initProductCardEvents();
 });
