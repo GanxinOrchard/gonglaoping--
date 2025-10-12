@@ -1232,6 +1232,9 @@ ul {
         text-align: center;
         width: 100%;
         color: white;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     
     .news-ticker-wrapper {
