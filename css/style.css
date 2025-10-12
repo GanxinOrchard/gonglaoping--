@@ -1235,7 +1235,7 @@ ul {
     }
     
     .news-ticker-wrapper {
-        background: var(--primary-color);
+        background: #28a745;
         padding: 8px 15px;
         display: flex;
         align-items: center;
