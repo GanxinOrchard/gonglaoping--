@@ -1011,16 +1011,17 @@ ul {
         position: relative;
     }
     
-    .featured-products-grid {
-        display: flex;
-        transition: transform 0.3s ease;
-        gap: 15px;
-        margin-bottom: 30px;
-    }
+           .featured-products-grid {
+               display: flex;
+               transition: transform 0.3s ease;
+               gap: 10px;
+               margin-bottom: 30px;
+           }
     
     .featured-card {
-        flex: 0 0 calc(50% - 7.5px);
+        flex: 0 0 calc(50% - 5px);
         min-width: 0;
+        margin-bottom: 15px;
     }
     
     .carousel-btn {
@@ -1043,28 +1044,28 @@ ul {
     }
     
     .product-image {
-        height: 150px;
+        height: 120px;
     }
     
     .product-info {
-        padding: 16px;
+        padding: 12px;
     }
     
     .product-title {
-        font-size: 16px;
+        font-size: 14px;
     }
     
     .product-description {
-        font-size: 13px;
+        font-size: 11px;
     }
     
     .product-price {
-        font-size: 18px;
+        font-size: 16px;
     }
     
     .btn-add-cart {
-        padding: 10px 16px;
-        font-size: 13px;
+        padding: 8px 12px;
+        font-size: 12px;
     }
     
     .btn-view-more {
@@ -1111,12 +1112,12 @@ ul {
 /* ===== 按鈕樣式 ===== */
 .btn-primary {
     display: inline-block;
-    padding: 12px 30px;
+    padding: 10px 24px;
     background: var(--primary-color);
     color: var(--white);
     border: none;
-    border-radius: 25px;
-    font-size: 16px;
+    border-radius: 20px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -4048,18 +4049,18 @@ ul {
     }
     
     .hero-title {
-        font-size: 22px !important;
-        line-height: 1.4;
+        font-size: 18px !important;
+        line-height: 1.3;
         padding: 0 15px;
         word-break: keep-all;
         white-space: normal;
     }
     
     .hero-subtitle {
-        font-size: 14px !important;
-        line-height: 1.6;
+        font-size: 12px !important;
+        line-height: 1.5;
         padding: 0 15px;
-        margin-top: 15px;
+        margin-top: 12px;
         word-break: keep-all;
     }
     
@@ -4719,4 +4720,41 @@ ul {
     .cta-description {
         font-size: 0.95rem;
     }
+}
+
+/* ===== 購物車動畫效果 ===== */
+.cart-count.animate {
+    animation: cartBounce 0.6s ease;
+    transform: scale(1.2);
+}
+
+@keyframes cartBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1.2); }
+}
+
+/* ===== 頁尾政策連結 ===== */
+.footer-policies {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.policy-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.policy-link:hover {
+    color: var(--primary-color);
+}
+
+.policy-separator {
+    color: var(--text-light);
+    font-size: 14px;
 }
