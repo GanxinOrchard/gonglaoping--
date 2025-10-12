@@ -132,25 +132,72 @@ function initKainanNavigation() {
     }
 }
 
-// 初始化最新消息輪播
+// 初始化最新消息輪播 - 逐篇顯示
 function initNewsTicker() {
     const newsTickerArrow = document.querySelector('.news-ticker-arrow');
-    const newsTickerWrapper = document.querySelector('.news-ticker-wrapper');
+    const newsTickerItems = document.querySelectorAll('.news-ticker-item');
     
-    if (newsTickerArrow && newsTickerWrapper) {
+    if (newsTickerItems.length === 0) return;
+    
+    let currentIndex = 0;
+    let isPaused = false;
+    
+    // 顯示指定索引的新聞項目
+    function showNewsItem(index) {
+        // 移除所有active類
+        newsTickerItems.forEach(item => item.classList.remove('active'));
+        
+        // 添加active類到當前項目
+        if (newsTickerItems[index]) {
+            newsTickerItems[index].classList.add('active');
+        }
+    }
+    
+    // 切換到下一篇
+    function nextNews() {
+        if (isPaused) return;
+        
+        currentIndex = (currentIndex + 1) % newsTickerItems.length;
+        showNewsItem(currentIndex);
+    }
+    
+    // 開始輪播
+    function startTicker() {
+        // 顯示第一篇
+        showNewsItem(0);
+        
+        // 每2秒切換一次
+        setInterval(nextNews, 2000);
+    }
+    
+    // 點擊箭頭跳轉到最新消息頁面
+    if (newsTickerArrow) {
         newsTickerArrow.addEventListener('click', function() {
-            // 點擊箭頭跳轉到最新消息頁面
             window.location.href = 'news.html';
         });
     }
     
     // 點擊最新消息內容也可以跳轉
-    const newsTickerItems = document.querySelectorAll('.news-ticker-item');
     newsTickerItems.forEach(item => {
         item.addEventListener('click', function() {
             window.location.href = 'news.html';
         });
     });
+    
+    // 滑鼠懸停暫停
+    const newsTickerSection = document.querySelector('.news-ticker-section');
+    if (newsTickerSection) {
+        newsTickerSection.addEventListener('mouseenter', function() {
+            isPaused = true;
+        });
+        
+        newsTickerSection.addEventListener('mouseleave', function() {
+            isPaused = false;
+        });
+    }
+    
+    // 開始輪播
+    startTicker();
 }
 
 // 更新購物車數量
