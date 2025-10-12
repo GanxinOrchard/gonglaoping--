@@ -1,7 +1,10 @@
 // 主要功能腳本
 
-// 手機選單切換
+// 開南風格導覽列功能
 document.addEventListener('DOMContentLoaded', () => {
+    // 初始化開南風格導覽列
+    initKainanNavigation();
+    
     // 付款方式切換顯示匯款資訊
     const paymentOptions = document.querySelectorAll('input[name="payment"]');
     const bankInfo = document.getElementById('bankInfo');
@@ -18,12 +21,81 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 選單功能已由 mobile-menu-fix.js 處理，此處不再初始化
-    // initMobileMenu();
-    
     // 初始化其他功能
     initOtherFeatures();
 });
+
+// 初始化開南風格導覽列
+function initKainanNavigation() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mainMenu = document.getElementById('mainMenu');
+    const menuClose = document.getElementById('menuClose');
+    
+    // 開啟選單
+    if (mobileMenuToggle && mainMenu) {
+        mobileMenuToggle.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            // 切換選單狀態
+            this.setAttribute('aria-expanded', !isExpanded);
+            mainMenu.classList.toggle('active');
+            
+            // 切換圖標
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
+        });
+    }
+    
+    // 關閉選單
+    if (menuClose && mainMenu) {
+        menuClose.addEventListener('click', function() {
+            mainMenu.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            
+            // 重置圖標
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+    
+    // 點擊選單外部關閉選單
+    if (mainMenu) {
+        mainMenu.addEventListener('click', function(e) {
+            if (e.target === mainMenu) {
+                mainMenu.classList.remove('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                
+                // 重置圖標
+                const icon = mobileMenuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+    }
+    
+    // 購物車數量更新
+    updateCartCount();
+}
+
+// 更新購物車數量
+function updateCartCount() {
+    const cartCount = document.getElementById('cartCount');
+    const topCartCount = document.getElementById('topCartCount');
+    
+    if (cartCount && topCartCount) {
+        const count = localStorage.getItem('cartCount') || '0';
+        cartCount.textContent = count;
+        topCartCount.textContent = count;
+    }
+}
 
 // 初始化其他功能
 function initOtherFeatures() {

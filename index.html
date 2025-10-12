@@ -78,7 +78,55 @@
     <!-- Skip to main content -->
     <a href="#main-content" class="skip-link">跳到主要內容</a>
     
-    <!-- 跑馬燈 -->
+    <!-- 上方工具列 - 開南風格 -->
+    <div class="top-toolbar">
+        <div class="container">
+            <div class="toolbar-content">
+                <a href="#" class="toolbar-link">
+                    <i class="fas fa-user"></i>
+                    <span>登入</span>
+                </a>
+                <a href="cart.html" class="toolbar-link cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>購物車</span>
+                    <span class="cart-count" id="topCartCount">0</span>
+                </a>
+                <a href="#" class="toolbar-link">
+                    <i class="fas fa-search"></i>
+                    <span>搜尋</span>
+                </a>
+                <div class="language-switcher">
+                    <span>中文版</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主要導航列 - 開南風格 -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <span class="logo-text">柑心</span>
+                        </div>
+                        <div class="logo-text-container">
+                            <span class="logo-main">柑心果園</span>
+                            <span class="logo-sub">GANXIN ORCHARD</span>
+                        </div>
+                    </a>
+                </div>
+                
+                <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- 跑馬燈 - 在導航列下方 -->
     <div class="announcement-bar">
         <div class="announcement-content">
             <i class="fas fa-bullhorn"></i>
@@ -86,46 +134,15 @@
         </div>
     </div>
     
-    <!-- 導航欄 -->
-    <header class="header">
-        <div class="top-bar">
-            <div class="container">
-                <div class="top-bar-content">
-                    <div class="contact-info">
-                        <span><i class="fas fa-phone"></i> 客服專線：0933-721-978</span>
-                        <span><i class="fas fa-clock"></i> 服務時間：週一至週五 12:00-18:00</span>
-                    </div>
-                </div>
-            </div>
+    <!-- 手機選單 -->
+    <div class="main-menu" id="mainMenu">
+        <div class="menu-header">
+            <h3>選單</h3>
+            <button type="button" class="menu-close" id="menuClose">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        
-        <nav class="navbar">
-            <div class="container">
-                <div class="nav-content">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="./images/商標.jpg" alt="柑心果園" loading="lazy" width="180" height="60">
-                        </a>
-                    </div>
-                    
-                    <div class="search-bar">
-                        <input type="text" placeholder="搜尋商品..." id="searchInput">
-                        <button type="button" id="searchBtn"><i class="fas fa-search"></i></button>
-                    </div>
-                    
-                    <div class="nav-icons">
-                        <a href="cart.html" class="cart-icon" id="cartIcon">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count" id="cartCount">0</span>
-                        </a>
-                        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="main-menu" id="mainMenu">
-                    <ul>
+        <ul>
                         <li><a href="index.html" class="active">首頁</a></li>
                         <li><a href="news.html">最新消息</a></li>
                         <li><a href="knowledge.html">蔬果知識</a></li>
