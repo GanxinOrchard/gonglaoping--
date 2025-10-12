@@ -377,6 +377,12 @@
                 <div class="product-category-section">
                     <h3 class="category-title">預購商品</h3>
                     <div class="featured-products-carousel">
+                        <button class="carousel-arrow prev" onclick="scrollCarousel('productsGridPreorder', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-arrow next" onclick="scrollCarousel('productsGridPreorder', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                         <div class="featured-products-grid kainan-style" id="productsGridPreorder">
                             <div class="product-card kainan-card" data-product-id="1" onclick="window.location.href='product-detail.html?id=1'">
                                 <div class="product-badge-new">預購</div>
@@ -412,6 +418,12 @@
                 <div class="product-category-section">
                     <h3 class="category-title">精選商品</h3>
                     <div class="featured-products-carousel">
+                        <button class="carousel-arrow prev" onclick="scrollCarousel('productsGridFeatured', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-arrow next" onclick="scrollCarousel('productsGridFeatured', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                         <div class="featured-products-grid kainan-style" id="productsGridFeatured">
                             <div class="product-card kainan-card" data-product-id="3" onclick="window.location.href='product-detail.html?id=3'">
                                 <div class="product-badge-new">熱銷</div>

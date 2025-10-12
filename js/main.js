@@ -781,4 +781,47 @@ document.addEventListener('DOMContentLoaded', () => {
     initFeaturedProductsCarousel();
     initProductsTabs();
     initProductCardEvents();
+    initMobileCarousel();
 });
+
+// 手機版輪播功能
+function initMobileCarousel() {
+    // 為每個輪播容器添加滾動監聽
+    const carousels = document.querySelectorAll('.featured-products-carousel');
+    carousels.forEach(carousel => {
+        const grid = carousel.querySelector('.featured-products-grid');
+        const prevBtn = carousel.querySelector('.carousel-arrow.prev');
+        const nextBtn = carousel.querySelector('.carousel-arrow.next');
+        
+        if (grid && prevBtn && nextBtn) {
+            // 更新按鈕狀態
+            function updateButtons() {
+                const scrollLeft = grid.scrollLeft;
+                const maxScroll = grid.scrollWidth - grid.clientWidth;
+                
+                prevBtn.style.display = scrollLeft <= 0 ? 'none' : 'flex';
+                nextBtn.style.display = scrollLeft >= maxScroll ? 'none' : 'flex';
+            }
+            
+            // 初始狀態
+            updateButtons();
+            
+            // 監聽滾動事件
+            grid.addEventListener('scroll', updateButtons);
+        }
+    });
+}
+
+// 輪播滾動函數
+function scrollCarousel(gridId, direction) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    
+    const cardWidth = grid.querySelector('.product-card').offsetWidth + 15; // 包含間距
+    const scrollAmount = cardWidth * direction;
+    
+    grid.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+    });
+}
