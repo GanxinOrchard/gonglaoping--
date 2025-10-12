@@ -560,7 +560,7 @@ ul {
     transform: translateY(0);
 }
 
-.news-date {
+.news-ticker-item .news-date {
     font-size: 12px;
     font-weight: 600;
     color: var(--primary-color);
@@ -569,6 +569,7 @@ ul {
     padding: 2px 8px;
     border-radius: 4px;
     border: 1px solid rgba(255, 140, 66, 0.2);
+    display: inline-block;
 }
 
 .news-text {
@@ -1204,12 +1205,13 @@ ul {
         gap: 10px;
     }
     
-    .news-date {
+    .news-ticker-item .news-date {
         font-size: 10px;
         padding: 1px 6px;
         background: rgba(255, 140, 66, 0.1);
         border-radius: 3px;
         border: 1px solid rgba(255, 140, 66, 0.2);
+        display: inline-block;
     }
     
     .news-text {
