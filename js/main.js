@@ -82,6 +82,38 @@ function initKainanNavigation() {
         });
     }
     
+    // 點擊文檔外部關閉選單
+    document.addEventListener('click', function(e) {
+        if (mainMenu && mainMenu.classList.contains('active')) {
+            if (!mainMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                mainMenu.classList.remove('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                
+                // 重置圖標
+                const icon = mobileMenuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+    });
+    
+    // ESC鍵關閉選單
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mainMenu && mainMenu.classList.contains('active')) {
+            mainMenu.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            
+            // 重置圖標
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    });
+    
     // 初始化最新消息輪播
     initNewsTicker();
 
