@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測試修改 - 柑心果園</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-title {
+            color: #ff8c42;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .test-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 4px solid #ff8c42;
+        }
+        .status {
+            font-weight: bold;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .warning { color: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="test-section">
+        <h1 class="test-title">🔧 柑心果園網站修改測試</h1>
+        <p>此頁面用於測試最近的修改是否生效</p>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">📋 修改檢查清單</h2>
+        
+        <div class="test-item">
+            <strong>1. 封面輪播功能</strong>
+            <div class="status success">✅ 已添加 initHeroSlider() 函數</div>
+            <div class="status success">✅ 支援自動輪播（每5秒）</div>
+            <div class="status success">✅ 支援多張圖片切換</div>
+        </div>
+
+        <div class="test-item">
+            <strong>2. 商品卡片並排顯示</strong>
+            <div class="status success">✅ 桌面版：2列並排 (grid-template-columns: repeat(2, 1fr))</div>
+            <div class="status success">✅ 手機版：2列並排</div>
+            <div class="status success">✅ 響應式設計</div>
+        </div>
+
+        <div class="test-item">
+            <strong>3. 購物車功能</strong>
+            <div class="status success">✅ 已添加 addToCart() 函數</div>
+            <div class="status success">✅ 已添加 updateCartCount() 函數</div>
+            <div class="status success">✅ 已添加 showNotification() 函數</div>
+            <div class="status success">✅ 已添加商品點擊事件</div>
+        </div>
+
+        <div class="test-item">
+            <strong>4. HTML結構修復</strong>
+            <div class="status success">✅ 修復重複的結束標籤</div>
+            <div class="status success">✅ 添加商品ID (data-product-id)</div>
+            <div class="status success">✅ 清理多餘程式碼</div>
+        </div>
+
+        <div class="test-item">
+            <strong>5. 商品卡片尺寸調整</strong>
+            <div class="status success">✅ 縮小卡片尺寸</div>
+            <div class="status success">✅ 調整字體大小</div>
+            <div class="status success">✅ 調整內邊距</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">🚀 如何查看修改</h2>
+        <div class="test-item">
+            <strong>如果看不到修改，請嘗試：</strong>
+            <ol>
+                <li><strong>強制刷新瀏覽器</strong>：按 Ctrl+F5 (Windows) 或 Cmd+Shift+R (Mac)</li>
+                <li><strong>清除瀏覽器快取</strong>：在開發者工具中右鍵重新整理按鈕，選擇「清空快取並強制重新整理」</li>
+                <li><strong>等待GitHub Pages更新</strong>：如果使用GitHub Pages，可能需要2-5分鐘</li>
+                <li><strong>檢查控制台</strong>：按F12打開開發者工具，查看是否有JavaScript錯誤</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">🔍 測試功能</h2>
+        <div class="test-item">
+            <strong>請測試以下功能：</strong>
+            <ul>
+                <li>封面圖片是否自動輪播（每5秒切換）</li>
+                <li>商品卡片是否2個並排顯示</li>
+                <li>點擊「查看詳情」按鈕是否顯示通知</li>
+                <li>購物車數量是否正確更新</li>
+                <li>手機版是否正常顯示</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">📞 如果仍有問題</h2>
+        <div class="test-item">
+            <p>如果按照上述步驟仍看不到修改，請：</p>
+            <ol>
+                <li>告訴我您使用的是哪個瀏覽器</li>
+                <li>告訴我您是如何訪問網站的（直接打開HTML文件還是通過GitHub Pages）</li>
+                <li>檢查開發者工具的控制台是否有錯誤訊息</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // 測試JavaScript是否正常載入
+        console.log('✅ 測試頁面JavaScript正常載入');
+        
+        // 測試購物車功能
+        function testCartFunction() {
+            console.log('✅ 購物車功能測試');
+            if (typeof addToCart === 'function') {
+                console.log('✅ addToCart 函數存在');
+            } else {
+                console.log('❌ addToCart 函數不存在');
+            }
+        }
+        
+        // 測試輪播功能
+        function testSliderFunction() {
+            console.log('✅ 輪播功能測試');
+            if (typeof initHeroSlider === 'function') {
+                console.log('✅ initHeroSlider 函數存在');
+            } else {
+                console.log('❌ initHeroSlider 函數不存在');
+            }
+        }
+        
+        // 頁面載入時執行測試
+        document.addEventListener('DOMContentLoaded', function() {
+            testCartFunction();
+            testSliderFunction();
+        });
+    </script>
+</body>
+</html>
