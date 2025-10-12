@@ -900,16 +900,17 @@ ul {
 /* 手機版header樣式 */
 .mobile-header {
     display: none;
+    width: 100%;
 }
 
 .mobile-top-row {
-    display: flex;
-    justify-content: center;
+    display: flex !important;
+    justify-content: flex-end !important;
     align-items: center;
     gap: 20px;
-    padding: 6px 0;
+    padding: 6px 15px 6px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-left: -1px;
+    width: 100%;
 }
 
 .mobile-bottom-row {
