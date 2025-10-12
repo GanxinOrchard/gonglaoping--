@@ -222,14 +222,21 @@ ul {
     font-size: 12px;
 }
 
-/* 主要導航列 - 黑色背景 */
+/* 主要導航列 - 橘色背景 */
 .main-header {
-    background: var(--black);
+    background: var(--primary-color);
     color: var(--white);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* 滑動時半透明效果 */
+.main-header.scrolled {
+    background: rgba(255, 140, 66, 0.95);
+    backdrop-filter: blur(10px);
 }
 
 .header-content {
@@ -387,17 +394,20 @@ ul {
     0% {
         transform: translateY(0);
     }
-    25% {
+    20% {
         transform: translateY(-24px);
     }
-    50% {
+    40% {
         transform: translateY(-48px);
     }
-    75% {
+    60% {
         transform: translateY(-72px);
     }
-    100% {
+    80% {
         transform: translateY(-96px);
+    }
+    100% {
+        transform: translateY(-120px);
     }
 }
 

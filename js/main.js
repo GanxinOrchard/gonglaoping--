@@ -30,6 +30,7 @@ function initKainanNavigation() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mainMenu = document.getElementById('mainMenu');
     const menuClose = document.getElementById('menuClose');
+    const mainHeader = document.querySelector('.main-header');
     
     // 開啟選單
     if (mobileMenuToggle && mainMenu) {
@@ -83,9 +84,20 @@ function initKainanNavigation() {
     
     // 初始化最新消息輪播
     initNewsTicker();
-    
+
     // 購物車數量更新
     updateCartCount();
+
+    // 滑動時添加半透明效果
+    if (mainHeader) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                mainHeader.classList.add('scrolled');
+            } else {
+                mainHeader.classList.remove('scrolled');
+            }
+        });
+    }
 }
 
 // 初始化最新消息輪播
