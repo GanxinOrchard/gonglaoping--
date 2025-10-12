@@ -1212,7 +1212,7 @@ ul {
     }
     
     .news-ticker-icon {
-        font-size: 16px;
+        display: none;
     }
     
     .news-ticker-content {
@@ -1235,6 +1235,14 @@ ul {
         display: flex;
         align-items: center;
         gap: 8px;
+    }
+    
+    .news-ticker-title::before {
+        content: "\f1a0";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 14px;
+        color: white;
     }
     
     .news-ticker-wrapper {
