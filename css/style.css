@@ -1219,7 +1219,7 @@ ul {
         height: auto;
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
+        gap: 0;
     }
     
     .news-ticker-title {
@@ -1227,9 +1227,18 @@ ul {
         margin-bottom: 0;
         justify-content: center;
         background: #d4edda;
-        padding: 6px 12px;
-        border-radius: 4px;
+        padding: 8px 15px;
+        border-radius: 0;
         text-align: center;
+        width: 100%;
+    }
+    
+    .news-ticker-wrapper {
+        background: #d4edda;
+        padding: 8px 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     
     .news-ticker-title i {
