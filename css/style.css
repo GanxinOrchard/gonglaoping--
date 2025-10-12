@@ -529,6 +529,25 @@ ul {
 .news-ticker-content {
     flex: 1;
     overflow: hidden;
+    position: relative;
+}
+
+.news-ticker-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.news-ticker-title i {
+    color: var(--primary-color);
+    font-size: 16px;
+}
+
+.news-ticker-wrapper {
     height: 24px;
     position: relative;
 }
@@ -1193,6 +1212,19 @@ ul {
     }
     
     .news-ticker-content {
+        height: auto;
+    }
+    
+    .news-ticker-title {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+    
+    .news-ticker-title i {
+        font-size: 14px;
+    }
+    
+    .news-ticker-wrapper {
         height: 22px;
     }
     
