@@ -580,9 +580,9 @@ ul {
 }
 
 .news-ticker-item .news-date {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    color: #e74c3c;
+    color: #3498db;
     flex-shrink: 0;
     display: inline-block;
 }
@@ -1234,8 +1234,8 @@ ul {
     }
     
     .news-ticker-item .news-date {
-        font-size: 10px;
-        color: #e74c3c;
+        font-size: 12px;
+        color: #3498db;
         display: inline-block;
     }
     
