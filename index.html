@@ -375,59 +375,24 @@
         <div class="container">
             <h2 class="section-title">精選商品</h2>
 
-            <!-- 分類切換標籤 -->
-            <div class="products-tabs" role="tablist" aria-label="products tabs">
-                <button class="tab-button active" data-tab="preorder" role="tab" aria-selected="true">預購商品</button>
-                <button class="tab-button" data-tab="featured" role="tab" aria-selected="false">精選商品</button>
-                    </div>
-
-            <!-- 精選商品 (featured) -->
-            <div class="tab-content" id="tab-featured">
+            <!-- 預購商品 -->
+            <div class="product-category-section">
+                <h3 class="category-title">預購商品</h3>
                 <div class="featured-products-carousel">
-                    <button class="carousel-btn carousel-btn-prev" id="prevFeatured">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="featured-products-grid kainan-style" id="productsGridFeatured">
+                    <div class="featured-products-grid kainan-style" id="productsGridPreorder">
                         <div class="product-card kainan-card" data-product-id="pomelo-1">
-                            <div class="product-badge-new">熱銷</div>
+                            <div class="product-badge-new">預購</div>
                             <div class="product-image">
                                 <img src="images/椪柑產品圖/椪柑1.jpg" alt="公老坪椪柑">
-                    </div>
+                            </div>
                             <div class="product-info">
                                 <h3 class="product-title">公老坪椪柑｜小顆師-冷藏-23A</h3>
                                 <div class="product-price-row">
                                     <button class="btn-promotion" onclick="window.location.href='product-detail.html?id=1'">促銷價</button>
                                     <span class="product-price">NT$699</span>
-                    </div>
-                    </div>
-                    </div>
-                        <div class="product-card kainan-card" data-product-id="taro-1">
-                            <div class="product-badge-new">新品</div>
-                            <div class="product-image">
-                                <img src="images/芋頭/公老坪芋頭2CM.jpg" alt="公老坪芋頭">
-                    </div>
-                            <div class="product-info">
-                                <h3 class="product-title">公老坪芋頭｜香甜綿密</h3>
-                                <div class="product-price-row">
-                                    <button class="btn-promotion" onclick="window.location.href='product-detail.html?id=3'">促銷價</button>
-                                    <span class="product-price">NT$280</span>
-                    </div>
-            </div>
-            </div>
-        </div>
-                    <button class="carousel-btn carousel-btn-next" id="nextFeatured">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    </div>
-            </div>
-            
-            <!-- 預購商品 (preorder) -->
-            <div class="tab-content active" id="tab-preorder">
-                <div class="featured-products-carousel">
-                    <button class="carousel-btn carousel-btn-prev" id="prevPreorder">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                    <div class="featured-products-grid kainan-style" id="productsGridPreorder">
+                                </div>
+                            </div>
+                        </div>
                         <div class="product-card kainan-card" data-product-id="mugua-1">
                             <div class="product-badge-new">預購</div>
                             <div class="product-image">
@@ -441,6 +406,15 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 精選商品 -->
+            <div class="product-category-section">
+                <h3 class="category-title">精選商品</h3>
+                <div class="featured-products-carousel">
+                    <div class="featured-products-grid kainan-style" id="productsGridFeatured">
                         <div class="product-card kainan-card" data-product-id="water-chestnut-1">
                             <div class="product-badge-new">限定</div>
                             <div class="product-image">
@@ -454,10 +428,20 @@
                                 </div>
                             </div>
                         </div>
-                </div>
-                    <button class="carousel-btn carousel-btn-next" id="nextPreorder">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                        <div class="product-card kainan-card" data-product-id="taro-1">
+                            <div class="product-badge-new">熱銷</div>
+                            <div class="product-image">
+                                <img src="images/芋頭/公老坪芋頭2CM.jpg" alt="公老坪芋頭">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">公老坪芋頭｜香甜綿密</h3>
+                                <div class="product-price-row">
+                                    <button class="btn-promotion" onclick="window.location.href='product-detail.html?id=3'">促銷價</button>
+                                    <span class="product-price">NT$280</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             

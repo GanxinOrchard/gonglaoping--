@@ -2669,54 +2669,59 @@ ul {
 
 /* ===== 開南風格商品卡片 V2 ===== */
 
-/* 商品輪播容器 */
+/* 商品輪播容器 - 手動滑動 */
 .featured-products-carousel {
     position: relative;
-    padding: 0 60px;
-}
-
-/* 輪播按鈕 */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 45px;
-    height: 45px;
-    background: #fff;
-    border: 2px solid #e0e0e0;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.carousel-btn:hover {
-    background: #8bc34a;
-    border-color: #8bc34a;
-    color: white;
-    transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn-prev {
-    left: 0;
-}
-
-.carousel-btn-next {
-    right: 0;
-}
-
-/* 商品網格 - 小卡片設計 */
-.featured-products-grid.kainan-style {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 20px 0;
-    max-width: 1000px;
-    margin: 0 auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.featured-products-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* 商品分類區塊 */
+.product-category-section {
+    margin-bottom: 60px;
+}
+
+.product-category-section:last-child {
+    margin-bottom: 40px;
+}
+
+.category-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.category-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #8bc34a 0%, #4caf50 100%);
+    border-radius: 2px;
+}
+
+/* 商品網格 - 手動滑動設計 */
+.featured-products-grid.kainan-style {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    min-width: max-content;
+    justify-content: flex-start;
 }
 
 /* 商品卡片 - 開南風格 */
@@ -4777,18 +4782,27 @@ ul {
         line-height: 1.8;
     }
     
-    .featured-products-carousel {
-        padding: 0 50px;
+    .category-title {
+        font-size: 24px;
+        margin-bottom: 25px;
     }
     
-    .carousel-btn {
-        width: 40px;
-        height: 40px;
+    .product-category-section {
+        margin-bottom: 50px;
+    }
+    
+    .featured-products-carousel {
+        padding: 0 15px;
     }
     
     .featured-products-grid.kainan-style {
-        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+        padding: 0 10px;
+    }
+    
+    .product-card.kainan-card {
+        flex: 0 0 calc(50% - 7.5px);
+        min-width: 160px;
     }
     
     .features {
