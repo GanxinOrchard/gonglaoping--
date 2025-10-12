@@ -504,7 +504,7 @@ ul {
 
 /* 最新消息上下輪播 - 開南風格 */
 .news-ticker-section {
-    background: #28a745;
+    background: var(--primary-color);
     color: var(--white);
     padding: 12px 0;
     position: relative;
@@ -586,7 +586,7 @@ ul {
 .news-ticker-item .news-date {
     font-size: 14px;
     font-weight: 600;
-    color: #3498db;
+    color: #e74c3c;
     flex-shrink: 0;
     display: inline-block;
 }
@@ -1226,7 +1226,7 @@ ul {
         font-size: 12px;
         margin-bottom: 0;
         justify-content: center;
-        background: #28a745;
+        background: var(--primary-color);
         padding: 6px 15px;
         border-radius: 0;
         text-align: center;
@@ -1248,7 +1248,7 @@ ul {
     }
     
     .news-ticker-wrapper {
-        background: #28a745;
+        background: var(--primary-color);
         padding: 6px 15px;
         display: flex;
         align-items: center;
