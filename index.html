@@ -86,10 +86,10 @@
                         <div class="logo-text-container">
                             <span class="logo-main">柑心果園</span>
                             <span class="logo-sub">GANXIN ORCHARD</span>
-                        </div>
+        </div>
                     </a>
-                </div>
-                
+    </div>
+    
                 <!-- 桌面版導航菜單 -->
                 <nav class="desktop-nav">
                     <ul class="nav-menu">
@@ -193,8 +193,8 @@
                         <i class="fas fa-search"></i>
                         <span>搜尋</span>
                     </a>
-                </div>
-                
+        </div>
+        
                 <!-- 第二行：商標、漢堡選單 -->
                 <div class="mobile-bottom-row">
                     <div class="mobile-logo-section">
@@ -206,24 +206,24 @@
                             </div>
                         </a>
                     </div>
-                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
-                        <i class="fas fa-bars"></i>
-                    </button>
+                        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
         </div>
     </header>
     
-    
+                
     <!-- 手機選單 -->
-    <div class="main-menu" id="mainMenu">
+                <div class="main-menu" id="mainMenu">
         <div class="menu-header">
             <h3>選單</h3>
             <button type="button" class="menu-close" id="menuClose">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <ul>
+                    <ul>
                         <li><a href="index.html" class="active">首頁</a></li>
                         <li><a href="news.html">最新消息</a></li>
                         <li><a href="knowledge.html">蔬果知識</a></li>
@@ -369,59 +369,66 @@
         <div class="container">
             <h2 class="section-title">精選商品</h2>
             
-            <!-- 商品卡片網格 -->
-            <div class="featured-products-grid">
+            <!-- 商品卡片輪播容器 -->
+            <div class="featured-products-carousel">
+                <button class="carousel-btn carousel-btn-prev" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="featured-products-grid" id="productsGrid">
                 <div class="product-card featured-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?w=300&h=200&fit=crop" alt="公老坪椪柑">
+                        <img src="images/椪柑產品圖/椪柑1.jpg" alt="公老坪椪柑">
                         <div class="product-badge">熱銷</div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">公老坪椪柑</h3>
                         <p class="product-description">皮薄好剝，酸甜平衡，產地直送</p>
                         <div class="product-price">NT$ 699</div>
-                        <button class="btn-add-cart">加入購物車</button>
+                        <button class="btn-add-cart">查看詳情</button>
                     </div>
                 </div>
                 
                 <div class="product-card featured-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=300&h=200&fit=crop" alt="東勢茂谷柑">
+                        <img src="images/茂谷柑產品圖/茂谷柑1.png" alt="東勢茂谷柑">
                         <div class="product-badge">新品</div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">東勢茂谷柑</h3>
                         <p class="product-description">皮薄多汁，甜度高，春節送禮首選</p>
                         <div class="product-price">NT$ 880</div>
-                        <button class="btn-add-cart">加入購物車</button>
+                        <button class="btn-add-cart">查看詳情</button>
                     </div>
                 </div>
                 
                 <div class="product-card featured-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=300&h=200&fit=crop" alt="冷凍菱角仁">
+                        <img src="images/菱角仁/新鮮蔬果菱角仁1.jpg" alt="冷凍菱角仁">
                         <div class="product-badge">限定</div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">冷凍菱角仁</h3>
                         <p class="product-description">新鮮菱角仁，冷凍配送保鮮</p>
                         <div class="product-price">NT$ 240</div>
-                        <button class="btn-add-cart">加入購物車</button>
+                        <button class="btn-add-cart">查看詳情</button>
                     </div>
                 </div>
                 
                 <div class="product-card featured-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1587049352846-4a222e784acc?w=300&h=200&fit=crop" alt="新鮮芋角">
+                        <img src="images/芋角/新鮮蔬果芋角2CM.jpg" alt="新鮮芋角">
                         <div class="product-badge">推薦</div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">新鮮芋角</h3>
                         <p class="product-description">大甲芋頭製成，口感綿密香甜</p>
                         <div class="product-price">NT$ 280</div>
-                        <button class="btn-add-cart">加入購物車</button>
+                        <button class="btn-add-cart">查看詳情</button>
                     </div>
                 </div>
+                <button class="carousel-btn carousel-btn-next" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
             
             <!-- 觀看更多按鈕 -->

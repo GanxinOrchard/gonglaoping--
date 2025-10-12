@@ -523,3 +523,63 @@ if (window.performance && window.performance.timing) {
         }, 0);
     });
 }
+
+// 初始化精選商品輪播
+function initFeaturedProductsCarousel() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const productsGrid = document.getElementById('productsGrid');
+    
+    if (!prevBtn || !nextBtn || !productsGrid) return;
+    
+    let currentIndex = 0;
+    const cards = productsGrid.querySelectorAll('.featured-card');
+    const totalCards = cards.length;
+    
+    // 桌面版：4個一組，手機版：2個一組
+    const isMobile = window.innerWidth <= 768;
+    const cardsPerView = isMobile ? 2 : 4;
+    const maxIndex = Math.max(0, totalCards - cardsPerView);
+    
+    function updateCarousel() {
+        const translateX = -(currentIndex * (100 / cardsPerView));
+        productsGrid.style.transform = `translateX(${translateX}%)`;
+        
+        // 更新按鈕狀態
+        prevBtn.style.display = currentIndex > 0 ? 'flex' : 'none';
+        nextBtn.style.display = currentIndex < maxIndex ? 'flex' : 'none';
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+    
+    // 響應式處理
+    window.addEventListener('resize', () => {
+        const wasMobile = isMobile;
+        const nowMobile = window.innerWidth <= 768;
+        
+        if (wasMobile !== nowMobile) {
+            currentIndex = 0;
+            updateCarousel();
+        }
+    });
+    
+    // 初始化
+    updateCarousel();
+}
+
+// 在DOM載入完成後初始化輪播
+document.addEventListener('DOMContentLoaded', () => {
+    initFeaturedProductsCarousel();
+});
