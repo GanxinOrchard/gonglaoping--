@@ -1323,25 +1323,29 @@ ul {
 
 .slide-content {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     color: var(--white);
     z-index: 2;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    max-width: 800px;
+    padding: 0 20px;
 }
 
 .hero-title {
-    font-size: 56px;
+    font-size: 48px;
     font-weight: 700;
     margin-bottom: 20px;
+    line-height: 1.3;
     animation: fadeInUp 1s ease;
 }
 
 .hero-subtitle {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 30px;
+    line-height: 1.6;
     animation: fadeInUp 1s ease 0.2s backwards;
 }
 
@@ -4044,8 +4048,8 @@ ul {
     }
     
     .hero-title {
-        font-size: 24px !important;
-        line-height: 1.5;
+        font-size: 22px !important;
+        line-height: 1.4;
         padding: 0 15px;
         word-break: keep-all;
         white-space: normal;
@@ -4053,7 +4057,7 @@ ul {
     
     .hero-subtitle {
         font-size: 14px !important;
-        line-height: 1.8;
+        line-height: 1.6;
         padding: 0 15px;
         margin-top: 15px;
         word-break: keep-all;
