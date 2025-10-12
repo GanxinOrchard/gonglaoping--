@@ -1234,15 +1234,17 @@ ul {
         color: white;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
     }
     
     .news-ticker-title::before {
-        content: "\f1a0";
+        content: "\f1bc";
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         font-size: 14px;
         color: white;
+        display: inline-block;
     }
     
     .news-ticker-wrapper {
