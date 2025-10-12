@@ -504,7 +504,7 @@ ul {
 
 /* 最新消息上下輪播 - 開南風格 */
 .news-ticker-section {
-    background: var(--primary-color);
+    background: #28a745;
     color: var(--white);
     padding: 12px 0;
     position: relative;
