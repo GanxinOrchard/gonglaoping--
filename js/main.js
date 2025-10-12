@@ -163,25 +163,11 @@ function updateCartCount() {
         const count = localStorage.getItem('cartCount') || '0';
         cartCount.textContent = count;
         topCartCount.textContent = count;
-        
-        // 添加動畫效果
-        if (cartCount) {
-            cartCount.classList.add('animate');
-            setTimeout(() => cartCount.classList.remove('animate'), 600);
-        }
-        if (topCartCount) {
-            topCartCount.classList.add('animate');
-            setTimeout(() => topCartCount.classList.remove('animate'), 600);
-        }
     }
     
     if (mobileCartCount) {
         const count = localStorage.getItem('cartCount') || '0';
         mobileCartCount.textContent = count;
-        
-        // 添加動畫效果
-        mobileCartCount.classList.add('animate');
-        setTimeout(() => mobileCartCount.classList.remove('animate'), 600);
     }
 }
 
