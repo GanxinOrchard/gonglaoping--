@@ -578,6 +578,33 @@ ul {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
+/* 分類切換標籤 */
+.products-tabs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 10px 0 24px;
+}
+
+.products-tabs .tab-button {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    color: var(--text-dark);
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.products-tabs .tab-button.active {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
 .featured-products-carousel {
     position: relative;
     display: flex;

@@ -599,57 +599,79 @@ if (window.performance && window.performance.timing) {
 
 // 初始化精選商品輪播
 function initFeaturedProductsCarousel() {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const productsGrid = document.getElementById('productsGrid');
-    
-    if (!prevBtn || !nextBtn || !productsGrid) return;
-    
-    let currentIndex = 0;
-    const cards = productsGrid.querySelectorAll('.featured-card');
-    const totalCards = cards.length;
-    
-    // 桌面版：4個一組，手機版：2個一組
-    const isMobile = window.innerWidth <= 768;
-    const cardsPerView = isMobile ? 2 : 4;
-    const maxIndex = Math.max(0, totalCards - cardsPerView);
-    
-    function updateCarousel() {
-        const translateX = -(currentIndex * (100 / cardsPerView));
-        productsGrid.style.transform = `translateX(${translateX}%)`;
-        
-        // 更新按鈕狀態
-        prevBtn.style.display = currentIndex > 0 ? 'flex' : 'none';
-        nextBtn.style.display = currentIndex < maxIndex ? 'flex' : 'none';
-    }
-    
-    prevBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateCarousel();
+    // 支援多個carousel（featured / preorder）
+    const setups = [
+        { prev: 'prevFeatured', next: 'nextFeatured', grid: 'productsGridFeatured' },
+        { prev: 'prevPreorder', next: 'nextPreorder', grid: 'productsGridPreorder' }
+    ];
+
+    setups.forEach(({ prev, next, grid }) => {
+        const prevBtn = document.getElementById(prev);
+        const nextBtn = document.getElementById(next);
+        const productsGrid = document.getElementById(grid);
+
+        if (!prevBtn || !nextBtn || !productsGrid) return;
+
+        let currentIndex = 0;
+        const cards = productsGrid.querySelectorAll('.featured-card');
+        const totalCards = cards.length;
+
+        function computeCardsPerView() {
+            return window.innerWidth <= 768 ? 2 : 4;
         }
-    });
-    
-    nextBtn.addEventListener('click', () => {
-        if (currentIndex < maxIndex) {
-            currentIndex++;
-            updateCarousel();
+
+        function updateCarousel() {
+            const cardsPerView = computeCardsPerView();
+            const maxIndex = Math.max(0, totalCards - cardsPerView);
+            const translateX = -(currentIndex * (100 / cardsPerView));
+            productsGrid.style.transform = `translateX(${translateX}%)`;
+            prevBtn.style.display = currentIndex > 0 ? 'flex' : 'none';
+            nextBtn.style.display = currentIndex < maxIndex ? 'flex' : 'none';
         }
-    });
-    
-    // 響應式處理
-    window.addEventListener('resize', () => {
-        const wasMobile = isMobile;
-        const nowMobile = window.innerWidth <= 768;
-        
-        if (wasMobile !== nowMobile) {
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const cardsPerView = computeCardsPerView();
+            const maxIndex = Math.max(0, totalCards - cardsPerView);
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        window.addEventListener('resize', () => {
             currentIndex = 0;
             updateCarousel();
-        }
+        });
+
+        updateCarousel();
     });
-    
-    // 初始化
-    updateCarousel();
+}
+
+// 首頁商品分頁切換
+function initProductsTabs() {
+    const tabButtons = document.querySelectorAll('.products-tabs .tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    if (!tabButtons.length || !tabContents.length) return;
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.tab;
+
+            tabButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            tabContents.forEach(c => c.classList.remove('active'));
+            const targetEl = document.getElementById(`tab-${target}`);
+            if (targetEl) targetEl.classList.add('active');
+        });
+    });
 }
 
 // 初始化封面輪播
@@ -710,5 +732,6 @@ function initProductCardEvents() {
 document.addEventListener('DOMContentLoaded', () => {
     initHeroSlider();
     initFeaturedProductsCarousel();
+    initProductsTabs();
     initProductCardEvents();
 });

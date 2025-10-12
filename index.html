@@ -390,67 +390,87 @@
     <section class="featured-products-section" id="products">
         <div class="container">
             <h2 class="section-title">精選商品</h2>
-            
-            <!-- 商品卡片輪播容器 -->
-            <div class="featured-products-carousel">
-                <button class="carousel-btn carousel-btn-prev" id="prevBtn">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="featured-products-grid" id="productsGrid">
-                <div class="product-card featured-card" data-product-id="pomelo-1">
-                    <div class="product-image">
-                        <img src="images/椪柑產品圖/椪柑1.jpg" alt="公老坪椪柑">
-                        <div class="product-badge">熱銷</div>
+
+            <!-- 分類切換標籤 -->
+            <div class="products-tabs" role="tablist" aria-label="products tabs">
+                <button class="tab-button active" data-tab="featured" role="tab" aria-selected="true">精選商品</button>
+                <button class="tab-button" data-tab="preorder" role="tab" aria-selected="false">預購商品</button>
+            </div>
+
+            <!-- 精選商品（Featured） -->
+            <div class="tab-content active" id="tab-featured">
+                <div class="featured-products-carousel">
+                    <button class="carousel-btn carousel-btn-prev" id="prevFeatured">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="featured-products-grid" id="productsGridFeatured">
+                        <div class="product-card featured-card" data-product-id="pomelo-1">
+                            <div class="product-image">
+                                <img src="images/椪柑產品圖/椪柑1.jpg" alt="公老坪椪柑">
+                                <div class="product-badge">熱銷</div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">公老坪椪柑</h3>
+                                <p class="product-description">皮薄好剝，酸甜平衡，產地直送</p>
+                                <div class="product-price">NT$ 699</div>
+                                <button class="btn-add-cart">查看詳情</button>
+                            </div>
+                        </div>
+                        <div class="product-card featured-card" data-product-id="taro-1">
+                            <div class="product-image">
+                                <img src="images/芋角/新鮮蔬果芋角2CM.jpg" alt="新鮮芋角">
+                                <div class="product-badge">推薦</div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">新鮮芋角</h3>
+                                <p class="product-description">大甲芋頭製成，口感綿密香甜</p>
+                                <div class="product-price">NT$ 280</div>
+                                <button class="btn-add-cart">查看詳情</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <h3 class="product-title">公老坪椪柑</h3>
-                        <p class="product-description">皮薄好剝，酸甜平衡，產地直送</p>
-                        <div class="product-price">NT$ 699</div>
-                        <button class="btn-add-cart">查看詳情</button>
-                    </div>
+                    <button class="carousel-btn carousel-btn-next" id="nextFeatured">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                
-                <div class="product-card featured-card" data-product-id="mugua-1">
-                    <div class="product-image">
-                        <img src="images/茂谷柑產品圖/茂谷柑1.png" alt="東勢茂谷柑">
-                        <div class="product-badge">新品</div>
+            </div>
+
+            <!-- 預購商品（Preorder） -->
+            <div class="tab-content" id="tab-preorder">
+                <div class="featured-products-carousel">
+                    <button class="carousel-btn carousel-btn-prev" id="prevPreorder">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="featured-products-grid" id="productsGridPreorder">
+                        <div class="product-card featured-card" data-product-id="mugua-1">
+                            <div class="product-image">
+                                <img src="images/茂谷柑產品圖/茂谷柑1.png" alt="東勢茂谷柑">
+                                <div class="product-badge">新品</div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">東勢茂谷柑</h3>
+                                <p class="product-description">皮薄多汁，甜度高，春節送禮首選</p>
+                                <div class="product-price">NT$ 880</div>
+                                <button class="btn-add-cart">查看詳情</button>
+                            </div>
+                        </div>
+                        <div class="product-card featured-card" data-product-id="water-chestnut-1">
+                            <div class="product-image">
+                                <img src="images/菱角仁/新鮮蔬果菱角仁1.jpg" alt="冷凍菱角仁">
+                                <div class="product-badge">限定</div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">冷凍菱角仁</h3>
+                                <p class="product-description">新鮮菱角仁，冷凍配送保鮮</p>
+                                <div class="product-price">NT$ 240</div>
+                                <button class="btn-add-cart">查看詳情</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <h3 class="product-title">東勢茂谷柑</h3>
-                        <p class="product-description">皮薄多汁，甜度高，春節送禮首選</p>
-                        <div class="product-price">NT$ 880</div>
-                        <button class="btn-add-cart">查看詳情</button>
-                    </div>
+                    <button class="carousel-btn carousel-btn-next" id="nextPreorder">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                
-                <div class="product-card featured-card" data-product-id="water-chestnut-1">
-                    <div class="product-image">
-                        <img src="images/菱角仁/新鮮蔬果菱角仁1.jpg" alt="冷凍菱角仁">
-                        <div class="product-badge">限定</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">冷凍菱角仁</h3>
-                        <p class="product-description">新鮮菱角仁，冷凍配送保鮮</p>
-                        <div class="product-price">NT$ 240</div>
-                        <button class="btn-add-cart">查看詳情</button>
-                    </div>
-                </div>
-                
-                <div class="product-card featured-card" data-product-id="taro-1">
-                    <div class="product-image">
-                        <img src="images/芋角/新鮮蔬果芋角2CM.jpg" alt="新鮮芋角">
-                        <div class="product-badge">推薦</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">新鮮芋角</h3>
-                        <p class="product-description">大甲芋頭製成，口感綿密香甜</p>
-                        <div class="product-price">NT$ 280</div>
-                        <button class="btn-add-cart">查看詳情</button>
-                    </div>
-                </div>
-                <button class="carousel-btn carousel-btn-next" id="nextBtn">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
             
             <!-- 觀看更多按鈕 -->
