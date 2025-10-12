@@ -582,31 +582,4 @@ function initFeaturedProductsCarousel() {
 // 在DOM載入完成後初始化輪播
 document.addEventListener('DOMContentLoaded', () => {
     initFeaturedProductsCarousel();
-    initHeroSlider();
 });
-
-// 初始化主視覺輪播
-function initHeroSlider() {
-    const slides = document.querySelectorAll('.hero-slider .slide');
-    if (slides.length <= 1) return;
-    
-    let currentSlide = 0;
-    const totalSlides = slides.length;
-    
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-        });
-    }
-    
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        showSlide(currentSlide);
-    }
-    
-    // 自動輪播（每5秒切換）
-    setInterval(nextSlide, 5000);
-    
-    // 初始化顯示第一張
-    showSlide(0);
-}
