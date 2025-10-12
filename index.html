@@ -78,7 +78,8 @@
     <!-- 主要導航列 - 開南風格 -->
     <header class="main-header">
         <div class="container">
-            <div class="header-content">
+            <!-- 桌面版布局 -->
+            <div class="header-content desktop-header">
                 <div class="logo-section">
                     <a href="index.html" class="logo">
                         <img src="images/柑心商標.png" alt="柑心果園" class="logo-image">
@@ -93,8 +94,25 @@
                 <nav class="desktop-nav">
                     <ul class="nav-menu">
                         <li><a href="index.html" class="nav-link active">首頁</a></li>
-                        <li><a href="news.html" class="nav-link">最新消息</a></li>
-                        <li><a href="knowledge.html" class="nav-link">蔬果知識</a></li>
+                        <li class="dropdown">
+                            <a href="news.html" class="nav-link">最新消息 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="news.html">全部消息</a></li>
+                                <li><a href="news.html?category=season">產季預購</a></li>
+                                <li><a href="news.html?category=new">新品上市</a></li>
+                                <li><a href="news.html?category=news">最新動態</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="knowledge.html" class="nav-link">蔬果知識 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="knowledge.html">全部知識</a></li>
+                                <li><a href="knowledge.html?category=cutting">切法教學</a></li>
+                                <li><a href="knowledge.html?category=growing">栽培知識</a></li>
+                                <li><a href="knowledge.html?category=selecting">挑選技巧</a></li>
+                                <li><a href="knowledge.html?category=storing">保存方法</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="season-recommend.html" class="nav-link">本季嚴選 <i class="fas fa-chevron-down"></i></a>
                             <ul class="dropdown-menu">
@@ -160,11 +178,38 @@
                         <span>中文版</span>
                     </div>
                 </div>
+            </div>
+            
+            <!-- 手機版布局 -->
+            <div class="mobile-header">
+                <!-- 第一行：購物車、搜尋 -->
+                <div class="mobile-top-row">
+                    <a href="cart.html" class="mobile-action cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>購物車</span>
+                        <span class="cart-count" id="mobileCartCount">0</span>
+                    </a>
+                    <a href="#" class="mobile-action">
+                        <i class="fas fa-search"></i>
+                        <span>搜尋</span>
+                    </a>
+                </div>
                 
-                <!-- 漢堡選單按鈕 - 僅手機版顯示 -->
-                <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <!-- 第二行：商標、漢堡選單 -->
+                <div class="mobile-bottom-row">
+                    <div class="mobile-logo-section">
+                        <a href="index.html" class="mobile-logo">
+                            <img src="images/柑心商標.png" alt="柑心果園" class="mobile-logo-image">
+                            <div class="mobile-logo-text">
+                                <span class="mobile-logo-main">柑心果園</span>
+                                <span class="mobile-logo-sub">GANXIN ORCHARD</span>
+                            </div>
+                        </a>
+                    </div>
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -319,29 +364,69 @@
 
 
 
-    <!-- 商品列表 -->
-    <section class="products-section" id="products">
+    <!-- 精選商品 -->
+    <section class="featured-products-section" id="products">
         <div class="container">
             <h2 class="section-title">精選商品</h2>
             
-            <!-- 分類按鈕 -->
-            <div class="category-buttons" style="text-align: center; margin-bottom: 30px;">
-                <button class="category-btn active" data-category="全部" onclick="filterByCategory('全部')">全部商品</button>
-                <button class="category-btn" data-category="優質水果" onclick="filterByCategory('優質水果')">優質水果</button>
-                <button class="category-btn" data-category="新鮮蔬果" onclick="filterByCategory('新鮮蔬果')">新鮮蔬果</button>
-                <button class="category-btn" data-category="冷凍食品" onclick="filterByCategory('冷凍食品')">冷凍食品</button>
+            <!-- 商品卡片網格 -->
+            <div class="featured-products-grid">
+                <div class="product-card featured-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?w=300&h=200&fit=crop" alt="公老坪椪柑">
+                        <div class="product-badge">熱銷</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">公老坪椪柑</h3>
+                        <p class="product-description">皮薄好剝，酸甜平衡，產地直送</p>
+                        <div class="product-price">NT$ 699</div>
+                        <button class="btn-add-cart">加入購物車</button>
+                    </div>
+                </div>
+                
+                <div class="product-card featured-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=300&h=200&fit=crop" alt="東勢茂谷柑">
+                        <div class="product-badge">新品</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">東勢茂谷柑</h3>
+                        <p class="product-description">皮薄多汁，甜度高，春節送禮首選</p>
+                        <div class="product-price">NT$ 880</div>
+                        <button class="btn-add-cart">加入購物車</button>
+                    </div>
+                </div>
+                
+                <div class="product-card featured-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=300&h=200&fit=crop" alt="冷凍菱角仁">
+                        <div class="product-badge">限定</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">冷凍菱角仁</h3>
+                        <p class="product-description">新鮮菱角仁，冷凍配送保鮮</p>
+                        <div class="product-price">NT$ 240</div>
+                        <button class="btn-add-cart">加入購物車</button>
+                    </div>
+                </div>
+                
+                <div class="product-card featured-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1587049352846-4a222e784acc?w=300&h=200&fit=crop" alt="新鮮芋角">
+                        <div class="product-badge">推薦</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">新鮮芋角</h3>
+                        <p class="product-description">大甲芋頭製成，口感綿密香甜</p>
+                        <div class="product-price">NT$ 280</div>
+                        <button class="btn-add-cart">加入購物車</button>
+                    </div>
+                </div>
             </div>
             
-            <div class="products-carousel-wrapper">
-                <button class="products-nav prev" id="productsPrev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="products-grid" id="productsGrid">
-                    <!-- 商品將由 JavaScript 動態載入 -->
-                </div>
-                <button class="products-nav next" id="productsNext">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+            <!-- 觀看更多按鈕 -->
+            <div class="view-more-container">
+                <a href="products.html" class="btn-view-more">觀看更多商品</a>
             </div>
         </div>
     </section>

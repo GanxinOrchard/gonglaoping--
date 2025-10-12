@@ -157,11 +157,17 @@ function initNewsTicker() {
 function updateCartCount() {
     const cartCount = document.getElementById('cartCount');
     const topCartCount = document.getElementById('topCartCount');
-    
+    const mobileCartCount = document.getElementById('mobileCartCount');
+
     if (cartCount && topCartCount) {
         const count = localStorage.getItem('cartCount') || '0';
         cartCount.textContent = count;
         topCartCount.textContent = count;
+    }
+    
+    if (mobileCartCount) {
+        const count = localStorage.getItem('cartCount') || '0';
+        mobileCartCount.textContent = count;
     }
 }
 
