@@ -596,9 +596,9 @@ ul {
 
 .featured-card {
     background: var(--white);
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
     position: relative;
 }
@@ -626,7 +626,7 @@ ul {
 
 .product-image {
     position: relative;
-    height: 200px;
+    height: 160px;
     overflow: hidden;
 }
 
@@ -655,28 +655,28 @@ ul {
 }
 
 .product-info {
-    padding: 24px;
+    padding: 18px;
 }
 
 .product-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .product-description {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-light);
-    margin-bottom: 16px;
-    line-height: 1.5;
+    margin-bottom: 12px;
+    line-height: 1.4;
 }
 
 .product-price {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .btn-add-cart {
@@ -684,9 +684,9 @@ ul {
     background: var(--primary-color);
     color: var(--white);
     border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1039,32 +1039,32 @@ ul {
     }
     
     .featured-card {
-        border-radius: 12px;
+        border-radius: 10px;
     }
     
     .product-image {
-        height: 150px;
+        height: 120px;
     }
     
     .product-info {
-        padding: 16px;
+        padding: 12px;
     }
     
     .product-title {
-        font-size: 16px;
+        font-size: 14px;
     }
     
     .product-description {
-        font-size: 13px;
+        font-size: 11px;
     }
     
     .product-price {
-        font-size: 18px;
+        font-size: 16px;
     }
     
     .btn-add-cart {
-        padding: 10px 16px;
-        font-size: 13px;
+        padding: 8px 12px;
+        font-size: 12px;
     }
     
     .btn-view-more {
@@ -1323,7 +1323,7 @@ ul {
 
 .slide-content {
     position: absolute;
-    top: 60%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -3787,15 +3787,15 @@ ul {
     }
     
     .slide-content h1 {
-        font-size: 36px;
+        font-size: 28px;
         line-height: 1.2;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
     
     .slide-content p {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 1.4;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
     
     .cart-sidebar {
@@ -4064,15 +4064,15 @@ ul {
     }
     
     .slide-content h1 {
-        font-size: 24px;
+        font-size: 20px;
         line-height: 1.2;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     
     .slide-content p {
-        font-size: 14px;
+        font-size: 12px;
         line-height: 1.4;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
     }
     
     /* 分類標籤手機版 */
