@@ -1239,7 +1239,7 @@ ul {
     }
     
     .news-ticker-title::before {
-        content: "\f1bc";
+        content: "\f0a1";
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         font-size: 14px;
