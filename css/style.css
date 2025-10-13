@@ -2720,18 +2720,22 @@ ul {
 
 /* 商品卡片 - 開南風格 */
 .product-card.kainan-card {
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid #f0f0f0;
-    flex: 0 0 160px;
-    max-width: 160px;
-    width: 160px;
-    height: 160px;
+    background: #fff !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    cursor: pointer !important;
+    border: 1px solid #f0f0f0 !important;
+    flex: 0 0 160px !important;
+    max-width: 160px !important;
+    width: 160px !important;
+    height: 160px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 160px !important;
+    box-sizing: border-box !important;
 }
 
 .product-card.kainan-card:hover {
@@ -4803,11 +4807,14 @@ ul {
     }
     
     .product-card.kainan-card {
-        flex: 0 0 calc(40% - 7.5px);
-        min-width: 120px;
-        max-width: 150px;
-        width: 140px;
-        height: 140px;
+        flex: 0 0 calc(40% - 7.5px) !important;
+        min-width: 120px !important;
+        max-width: 150px !important;
+        width: 140px !important;
+        height: 140px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-sizing: border-box !important;
     }
     
     /* 手機版輪播箭頭 */
