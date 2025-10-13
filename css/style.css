@@ -4317,14 +4317,15 @@ ul {
         transform: scale(1.05);
     }
     
-    .mobile-menu-toggle i {
-        font-size: 18px;
-        color: var(--primary-color);
+    .mobile-menu-toggle .hamburger-icon {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
         transition: all 0.3s ease;
     }
     
-    .mobile-menu-toggle:hover i {
-        color: var(--white);
+    .mobile-menu-toggle:hover .hamburger-icon {
+        filter: brightness(0) invert(1);
     }
     
     .mobile-menu-toggle.active {
@@ -4332,8 +4333,8 @@ ul {
         transform: scale(1.05);
     }
     
-    .mobile-menu-toggle.active i {
-        color: var(--white);
+    .mobile-menu-toggle.active .hamburger-icon {
+        filter: brightness(0) invert(1);
     }
     
     .hero-slider {
