@@ -2640,14 +2640,32 @@ ul {
 /* 商品網格 - 手動滑動設計 */
 .featured-products-grid.kainan-style {
     display: flex;
-    gap: 20px;
-    padding: 0 20px;
+    gap: 15px;
+    padding: 0 15px;
     min-width: max-content;
     justify-content: flex-start;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+/* 中等螢幕響應式設計 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .product-card.kainan-card {
+        flex: 0 0 calc(33.333% - 10px) !important;
+        width: calc(33.333% - 10px) !important;
+        height: calc(30vw - 10px) !important;
+        max-height: 180px !important;
+        min-height: 140px !important;
+    }
+    
+    .featured-products-grid.kainan-style {
+        gap: 10px;
+        padding: 0 10px;
+    }
 }
 
 /* 桌面版隱藏輪播箭頭 */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .carousel-arrow {
         display: none !important;
     }
@@ -2663,13 +2681,15 @@ ul {
     position: relative !important;
     cursor: pointer !important;
     border: 1px solid #f0f0f0 !important;
-    flex: 0 0 180px !important;
-    max-width: 180px !important;
-    width: 180px !important;
-    height: 180px !important;
+    flex: 0 0 calc(25% - 15px) !important;
+    max-width: 200px !important;
+    width: calc(25% - 15px) !important;
+    height: calc(25vw - 15px) !important;
+    max-height: 200px !important;
+    min-height: 150px !important;
     display: flex !important;
     flex-direction: column !important;
-    min-width: 180px !important;
+    min-width: 150px !important;
     box-sizing: border-box !important;
 }
 
@@ -4688,16 +4708,18 @@ ul {
     }
     
     .featured-products-grid.kainan-style {
-        gap: 15px;
+        gap: 10px;
         padding: 0 10px;
     }
     
     .product-card.kainan-card {
-        flex: 0 0 calc(40% - 7.5px) !important;
-        min-width: 140px !important;
-        max-width: 170px !important;
-        width: 160px !important;
-        height: 160px !important;
+        flex: 0 0 calc(45% - 5px) !important;
+        min-width: 120px !important;
+        max-width: 150px !important;
+        width: calc(45% - 5px) !important;
+        height: calc(45vw - 5px) !important;
+        max-height: 150px !important;
+        min-height: 120px !important;
         display: flex !important;
         flex-direction: column !important;
         box-sizing: border-box !important;
