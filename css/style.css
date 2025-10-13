@@ -5553,21 +5553,18 @@ ul {
         top: 113px !important; /* 固定在 mobile-header 下方 */
         left: 0 !important;
         right: 0 !important;
-        bottom: auto !important;
+        bottom: 0 !important;
         width: 100% !important;
-        max-height: calc(100vh - 113px) !important;
-        background: #2b2b2b !important; /* 深灰黑色背景 */
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+        background: #ffffff !important; /* 白色背景，參考開南 */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
         transform: translateY(-100%) !important;
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        z-index: 998 !important; /* 低於 header 的 z-index */
+        transition: transform 0.3s ease !important;
+        z-index: 998 !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         padding: 0 !important;
         visibility: visible !important;
         opacity: 1 !important;
-        border-radius: 0 !important;
-        padding-top: 0 !important;
     }
     
     .main-menu.open,
@@ -5596,22 +5593,21 @@ ul {
     }
     
     .main-menu > ul > li {
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        border-bottom: 1px solid #f0f0f0 !important;
         background: transparent !important;
     }
     
     .main-menu > ul > li > a {
         display: flex !important;
         align-items: center !important;
-        padding: 14px 20px !important;
-        color: var(--white) !important;
+        justify-content: space-between !important;
+        padding: 16px 20px !important;
+        color: #333 !important;
         text-decoration: none !important;
         font-weight: 500 !important;
         font-size: 15px !important;
-        transition: all 0.3s ease !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        transition: all 0.2s ease !important;
         background: transparent !important;
-        border-radius: 0 !important;
         position: relative !important;
     }
     
@@ -5621,48 +5617,40 @@ ul {
     }
     
     .main-menu > ul > li > a:hover {
-        background: rgba(255,255,255,0.15) !important;
-        padding-left: 30px !important;
-        color: var(--white) !important;
-        transform: none !important;
-        box-shadow: none !important;
-    }
-    
-    .main-menu > ul > li > a::before {
-        display: none !important;
+        background: #f8f8f8 !important;
+        color: var(--primary-color) !important;
     }
     
     .main-menu > ul > li > a.active {
-        background: rgba(255,255,255,0.2) !important;
-        color: var(--white) !important;
-        box-shadow: none !important;
+        background: #fff5f0 !important;
+        color: var(--primary-color) !important;
+        font-weight: 600 !important;
     }
     
     .main-menu .dropdown-menu {
         display: none !important;
-        background: rgba(0, 0, 0, 0.2) !important;
-        padding: 0 0 0 20px !important;
+        background: #fafafa !important;
+        padding: 8px 0 !important;
         margin: 0 !important;
-        border-left: 3px solid rgba(255, 255, 255, 0.3) !important;
-        border-radius: 0 !important;
-        backdrop-filter: none !important;
+        border-left: 3px solid var(--primary-color) !important;
     }
     
     .main-menu .dropdown-menu li {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-bottom: none !important;
     }
     
     .main-menu .dropdown-menu a {
-        padding: 15px 0 !important;
-        color: rgba(255, 255, 255, 0.9) !important;
+        display: block !important;
+        padding: 12px 20px 12px 30px !important;
+        color: #666 !important;
         font-size: 14px !important;
         text-decoration: none !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.2s ease !important;
     }
     
     .main-menu .dropdown-menu a:hover {
-        color: var(--white) !important;
-        padding-left: 10px !important;
+        color: var(--primary-color) !important;
+        background: #f0f0f0 !important;
     }
     
     .main-menu .dropdown.active .dropdown-menu {
