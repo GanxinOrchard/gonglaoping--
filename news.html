@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -484,7 +484,15 @@
                 
                     <ul>
                         <li><a href="https://ganxinorchard.github.io/gonglaoping--/">首頁</a></li>
-                        <li><a href="news.html" class="active">最新消息</a></li>
+                        <li class="dropdown">
+                            <a href="news.html" class="active">最新消息 <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="news.html?category=announcement">最新公告</a></li>
+                                <li><a href="news.html?category=new">新品上市</a></li>
+                                <li><a href="news.html?category=promotion">期間優惠</a></li>
+                                <li><a href="news.html?category=diary">果園日誌</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="products.html">所有商品 <i class="fas fa-chevron-down"></i></a>
                             <ul class="dropdown-menu">
@@ -603,6 +611,34 @@
         const dropdownToggle = document.getElementById('newsDropdownToggle');
         const dropdownMenu = document.getElementById('newsDropdownMenu');
         const dropdownItems = document.querySelectorAll('.news-dropdown-item');
+
+        // 檢查 URL 參數
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+        
+        // 如果有分類參數，自動篩選
+        if (categoryParam) {
+            filterNews(categoryParam);
+            
+            // 更新下拉選單的 active 狀態
+            dropdownItems.forEach(item => {
+                if (item.getAttribute('data-category') === categoryParam) {
+                    item.classList.add('active');
+                    dropdownToggle.querySelector('span').textContent = item.textContent;
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // 更新按鈕的 active 狀態
+            categoryBtns.forEach(btn => {
+                if (btn.getAttribute('data-category') === categoryParam) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
 
         // 分類按鈕功能
         categoryBtns.forEach(btn => {
