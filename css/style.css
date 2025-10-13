@@ -772,14 +772,7 @@ ul {
 }
 
 .menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 20px;
-    border-bottom: 2px solid rgba(255, 140, 66, 0.3);
-    background: linear-gradient(135deg, var(--gray-800), var(--gray-700));
-    position: relative;
-    overflow: hidden;
+    display: none !important;
 }
 
 .menu-header::before {
@@ -5592,7 +5585,7 @@ ul {
         display: flex !important;
         flex-direction: column !important;
         gap: 0 !important;
-        padding: 0 0 80px 0 !important;
+        padding: 0 !important;
         margin: 0 !important;
         height: 100% !important;
         position: relative !important;
