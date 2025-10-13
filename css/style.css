@@ -968,6 +968,9 @@ ul {
 .mobile-header {
     display: none;
     width: 100%;
+    position: relative;
+    z-index: 1000;
+    background: var(--dark-bg);
 }
 
 .mobile-top-row {
@@ -983,7 +986,7 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    padding: 15px 20px;
 }
 
 .mobile-logo-section {
@@ -1077,9 +1080,9 @@ ul {
     
     .mobile-header {
         display: block !important; /* Show mobile header on smaller screens */
-}
-
-.mobile-menu-toggle {
+    }
+    
+    .mobile-menu-toggle {
         display: flex; /* Show hamburger menu on smaller screens */
     }
 }
