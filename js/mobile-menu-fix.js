@@ -39,6 +39,25 @@
             }
         }
         
+        // 動態計算並設定選單的 top 位置（從 header 下方開始）
+        function updateMenuPosition() {
+            if (window.innerWidth <= 992) {
+                const header = document.querySelector('.main-header') || document.querySelector('header');
+                if (header && drawer) {
+                    const headerHeight = header.offsetHeight;
+                    drawer.style.top = headerHeight + 'px';
+                    drawer.style.maxHeight = `calc(100vh - ${headerHeight}px)`;
+                    console.log('✅ 選單位置已更新: top =', headerHeight + 'px');
+                }
+            }
+        }
+        
+        // 初始化時設定位置
+        updateMenuPosition();
+        
+        // 視窗大小改變時重新計算
+        window.addEventListener('resize', updateMenuPosition);
+        
         // 若沒有漢堡按鈕則自動注入到 .nav-icons（或 header 末端）
         if (!toggle) {
             const navIcons = document.querySelector('.nav-icons') || document.querySelector('.navbar .container') || document.querySelector('.header .container') || document.body;

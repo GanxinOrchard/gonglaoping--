@@ -5563,17 +5563,17 @@ ul {
     .main-menu {
         display: block !important;
         position: fixed !important;
-        top: 0 !important;
+        top: 130px !important; /* 從品牌標誌下方開始 */
         left: 0 !important;
         right: 0 !important;
         bottom: auto !important;
         width: 100% !important;
-        height: auto !important;
+        max-height: calc(100vh - 130px) !important; /* 最大高度為螢幕高度減去 header */
         background: linear-gradient(135deg, var(--primary-color) 0%, #e67e22 100%) !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
         transform: translateY(-100%) !important;
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        z-index: 1000 !important;
+        z-index: 999 !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         padding: 0 !important;
