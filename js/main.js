@@ -40,12 +40,13 @@ function initKainanNavigation() {
             // 切換選單狀態
             this.setAttribute('aria-expanded', !isExpanded);
             mainMenu.classList.toggle('active');
+            this.classList.toggle('active');
             
-            // 切換圖標
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
+            // 防止背景滾動
+            if (mainMenu.classList.contains('active')) {
+                document.body.classList.add('menu-open');
+            } else {
+                document.body.classList.remove('menu-open');
             }
         });
     }
@@ -54,14 +55,9 @@ function initKainanNavigation() {
     if (menuClose && mainMenu) {
         menuClose.addEventListener('click', function() {
             mainMenu.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            
-            // 重置圖標
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
+            document.body.classList.remove('menu-open');
         });
     }
     
@@ -70,14 +66,9 @@ function initKainanNavigation() {
         mainMenu.addEventListener('click', function(e) {
             if (e.target === mainMenu) {
                 mainMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                
-                // 重置圖標
-                const icon = mobileMenuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
+                document.body.classList.remove('menu-open');
             }
         });
     }
@@ -87,14 +78,9 @@ function initKainanNavigation() {
         if (mainMenu && mainMenu.classList.contains('active')) {
             if (!mainMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
                 mainMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                
-                // 重置圖標
-                const icon = mobileMenuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
+                document.body.classList.remove('menu-open');
             }
         }
     });
@@ -103,14 +89,9 @@ function initKainanNavigation() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && mainMenu && mainMenu.classList.contains('active')) {
             mainMenu.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            
-            // 重置圖標
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
+            document.body.classList.remove('menu-open');
         }
     });
     

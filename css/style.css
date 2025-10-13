@@ -473,12 +473,11 @@ ul {
     color: var(--primary-color);
 }
 
-/* 橘子風格漢堡選單 - 樣式定義在 mobile-menu-fix.css */
+/* 手機版漢堡選單顯示控制 */
 .mobile-menu-toggle {
     display: none;
 }
 
-/* 手機版顯示橘子選單 */
 @media (max-width: 992px) {
     .mobile-menu-toggle {
         display: flex;
@@ -4265,7 +4264,7 @@ ul {
         display: block;
     }
     
-    /* 橘子風格漢堡選單 - 詳細樣式在 mobile-menu-fix.css */
+    /* 手機版漢堡選單 */
     .mobile-menu-toggle {
         display: flex;
         margin-right: 15px;
@@ -5503,19 +5502,28 @@ ul {
     .mobile-menu-toggle {
         display: flex !important;
         position: relative !important;
-        background: transparent;
-        border: none;
-        width: 40px;
-        height: 40px;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        -webkit-tap-highlight-color: transparent;
+        background: transparent !important;
+        border: none !important;
+        width: 40px !important;
+        height: 40px !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        -webkit-tap-highlight-color: transparent !important;
         z-index: 1001 !important;
-        padding: 8px;
+        padding: 8px !important;
+        box-shadow: none !important;
+    }
+    
+    .mobile-menu-toggle:hover,
+    .mobile-menu-toggle:focus,
+    .mobile-menu-toggle.active {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
     }
     
     .mobile-menu-toggle .hamburger-icon,
@@ -5524,26 +5532,26 @@ ul {
     }
     
     .mobile-menu-toggle .menu-line {
-        width: 28px;
-        height: 3px;
-        background: var(--primary-color);
-        border-radius: 2px;
-        transition: all 0.3s ease;
+        width: 28px !important;
+        height: 3px !important;
+        background: var(--primary-color) !important;
+        border-radius: 2px !important;
+        transition: all 0.3s ease !important;
     }
     
     .mobile-menu-toggle.active .menu-line:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(8px) rotate(45deg) !important;
     }
     
     .mobile-menu-toggle.active .menu-line:nth-child(2) {
-        opacity: 0;
+        opacity: 0 !important;
     }
     
     .mobile-menu-toggle.active .menu-line:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-8px) rotate(-45deg) !important;
     }
     
-    /* 選單抽屜 */
+    /* 選單抽屜 - 從右側滑出 */
     .main-menu {
         display: block !important;
         position: fixed !important;
@@ -5557,7 +5565,7 @@ ul {
         box-shadow: -8px 0 32px rgba(0, 0, 0, 0.3) !important;
         transform: translateX(100%) !important;
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        z-index: 2147483647 !important;
+        z-index: 1000 !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         padding: 0 !important;
@@ -5571,14 +5579,18 @@ ul {
     }
     
     .main-menu > ul {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        padding: 0 0 80px 0;
-        margin: 0;
-        height: 100%;
-        position: relative;
-        z-index: 2;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        padding: 0 0 80px 0 !important;
+        margin: 0 !important;
+        height: 100% !important;
+        position: relative !important;
+        z-index: 2 !important;
+        background: transparent !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
     }
     
     .main-menu > ul:before {
@@ -5593,6 +5605,11 @@ ul {
         border-bottom: 2px solid rgba(255,255,255,0.2) !important;
     }
     
+    .main-menu > ul > li {
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        background: transparent !important;
+    }
+    
     .main-menu > ul > li > a {
         display: flex !important;
         align-items: center !important;
@@ -5603,6 +5620,9 @@ ul {
         font-size: 16px !important;
         transition: all 0.3s ease !important;
         border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        background: transparent !important;
+        border-radius: 0 !important;
+        position: relative !important;
     }
     
     .main-menu > ul > li > a:before {
@@ -5614,6 +5634,50 @@ ul {
     .main-menu > ul > li > a:hover {
         background: rgba(255,255,255,0.15) !important;
         padding-left: 30px !important;
+        color: var(--white) !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    .main-menu > ul > li > a::before {
+        display: none !important;
+    }
+    
+    .main-menu > ul > li > a.active {
+        background: rgba(255,255,255,0.2) !important;
+        color: var(--white) !important;
+        box-shadow: none !important;
+    }
+    
+    .main-menu .dropdown-menu {
+        display: none !important;
+        background: rgba(0, 0, 0, 0.2) !important;
+        padding: 0 0 0 20px !important;
+        margin: 0 !important;
+        border-left: 3px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 0 !important;
+        backdrop-filter: none !important;
+    }
+    
+    .main-menu .dropdown-menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .main-menu .dropdown-menu a {
+        padding: 15px 0 !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-size: 14px !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .main-menu .dropdown-menu a:hover {
+        color: var(--white) !important;
+        padding-left: 10px !important;
+    }
+    
+    .main-menu .dropdown.active .dropdown-menu {
+        display: block !important;
     }
 }
 
@@ -5625,7 +5689,7 @@ ul {
     width: 100% !important;
     height: 100% !important;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 2147483646 !important;
+    z-index: 999 !important;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
