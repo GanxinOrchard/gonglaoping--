@@ -5553,8 +5553,8 @@ ul {
         top: 113px !important; /* 固定在 mobile-header 下方 */
         left: 0 !important;
         right: 0 !important;
-        bottom: 0 !important;
         width: 100% !important;
+        max-height: calc(100vh - 113px) !important;
         background: #ffffff !important; /* 白色背景，參考開南 */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
         transform: translateY(-100%) !important;
