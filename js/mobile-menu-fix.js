@@ -39,22 +39,30 @@
             }
         }
         
-        // 動態計算並設定選單的 top 位置（從深灰色 header 背景底部開始）
+        // 動態計算並設定選單的 top 位置（從品牌標誌那一欄下方開始）
         function updateMenuPosition() {
             if (window.innerWidth <= 992) {
+                const mobileBottomRow = document.querySelector('.mobile-bottom-row');
                 const mobileHeader = document.querySelector('.mobile-header');
                 const header = document.querySelector('.main-header') || document.querySelector('header');
                 
-                if (mobileHeader && drawer) {
-                    // 計算整個手機版 header（深灰色背景區域）的底部位置
-                    const rect = mobileHeader.getBoundingClientRect();
+                if (mobileBottomRow && drawer) {
+                    // 計算品牌標誌那一欄（有標誌和漢堡按鈕）的底部位置
+                    const rect = mobileBottomRow.getBoundingClientRect();
                     const topPosition = rect.bottom;
                     
                     drawer.style.top = topPosition + 'px';
                     drawer.style.maxHeight = `calc(100vh - ${topPosition}px)`;
-                    console.log('✅ 選單位置已更新: top =', topPosition + 'px (從深灰色 header 背景下方)');
+                    console.log('✅ 選單位置已更新: top =', topPosition + 'px (從品牌標誌欄下方)');
+                } else if (mobileHeader && drawer) {
+                    // 備用方案：使用整個手機版 header
+                    const rect = mobileHeader.getBoundingClientRect();
+                    const topPosition = rect.bottom;
+                    drawer.style.top = topPosition + 'px';
+                    drawer.style.maxHeight = `calc(100vh - ${topPosition}px)`;
+                    console.log('✅ 選單位置已更新: top =', topPosition + 'px');
                 } else if (header && drawer) {
-                    // 備用方案：使用整個 header 高度
+                    // 最後備用方案
                     const headerHeight = header.offsetHeight;
                     drawer.style.top = headerHeight + 'px';
                     drawer.style.maxHeight = `calc(100vh - ${headerHeight}px)`;
