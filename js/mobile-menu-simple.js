@@ -1,0 +1,129 @@
+/**
+ * 柑心果園 - 簡化手機版選單 JavaScript
+ */
+
+(function() {
+    'use strict';
+    
+    // 等待 DOM 載入完成
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+        initMobileMenu();
+    }
+    
+    function initMobileMenu() {
+        const toggle = document.getElementById('mobileMenuToggle');
+        const menu = document.getElementById('mainMenu');
+        const overlay = document.getElementById('menuOverlay');
+        const closeBtn = document.getElementById('menuClose');
+        
+        if (!toggle || !menu) {
+            console.error('找不到手機版選單元素', { toggle, menu });
+            return;
+        }
+        
+        console.log('手機版選單初始化成功', { toggle, menu, overlay, closeBtn });
+        
+        // 綁定漢堡按鈕點擊事件
+        toggle.addEventListener('click', function(e) {
+            console.log('漢堡按鈕被點擊', e);
+            e.preventDefault();
+            e.stopPropagation();
+            openMenu();
+        });
+        
+        // 綁定關閉按鈕點擊事件
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                console.log('關閉按鈕被點擊', e);
+                e.preventDefault();
+                e.stopPropagation();
+                closeMenu();
+            });
+        } else {
+            console.warn('找不到關閉按鈕');
+        }
+        
+        // 綁定遮罩點擊關閉
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                console.log('遮罩被點擊', e);
+                e.preventDefault();
+                closeMenu();
+            });
+        } else {
+            console.warn('找不到遮罩');
+        }
+        
+        // 綁定 ESC 鍵關閉
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && menu.classList.contains('open')) {
+                console.log('ESC 鍵被按下');
+                closeMenu();
+            }
+        });
+        
+        // 綁定下拉選單點擊事件
+        const dropdowns = menu.querySelectorAll('.dropdown');
+        console.log('找到下拉選單數量:', dropdowns.length);
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            if (link) {
+                link.addEventListener('click', function(e) {
+                    console.log('下拉選單連結被點擊');
+                    e.preventDefault();
+                    toggleDropdown(dropdown);
+                });
+            } else {
+                console.warn('找不到下拉選單連結', dropdown);
+            }
+        });
+        
+        function openMenu() {
+            console.log('開啟選單');
+            menu.classList.add('open');
+            menu.classList.add('active');
+            if (overlay) overlay.classList.add('active');
+            toggle.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('menu-open');
+            console.log('選單狀態', menu.classList.toString());
+        }
+        
+        function closeMenu() {
+            console.log('關閉選單');
+            menu.classList.remove('open');
+            menu.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            toggle.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('menu-open');
+            
+            // 關閉所有下拉選單
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+            console.log('選單狀態', menu.classList.toString());
+        }
+        
+        function toggleDropdown(dropdown) {
+            const isActive = dropdown.classList.contains('active');
+            console.log('切換下拉選單', dropdown, '當前狀態:', isActive);
+            
+            // 關閉其他下拉選單
+            dropdowns.forEach(item => {
+                if (item !== dropdown) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            if (isActive) {
+                dropdown.classList.remove('active');
+            } else {
+                dropdown.classList.add('active');
+            }
+            console.log('下拉選單狀態', dropdown.classList.toString());
+        }
+    }
+})();
