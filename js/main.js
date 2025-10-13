@@ -32,68 +32,9 @@ function initKainanNavigation() {
     const menuClose = document.getElementById('menuClose');
     const mainHeader = document.querySelector('.main-header');
     
-    // 開啟選單
-    if (mobileMenuToggle && mainMenu) {
-        mobileMenuToggle.addEventListener('click', function() {
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            
-            // 切換選單狀態
-            this.setAttribute('aria-expanded', !isExpanded);
-            mainMenu.classList.toggle('active');
-            this.classList.toggle('active');
-            
-            // 防止背景滾動
-            if (mainMenu.classList.contains('active')) {
-                document.body.classList.add('menu-open');
-            } else {
-                document.body.classList.remove('menu-open');
-            }
-        });
-    }
+    // 手機版選單功能已移至 mobile-menu-fix.js 處理
     
-    // 關閉選單
-    if (menuClose && mainMenu) {
-        menuClose.addEventListener('click', function() {
-            mainMenu.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            document.body.classList.remove('menu-open');
-        });
-    }
-    
-    // 點擊選單外部關閉選單
-    if (mainMenu) {
-        mainMenu.addEventListener('click', function(e) {
-            if (e.target === mainMenu) {
-                mainMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('menu-open');
-            }
-        });
-    }
-    
-    // 點擊文檔外部關閉選單
-    document.addEventListener('click', function(e) {
-        if (mainMenu && mainMenu.classList.contains('active')) {
-            if (!mainMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-                mainMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('menu-open');
-            }
-        }
-    });
-    
-    // ESC鍵關閉選單
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mainMenu && mainMenu.classList.contains('active')) {
-            mainMenu.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            document.body.classList.remove('menu-open');
-        }
-    });
+    // 手機版選單功能已移至 mobile-menu-fix.js 處理
     
     // 初始化最新消息輪播
     initNewsTicker();
