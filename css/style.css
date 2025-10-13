@@ -2842,20 +2842,7 @@ ul {
     letter-spacing: -0.3px;
 }
 
-.product-card {
-    background: var(--white);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 calc(33.333% - 20px);
-    min-width: 300px;
-    max-width: 100%;
-    box-sizing: border-box;
-    border: 2px solid transparent;
-}
+/* 舊的 .product-card 樣式已移除，使用 .product-card.kainan-card */
 
 .products-nav {
     position: absolute;
@@ -2896,11 +2883,7 @@ ul {
     cursor: not-allowed;
 }
 
-.product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(255, 140, 66, 0.25);
-    border-color: var(--primary-color);
-}
+/* 舊的 .product-card:hover 樣式已移除，使用 .product-card.kainan-card:hover */
 
 .product-link {
     display: block;
@@ -2951,9 +2934,7 @@ ul {
     transition: transform 0.3s ease;
 }
 
-.product-card:hover .product-image img {
-    transform: scale(1.1);
-}
+/* 舊的 .product-card:hover .product-image img 樣式已移除，使用 .product-card.kainan-card:hover .product-image img */
 
 .badge {
     position: absolute;
@@ -2999,17 +2980,9 @@ ul {
 }
 
 /* 不同標籤的顏色 */
-.badge[data-type="熱銷"],
-.product-card:has([alt*="椪柑"]) .badge {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-}
+/* 舊的 .product-card:has() 樣式已移除，使用 .product-card.kainan-card .product-badge-new */
 
-.badge[data-type="推薦"],
-.product-card:has([alt*="茂谷"]) .badge {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
-}
+/* 舊的 .product-card:has() 樣式已移除，使用 .product-card.kainan-card .product-badge-new */
 
 .badge[data-type="批發"] {
     background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
@@ -4932,17 +4905,9 @@ ul {
         overflow-x: hidden !important;
     }
     
-    .products-grid .product-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        flex: 1 1 100% !important;
-    }
+    /* 舊的 .products-grid .product-card 樣式已移除，使用 .product-card.kainan-card */
     
-    /* 手機版商品卡片加長 */
-    .product-card {
-        min-height: 450px !important;
-    }
+    /* 舊的手機版 .product-card 樣式已移除，使用 .product-card.kainan-card */
     
     /* 手機版商品列表 */
     .products-grid {
@@ -4998,10 +4963,7 @@ ul {
         box-sizing: border-box !important;
     }
     
-    .product-card .btn-view-detail {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        padding: 12px !important;
+    /* 舊的 .product-card .btn-view-detail 樣式已移除，使用 .product-card.kainan-card .btn-promotion */
         font-size: 14px !important;
         white-space: normal !important;
         word-wrap: break-word !important;
