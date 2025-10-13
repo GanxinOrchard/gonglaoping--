@@ -4310,6 +4310,7 @@ ul {
         transition: all 0.3s ease;
         z-index: 1001 !important;
         position: relative;
+        margin-right: 15px;
     }
     
     .mobile-menu-toggle:hover {
@@ -4317,8 +4318,8 @@ ul {
     }
     
     .mobile-menu-toggle .hamburger-icon {
-        width: 20px;
-        height: 20px;
+        width: 28px;
+        height: 28px;
         object-fit: contain;
         transition: all 0.3s ease;
     }
