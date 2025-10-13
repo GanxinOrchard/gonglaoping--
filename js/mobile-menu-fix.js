@@ -39,30 +39,23 @@
             }
         }
         
-        // 動態計算並設定選單的 top 位置（從漢堡按鈕下方開始）
+        // 動態計算並設定選單的 top 位置（從品牌標誌橫列下方開始）
         function updateMenuPosition() {
             if (window.innerWidth <= 992) {
-                const hamburgerBtn = toggle || document.getElementById('mobileMenuToggle');
+                // 優先使用 mobile-bottom-row（品牌標誌和漢堡按鈕所在的橫列）
                 const mobileBottomRow = document.querySelector('.mobile-bottom-row');
                 const mobileHeader = document.querySelector('.mobile-header');
                 
-                if (hamburgerBtn && drawer) {
-                    // 計算漢堡按鈕的底部位置
-                    const rect = hamburgerBtn.getBoundingClientRect();
-                    const topPosition = rect.bottom + 5; // 加 5px 間距
+                if (mobileBottomRow && drawer) {
+                    // 計算品牌標誌橫列的底部位置
+                    const rect = mobileBottomRow.getBoundingClientRect();
+                    const topPosition = rect.bottom;
                     
                     drawer.style.top = topPosition + 'px';
                     drawer.style.maxHeight = `calc(100vh - ${topPosition}px)`;
-                    console.log('✅ 選單位置已更新: top =', topPosition + 'px (從漢堡按鈕下方)');
-                } else if (mobileBottomRow && drawer) {
-                    // 備用方案：從品牌標誌那一欄下方
-                    const rect = mobileBottomRow.getBoundingClientRect();
-                    const topPosition = rect.bottom;
-                    drawer.style.top = topPosition + 'px';
-                    drawer.style.maxHeight = `calc(100vh - ${topPosition}px)`;
-                    console.log('✅ 選單位置已更新: top =', topPosition + 'px');
+                    console.log('✅ 選單位置已更新: top =', topPosition + 'px (從品牌標誌橫列下方)');
                 } else if (mobileHeader && drawer) {
-                    // 最後備用方案
+                    // 備用方案：使用整個手機版 header
                     const rect = mobileHeader.getBoundingClientRect();
                     const topPosition = rect.bottom;
                     drawer.style.top = topPosition + 'px';
