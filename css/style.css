@@ -5552,16 +5552,16 @@ ul {
         transform: translateY(-8px) rotate(-45deg) !important;
     }
     
-    /* 選單抽屜 - 從深灰色 header 背景下方滑出 */
+    /* 選單抽屜 - 從品牌標誌列下方滑出 */
     .main-menu {
         display: block !important;
         position: fixed !important;
-        top: 0 !important; /* 會被 JS 動態調整為 header 高度 */
+        top: 113px !important; /* 固定在 mobile-header 下方 */
         left: 0 !important;
         right: 0 !important;
         bottom: auto !important;
         width: 100% !important;
-        max-height: calc(100vh - 130px) !important;
+        max-height: calc(100vh - 113px) !important;
         background: #2b2b2b !important; /* 深灰黑色背景 */
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
         transform: translateY(-100%) !important;
@@ -5572,7 +5572,7 @@ ul {
         padding: 0 !important;
         visibility: visible !important;
         opacity: 1 !important;
-        border-radius: 0 !important; /* 移除圓角 */
+        border-radius: 0 !important;
         padding-top: 0 !important;
     }
     
