@@ -415,7 +415,7 @@ git push origin main
 - **品牌名稱：** 柑心果園 Ganxin Orchard
 - **網站：** https://ganxinorchard.github.io/gonglaoping--/
 - **電話：** 0933-721-978
-- **Email：** service@ganxinorchard.com
+- **Email：** s9000721@gmail.com
 - **地址：** 台中市豐原區、東勢區
 
 ---

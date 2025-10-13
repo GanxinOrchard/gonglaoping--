@@ -10,7 +10,7 @@
     --z-banner: 1;            /* 公告條 */
 }
 
-/* 2. 漢堡按鈕樣式 - 顯示在導航欄購物車右邊 */
+/* 2. 橘子風格漢堡選單按鈕 */
 @media (max-width: 992px) {
     /* 確保 nav-icons 靠右對齊 */
     .nav-icons {
@@ -23,56 +23,165 @@
     .mobile-menu-toggle {
         display: flex !important;
         position: relative !important;
-        background: var(--white);
-        border: 2px solid var(--primary-color);
-        border-radius: 6px;
-        width: 40px;
-        height: 40px;
+        background: transparent;
+        border: none;
+        width: 50px;
+        height: 50px;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 6px rgba(255, 140, 66, 0.2);
         -webkit-tap-highlight-color: transparent;
         z-index: var(--z-hamburger) !important;
+        padding: 0;
+    }
+    
+    /* 隱藏原本的圖片 */
+    .mobile-menu-toggle .hamburger-icon,
+    .mobile-menu-toggle img {
+        display: none !important;
+    }
+    
+    /* 橘子風格選單容器 */
+    .mobile-menu-toggle::before {
+        content: '';
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #ff8c42 0%, #ff7420 50%, #e65c00 100%);
+        border-radius: 50%;
+        border: 3px solid #8b4513;
+        box-shadow: 
+            inset -3px -3px 8px rgba(0,0,0,0.2),
+            inset 3px 3px 8px rgba(255,255,255,0.3),
+            0 4px 8px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    }
+    
+    /* 橘子上的葉子 */
+    .mobile-menu-toggle::after {
+        content: '';
+        position: absolute;
+        width: 18px;
+        height: 12px;
+        background: linear-gradient(135deg, #4CAF50 0%, #2e7d32 100%);
+        border-radius: 0 50% 50% 0;
+        top: 2px;
+        right: 8px;
+        transform: rotate(-25deg);
+        border: 1px solid #1b5e20;
+        box-shadow: 
+            inset -1px -1px 2px rgba(0,0,0,0.2),
+            0 2px 4px rgba(0,0,0,0.2);
+        z-index: 2;
+        transition: all 0.3s ease;
+    }
+    
+    /* 三條橘色線條容器 */
+    .mobile-menu-toggle {
+        flex-direction: column;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* 創建三條線 - 使用偽元素和額外的span */
+    .mobile-menu-toggle .menu-line {
+        position: absolute;
+        width: 28px;
+        height: 5px;
+        background: linear-gradient(90deg, #ff9f50 0%, #ffb870 100%);
+        border-radius: 3px;
+        border: 1.5px solid #8b4513;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+    
+    .mobile-menu-toggle .menu-line:nth-child(1) {
+        top: 14px;
+    }
+    
+    .mobile-menu-toggle .menu-line:nth-child(2) {
+        top: 22.5px;
+    }
+    
+    .mobile-menu-toggle .menu-line:nth-child(3) {
+        top: 31px;
+    }
+    
+    /* 每條線前面的小橘子 */
+    .mobile-menu-toggle .menu-line::before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: linear-gradient(135deg, #ff8c42 0%, #ff7420 100%);
+        border-radius: 50%;
+        border: 1.5px solid #8b4513;
+        left: -14px;
+        top: 50%;
+        transform: translateY(-50%);
+        box-shadow: 
+            inset -1px -1px 2px rgba(0,0,0,0.2),
+            0 1px 2px rgba(0,0,0,0.2);
+    }
+    
+    /* 小橘子上的小葉子 */
+    .mobile-menu-toggle .menu-line::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 4px;
+        background: linear-gradient(135deg, #4CAF50 0%, #2e7d32 100%);
+        border-radius: 0 50% 50% 0;
+        left: -11px;
+        top: -2px;
+        transform: rotate(-30deg);
+        border: 0.5px solid #1b5e20;
+    }
+    
+    /* 橘子紋理點點 */
+    .mobile-menu-toggle::before {
+        background-image: 
+            radial-gradient(circle at 30% 30%, rgba(255,120,32,0.8) 1px, transparent 1px),
+            radial-gradient(circle at 70% 50%, rgba(255,120,32,0.6) 1px, transparent 1px),
+            radial-gradient(circle at 50% 70%, rgba(255,120,32,0.7) 1px, transparent 1px),
+            radial-gradient(circle at 20% 60%, rgba(255,120,32,0.5) 1px, transparent 1px),
+            linear-gradient(135deg, #ff8c42 0%, #ff7420 50%, #e65c00 100%);
+        background-size: 8px 8px, 8px 8px, 8px 8px, 8px 8px, 100% 100%;
+    }
+    
+    /* 點擊效果 */
+    .mobile-menu-toggle:active::before {
+        transform: scale(0.95);
+    }
+    
+    .mobile-menu-toggle:active::after {
+        transform: rotate(-25deg) scale(0.95);
+    }
+    
+    /* 選單開啟時的動畫 */
+    .mobile-menu-toggle.active .menu-line:nth-child(1) {
+        transform: translateY(8.5px) rotate(45deg);
+    }
+    
+    .mobile-menu-toggle.active .menu-line:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active .menu-line:nth-child(3) {
+        transform: translateY(-8.5px) rotate(-45deg);
+    }
+    
+    .mobile-menu-toggle.active .menu-line::before,
+    .mobile-menu-toggle.active .menu-line::after {
+        opacity: 0;
     }
     
     /* 隱藏懸浮按鈕 */
     .floating-menu-btn,
     .floating-cart-btn {
-        display: none !important;
-    }
-    
-    .mobile-menu-toggle:active,
-    .floating-menu-btn:active {
-        transform: scale(0.95);
-    }
-    
-    .mobile-menu-toggle i,
-    .floating-menu-btn i {
-        font-size: 18px;
-        color: var(--primary-color);
-        transition: transform 0.3s ease;
-    }
-    
-    .mobile-menu-toggle.active,
-    .floating-menu-btn.active {
-        background: var(--primary-color);
-    }
-    
-    .mobile-menu-toggle.active i,
-    .floating-menu-btn.active i {
-        color: var(--white);
-        transform: rotate(90deg);
-    }
-    
-    /* 確保 nav-icons 中的漢堡按鈕顯示 */
-    .nav-icons .mobile-menu-toggle {
-        display: flex !important;
-    }
-    
-    /* 隱藏懸浮漢堡按鈕 */
-    .floating-menu-btn {
         display: none !important;
     }
 }

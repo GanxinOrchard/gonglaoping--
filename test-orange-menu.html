@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>橘子風格選單測試 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-menu-fix.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #ff8c42;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .demo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            border: 2px solid #ff8c42;
+        }
+        
+        .demo-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .demo-title::before {
+            content: '🍊';
+            font-size: 24px;
+        }
+        
+        .menu-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+        }
+        
+        .instructions {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ff8c42;
+            margin-top: 20px;
+        }
+        
+        .instructions h3 {
+            color: #ff8c42;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ffe6cc;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(255,140,66,0.2);
+            border-color: #ff8c42;
+        }
+        
+        .feature-card h4 {
+            color: #ff8c42;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🍊 橘子風格漢堡選單測試</h1>
+        
+        <div class="demo-section">
+            <div class="demo-title">選單按鈕展示</div>
+            <div class="menu-demo">
+                <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+            </div>
+            
+            <div class="instructions">
+                <h3>📱 使用說明</h3>
+                <ul>
+                    <li><strong>點擊按鈕</strong>：開啟/關閉選單</li>
+                    <li><strong>大橘子</strong>：主要的選單圖標，帶有立體感和紋理</li>
+                    <li><strong>綠葉</strong>：橘子頂部的裝飾葉子</li>
+                    <li><strong>三條線</strong>：每條線前面都有小橘子和小葉子裝飾</li>
+                    <li><strong>點擊效果</strong>：按鈕會有縮放動畫</li>
+                    <li><strong>開啟動畫</strong>：三條線會變成X形狀</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <div class="demo-title">設計特色</div>
+            <div class="feature-list">
+                <div class="feature-card">
+                    <h4>🎨 品牌一致性</h4>
+                    <p>橘子元素與柑心果園品牌完美契合，強化品牌識別度</p>
+                </div>
+                <div class="feature-card">
+                    <h4>✨ 立體效果</h4>
+                    <p>使用漸層和陰影營造3D立體感，讓按鈕更生動活潑</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🍃 細節裝飾</h4>
+                    <p>每個小橘子都有綠葉裝飾，增加設計的精緻度</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📱 觸控優化</h4>
+                    <p>50x50px的點擊區域，符合移動端最佳實踐</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎭 流暢動畫</h4>
+                    <p>開啟/關閉時有平滑的過渡動畫效果</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 純CSS實現</h4>
+                    <p>不需要圖片，完全使用CSS繪製，載入更快</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions" style="background: #e8f5e9; border-left-color: #4CAF50;">
+            <h3>✅ 已完成的更新</h3>
+            <ul>
+                <li>✓ 所有HTML頁面已更新（共39個文件）</li>
+                <li>✓ CSS樣式已完全重寫</li>
+                <li>✓ 移除舊的圖片依賴</li>
+                <li>✓ 添加橘子和葉子裝飾元素</li>
+                <li>✓ 優化觸控體驗</li>
+                <li>✓ 添加開啟/關閉動畫</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 手機選單 -->
+    <div class="main-menu" id="mainMenu">
+        <ul>
+            <li><a href="index.html" class="active">首頁</a></li>
+            <li><a href="products.html">所有商品</a></li>
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </div>
+    
+    <!-- 選單遮罩 -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <script>
+        // 選單開關功能
+        const menuToggle = document.getElementById('mobileMenuToggle');
+        const mainMenu = document.getElementById('mainMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const body = document.body;
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            mainMenu.classList.toggle('open');
+            mainMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // 點擊選單項目後關閉選單
+        const menuLinks = mainMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
