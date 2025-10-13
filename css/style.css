@@ -5578,13 +5578,7 @@ ul {
         gap: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
-        height: 100% !important;
-        position: relative !important;
-        z-index: 2 !important;
-        background: transparent !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        border: none !important;
+        list-style: none !important;
     }
     
     .main-menu > ul:before {
