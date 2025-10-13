@@ -1073,8 +1073,8 @@ ul {
         display: block !important; /* Show mobile header on smaller screens */
 }
 
-.mobile-menu-toggle {
-        display: flex !important; /* Show hamburger menu on smaller screens */
+    .mobile-menu-toggle {
+        display: flex; /* Show hamburger menu on smaller screens */
     }
 }
 
@@ -4290,7 +4290,7 @@ ul {
     
     /* 顯示漢堡按鈕 */
     .mobile-menu-toggle {
-        display: flex !important;
+        display: flex;
         background: none;
         border: none;
         width: 40px;
