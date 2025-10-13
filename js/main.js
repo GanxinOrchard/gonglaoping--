@@ -660,7 +660,7 @@ function initFeaturedProductsCarousel() {
         if (!prevBtn || !nextBtn || !productsGrid) return;
 
         let currentIndex = 0;
-        const cards = productsGrid.querySelectorAll('.featured-card');
+        const cards = productsGrid.querySelectorAll('.product-card.kainan-card');
         const totalCards = cards.length;
 
         function computeCardsPerView() {
@@ -762,7 +762,7 @@ function initProductCardEvents() {
             e.preventDefault();
             e.stopPropagation();
             
-            const card = this.closest('.featured-card');
+            const card = this.closest('.product-card.kainan-card');
             if (!card) return;
             
             const productId = card.dataset.productId || 'product-' + Math.random().toString(36).substr(2, 9);

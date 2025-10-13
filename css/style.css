@@ -690,67 +690,11 @@ ul {
 
 /* 舊的樣式已移除，使用 .featured-products-grid.kainan-style */
 
-.featured-card {
-    background: var(--white);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    transition: all 0.3s ease;
-    position: relative;
-    width: 100%;
-    max-width: 280px;
-}
+/* 舊的 .featured-card 樣式已移除，使用 .product-card.kainan-card */
 
-.featured-card:nth-child(1) {
-    background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
-}
+/* 舊的 .product-image 樣式已移除，使用 .product-card.kainan-card .product-image */
 
-.featured-card:nth-child(2) {
-    background: linear-gradient(135deg, #f0fff4 0%, #ffffff 100%);
-}
-
-.featured-card:nth-child(3) {
-    background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 100%);
-}
-
-.featured-card:nth-child(4) {
-    background: linear-gradient(135deg, #fffaf0 0%, #ffffff 100%);
-}
-
-.featured-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
-
-.product-image {
-    position: relative;
-    height: 140px;
-    overflow: hidden;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.featured-card:hover .product-image img {
-    transform: scale(1.05);
-}
-
-.product-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--primary-color);
-    color: var(--white);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    z-index: 2;
-}
+/* 舊的 .product-badge 樣式已移除，使用 .product-card.kainan-card .product-badge-new */
 
 .product-info {
     padding: 14px;
@@ -1147,9 +1091,9 @@ ul {
     
     .mobile-header {
         display: block !important; /* Show mobile header on smaller screens */
-    }
+}
 
-    .mobile-menu-toggle {
+.mobile-menu-toggle {
         display: flex !important; /* Show hamburger menu on smaller screens */
     }
 }
@@ -1279,15 +1223,12 @@ ul {
     /* 精選商品手機版 */
     .featured-products-carousel {
         overflow: hidden;
-        position: relative;
+    position: relative;
     }
     
     /* 舊的樣式已移除，使用 .featured-products-grid.kainan-style */
     
-    .featured-card {
-        flex: 0 0 calc(50% - 7.5px);
-        min-width: 0;
-    }
+    /* 舊的手機版 .featured-card 樣式已移除，使用 .product-card.kainan-card */
     
     .carousel-btn {
         display: flex;
@@ -1304,15 +1245,9 @@ ul {
         right: 10px;
     }
     
-    .featured-card {
-        border-radius: 8px;
-        max-width: 160px;
-        min-width: 150px;
-    }
+    /* 舊的手機版 .featured-card 樣式已移除，使用 .product-card.kainan-card */
     
-    .product-image {
-        height: 100px;
-    }
+    /* 舊的手機版 .product-image 樣式已移除，使用 .product-card.kainan-card .product-image */
     
     .product-info {
         padding: 8px;
@@ -2921,18 +2856,7 @@ ul {
     transform: scale(1.05);
 }
 
-.product-image {
-    position: relative;
-    overflow: hidden;
-    height: 280px;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
+/* 舊的 .product-image 樣式已移除，使用 .product-card.kainan-card .product-image */
 
 /* 舊的 .product-card:hover .product-image img 樣式已移除，使用 .product-card.kainan-card:hover .product-image img */
 
@@ -2999,18 +2923,7 @@ ul {
     color: white;
 }
 
-.product-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: var(--primary-color);
-    color: var(--white);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
+/* 舊的 .product-badge 樣式已移除，使用 .product-card.kainan-card .product-badge-new */
 
 .product-info {
     padding: 20px;
@@ -4916,16 +4829,7 @@ ul {
         gap: 20px !important;
     }
     
-    .product-image {
-        height: 280px !important;
-        width: 100% !important;
-    }
-    
-    .product-image img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-    }
+    /* 舊的手機版 .product-image 樣式已移除，使用 .product-card.kainan-card .product-image */
     
     .product-name {
         font-size: 18px !important;
