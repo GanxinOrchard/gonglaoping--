@@ -100,22 +100,16 @@
             font-size: 15px;
         }
         
-        /* 分類下拉選單樣式 */
+        /* 分類標籤樣式 */
         .news-categories {
             display: flex;
             justify-content: center;
+            gap: 15px;
             margin-bottom: 40px;
+            flex-wrap: wrap;
         }
         
-        .category-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .category-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .category-btn {
             padding: 12px 24px;
             border: 2px solid var(--primary-color);
             background: white;
@@ -126,69 +120,98 @@
             font-weight: 600;
             transition: all 0.3s ease;
             white-space: nowrap;
-            min-width: 200px;
-            justify-content: space-between;
         }
         
-        .category-dropdown-btn:hover {
+        .category-btn:hover {
             background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
         }
         
-        .category-dropdown-btn.active {
+        .category-btn.active {
             background: var(--primary-color);
             color: white;
             box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
         }
         
-        .category-dropdown-menu {
+        /* 下拉式選單樣式 */
+        .news-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .news-dropdown-toggle {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 25px;
+            color: #6b7280;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 150px;
+            justify-content: space-between;
+            font-size: 16px;
+        }
+        
+        .news-dropdown-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .news-dropdown-toggle.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .news-dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
             background: white;
-            border: 2px solid var(--primary-color);
+            border: 2px solid #e5e7eb;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
             margin-top: 5px;
-            overflow: hidden;
         }
         
-        .category-dropdown-menu.show {
+        .news-dropdown-menu.show {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
         
-        .category-option {
-            display: block;
+        .news-dropdown-item {
             padding: 12px 20px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
             transition: all 0.3s ease;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f3f4f6;
         }
         
-        .category-option:last-child {
+        .news-dropdown-item:last-child {
             border-bottom: none;
         }
         
-        .category-option:hover {
-            background: var(--primary-color);
-            color: white;
+        .news-dropdown-item:hover {
+            background: #f9fafb;
+            color: var(--primary-color);
         }
         
-        .category-option.active {
-            background: var(--primary-color);
-            color: white;
+        .news-dropdown-item.active {
+            background: #fff7ed;
+            color: var(--primary-color);
+            font-weight: 600;
         }
         
         /* 新聞卡片隱藏/顯示動畫 */
@@ -493,54 +516,67 @@
         });
     });
 
-    // 新聞分類下拉選單功能
+    // 新聞分類篩選功能
     document.addEventListener('DOMContentLoaded', function() {
-        const dropdownBtn = document.getElementById('categoryDropdownBtn');
-        const dropdownMenu = document.getElementById('categoryDropdownMenu');
-        const categoryOptions = document.querySelectorAll('.category-option');
+        const categoryBtns = document.querySelectorAll('.category-btn');
         const newsCards = document.querySelectorAll('.news-card');
-        const selectedCategorySpan = document.getElementById('selectedCategory');
+        const newsGrid = document.getElementById('newsGrid');
+        const dropdownToggle = document.getElementById('newsDropdownToggle');
+        const dropdownMenu = document.getElementById('newsDropdownMenu');
+        const dropdownItems = document.querySelectorAll('.news-dropdown-item');
 
-        // 下拉選單開關
-        dropdownBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            dropdownMenu.classList.toggle('show');
-            dropdownBtn.classList.toggle('active');
+        // 分類按鈕功能
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 移除所有按鈕的active類別
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // 添加active類別到當前按鈕
+                this.classList.add('active');
+
+                const selectedCategory = this.getAttribute('data-category');
+                filterNews(selectedCategory);
+            });
         });
 
-        // 點擊選項
-        categoryOptions.forEach(option => {
-            option.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // 移除所有選項的active類別
-                categoryOptions.forEach(opt => opt.classList.remove('active'));
-                // 添加active類別到當前選項
+        // 下拉式選單切換
+        dropdownToggle.addEventListener('click', function() {
+            dropdownMenu.classList.toggle('show');
+            this.classList.toggle('active');
+        });
+
+        // 下拉式選單項目點擊
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有項目的active類別
+                dropdownItems.forEach(i => i.classList.remove('active'));
+                // 添加active類別到當前項目
                 this.classList.add('active');
+
+                const selectedCategory = this.getAttribute('data-category');
+                const categoryText = this.textContent;
                 
-                // 更新選中的分類文字
-                selectedCategorySpan.textContent = this.textContent;
+                // 更新按鈕文字
+                dropdownToggle.querySelector('span').textContent = categoryText;
                 
                 // 關閉下拉選單
                 dropdownMenu.classList.remove('show');
-                dropdownBtn.classList.remove('active');
+                dropdownToggle.classList.remove('active');
                 
-                // 篩選新聞卡片
-                const selectedCategory = this.getAttribute('data-category');
-                filterNewsCards(selectedCategory);
+                // 過濾新聞
+                filterNews(selectedCategory);
             });
         });
 
         // 點擊外部關閉下拉選單
         document.addEventListener('click', function(e) {
-            if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
                 dropdownMenu.classList.remove('show');
-                dropdownBtn.classList.remove('active');
+                dropdownToggle.classList.remove('active');
             }
         });
 
-        // 篩選新聞卡片函數
-        function filterNewsCards(selectedCategory) {
+        // 過濾新聞函數
+        function filterNews(selectedCategory) {
             newsCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
                 
@@ -574,26 +610,84 @@
         <div class="container">
             <h2 style="text-align: center; font-size: 32px; margin-bottom: 40px; color: #333;">最新消息</h2>
             
-            <!-- 分類下拉選單 -->
+            <!-- 分類標籤 -->
             <div class="news-categories">
-                <div class="category-dropdown">
-                    <button class="category-dropdown-btn" id="categoryDropdownBtn">
-                        <span id="selectedCategory">全部</span>
+                <button class="category-btn active" data-category="all">全部</button>
+                <button class="category-btn" data-category="season">產季預購</button>
+                <button class="category-btn" data-category="new">新品上市</button>
+                <button class="category-btn" data-category="news">最新動態</button>
+                
+                <!-- 下拉式選單 -->
+                <div class="news-dropdown">
+                    <button class="news-dropdown-toggle" id="newsDropdownToggle">
+                        <span>最新消息</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div class="category-dropdown-menu" id="categoryDropdownMenu">
-                        <a href="#" class="category-option active" data-category="all">全部</a>
-                        <a href="#" class="category-option" data-category="announcement">最新公告</a>
-                        <a href="#" class="category-option" data-category="new">新品上市</a>
-                        <a href="#" class="category-option" data-category="promotion">期間優惠</a>
-                        <a href="#" class="category-option" data-category="diary">果園日誌</a>
+                    <div class="news-dropdown-menu" id="newsDropdownMenu">
+                        <div class="news-dropdown-item active" data-category="all">全部</div>
+                        <div class="news-dropdown-item" data-category="announcement">最新公告</div>
+                        <div class="news-dropdown-item" data-category="new">新品上市</div>
+                        <div class="news-dropdown-item" data-category="promotion">期間優惠</div>
+                        <div class="news-dropdown-item" data-category="diary">果園日誌</div>
                     </div>
                 </div>
             </div>
             
             <div class="news-grid" id="newsGrid">
-                <!-- 2025.01.15 - 最新公告 -->
+                <!-- 2025.10.01 -->
                 <a href="news-detail.html?id=1" class="news-card" data-category="announcement" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        🍊
+                        <div class="news-card-date">2025.10.01</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">最新公告</div>
+                        <h3 class="news-card-title">椪柑產季開始！</h3>
+                        <p class="news-card-description">公老坪椪柑正式上市，皮薄好剝、酸甜平衡，現在訂購享早鳥優惠！</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.09.15 -->
+                <a href="news-detail.html?id=2" class="news-card" data-category="announcement" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        🍊
+                        <div class="news-card-date">2025.09.15</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">最新公告</div>
+                        <h3 class="news-card-title">茂谷柑預購開跑</h3>
+                        <p class="news-card-description">春節送禮首選！2月開始供應，現在預購享優惠價格，數量有限！</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.09.01 -->
+                <a href="news-detail.html?id=3" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        🌾
+                        <div class="news-card-date">2025.09.01</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">新品上市</div>
+                        <h3 class="news-card-title">新鮮菱角上市</h3>
+                        <p class="news-card-description">秋季限定！新鮮菱角仁現貨供應，冷凍配送保鮮，營養美味。</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.08.20 -->
+                <a href="news-detail.html?id=4" class="news-card" data-category="announcement" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        📦
+                        <div class="news-card-date">2025.08.20</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">最新公告</div>
+                        <h3 class="news-card-title">運費說明</h3>
+                        <p class="news-card-description">最低訂購NT$500，未滿NT$1800運費NT$180，滿額免運！</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.01.15 -->
+                <a href="news-detail.html?id=2025-01-15" class="news-card" data-category="announcement" style="text-decoration: none; color: inherit;">
                     <div class="news-card-image">
                         🍊
                         <div class="news-card-date">2025.01.15</div>
@@ -605,8 +699,8 @@
                     </div>
                 </a>
                 
-                <!-- 2025.01.10 - 新品上市 -->
-                <a href="news-detail.html?id=2" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
+                <!-- 2025.01.10 -->
+                <a href="news-detail.html?id=2025-01-10" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
                     <div class="news-card-image">
                         🍊
                         <div class="news-card-date">2025.01.10</div>
@@ -618,21 +712,8 @@
                     </div>
                 </a>
                 
-                <!-- 2025.01.25 - 新品上市 -->
-                <a href="news-detail.html?id=3" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
-                    <div class="news-card-image">
-                        🥕
-                        <div class="news-card-date">2025.01.25</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-tag">新品上市</div>
-                        <h3 class="news-card-title">有機紅蘿蔔上市</h3>
-                        <p class="news-card-description">新鮮有機紅蘿蔔，無農藥栽培，營養豐富，適合全家大小食用。</p>
-                    </div>
-                </a>
-                
-                <!-- 2025.01.05 - 期間優惠 -->
-                <a href="news-detail.html?id=4" class="news-card" data-category="promotion" style="text-decoration: none; color: inherit;">
+                <!-- 2025.01.05 -->
+                <a href="news-detail.html?id=2025-01-05" class="news-card" data-category="promotion" style="text-decoration: none; color: inherit;">
                     <div class="news-card-image">
                         🎁
                         <div class="news-card-date">2025.01.05</div>
@@ -644,46 +725,7 @@
                     </div>
                 </a>
                 
-                <!-- 2025.01.20 - 最新公告 -->
-                <a href="news-detail.html?id=2025-01-20" class="news-card" data-category="announcement" style="text-decoration: none; color: inherit;">
-                    <div class="news-card-image">
-                        🏆
-                        <div class="news-card-date">2025.01.20</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-tag">最新公告</div>
-                        <h3 class="news-card-title">獲得有機認證</h3>
-                        <p class="news-card-description">柑心果園正式獲得有機農產品認證，為消費者提供更安心的選擇。</p>
-                    </div>
-                </a>
-                
-                <!-- 2025.01.18 - 新品上市 -->
-                <a href="news-detail.html?id=2025-01-18" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
-                    <div class="news-card-image">
-                        🌾
-                        <div class="news-card-date">2025.01.18</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-tag">新品上市</div>
-                        <h3 class="news-card-title">菱角產季預購開始</h3>
-                        <p class="news-card-description">新鮮菱角即將上市，現在預購享優惠價格，冷凍配送保鮮。</p>
-                    </div>
-                </a>
-                
-                <!-- 2025.01.12 - 新品上市 -->
-                <a href="news-detail.html?id=2025-01-12" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
-                    <div class="news-card-image">
-                        🥔
-                        <div class="news-card-date">2025.01.12</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-tag">新品上市</div>
-                        <h3 class="news-card-title">大甲芋角新品上市</h3>
-                        <p class="news-card-description">精選大甲芋頭製成芋角，口感綿密香甜，適合各種料理。</p>
-                    </div>
-                </a>
-                
-                <!-- 2024.12.28 - 果園日誌 -->
+                <!-- 2024.12.28 -->
                 <a href="news-detail.html?id=2024-12-28" class="news-card" data-category="diary" style="text-decoration: none; color: inherit;">
                     <div class="news-card-image">
                         🌱
@@ -696,7 +738,7 @@
                     </div>
                 </a>
                 
-                <!-- 2024.12.20 - 最新公告 -->
+                <!-- 2024.12.20 -->
                 <a href="news-detail.html?id=2024-12-20" class="news-card" data-category="announcement" style="text-decoration: none; color: inherit;">
                     <div class="news-card-image">
                         📦
@@ -709,7 +751,7 @@
                     </div>
                 </a>
                 
-                <!-- 2025.02.01 - 期間優惠 -->
+                <!-- 2025.02.01 - 新增產季預購文章 -->
                 <a href="news-detail.html?id=2025-02-01" class="news-card" data-category="promotion" style="text-decoration: none; color: inherit;">
                     <div class="news-card-image">
                         🍊
@@ -719,6 +761,58 @@
                         <div class="news-card-tag">期間優惠</div>
                         <h3 class="news-card-title">茂谷柑產季預購優惠</h3>
                         <p class="news-card-description">茂谷柑即將進入盛產期，現在預購享早鳥優惠，滿額再送精美包裝！</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.01.25 - 新增新品上市文章 -->
+                <a href="news-detail.html?id=2025-01-25" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        🥕
+                        <div class="news-card-date">2025.01.25</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">新品上市</div>
+                        <h3 class="news-card-title">有機紅蘿蔔上市</h3>
+                        <p class="news-card-description">新鮮有機紅蘿蔔，無農藥栽培，營養豐富，適合全家大小食用。</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.01.20 - 新增最新動態文章 -->
+                <a href="news-detail.html?id=2025-01-20" class="news-card" data-category="diary" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        🏆
+                        <div class="news-card-date">2025.01.20</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">果園日誌</div>
+                        <h3 class="news-card-title">獲得有機認證</h3>
+                        <p class="news-card-description">柑心果園正式獲得有機農產品認證，為消費者提供更安心的選擇。</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.01.18 - 新增產季預購文章 -->
+                <a href="news-detail.html?id=2025-01-18" class="news-card" data-category="promotion" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        🌾
+                        <div class="news-card-date">2025.01.18</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">期間優惠</div>
+                        <h3 class="news-card-title">菱角產季預購開始</h3>
+                        <p class="news-card-description">新鮮菱角即將上市，現在預購享優惠價格，冷凍配送保鮮。</p>
+                    </div>
+                </a>
+                
+                <!-- 2025.01.12 - 新增新品上市文章 -->
+                <a href="news-detail.html?id=2025-01-12" class="news-card" data-category="new" style="text-decoration: none; color: inherit;">
+                    <div class="news-card-image">
+                        🥔
+                        <div class="news-card-date">2025.01.12</div>
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-tag">新品上市</div>
+                        <h3 class="news-card-title">大甲芋角新品上市</h3>
+                        <p class="news-card-description">精選大甲芋頭製成芋角，口感綿密香甜，適合各種料理。</p>
                     </div>
                 </a>
             </div>
