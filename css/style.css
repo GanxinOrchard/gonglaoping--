@@ -4300,8 +4300,8 @@ ul {
     .mobile-menu-toggle {
         display: flex !important;
         background: transparent;
-        border: 2px solid var(--primary-color);
-        border-radius: 8px;
+        border: none;
+        border-radius: 0;
         width: 40px;
         height: 40px;
         align-items: center;
@@ -4313,7 +4313,6 @@ ul {
     }
     
     .mobile-menu-toggle:hover {
-        background: var(--primary-color);
         transform: scale(1.05);
     }
     
@@ -4324,17 +4323,8 @@ ul {
         transition: all 0.3s ease;
     }
     
-    .mobile-menu-toggle:hover .hamburger-icon {
-        filter: brightness(0) invert(1);
-    }
-    
     .mobile-menu-toggle.active {
-        background: var(--primary-color);
         transform: scale(1.05);
-    }
-    
-    .mobile-menu-toggle.active .hamburger-icon {
-        filter: brightness(0) invert(1);
     }
     
     .hero-slider {
