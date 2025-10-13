@@ -2637,12 +2637,13 @@ ul {
     border-radius: 2px;
 }
 
-/* 精選商品動畫背景 */
-.featured-products-animated {
+/* 精選商品動畫標題區域 */
+.featured-products-animated-header {
     position: relative;
     overflow: hidden;
     border-radius: 12px;
-    margin: 40px 0;
+    margin: 40px 0 20px 0;
+    height: 120px;
 }
 
 .featured-products-background {
@@ -2674,12 +2675,17 @@ ul {
 .featured-products-content {
     position: relative;
     z-index: 3;
-    padding: 40px 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
 .featured-products-content .category-title {
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
 }
 
 .featured-products-content .category-title::after {
@@ -4752,19 +4758,20 @@ ul {
         margin-bottom: 50px;
     }
     
-    /* 手機版精選商品動畫背景 */
-    .featured-products-animated {
-        margin: 20px 0;
+    /* 手機版精選商品動畫標題區域 */
+    .featured-products-animated-header {
+        margin: 20px 0 15px 0;
         border-radius: 8px;
+        height: 80px;
     }
     
     .featured-products-content {
-        padding: 20px 10px;
+        padding: 15px 10px;
     }
     
     .featured-products-content .category-title {
-        font-size: 22px;
-        margin-bottom: 20px;
+        font-size: 20px;
+        margin: 0;
     }
     
     .featured-products-carousel {
