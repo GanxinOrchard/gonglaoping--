@@ -5554,6 +5554,8 @@ ul {
         left: 0 !important;
         right: 0 !important;
         width: 100% !important;
+        height: auto !important; /* 自動高度 */
+        max-height: calc(100vh - 113px) !important;
         background: #2b2b2b !important; /* 深灰黑色背景 */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
         transform: translateY(-100%) !important;
@@ -5561,7 +5563,8 @@ ul {
         z-index: 998 !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 0 !important; /* 完全移除 padding */
+        padding: 0 !important;
+        margin: 0 !important;
         visibility: visible !important;
         opacity: 1 !important;
     }
