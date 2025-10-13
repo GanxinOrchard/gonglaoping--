@@ -463,32 +463,23 @@ ul {
 
 .mobile-menu-toggle {
     display: none;
-    background: none !important;
-    border: none !important;
-    color: var(--primary-color);
-    font-size: 18px;
+    background: none;
+    border: none;
     cursor: pointer;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    transition: none !important;
+    padding: 0;
     position: relative;
     width: 40px;
     height: 40px;
     align-items: center;
     justify-content: center;
-    box-shadow: none !important;
 }
 
 .mobile-menu-toggle:hover {
-    background: none !important;
-    transform: none !important;
-    box-shadow: none !important;
+    background: none;
 }
 
 .mobile-menu-toggle.active {
-    background: none !important;
-    transform: none !important;
-    box-shadow: none !important;
+    background: none;
 }
 
 /* 最新消息上下輪播 - 開南風格 */
@@ -4300,39 +4291,30 @@ ul {
     /* 顯示漢堡按鈕 */
     .mobile-menu-toggle {
         display: flex !important;
-        background: none !important;
-        border: none !important;
-        border-radius: 0 !important;
+        background: none;
+        border: none;
         width: 40px;
         height: 40px;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: none !important;
-        z-index: 1001 !important;
         position: relative;
         margin-right: 15px;
-        padding: 0 !important;
-        box-shadow: none !important;
+        padding: 0;
     }
     
     .mobile-menu-toggle:hover {
-        background: none !important;
-        transform: none !important;
-        box-shadow: none !important;
+        background: none;
     }
     
     .mobile-menu-toggle .hamburger-icon {
         width: 36px;
         height: 36px;
         object-fit: contain;
-        transition: none !important;
     }
     
     .mobile-menu-toggle.active {
-        background: none !important;
-        transform: none !important;
-        box-shadow: none !important;
+        background: none;
     }
     
     .hero-slider {
