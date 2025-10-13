@@ -39,30 +39,20 @@
             }
         }
         
-        // 動態計算並設定選單的 top 位置（從品牌標誌橫列下方開始）
+        // 動態計算並設定選單的 top 位置（從品牌標誌列下方開始）
         function updateMenuPosition() {
             if (window.innerWidth <= 992) {
-                const mobileTopRow = document.querySelector('.mobile-top-row');
                 const mobileHeader = document.querySelector('.mobile-header');
                 
-                if (mobileTopRow && drawer) {
-                    // 計算購物車列的高度，選單從購物車列下方（品牌標誌列的位置）開始
-                    const topRowHeight = mobileTopRow.offsetHeight;
-                    const headerTop = mobileHeader ? mobileHeader.offsetTop : 0;
-                    const topPosition = headerTop + topRowHeight;
-                    
-                    drawer.style.top = topPosition + 'px';
-                    drawer.style.maxHeight = `calc(100vh - ${topPosition}px)`;
-                    console.log('✅ 選單位置已更新: top =', topPosition + 'px (購物車列高度: ' + topRowHeight + 'px)');
-                } else if (mobileHeader && drawer) {
-                    // 備用方案
+                if (mobileHeader && drawer) {
+                    // 計算整個 mobile-header 的高度，選單從品牌標誌列下方開始
                     const headerHeight = mobileHeader.offsetHeight;
                     const headerTop = mobileHeader.offsetTop;
                     const topPosition = headerTop + headerHeight;
                     
                     drawer.style.top = topPosition + 'px';
                     drawer.style.maxHeight = `calc(100vh - ${topPosition}px)`;
-                    console.log('✅ 選單位置已更新: top =', topPosition + 'px');
+                    console.log('✅ 選單位置已更新: top =', topPosition + 'px (從品牌標誌列下方)');
                 }
             }
         }
