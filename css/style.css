@@ -239,6 +239,9 @@ ul {
     text-align: center;
     line-height: 1;
     padding: 0;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 .language-switcher {
@@ -331,6 +334,9 @@ ul {
     text-align: center;
     line-height: 1;
     padding: 0;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 .logo-section {
@@ -785,12 +791,6 @@ ul {
     height: 3px;
     background: linear-gradient(90deg, var(--primary-color), #ff6b1a, var(--primary-color));
     background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
 }
 
 .menu-header h3 {
@@ -1057,6 +1057,9 @@ ul {
     line-height: 1;
     padding: 0;
     margin-left: 4px;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 /* 響應式設計 */
@@ -1073,7 +1076,7 @@ ul {
         display: block !important; /* Show mobile header on smaller screens */
 }
 
-    .mobile-menu-toggle {
+.mobile-menu-toggle {
         display: flex; /* Show hamburger menu on smaller screens */
     }
 }
@@ -1276,25 +1279,6 @@ ul {
 }
 
 
-@keyframes slideIn {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-5px);
-    }
-}
 
 /* ===== 按鈕樣式 ===== */
 .btn-primary {
@@ -1524,31 +1508,18 @@ ul {
     font-size: 56px;
     font-weight: 700;
     margin-bottom: 20px;
-    animation: fadeInUp 1s ease;
 }
 
 .hero-subtitle {
     font-size: 24px;
     margin-bottom: 30px;
-    animation: fadeInUp 1s ease 0.2s backwards;
 }
 
 /* 手機版封面字體修正 - 已移至底部統一 @media 區塊 */
 
 .slide-content .btn-primary {
-    animation: fadeInUp 1s ease 0.4s backwards;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 /* ===== Intro Card Section ===== */
 .intro-card-section {
@@ -1780,12 +1751,6 @@ ul {
     height: 260px;
     border: 2px dashed rgba(139, 195, 74, 0.3);
     border-radius: 50%;
-    animation: rotate 30s linear infinite;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
 }
 
 .heritage-number {
@@ -3468,6 +3433,9 @@ ul {
     padding: 0;
     font-size: 12px;
     font-weight: 700;
+    position: relative;
+    top: -5px;
+    left: 0;
 }
 
 /* ===== Cart Sidebar ===== */
@@ -4230,6 +4198,9 @@ ul {
     justify-content: center;
     text-align: center;
     line-height: 1;
+    position: relative;
+    top: -3px;
+    left: 0;
 }
 
 /* ===== 響應式設計 ===== */
