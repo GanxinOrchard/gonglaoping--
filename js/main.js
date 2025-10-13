@@ -786,30 +786,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 手機版輪播功能
 function initMobileCarousel() {
-    // 為每個輪播容器添加滾動監聽
-    const carousels = document.querySelectorAll('.featured-products-carousel');
-    carousels.forEach(carousel => {
-        const grid = carousel.querySelector('.featured-products-grid');
-        const prevBtn = carousel.querySelector('.carousel-arrow.prev');
-        const nextBtn = carousel.querySelector('.carousel-arrow.next');
-        
-        if (grid && prevBtn && nextBtn) {
-            // 更新按鈕狀態
-            function updateButtons() {
-                const scrollLeft = grid.scrollLeft;
-                const maxScroll = grid.scrollWidth - grid.clientWidth;
+    // 延遲執行，確保頁面完全載入
+    setTimeout(() => {
+        // 為每個輪播容器添加滾動監聽
+        const carousels = document.querySelectorAll('.featured-products-carousel');
+        carousels.forEach(carousel => {
+            const grid = carousel.querySelector('.featured-products-grid');
+            const prevBtn = carousel.querySelector('.carousel-arrow.prev');
+            const nextBtn = carousel.querySelector('.carousel-arrow.next');
+            
+            if (grid && prevBtn && nextBtn) {
+                // 更新按鈕狀態
+                function updateButtons() {
+                    const scrollLeft = grid.scrollLeft;
+                    const maxScroll = grid.scrollWidth - grid.clientWidth;
+                    
+                    prevBtn.style.display = scrollLeft <= 0 ? 'none' : 'flex';
+                    nextBtn.style.display = scrollLeft >= maxScroll ? 'none' : 'flex';
+                }
                 
-                prevBtn.style.display = scrollLeft <= 0 ? 'none' : 'flex';
-                nextBtn.style.display = scrollLeft >= maxScroll ? 'none' : 'flex';
+                // 添加點擊事件監聽器
+                prevBtn.addEventListener('click', () => {
+                    scrollCarousel(grid.id, -1);
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    scrollCarousel(grid.id, 1);
+                });
+                
+                // 初始狀態
+                updateButtons();
+                
+                // 監聽滾動事件
+                grid.addEventListener('scroll', updateButtons);
             }
-            
-            // 初始狀態
-            updateButtons();
-            
-            // 監聽滾動事件
-            grid.addEventListener('scroll', updateButtons);
-        }
-    });
+        });
+    }, 100); // 延遲100ms執行
 }
 
 // 輪播滾動函數
@@ -817,8 +829,13 @@ function scrollCarousel(gridId, direction) {
     const grid = document.getElementById(gridId);
     if (!grid) return;
     
-    const cardWidth = grid.querySelector('.product-card').offsetWidth + 15; // 包含間距
-    const scrollAmount = cardWidth * direction;
+    const productCard = grid.querySelector('.product-card');
+    if (!productCard) return; // 確保商品卡片存在
+    
+    const cardWidth = productCard.offsetWidth;
+    if (cardWidth === 0) return; // 確保卡片寬度已載入
+    
+    const scrollAmount = (cardWidth + 15) * direction; // 包含間距
     
     grid.scrollBy({
         left: scrollAmount,

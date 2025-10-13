@@ -377,10 +377,10 @@
                 <div class="product-category-section">
                     <h3 class="category-title">預購商品</h3>
                     <div class="featured-products-carousel">
-                        <button class="carousel-arrow prev" onclick="scrollCarousel('productsGridPreorder', -1)">
+                        <button class="carousel-arrow prev" data-grid="productsGridPreorder" data-direction="-1">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="carousel-arrow next" onclick="scrollCarousel('productsGridPreorder', 1)">
+                        <button class="carousel-arrow next" data-grid="productsGridPreorder" data-direction="1">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                         <div class="featured-products-grid kainan-style" id="productsGridPreorder">
@@ -388,42 +388,42 @@
                                 <div class="product-badge-new">預購</div>
                                 <div class="product-image">
                                     <img src="images/椪柑產品圖/椪柑1.jpg" alt="公老坪椪柑，果皮橙黃，果實飽滿，皮薄好剝">
-                                </div>
+                    </div>
                                 <div class="product-info">
                                     <h3 class="product-title">公老坪椪柑</h3>
                                     <div class="product-price-row">
                                         <button class="btn-promotion">促銷價</button>
                                         <span class="product-price">NT$699</span>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    </div>
+                    </div>
                             <div class="product-card kainan-card" data-product-id="2" onclick="window.location.href='product-detail.html?id=2'">
                                 <div class="product-badge-new">預購</div>
                                 <div class="product-image">
                                     <img src="images/茂谷柑產品圖/茂谷柑1.png" alt="東勢茂谷柑，果肉飽滿，香氣濃郁，甜度高">
-                                </div>
+                    </div>
                                 <div class="product-info">
                                     <h3 class="product-title">東勢茂谷柑</h3>
                                     <div class="product-price-row">
                                         <button class="btn-promotion">促銷價</button>
                                         <span class="product-price">NT$880</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
-
+                    </div>
+            </div>
+            </div>
+        </div>
+            </div>
+            
                 <!-- 精選商品 -->
                 <div class="product-category-section">
                     <h3 class="category-title">精選商品</h3>
                     <div class="featured-products-carousel">
-                        <button class="carousel-arrow prev" onclick="scrollCarousel('productsGridFeatured', -1)">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="carousel-arrow next" onclick="scrollCarousel('productsGridFeatured', 1)">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        <button class="carousel-arrow prev" data-grid="productsGridFeatured" data-direction="-1">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                        <button class="carousel-arrow next" data-grid="productsGridFeatured" data-direction="1">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
                         <div class="featured-products-grid kainan-style" id="productsGridFeatured">
                             <div class="product-card kainan-card" data-product-id="3" onclick="window.location.href='product-detail.html?id=3'">
                                 <div class="product-badge-new">熱銷</div>
