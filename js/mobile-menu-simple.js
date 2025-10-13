@@ -65,14 +65,15 @@
         });
         
         // 綁定下拉選單點擊事件
-        const dropdowns = menu.querySelectorAll('.dropdown');
+        const dropdowns = menu.querySelectorAll('.menu-item.dropdown');
         console.log('找到下拉選單數量:', dropdowns.length);
         dropdowns.forEach(dropdown => {
-            const link = dropdown.querySelector('a');
+            const link = dropdown.querySelector('.menu-link');
             if (link) {
                 link.addEventListener('click', function(e) {
                     console.log('下拉選單連結被點擊');
                     e.preventDefault();
+                    e.stopPropagation();
                     toggleDropdown(dropdown);
                 });
             } else {
