@@ -2730,6 +2730,8 @@ ul {
     border: 1px solid #f0f0f0;
     flex: 0 0 160px;
     max-width: 160px;
+    width: 160px;
+    height: 160px;
 }
 
 .product-card.kainan-card:hover {
@@ -4804,6 +4806,8 @@ ul {
         flex: 0 0 calc(40% - 7.5px);
         min-width: 120px;
         max-width: 150px;
+        width: 140px;
+        height: 140px;
     }
     
     /* 手機版輪播箭頭 */
