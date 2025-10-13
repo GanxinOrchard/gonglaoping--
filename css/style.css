@@ -5558,20 +5558,23 @@ ul {
         max-height: calc(100vh - 113px) !important;
         background: #2b2b2b !important; /* 深灰黑色背景 */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-        transform: translateY(-100%) !important;
+        transform: translateY(-100%) !important; /* 初始隱藏在上方 */
         transition: transform 0.3s ease !important;
         z-index: 998 !important;
         overflow-y: auto !important;
+        overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch !important;
         padding: 0 !important;
         margin: 0 !important;
         visibility: visible !important;
         opacity: 1 !important;
+        pointer-events: none !important; /* 隱藏時不可點擊 */
     }
     
     .main-menu.open,
     .main-menu.active {
-        transform: translateY(0) !important;
+        transform: translateY(0) !important; /* 顯示時滑下 */
+        pointer-events: auto !important; /* 顯示時可點擊 */
     }
     
     .main-menu > ul {
