@@ -121,7 +121,7 @@ ul {
 @media (max-width: 480px) {
     /* 桌面版選單在手機版隱藏 */
     .main-menu {
-        display: none !important;
+        display: none;
     }
     
     /* 手機選單 z-index 規則已移至 mobile-menu-fix.css */
@@ -763,12 +763,14 @@ ul {
     transform: translateY(-100%);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
+    pointer-events: none;
 }
 
 .main-menu.active {
     display: block;
     transform: translateY(0);
     opacity: 1;
+    pointer-events: auto;
 }
 
 .menu-header {

@@ -196,6 +196,7 @@
         
         // 切換選單
         function toggleMenu(button) {
+            console.log('🍊 切換選單，當前狀態:', isOpen);
             if (isOpen) {
                 closeMenu();
             } else {
@@ -224,11 +225,15 @@
         
         // 綁定漢堡按鈕事件
         if (toggle) {
+            console.log('🍊 找到漢堡按鈕，綁定點擊事件');
             toggle.addEventListener('click', function(e) {
+                console.log('🍊 漢堡按鈕被點擊');
                 e.preventDefault();
                 e.stopPropagation();
                 toggleMenu(this);
             });
+        } else {
+            console.error('🍊 找不到漢堡按鈕 mobileMenuToggle');
         }
         
         // 綁定懸浮按鈕事件
