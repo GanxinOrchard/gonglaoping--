@@ -66,6 +66,16 @@
         // 滾動時也重新計算（因為 header 可能變成 fixed）
         window.addEventListener('scroll', updateMenuPosition);
         
+        // 點擊選單外部關閉選單
+        document.addEventListener('click', function(e) {
+            if (drawer && drawer.classList.contains('active')) {
+                // 如果點擊的不是選單內部，也不是漢堡按鈕
+                if (!drawer.contains(e.target) && !toggle.contains(e.target)) {
+                    closeMenu();
+                }
+            }
+        });
+        
         // 若沒有漢堡按鈕則自動注入到 .nav-icons（或 header 末端）
         if (!toggle) {
             const navIcons = document.querySelector('.nav-icons') || document.querySelector('.navbar .container') || document.querySelector('.header .container') || document.body;

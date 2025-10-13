@@ -5540,16 +5540,10 @@ ul {
         transition: all 0.3s ease !important;
     }
     
-    .mobile-menu-toggle.active .menu-line:nth-child(1) {
-        transform: translateY(8px) rotate(45deg) !important;
-    }
-    
-    .mobile-menu-toggle.active .menu-line:nth-child(2) {
+    /* 選單打開時隱藏漢堡按鈕 */
+    .mobile-menu-toggle.active {
         opacity: 0 !important;
-    }
-    
-    .mobile-menu-toggle.active .menu-line:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg) !important;
+        pointer-events: none !important;
     }
     
     /* 選單抽屜 - 從品牌標誌列下方滑出 */
@@ -5609,11 +5603,11 @@ ul {
     .main-menu > ul > li > a {
         display: flex !important;
         align-items: center !important;
-        padding: 16px 20px !important;
+        padding: 14px 20px !important;
         color: var(--white) !important;
         text-decoration: none !important;
         font-weight: 500 !important;
-        font-size: 16px !important;
+        font-size: 15px !important;
         transition: all 0.3s ease !important;
         border-bottom: 1px solid rgba(255,255,255,0.1) !important;
         background: transparent !important;
@@ -5676,23 +5670,13 @@ ul {
     }
 }
 
-/* 選單遮罩 */
+/* 選單遮罩 - 停用 */
 .menu-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999 !important;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: none !important;
 }
 
 .menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
+    display: none !important;
 }
 
 /* 防止背景滾動 */
