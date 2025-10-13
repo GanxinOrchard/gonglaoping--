@@ -39,11 +39,22 @@
             }
         }
         
-        // 動態計算並設定選單的 top 位置（從 header 下方開始）
+        // 動態計算並設定選單的 top 位置（從 header 背景底部開始）
         function updateMenuPosition() {
             if (window.innerWidth <= 992) {
+                const mobileBottomRow = document.querySelector('.mobile-bottom-row');
                 const header = document.querySelector('.main-header') || document.querySelector('header');
-                if (header && drawer) {
+                
+                if (mobileBottomRow && drawer) {
+                    // 計算品牌標誌區域的底部位置
+                    const rect = mobileBottomRow.getBoundingClientRect();
+                    const topPosition = rect.bottom;
+                    
+                    drawer.style.top = topPosition + 'px';
+                    drawer.style.maxHeight = `calc(100vh - ${topPosition}px)`;
+                    console.log('✅ 選單位置已更新: top =', topPosition + 'px (從品牌標誌背景下方)');
+                } else if (header && drawer) {
+                    // 備用方案：使用整個 header 高度
                     const headerHeight = header.offsetHeight;
                     drawer.style.top = headerHeight + 'px';
                     drawer.style.maxHeight = `calc(100vh - ${headerHeight}px)`;
@@ -53,10 +64,13 @@
         }
         
         // 初始化時設定位置
-        updateMenuPosition();
+        setTimeout(updateMenuPosition, 100); // 延遲確保 DOM 完全載入
         
         // 視窗大小改變時重新計算
         window.addEventListener('resize', updateMenuPosition);
+        
+        // 滾動時也重新計算（因為 header 可能變成 fixed）
+        window.addEventListener('scroll', updateMenuPosition);
         
         // 若沒有漢堡按鈕則自動注入到 .nav-icons（或 header 末端）
         if (!toggle) {
