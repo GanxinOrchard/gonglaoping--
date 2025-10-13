@@ -463,27 +463,32 @@ ul {
 
 .mobile-menu-toggle {
     display: none;
-    background: transparent;
-    border: none;
+    background: none !important;
+    border: none !important;
     color: var(--primary-color);
     font-size: 18px;
     cursor: pointer;
-    padding: 0;
-    border-radius: 0;
-    transition: all 0.3s ease;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    transition: none !important;
     position: relative;
     width: 40px;
     height: 40px;
     align-items: center;
     justify-content: center;
+    box-shadow: none !important;
 }
 
 .mobile-menu-toggle:hover {
-    transform: scale(1.05);
+    background: none !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 .mobile-menu-toggle.active {
-    transform: scale(1.05);
+    background: none !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 /* 最新消息上下輪播 - 開南風格 */
@@ -4295,33 +4300,39 @@ ul {
     /* 顯示漢堡按鈕 */
     .mobile-menu-toggle {
         display: flex !important;
-        background: transparent;
-        border: none;
-        border-radius: 0;
+        background: none !important;
+        border: none !important;
+        border-radius: 0 !important;
         width: 40px;
         height: 40px;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: none !important;
         z-index: 1001 !important;
         position: relative;
         margin-right: 15px;
+        padding: 0 !important;
+        box-shadow: none !important;
     }
     
     .mobile-menu-toggle:hover {
-        transform: scale(1.05);
+        background: none !important;
+        transform: none !important;
+        box-shadow: none !important;
     }
     
     .mobile-menu-toggle .hamburger-icon {
         width: 36px;
         height: 36px;
         object-fit: contain;
-        transition: all 0.3s ease;
+        transition: none !important;
     }
     
     .mobile-menu-toggle.active {
-        transform: scale(1.05);
+        background: none !important;
+        transform: none !important;
+        box-shadow: none !important;
     }
     
     .hero-slider {
