@@ -414,17 +414,24 @@
         </div>
             </div>
             
-                <!-- 精選商品 -->
-                <div class="product-category-section">
-                    <h3 class="category-title">精選商品</h3>
-                    <div class="featured-products-carousel">
-                        <button class="carousel-arrow prev" data-grid="productsGridFeatured" data-direction="-1">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                        <button class="carousel-arrow next" data-grid="productsGridFeatured" data-direction="1">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-                        <div class="featured-products-grid kainan-style" id="productsGridFeatured">
+        <!-- 精選商品 -->
+        <div class="product-category-section featured-products-animated">
+            <div class="featured-products-background">
+                <video autoplay muted loop playsinline>
+                    <source src="images/影片動畫/精選商品.mp4" type="video/mp4">
+                </video>
+                <div class="featured-products-overlay"></div>
+            </div>
+            <div class="featured-products-content">
+                <h3 class="category-title">精選商品</h3>
+                <div class="featured-products-carousel">
+                    <button class="carousel-arrow prev" data-grid="productsGridFeatured" data-direction="-1">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-arrow next" data-grid="productsGridFeatured" data-direction="1">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="featured-products-grid kainan-style" id="productsGridFeatured">
                             <div class="product-card kainan-card" data-product-id="3" onclick="window.location.href='product-detail.html?id=3'">
                                 <div class="product-badge-new">熱銷</div>
                                 <div class="product-image">
@@ -454,6 +461,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
             
             <!-- 查看更多商品 -->
             <div class="view-more-container">
