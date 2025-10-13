@@ -250,95 +250,13 @@
 }
 
 /* ===== 手機版選單增強 ===== */
-.main-menu {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    backdrop-filter: blur(20px);
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
+/* 手機版選單樣式已移至 style.css 處理 */
 
-.main-menu > ul > li {
-    border-bottom: 1px solid rgba(255, 140, 66, 0.1);
-    position: relative;
-    overflow: hidden;
-}
+/* 手機版選單樣式已移至 style.css 處理 */
 
-.main-menu > ul > li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background: linear-gradient(90deg, var(--menu-text-hover), transparent);
-    transition: width 0.4s ease;
-    z-index: -1;
-}
+/* 手機版選單樣式已移至 style.css 處理 */
 
-.main-menu > ul > li:hover::before {
-    width: 100%;
-}
-
-.main-menu > ul > li > a {
-    display: block;
-    padding: 25px 30px;
-    color: var(--menu-text);
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    transition: var(--transition-smooth);
-    position: relative;
-    z-index: 1;
-}
-
-.main-menu > ul > li > a:hover {
-    color: var(--menu-text-hover);
-    padding-left: 40px;
-    transform: translateX(5px);
-}
-
-.main-menu .dropdown-menu {
-    background: rgba(40, 40, 40, 0.95);
-    border-radius: 0;
-    box-shadow: none;
-    border-left: 3px solid var(--menu-text-hover);
-    margin-left: 20px;
-    padding: 0;
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    display: none;
-    transition: var(--transition-smooth);
-}
-
-.main-menu .dropdown.active .dropdown-menu {
-    display: block;
-    animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        max-height: 300px;
-    }
-}
-
-.main-menu .dropdown-menu a {
-    padding: 18px 0 18px 20px;
-    color: #ccc;
-    font-size: 16px;
-    border-bottom: 1px solid rgba(255, 140, 66, 0.1);
-}
-
-.main-menu .dropdown-menu a:hover {
-    color: var(--menu-text-hover);
-    padding-left: 30px;
-}
+/* 手機版選單樣式已移至 style.css 處理 */
 
 /* ===== 選單圖標動畫 ===== */
 .nav-link i {
@@ -399,19 +317,5 @@
 }
 
 /* ===== 選單響應式優化 ===== */
-@media (max-width: 768px) {
-    .main-menu {
-        padding: 120px 20px 20px;
-    }
-    
-    .main-menu > ul > li > a {
-        font-size: 20px;
-        padding: 25px 20px;
-    }
-    
-    .main-menu .dropdown-menu a {
-        font-size: 18px;
-        padding: 20px 0 20px 15px;
-    }
-}
+/* 手機版選單樣式已移至 style.css 處理 */
 

@@ -5553,42 +5553,41 @@ ul {
     
     /* 選單抽屜 - 從品牌標誌列下方滑出 */
     .main-menu {
-        display: block !important;
-        position: absolute !important;
-        top: 100% !important; /* 從 header 正下方開始 */
+        display: none !important;
+        position: fixed !important;
+        top: 0 !important;
         left: 0 !important;
         right: 0 !important;
         width: 100% !important;
-        height: auto !important; /* 自動高度 */
-        background: #2b2b2b !important; /* 深灰黑色背景 */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-        transform: translateY(-100%) !important; /* 初始隱藏在上方 */
-        transition: transform 0.3s ease !important;
-        z-index: 998 !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+        height: 100vh !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        backdrop-filter: blur(10px) !important;
+        z-index: 9999 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        transition: all 0.3s ease !important;
         padding: 0 !important;
         margin: 0 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: none !important; /* 隱藏時不可點擊 */
-        border-radius: 0 !important; /* 移除圓角 */
     }
     
     .main-menu.open,
     .main-menu.active {
-        transform: translateY(0) !important; /* 顯示時滑下 */
-        pointer-events: auto !important; /* 顯示時可點擊 */
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
     }
     
     .main-menu > ul {
         display: flex !important;
         flex-direction: column !important;
         gap: 0 !important;
-        padding: 0 !important;
+        padding: 80px 20px 20px 20px !important;
         margin: 0 !important;
         list-style: none !important;
+        height: 100% !important;
+        justify-content: flex-start !important;
     }
     
     .main-menu > ul:before {
@@ -5609,11 +5608,11 @@ ul {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 15px 20px !important;
+        padding: 20px 0 !important;
         color: #ffffff !important;
         text-decoration: none !important;
         font-weight: 500 !important;
-        font-size: 15px !important;
+        font-size: 18px !important;
         transition: all 0.2s ease !important;
         background: transparent !important;
         position: relative !important;
@@ -5649,9 +5648,9 @@ ul {
     
     .main-menu .dropdown-menu a {
         display: block !important;
-        padding: 12px 20px 12px 30px !important;
-        color: rgba(255, 255, 255, 0.85) !important;
-        font-size: 14px !important;
+        padding: 15px 0 15px 20px !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-size: 16px !important;
         text-decoration: none !important;
         transition: all 0.2s ease !important;
     }
