@@ -2663,13 +2663,13 @@ ul {
     position: relative !important;
     cursor: pointer !important;
     border: 1px solid #f0f0f0 !important;
-    flex: 0 0 160px !important;
-    max-width: 160px !important;
-    width: 160px !important;
-    height: 160px !important;
+    flex: 0 0 180px !important;
+    max-width: 180px !important;
+    width: 180px !important;
+    height: 180px !important;
     display: flex !important;
     flex-direction: column !important;
-    min-width: 160px !important;
+    min-width: 180px !important;
     box-sizing: border-box !important;
 }
 
@@ -4694,10 +4694,10 @@ ul {
     
     .product-card.kainan-card {
         flex: 0 0 calc(40% - 7.5px) !important;
-        min-width: 120px !important;
-        max-width: 150px !important;
-        width: 140px !important;
-        height: 140px !important;
+        min-width: 140px !important;
+        max-width: 170px !important;
+        width: 160px !important;
+        height: 160px !important;
         display: flex !important;
         flex-direction: column !important;
         box-sizing: border-box !important;
