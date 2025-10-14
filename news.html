@@ -368,33 +368,33 @@
         </div>
     </div>
 
-    <!-- 主要導覽列 - 開南風格 -->
-    <header class="main-header">
-            <div class="container">
+    <!-- 統一導覽列 -->
+    <header class="header">
+        <div class="container">
             <!-- 桌面版導覽列 -->
-            <div class="header-content desktop-header">
+            <div class="header-content">
                 <div class="logo-section">
                     <a href="https://ganxinorchard.github.io/gonglaoping--/" class="logo">
                         <img src="images/柑心商標.png" alt="柑心果園" class="logo-image">
                         <div class="logo-text-container">
                             <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
-        </div>
-                        </a>
-                    </div>
-                    
+                        </div>
+                    </a>
+                </div>
+                
                 <!-- 桌面版頂部功能列 -->
                 <div class="header-actions">
                     <a href="cart.html" class="header-action cart-link">
-                            <i class="fas fa-shopping-cart"></i>
+                        <i class="fas fa-shopping-cart"></i>
                         <span>購物車</span>
                         <span class="cart-count" id="topCartCount">0</span>
                     </a>
                     <div class="language-switcher">
                         <span>繁體中文</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        
+            
             <!-- 桌面版導覽選單 -->
             <nav class="desktop-nav">
                 <ul class="nav-menu">
@@ -439,8 +439,7 @@
                     <li><a href="order-tracking.html" class="nav-link">訂單查詢</a></li>
                 </ul>
             </nav>
-        </div>
-        
+            
             <!-- 手機版導覽列 -->
             <div class="mobile-header">
                 <!-- 手機版頂部購物車和搜尋 -->
@@ -449,9 +448,9 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span>購物車</span>
                         <span class="cart-count" id="mobileCartCount">0</span>
-                        </a>
-                    </div>
-                    
+                    </a>
+                </div>
+                
                 <!-- 手機版底部標誌和漢堡選單 -->
                 <div class="mobile-bottom-row">
                     <div class="mobile-logo-section">
@@ -460,74 +459,85 @@
                             <div class="mobile-logo-text">
                                 <span class="mobile-logo-main">柑心果園</span>
                                 <span class="mobile-logo-sub">GANXIN ORCHARD</span>
-                    </div>
+                            </div>
                         </a>
                     </div>
-                        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
-                            <span class="menu-line"></span>
-                            <span class="menu-line"></span>
-                            <span class="menu-line"></span>
-                        </button>
-                    </div>
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                    </button>
                 </div>
+            </div>
         </div>
     </header>
     
-    <!-- 手機選單 - 從品牌標誌下方滑出 -->
+    <!-- 手機選單 -->
     <div class="main-menu" id="mainMenu">
-                    <ul>
-                        <li class="dropdown">
-                            <a href="news.html" class="active">最新消息 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="news.html?category=announcement">最新公告</a></li>
-                                <li><a href="news.html?category=new">新品上市</a></li>
-                                <li><a href="news.html?category=promotion">期間優惠</a></li>
-                                <li><a href="news.html?category=diary">果園日誌</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="products.html">所有商品 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                                <li><a href="products.html?category=季節限定">季節限定</a></li>
-                                <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a href="season-recommend.html">季節推薦</a></li>
-                                <li><a href="season-ponkan.html">椪柑季節</a></li>
-                                <li><a href="season-murcott.html">茂谷柑季節</a></li>
-                                <li><a href="season-water-chestnut.html">菱角季節</a></li>
-                                <li><a href="season-taro.html">芋頭季節</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a href="guide.html">選購指南</a></li>
-                                <li><a href="guide-ponkan.html">椪柑選購</a></li>
-                                <li><a href="guide-murcott.html">茂谷柑選購</a></li>
-                                <li><a href="guide-water-chestnut.html">菱角選購</a></li>
-                                <li><a href="guide-taro.html">芋頭選購</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="about.html">關於我們 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="about.html">關於柑心果園</a></li>
-                                <li><a href="farming.html">農場介紹</a></li>
-                                <li><a href="knowledge.html">知識分享</a></li>
-                                <li><a href="knowledge.html?category=cutting">切法技巧</a></li>
-                                <li><a href="knowledge.html?category=growing">種植知識</a></li>
-                                <li><a href="knowledge.html?category=storing">保存方法</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a href="grading.html">分級標準</a></li>
-                                <li><a href="grading-ponkan.html">椪柑分級</a></li>
-                                <li><a href="grading-murcott.html">茂谷柑分級</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a href="contact.html">聯絡我們</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="order-tracking.html">訂單查詢</a></li>
-                    </ul>
-                </div>
+        <div class="menu-header">
+            <div class="menu-logo">
+                <img src="images/柑心商標.png" alt="柑心果園">
+                <span>柑心果園</span>
             </div>
-        </nav>
-    </header>
+            <button class="menu-close" id="menuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="news.html" class="menu-link active">最新消息</a>
+            </li>
+            <li class="menu-item dropdown">
+                <a href="products.html" class="menu-link">所有商品 <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="products.html?category=新鮮水果" class="submenu-link">新鮮水果</a></li>
+                    <li><a href="products.html?category=季節限定" class="submenu-link">季節限定</a></li>
+                    <li><a href="products.html?category=禮盒裝" class="submenu-link">禮盒裝</a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="season-recommend.html" class="submenu-link">季節推薦</a></li>
+                    <li><a href="season-ponkan.html" class="submenu-link">椪柑季節</a></li>
+                    <li><a href="season-murcott.html" class="submenu-link">茂谷柑季節</a></li>
+                    <li><a href="season-water-chestnut.html" class="submenu-link">菱角季節</a></li>
+                    <li><a href="season-taro.html" class="submenu-link">芋頭季節</a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="guide.html" class="submenu-link">選購指南</a></li>
+                    <li><a href="guide-ponkan.html" class="submenu-link">椪柑選購</a></li>
+                    <li><a href="guide-murcott.html" class="submenu-link">茂谷柑選購</a></li>
+                    <li><a href="guide-water-chestnut.html" class="submenu-link">菱角選購</a></li>
+                    <li><a href="guide-taro.html" class="submenu-link">芋頭選購</a></li>
+                </ul>
+            </li>
+            <li class="menu-item dropdown">
+                <a href="about.html" class="menu-link">關於我們 <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="about.html" class="submenu-link">關於柑心果園</a></li>
+                    <li><a href="farming.html" class="submenu-link">農場介紹</a></li>
+                    <li><a href="knowledge.html" class="submenu-link">知識分享</a></li>
+                    <li><a href="knowledge.html?category=cutting" class="submenu-link">切法技巧</a></li>
+                    <li><a href="knowledge.html?category=growing" class="submenu-link">種植知識</a></li>
+                    <li><a href="knowledge.html?category=storing" class="submenu-link">保存方法</a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="grading.html" class="submenu-link">分級標準</a></li>
+                    <li><a href="grading-ponkan.html" class="submenu-link">椪柑分級</a></li>
+                    <li><a href="grading-murcott.html" class="submenu-link">茂谷柑分級</a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="contact.html" class="submenu-link">聯絡我們</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="order-tracking.html" class="menu-link">訂單查詢</a>
+            </li>
+        </ul>
+        <div class="menu-footer">
+            <div class="menu-contact">
+                <p><i class="fas fa-phone"></i> 0933-721-978</p>
+                <p><i class="fas fa-envelope"></i> s9000721@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 選單遮罩 -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <!-- 麵包屑導航 -->
     <nav class="breadcrumb">
@@ -706,10 +716,11 @@
     </script>
 
     <main id="main-content">
-    <section class="news-hero">
-        <div class="container">
-            <h1>最新消息</h1>
-            <p>柑心果園的最新動態與產季資訊</p>
+    <!-- 統一Hero區塊 -->
+    <section class="hero-slider">
+        <div class="hero-content">
+            <h1 class="hero-title">最新消息</h1>
+            <p class="hero-subtitle">柑心果園的最新動態與產季資訊</p>
         </div>
     </section>
 
@@ -946,98 +957,6 @@
     </button>
 
 
-    <!-- 載入相關 JavaScript -->
-        <div class="cart-header">
-            <div class="cart-header-left">
-                <img src="./images/商標.jpg" alt="柑心果園" class="cart-header-logo">
-                <h3>購物車</h3>
-            </div>
-            <button class="close-cart" id="closeCart">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <!-- 購物車項目將由 JavaScript 動態載入 -->
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <div class="subtotal">
-                    <span>商品小計：</span>
-                    <span id="subtotal">NT$ 0</span>
-                </div>
-                <div class="shipping-row">
-                    <span>運費：</span>
-                    <span id="shippingFee">NT$ 150</span>
-                </div>
-                <div class="discount-amount" id="discountAmount" style="display: none;">
-                    <span>折扣：</span>
-                    <span id="discountValue">-NT$ 0</span>
-                </div>
-                <div class="total">
-                    <span>總計：</span>
-                    <span id="total">NT$ 0</span>
-                </div>
-                <div class="shipping-notice">
-                    <i class="fas fa-truck"></i> 滿 NT$1,800 免運費
-                </div>`n                <div class="discount-notice" style="margin-top: 10px; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 8px;">`n                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" style="color: #ff8c42; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">`n                        <i class="fab fa-facebook"></i> `n                        <span>查看 Facebook 最新優惠折扣</span>`n                    </a>`n                </div>`n            </div>
-            <button class="btn-checkout" id="checkoutBtn">前往結帳</button>
-        </div>
-    </div>
-
-    <!-- 結帳彈窗 -->
-    <div class="modal" id="checkoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>結帳資訊</h3>
-                <button class="close-modal" id="closeCheckoutModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="checkoutForm">
-                    <div class="form-group">
-                        <label for="customerName">姓名 *</label>
-                        <input type="text" id="customerName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerPhone">電話 *</label>
-                        <input type="tel" id="customerPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerEmail">Email *</label>
-                        <input type="email" id="customerEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerAddress">配送地址 *</label>
-                        <textarea id="customerAddress" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerNote">備註</label>
-                        <textarea id="customerNote" rows="2"></textarea>
-                    </div>
-                    <div class="order-summary">
-                        <h4>訂單摘要</h4>
-                        <div id="checkoutSummary"></div>
-                        <div class="checkout-total">
-                            <span>總金額：</span>
-                            <span id="checkoutTotal">NT$ 0</span>
-                        </div>
-                    </div>
-                    <div class="payment-methods">
-                        <h4>付款方式</h4>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="linepay" checked>
-                            <span><i class="fab fa-line"></i> LINE Pay</span>
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="cod">
-                            <span><i class="fas fa-money-bill-wave"></i> 貨到付款</span>
-                    </div>
-                    <button type="submit" class="btn-submit-order">確認訂單並付款</button>
-                </form>
-            </div>
-        </div>
-    </div>
     </main>
 
     <footer class="footer">
@@ -1089,30 +1008,35 @@
     <script src="./js/orange-animation.js?v=20250110"></script>
     <script src="./js/products.js?v=20250110"></script>
     <script src="./js/dropdown-menu.js?v=20250110"></script>
-    <script src="./js/cart.js?v=20250110"></script>    <script src="./js/content-protection.js?v=20250110" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250110">
-
+    <script src="./js/cart.js?v=20250110"></script>
+    <script src="./js/content-protection.js?v=20250110" defer></script>
     <script src="./js/main.js?v=20250110"></script>
-    
-    <!-- 手機選單修復腳本 -->
     <script src="./js/mobile-menu-simple.js?v=20250110"></script>
     
+    <!-- 回到頂部按鈕功能 -->
     <script>
-        // 購物車功能 - 跳轉到購物車頁面
-        function initCartSidebar() {
-            const cartIcon = document.getElementById('cartIcon');
-
-            // 點擊購物車圖標跳轉到購物車頁面
-            if (cartIcon) {
-                cartIcon.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.location.href = 'cart.html';
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            if (backToTopBtn) {
+                // 顯示/隱藏回到頂部按鈕
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopBtn.style.display = 'block';
+                    } else {
+                        backToTopBtn.style.display = 'none';
+                    }
+                });
+                
+                // 點擊回到頂部
+                backToTopBtn.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                 });
             }
-        }
-
-        // 初始化購物車功能
-        document.addEventListener('DOMContentLoaded', initCartSidebar);
+        });
     </script>
 </body>
 </html>
