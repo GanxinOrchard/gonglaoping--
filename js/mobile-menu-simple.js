@@ -136,6 +136,13 @@
                 dropdown.classList.add('active');
             }
             console.log('下拉選單狀態', dropdown.classList.toString());
+            
+            // 檢查子選單元素
+            const submenu = dropdown.querySelector('.submenu');
+            if (submenu) {
+                console.log('子選單元素:', submenu);
+                console.log('子選單計算樣式:', window.getComputedStyle(submenu).display);
+            }
         }
     }
 })();
