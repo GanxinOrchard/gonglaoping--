@@ -198,7 +198,7 @@
     
     /* 選單頭部 */
     .menu-header {
-        background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 50%, #ff4757 100%);
+        background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 30%, #ff4757 70%, #ff3742 100%);
         padding: 25px 20px;
         display: flex;
         justify-content: space-between;
@@ -206,8 +206,27 @@
         position: sticky;
         top: 0;
         z-index: 10;
-        box-shadow: 0 4px 20px rgba(255, 107, 26, 0.3);
+        box-shadow: 0 8px 32px rgba(255, 107, 26, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
         border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .menu-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
     }
     
     .menu-logo {
@@ -288,6 +307,23 @@
     
     .menu-item {
         margin-bottom: 4px;
+        opacity: 0;
+        transform: translateX(20px);
+        animation: slideInRight 0.5s ease forwards;
+    }
+    
+    .menu-item:nth-child(1) { animation-delay: 0.1s; }
+    .menu-item:nth-child(2) { animation-delay: 0.2s; }
+    .menu-item:nth-child(3) { animation-delay: 0.3s; }
+    .menu-item:nth-child(4) { animation-delay: 0.4s; }
+    .menu-item:nth-child(5) { animation-delay: 0.5s; }
+    .menu-item:nth-child(6) { animation-delay: 0.6s; }
+    
+    @keyframes slideInRight {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
     
     .menu-link {
@@ -298,13 +334,29 @@
         text-decoration: none;
         font-weight: 600;
         font-size: 17px;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         border-radius: 0 30px 30px 0;
         margin-right: 25px;
         background: linear-gradient(135deg, rgba(255, 140, 66, 0.05) 0%, rgba(255, 107, 26, 0.1) 100%);
         border-left: 4px solid transparent;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+    
+    .menu-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+    
+    .menu-link:hover::before {
+        left: 100%;
     }
     
     /* 僅在非觸控設備上啟用hover效果 */
@@ -313,7 +365,7 @@
             background: linear-gradient(135deg, #ff8c42, #ff6b1a);
             color: white;
             transform: translateX(10px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(255, 107, 26, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 107, 26, 0.5), 0 0 20px rgba(255, 140, 66, 0.3);
             border-left: 4px solid rgba(255, 255, 255, 0.8);
         }
     }
@@ -324,7 +376,14 @@
         margin-right: 15px;
         text-align: center;
         color: #ff8c42;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+    
+    .menu-link:hover .menu-icon {
+        color: white;
+        transform: scale(1.1) rotate(5deg);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
     
     .menu-text {
@@ -346,15 +405,27 @@
     /* 子選單 */
     .submenu {
         display: none;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
         margin: 0;
         padding: 8px 0;
         list-style: none;
         border-radius: 0 0 15px 15px;
         margin-right: 25px;
         overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
         border: 1px solid rgba(255, 140, 66, 0.2);
+        backdrop-filter: blur(5px);
+        position: relative;
+    }
+    
+    .submenu::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 140, 66, 0.5), transparent);
     }
     
     .submenu-link {
@@ -464,17 +535,37 @@
         color: #6c757d;
         border-radius: 12px;
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         border: 2px solid rgba(255, 140, 66, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .social-link::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: radial-gradient(circle, rgba(255, 140, 66, 0.3) 0%, transparent 70%);
+        transition: all 0.4s ease;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
     }
     
     .social-link:hover {
         background: linear-gradient(135deg, #ff8c42, #ff6b1a);
         color: white;
         transform: translateY(-3px) scale(1.1);
-        box-shadow: 0 6px 20px rgba(255, 140, 66, 0.4);
+        box-shadow: 0 8px 25px rgba(255, 140, 66, 0.5), 0 0 20px rgba(255, 107, 26, 0.3);
         border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .social-link:hover::before {
+        width: 100px;
+        height: 100px;
     }
     
     /* 選單遮罩 */
