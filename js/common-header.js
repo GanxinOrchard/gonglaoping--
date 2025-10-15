@@ -100,7 +100,7 @@
     
     function ensureStylesLoaded() {
         const stylesToLoad = [
-            { href: './css/mobile-menu-fix.css', id: 'mobile-menu-fix-css' }
+            { href: './css/navigation-clean.css', id: 'navigation-clean-css' }
         ];
         
         stylesToLoad.forEach(style => {
@@ -116,7 +116,7 @@
     
     function loadRequiredScripts() {
         const scriptsToLoad = [
-            { src: './js/mobile-menu-fix.js', id: 'mobile-menu-fix-js' },
+            { src: './js/mobile-menu-simple.js', id: 'mobile-menu-simple-js' },
             { src: './js/dropdown-menu.js', id: 'dropdown-menu-js' }
         ];
         

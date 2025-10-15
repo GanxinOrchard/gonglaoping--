@@ -1,9 +1,9 @@
 // 主要功能腳本
 
-// 開南風格導覽列功能
+// 主要功能初始化
 document.addEventListener('DOMContentLoaded', () => {
-    // 初始化開南風格導覽列
-    initKainanNavigation();
+    // 初始化導覽列
+    initNavigation();
     
     // 付款方式切換顯示匯款資訊
     const paymentOptions = document.querySelectorAll('input[name="payment"]');
@@ -25,16 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initOtherFeatures();
 });
 
-// 初始化開南風格導覽列
-function initKainanNavigation() {
+// 初始化導覽列
+function initNavigation() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mainMenu = document.getElementById('mainMenu');
     const menuClose = document.getElementById('menuClose');
     const mainHeader = document.querySelector('.main-header');
     
-    // 手機版選單功能已移至 mobile-menu-fix.js 處理
-    
-    // 手機版選單功能已移至 mobile-menu-fix.js 處理
     
     // 初始化最新消息輪播
     initNewsTicker();
@@ -298,7 +295,6 @@ function initOtherFeatures() {
     createBackToTopButton();
 }
 
-// 頁面可見性變化處理已由 mobile-menu-fix.js 處理
 
 // 創建回到頂部按鈕
 function createBackToTopButton() {
@@ -317,7 +313,7 @@ function createBackToTopButton() {
                 transform: translateX(-50%);
                 width: 50px;
                 height: 50px;
-                background: var(--secondary-color);
+                background: var(--primary-color);
                 color: white;
                 border: none;
                 border-radius: 50%;
@@ -381,13 +377,13 @@ function createBackToTopButton() {
     backToTop.addEventListener('mouseenter', function() {
         const isMobile = window.innerWidth <= 768;
         this.style.transform = isMobile ? 'translateX(-50%) translateY(-5px)' : 'translateY(-5px)';
-        this.style.background = isMobile ? 'var(--secondary-dark)' : 'var(--primary-dark)';
+        this.style.background = 'var(--primary-dark)';
     });
     
     backToTop.addEventListener('mouseleave', function() {
         const isMobile = window.innerWidth <= 768;
         this.style.transform = isMobile ? 'translateX(-50%)' : 'translateY(0)';
-        this.style.background = isMobile ? 'var(--secondary-color)' : 'var(--primary-color)';
+        this.style.background = 'var(--primary-color)';
     });
 }
 
@@ -582,7 +578,7 @@ function initFeaturedProductsCarousel() {
         if (!prevBtn || !nextBtn || !productsGrid) return;
 
         let currentIndex = 0;
-        const cards = productsGrid.querySelectorAll('.product-card.kainan-card');
+        const cards = productsGrid.querySelectorAll('.product-card');
         const totalCards = cards.length;
 
         function computeCardsPerView() {
@@ -684,7 +680,7 @@ function initProductCardEvents() {
             e.preventDefault();
             e.stopPropagation();
             
-            const card = this.closest('.product-card.kainan-card');
+            const card = this.closest('.product-card');
             if (!card) return;
             
             const productId = card.dataset.productId || 'product-' + Math.random().toString(36).substr(2, 9);

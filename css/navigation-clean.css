@@ -179,6 +179,7 @@
         transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15);
         overflow-y: auto;
+        overflow-x: hidden;
         border-left: 1px solid #e9ecef;
         flex-direction: column;
     }
@@ -263,6 +264,8 @@
     .menu-nav {
         padding: 20px 0;
         flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .menu-list {
@@ -289,11 +292,14 @@
         margin-right: 20px;
     }
     
-    .menu-link:hover {
-        background: linear-gradient(135deg, #ff8c42, #ff6b1a);
-        color: white;
-        transform: translateX(8px);
-        box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+    /* 僅在非觸控設備上啟用hover效果 */
+    @media (hover: hover) and (pointer: fine) {
+        .menu-link:hover {
+            background: linear-gradient(135deg, #ff8c42, #ff6b1a);
+            color: white;
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+        }
     }
     
     .menu-icon {
@@ -339,10 +345,13 @@
         position: relative;
     }
     
-    .submenu-link:hover {
-        color: #ff8c42;
-        background: white;
-        padding-left: 64px;
+    /* 僅在非觸控設備上啟用hover效果 */
+    @media (hover: hover) and (pointer: fine) {
+        .submenu-link:hover {
+            color: #ff8c42;
+            background: white;
+            padding-left: 64px;
+        }
     }
     
     .submenu-link::before {
@@ -359,8 +368,11 @@
         transition: opacity 0.3s ease;
     }
     
-    .submenu-link:hover::before {
-        opacity: 1;
+    /* 僅在非觸控設備上啟用hover效果 */
+    @media (hover: hover) and (pointer: fine) {
+        .submenu-link:hover::before {
+            opacity: 1;
+        }
     }
     
     .submenu-divider {
@@ -453,6 +465,31 @@
     .menu-overlay.active {
         display: block !important;
         animation: fadeIn 0.3s ease;
+    }
+    
+    /* 小螢幕優化 */
+    @media (max-width: 480px) {
+        .menu-header {
+            padding: 20px 15px;
+        }
+        
+        .menu-nav {
+            padding: 15px 0;
+        }
+        
+        .menu-footer {
+            padding: 15px;
+        }
+        
+        .menu-link {
+            padding: 15px 20px;
+            font-size: 15px;
+        }
+        
+        .submenu-link {
+            padding: 12px 20px 12px 50px;
+            font-size: 13px;
+        }
     }
     
     @keyframes fadeIn {
