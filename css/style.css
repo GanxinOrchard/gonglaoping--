@@ -121,8 +121,10 @@ ul {
 @media (max-width: 480px) {
     /* 桌面版選單在手機版隱藏 */
     /* 桌面版隱藏手機選單 */
-    .main-menu {
-        display: none !important;
+    @media (min-width: 993px) {
+        .main-menu {
+            display: none !important;
+        }
     }
     
     
