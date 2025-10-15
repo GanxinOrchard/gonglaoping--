@@ -64,22 +64,33 @@
             }
         });
         
-        // 綁定下拉選單點擊事件
-        const dropdowns = menu.querySelectorAll('.menu-item.dropdown');
-        console.log('找到下拉選單數量:', dropdowns.length);
-        dropdowns.forEach(dropdown => {
-            const link = dropdown.querySelector('.menu-link');
-            if (link) {
-                link.addEventListener('click', function(e) {
-                    console.log('下拉選單連結被點擊');
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleDropdown(dropdown);
-                });
-            } else {
-                console.warn('找不到下拉選單連結', dropdown);
-            }
-        });
+        // 綁定下拉選單點擊事件（只執行一次）
+        bindDropdownEvents();
+        
+        function bindDropdownEvents() {
+            const dropdowns = menu.querySelectorAll('.menu-item.dropdown');
+            console.log('找到下拉選單數量:', dropdowns.length);
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('.menu-link');
+                if (link) {
+                    // 移除舊的事件監聽器
+                    link.removeEventListener('click', handleDropdownClick);
+                    // 添加新的事件監聽器
+                    link.addEventListener('click', handleDropdownClick);
+                } else {
+                    console.warn('找不到下拉選單連結', dropdown);
+                }
+            });
+        }
+        
+        // 下拉選單點擊處理函數
+        function handleDropdownClick(e) {
+            console.log('下拉選單連結被點擊');
+            e.preventDefault();
+            e.stopPropagation();
+            const dropdown = this.closest('.menu-item.dropdown');
+            toggleDropdown(dropdown);
+        }
         
         function openMenu() {
             console.log('開啟選單');

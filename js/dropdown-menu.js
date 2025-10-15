@@ -150,11 +150,12 @@
         // 桌面版：使用 hover 效果（CSS 已處理，這裡只是備用）
         function initDesktopDropdown() {
             if (window.innerWidth > 992) {
-                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                // 只處理桌面版導航中的下拉選單，不處理手機版選單
+                document.querySelectorAll('.desktop-nav .dropdown, nav:not(#mainMenu):not(.main-menu) .dropdown').forEach(dropdown => {
                     // 桌面版主要依賴 CSS :hover，這裡添加額外的支援
                     dropdown.addEventListener('mouseenter', function() {
-                        // 關閉其他下拉選單
-                        document.querySelectorAll('.dropdown').forEach(d => {
+                        // 關閉其他下拉選單（僅桌面版）
+                        document.querySelectorAll('.desktop-nav .dropdown, nav:not(#mainMenu):not(.main-menu) .dropdown').forEach(d => {
                             if (d !== this) d.classList.remove('active');
                         });
                         this.classList.add('active');
@@ -167,8 +168,10 @@
             }
         }
         
-        // 手機版：使用點擊事件（僅在非手機選單抽屜中）
+        // 手機版：完全由 mobile-menu-simple.js 處理，這裡不再處理
         function initMobileDropdown() {
+            // 禁用此功能，避免與 mobile-menu-simple.js 衝突
+            return;
             if (window.innerWidth <= 992) {
                 // 只處理不在手機選單抽屜中的下拉選單
                 document.querySelectorAll('.dropdown > a').forEach(link => {
@@ -210,10 +213,16 @@
             });
         });
         
-        // 點擊外部關閉下拉選單
+        // 點擊外部關閉下拉選單（僅處理桌面版，不處理手機版選單）
         document.addEventListener('click', function(e) {
+            // 如果點擊的是手機版選單內的元素，不處理
+            if (e.target.closest('#mainMenu') || e.target.closest('.main-menu')) {
+                return;
+            }
+            
             if (!e.target.closest('.dropdown')) {
-                document.querySelectorAll('.dropdown').forEach(d => {
+                // 只關閉桌面版的下拉選單
+                document.querySelectorAll('.dropdown:not(#mainMenu .dropdown):not(.main-menu .dropdown)').forEach(d => {
                     d.classList.remove('active');
                 });
             }
