@@ -263,7 +263,7 @@ ul {
 
 /* 主要導航列 - 透明背景疊加在封面圖上 */
 .main-header {
-    background: transparent;
+    background: rgba(0, 0, 0, 0.9);
     color: var(--white);
     padding: 20px 0;
     position: absolute;
@@ -272,6 +272,7 @@ ul {
     right: 0;
     z-index: 1000;
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 /* 滑動時半透明效果 */
