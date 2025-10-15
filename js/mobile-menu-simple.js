@@ -64,12 +64,14 @@
             }
         });
         
+        // 獲取所有下拉選單元素
+        const dropdowns = menu.querySelectorAll('.menu-item.dropdown');
+        console.log('找到下拉選單數量:', dropdowns.length);
+        
         // 綁定下拉選單點擊事件（只執行一次）
         bindDropdownEvents();
         
         function bindDropdownEvents() {
-            const dropdowns = menu.querySelectorAll('.menu-item.dropdown');
-            console.log('找到下拉選單數量:', dropdowns.length);
             dropdowns.forEach(dropdown => {
                 const link = dropdown.querySelector('.menu-link');
                 if (link) {
