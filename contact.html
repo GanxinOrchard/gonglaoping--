@@ -8,7 +8,7 @@
     <title>聯絡我們 - 柑心果園 | 台中豐原公老坪優質水果直送</title>
     <meta name="description" content="柑心果園聯絡資訊，台中豐原公老坪優質水果直送，椪柑、茂谷柑、菱角、芋角等新鮮水果，歡迎來電或線上聯絡。">
     <meta name="keywords" content="柑心果園,聯絡我們,台中豐原,公老坪,優質水果,椪柑,茂谷柑,菱角,芋角,產地直送,新鮮水果,台灣水果">
-    <meta name="author" content="柑心果園 Ganxin Orchard">
+    <meta name="author" content="柑心果園">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ganxinorchard.github.io/gonglaoping--/contact.html">
     <link rel="icon" type="image/png" href="images/logo.png">
@@ -936,7 +936,7 @@
                 color: #ff8c42 !important;
             }
             
-            /* 手機選單頁尾樣式 */
+            /* 手機選單樣式 */
             .mobile-menu-footer {
                 padding: 20px !important;
                 background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
@@ -1391,23 +1391,13 @@
 
 <!-- 手機選單 - 現代化設計 -->
 
-                <div class="logo-sub">Ganxin Orchard</div>
             </div>
         </div>
         
     </div>
     
-    <!-- 選單導航 -->
-
-    <!-- 手機選單頁尾 -->
-    
-                <div class="mobile-contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>s9000721@gmail.com</span>
-                </div>
-                <div class="mobile-contact-item">
+    <div class="mobile-contact-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>台中市豐原區公老坪</span>
                 </div>
             </div>
         </div>
@@ -1428,28 +1418,18 @@
     </div>
 </div>
 
-<!-- 全新設計頁尾 -->
+<!-- 全新設計 -->
 
     <!-- 主要導覽列 - 開南風格 -->
 
     <!-- 手機選單 - 現代化設計 -->
 
-                    <div class="logo-sub">Ganxin Orchard</div>
                 </div>
             </div>
             
         </div>
         
-        <!-- 選單導航 -->
-
-        <!-- 選單底部 -->
-        <div class="menu-footer">
-            <div class="menu-contact">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>0933-721-978</span>
-                </div>
-                <div class="contact-item">
+        <div class="contact-item">
                     <i class="fas fa-envelope"></i>
                     <span>s9000721@gmail.com</span>
                 </div>
@@ -1764,15 +1744,6 @@
     </section>
     </main>
 
-    <!-- 回到頂部按鈕 -->
-
-    <!-- 載入相關 JavaScript -->
-        
-            <button class="close-cart" id="closeCart">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
                 <div class="shipping-row">
                     <span>運費：</span>
                     <span id="shippingFee">NT$ 150</span>
@@ -1848,87 +1819,6 @@
         </div>
     </div>
 
-    <!-- 頁尾 -->
-
-    <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115FF" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115FF" defer></script>
-    <script src="./js/cart.js?v=20250115FF" defer></script>
-    <script src="./js/content-protection.js?v=20250115FF" defer></script>
-    <script src="./js/main.js?v=20250115FF" defer></script>
-    <script>
-        // Google Apps Script 網址（部署後請更新此網址）
-        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxnAaMzz10UpbJ0WFJwhH_1b93GC1VA3JFw464vi122koHCoHjrSD_Ou4FHUjo266CB/exec';
-        
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            
-            // 禁用按鈕，防止重複提交
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送出中...';
-            
-            const name = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-            const phone = document.getElementById('contactPhone').value.trim();
-            const message = document.getElementById('contactMessage').value.trim();
-            
-            try {
-                const response = await fetch(GAS_WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        type: 'contact',
-                        name: name,
-                        email: email,
-                        phone: phone,
-                        message: message
-                    })
-                });
-                
-                // 由於 no-cors 模式無法讀取回應，我們假設成功
-                alert('✓ 感謝您的留言！\n\n我們已收到您的訊息，會盡快回覆您。\n\n您也可以直接透過 Facebook 粉絲專頁與我們聯繫。');
-                
-                // 清空表單
-                this.reset();
-            } catch (error) {
-                console.error('提交錯誤:', error);
-                alert('❌ 提交失敗，請稍後再試\n\n或直接透過以下方式聯繫我們：\n📞 電話：0933-721-978\n📧 Email：s9000721@gmail.com');
-            } finally {
-                // 恢復按鈕狀態
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            }
-        });
-    </script>
-    <script src="./js/orange-animation.js?v=20251004i"></script>
-    
-    <!-- 手機選單修復腳本 -->
-    <script src="./js/mobile-menu-simple.js?v=20250115FF"></script>
-    
-    <script>
-        // 購物車功能 - 跳轉到購物車頁面
-        function initCartSidebar() {
-            const cartIcon = document.getElementById('cartIcon');
-
-            // 點擊購物車圖標跳轉到購物車頁面
-            if (cartIcon) {
-                cartIcon.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.location.href = 'cart.html';
-                });
-            }
-        }
-
-        // 初始化購物車功能
-        document.addEventListener('DOMContentLoaded', initCartSidebar);
-    </script>
-    <!-- 頁尾 -->
-
-    <!-- 回到頂部按鈕 -->
     </body>
 </html>
 
