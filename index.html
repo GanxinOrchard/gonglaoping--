@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115H" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115H">
+    <link rel="preload" href="./css/style.css?v=20250115I" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115I">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -386,7 +386,8 @@
             left: 100% !important;
         }
         
-        .menu-item a {
+        .menu-item a,
+        .menu-link {
             position: relative !important;
             z-index: 2 !important;
             color: #333 !important;
@@ -400,13 +401,15 @@
             font-size: 15px !important;
         }
         
-        .menu-item:hover a {
+        .menu-item:hover a,
+        .menu-item:hover .menu-link {
             color: #ff6b35 !important;
             text-shadow: 0 0 8px rgba(255, 107, 53, 0.3) !important;
             transform: translateX(2px) !important;
         }
         
-        .menu-item a::before {
+        .menu-item a::before,
+        .menu-link::before {
             content: '' !important;
             position: absolute !important;
             left: 0 !important;
@@ -419,7 +422,8 @@
             transform: translateY(-50%) !important;
         }
         
-        .menu-item:hover a::before {
+        .menu-item:hover a::before,
+        .menu-item:hover .menu-link::before {
             height: 60% !important;
         }
         
@@ -454,13 +458,15 @@
             background: rgba(255, 107, 53, 0.1) !important;
         }
         
-        .submenu .menu-item a {
+        .submenu .menu-item a,
+        .submenu-link {
             color: #666 !important;
             padding: 10px 16px !important;
             font-size: 14px !important;
         }
         
-        .submenu .menu-item:hover a {
+        .submenu .menu-item:hover a,
+        .submenu .menu-item:hover .submenu-link {
             color: #ff6b35 !important;
         }
         
@@ -2151,15 +2157,15 @@
     </script>
 
     <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115H" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115H" defer></script>
-    <script src="./js/products.js?v=20250115H" defer></script>
-    <script src="./js/cart.js?v=20250115H" defer></script>
-    <script src="./js/content-protection.js?v=20250115H" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115H">
+    <script src="./js/mobile-menu-simple.js?v=20250115I" defer></script>
+    <script src="./js/dropdown-menu.js?v=20250115I" defer></script>
+    <script src="./js/products.js?v=20250115I" defer></script>
+    <script src="./js/cart.js?v=20250115I" defer></script>
+    <script src="./js/content-protection.js?v=20250115I" defer></script>
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115I">
 
-    <script src="./js/main.js?v=20250115H" defer></script>
-    <script src="./js/auto-sales.js?v=20250115H" defer></script>
+    <script src="./js/main.js?v=20250115I" defer></script>
+    <script src="./js/auto-sales.js?v=20250115I" defer></script>
     <script>
         // 購物車圖標點擊事件 - 直接跳轉到購物車頁面
         function initCartSidebar() {
