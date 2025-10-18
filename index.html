@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115I" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115I">
+    <link rel="preload" href="./css/style.css?v=20250115J" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115J">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -191,46 +191,108 @@
             transform: scale(1.1);
         }
         
-        /* 多元化動畫選單設計 */
+        /* 全新手機選單設計 - 未來科技風格 */
         .main-menu {
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(248, 249, 250, 0.9) 50%,
-                rgba(255, 255, 255, 0.95) 100%) !important;
-            backdrop-filter: blur(20px) !important;
+                rgba(0, 0, 0, 0.95) 0%, 
+                rgba(20, 20, 30, 0.98) 50%,
+                rgba(0, 0, 0, 0.95) 100%) !important;
+            backdrop-filter: blur(25px) !important;
             border: 2px solid transparent !important;
-            border-radius: 20px !important;
+            border-radius: 25px !important;
             background-clip: padding-box !important;
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(255, 107, 53, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-            animation: menuSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 107, 53, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 30px rgba(255, 107, 53, 0.2) !important;
+            animation: menuSlideInAdvanced 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
             z-index: 9999 !important;
             position: fixed !important;
-            top: 20px !important;
-            right: 20px !important;
-            width: 320px !important;
-            max-height: 85vh !important;
+            top: 15px !important;
+            right: 15px !important;
+            width: 350px !important;
+            max-height: 90vh !important;
             overflow: hidden !important;
             transform-origin: top right !important;
+            position: relative !important;
         }
         
-        @keyframes menuSlideIn {
+        .main-menu::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 107, 53, 0.1) 50%, 
+                transparent 70%) !important;
+            animation: shimmerBackground 3s ease-in-out infinite !important;
+            pointer-events: none !important;
+        }
+        
+        .main-menu::after {
+            content: '' !important;
+            position: absolute !important;
+            top: -2px !important;
+            left: -2px !important;
+            right: -2px !important;
+            bottom: -2px !important;
+            background: linear-gradient(45deg, 
+                #ff6b35, #f7931e, #ff8c42, #ff6b35) !important;
+            border-radius: 25px !important;
+            z-index: -1 !important;
+            animation: borderGlow 2s linear infinite !important;
+        }
+        
+        @keyframes menuSlideInAdvanced {
             0% {
-                transform: translateX(100%) scale(0.8) rotateY(15deg) !important;
+                transform: translateX(120%) scale(0.7) rotateY(25deg) rotateX(15deg) !important;
                 opacity: 0 !important;
-                filter: blur(10px) !important;
+                filter: blur(15px) brightness(0.5) !important;
             }
-            50% {
-                transform: translateX(-10px) scale(1.05) rotateY(-5deg) !important;
-                opacity: 0.8 !important;
-                filter: blur(2px) !important;
+            30% {
+                transform: translateX(-15px) scale(1.1) rotateY(-8deg) rotateX(-5deg) !important;
+                opacity: 0.7 !important;
+                filter: blur(5px) brightness(0.8) !important;
+            }
+            60% {
+                transform: translateX(5px) scale(0.95) rotateY(2deg) rotateX(1deg) !important;
+                opacity: 0.9 !important;
+                filter: blur(1px) brightness(1.1) !important;
             }
             100% {
-                transform: translateX(0) scale(1) rotateY(0deg) !important;
+                transform: translateX(0) scale(1) rotateY(0deg) rotateX(0deg) !important;
                 opacity: 1 !important;
-                filter: blur(0px) !important;
+                filter: blur(0px) brightness(1) !important;
+            }
+        }
+        
+        @keyframes shimmerBackground {
+            0% {
+                transform: translateX(-100%) translateY(-100%) !important;
+                opacity: 0 !important;
+            }
+            50% {
+                opacity: 1 !important;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) !important;
+                opacity: 0 !important;
+            }
+        }
+        
+        @keyframes borderGlow {
+            0% {
+                background-position: 0% 50% !important;
+            }
+            50% {
+                background-position: 100% 50% !important;
+            }
+            100% {
+                background-position: 0% 50% !important;
             }
         }
         
@@ -248,17 +310,49 @@
         .menu-header {
             background: linear-gradient(135deg, 
                 #ff6b35 0%, 
-                #f7931e 50%,
-                #ff8c42 100%) !important;
+                #f7931e 25%,
+                #ff8c42 50%,
+                #ff6b35 75%,
+                #f7931e 100%) !important;
+            background-size: 200% 200% !important;
             border-bottom: none !important;
             position: relative !important;
             overflow: hidden !important;
-            padding: 18px 20px !important;
-            border-radius: 18px 18px 0 0 !important;
+            padding: 20px 25px !important;
+            border-radius: 23px 23px 0 0 !important;
             box-shadow: 
-                0 4px 15px rgba(255, 107, 53, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-            animation: headerGlow 2s ease-in-out infinite alternate !important;
+                0 6px 20px rgba(255, 107, 53, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(255, 107, 53, 0.3) !important;
+            animation: headerGlowAdvanced 3s ease-in-out infinite alternate, 
+                       headerGradientShift 4s linear infinite !important;
+        }
+        
+        .menu-header::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%) !important;
+            animation: headerShimmer 2.5s ease-in-out infinite !important;
+        }
+        
+        .menu-header::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: radial-gradient(circle at 30% 20%, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                transparent 50%) !important;
+            animation: headerPulse 2s ease-in-out infinite !important;
         }
         
         .menu-header::before {
@@ -288,16 +382,55 @@
             animation: pulse 2s ease-in-out infinite !important;
         }
         
-        @keyframes headerGlow {
+        @keyframes headerGlowAdvanced {
             0% {
                 box-shadow: 
-                    0 4px 15px rgba(255, 107, 53, 0.3),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+                    0 6px 20px rgba(255, 107, 53, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                    0 0 20px rgba(255, 107, 53, 0.3) !important;
             }
             100% {
                 box-shadow: 
-                    0 6px 25px rgba(255, 107, 53, 0.5),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+                    0 8px 30px rgba(255, 107, 53, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                    0 0 30px rgba(255, 107, 53, 0.5) !important;
+            }
+        }
+        
+        @keyframes headerGradientShift {
+            0% {
+                background-position: 0% 50% !important;
+            }
+            50% {
+                background-position: 100% 50% !important;
+            }
+            100% {
+                background-position: 0% 50% !important;
+            }
+        }
+        
+        @keyframes headerShimmer {
+            0% {
+                left: -100% !important;
+                opacity: 0 !important;
+            }
+            50% {
+                opacity: 1 !important;
+            }
+            100% {
+                left: 100% !important;
+                opacity: 0 !important;
+            }
+        }
+        
+        @keyframes headerPulse {
+            0%, 100% {
+                opacity: 0.3 !important;
+                transform: scale(1) !important;
+            }
+            50% {
+                opacity: 0.6 !important;
+                transform: scale(1.05) !important;
             }
         }
         
@@ -324,14 +457,21 @@
             }
         }
         
-        @keyframes itemFadeIn {
+        @keyframes itemFadeInAdvanced {
             0% {
                 opacity: 0 !important;
-                transform: translateY(20px) !important;
+                transform: translateY(30px) rotateX(15deg) scale(0.8) !important;
+                filter: blur(5px) !important;
+            }
+            50% {
+                opacity: 0.7 !important;
+                transform: translateY(-5px) rotateX(-5deg) scale(1.05) !important;
+                filter: blur(1px) !important;
             }
             100% {
                 opacity: 1 !important;
-                transform: translateY(0) !important;
+                transform: translateY(0) rotateX(0deg) scale(1) !important;
+                filter: blur(0px) !important;
             }
         }
         
@@ -341,16 +481,19 @@
         }
         
         .menu-item {
-            background: transparent !important;
-            margin: 6px 0 !important;
-            border-radius: 12px !important;
-            border: none !important;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(255, 255, 255, 0.02) 100%) !important;
+            margin: 8px 0 !important;
+            border-radius: 15px !important;
+            border: 1px solid rgba(255, 107, 53, 0.2) !important;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
             position: relative !important;
             overflow: hidden !important;
-            animation: itemFadeIn 0.6s ease-out forwards !important;
+            animation: itemFadeInAdvanced 0.8s ease-out forwards !important;
             opacity: 0 !important;
-            transform: translateY(20px) !important;
+            transform: translateY(30px) rotateX(15deg) !important;
+            backdrop-filter: blur(10px) !important;
         }
         
         .menu-item:nth-child(1) { animation-delay: 0.1s !important; }
@@ -362,10 +505,15 @@
         
         .menu-item:hover {
             background: linear-gradient(135deg, 
-                rgba(255, 107, 53, 0.1) 0%, 
-                rgba(255, 107, 53, 0.05) 100%) !important;
-            transform: translateX(8px) scale(1.02) !important;
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15) !important;
+                rgba(255, 107, 53, 0.15) 0%, 
+                rgba(255, 107, 53, 0.08) 50%,
+                rgba(255, 107, 53, 0.15) 100%) !important;
+            transform: translateX(12px) scale(1.03) rotateY(5deg) !important;
+            box-shadow: 
+                0 12px 30px rgba(255, 107, 53, 0.25),
+                0 0 20px rgba(255, 107, 53, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 107, 53, 0.4) !important;
         }
         
         .menu-item::before {
@@ -377,35 +525,56 @@
             height: 100% !important;
             background: linear-gradient(90deg, 
                 transparent 0%, 
-                rgba(255, 107, 53, 0.1) 50%, 
+                rgba(255, 107, 53, 0.2) 50%, 
                 transparent 100%) !important;
-            transition: left 0.6s ease !important;
+            transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
         
         .menu-item:hover::before {
             left: 100% !important;
         }
         
+        .menu-item::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(255, 107, 53, 0.1) 0%, 
+                transparent 70%) !important;
+            opacity: 0 !important;
+            transition: opacity 0.3s ease !important;
+        }
+        
+        .menu-item:hover::after {
+            opacity: 1 !important;
+        }
+        
         .menu-item a,
         .menu-link {
             position: relative !important;
-            z-index: 2 !important;
-            color: #333 !important;
-            font-weight: 500 !important;
+            z-index: 3 !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
             text-decoration: none !important;
             display: flex !important;
             align-items: center !important;
-            padding: 14px 18px !important;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            border-radius: 10px !important;
-            font-size: 15px !important;
+            padding: 16px 20px !important;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border-radius: 12px !important;
+            font-size: 16px !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
         }
         
         .menu-item:hover a,
         .menu-item:hover .menu-link {
             color: #ff6b35 !important;
-            text-shadow: 0 0 8px rgba(255, 107, 53, 0.3) !important;
-            transform: translateX(2px) !important;
+            text-shadow: 
+                0 0 10px rgba(255, 107, 53, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.3) !important;
+            transform: translateX(3px) scale(1.02) !important;
         }
         
         .menu-item a::before,
@@ -414,37 +583,91 @@
             position: absolute !important;
             left: 0 !important;
             top: 50% !important;
-            width: 3px !important;
+            width: 4px !important;
             height: 0 !important;
-            background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
+            background: linear-gradient(135deg, #ff6b35, #f7931e, #ff8c42) !important;
             border-radius: 2px !important;
-            transition: all 0.3s ease !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
             transform: translateY(-50%) !important;
+            box-shadow: 0 0 8px rgba(255, 107, 53, 0.4) !important;
         }
         
         .menu-item:hover a::before,
         .menu-item:hover .menu-link::before {
-            height: 60% !important;
+            height: 70% !important;
+            box-shadow: 0 0 12px rgba(255, 107, 53, 0.6) !important;
+        }
+        
+        .menu-item a::after,
+        .menu-link::after {
+            content: '' !important;
+            position: absolute !important;
+            right: 15px !important;
+            top: 50% !important;
+            width: 0 !important;
+            height: 0 !important;
+            border-left: 6px solid transparent !important;
+            border-right: 6px solid transparent !important;
+            border-top: 6px solid rgba(255, 107, 53, 0.6) !important;
+            transition: all 0.3s ease !important;
+            transform: translateY(-50%) rotate(0deg) !important;
+        }
+        
+        .menu-item:hover a::after,
+        .menu-item:hover .menu-link::after {
+            transform: translateY(-50%) rotate(90deg) !important;
+            border-top-color: #ff6b35 !important;
         }
         
         .submenu {
-            background: rgba(248, 249, 250, 0.95) !important;
-            border-radius: 8px !important;
-            border: 1px solid rgba(255, 107, 53, 0.15) !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-            backdrop-filter: blur(10px) !important;
-            animation: fadeInUp 0.3s ease-out !important;
-            margin-top: 8px !important;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.9) 0%, 
+                rgba(20, 20, 30, 0.95) 100%) !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(255, 107, 53, 0.3) !important;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(255, 107, 53, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(15px) !important;
+            animation: submenuSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            margin-top: 10px !important;
+            position: relative !important;
+            overflow: hidden !important;
         }
         
-        @keyframes fadeInUp {
+        .submenu::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 2px !important;
+            background: linear-gradient(90deg, 
+                #ff6b35, #f7931e, #ff8c42, #ff6b35) !important;
+            background-size: 200% 100% !important;
+            animation: submenuTopGlow 2s linear infinite !important;
+        }
+        
+        @keyframes submenuSlideIn {
             0% {
                 opacity: 0 !important;
-                transform: translateY(20px) !important;
+                transform: translateY(15px) scale(0.95) !important;
+                filter: blur(3px) !important;
             }
             100% {
                 opacity: 1 !important;
-                transform: translateY(0) !important;
+                transform: translateY(0) scale(1) !important;
+                filter: blur(0px) !important;
+            }
+        }
+        
+        @keyframes submenuTopGlow {
+            0% {
+                background-position: 0% 50% !important;
+            }
+            100% {
+                background-position: 200% 50% !important;
             }
         }
         
@@ -460,35 +683,64 @@
         
         .submenu .menu-item a,
         .submenu-link {
-            color: #666 !important;
-            padding: 10px 16px !important;
+            color: #cccccc !important;
+            padding: 12px 20px !important;
             font-size: 14px !important;
+            font-weight: 500 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+            position: relative !important;
         }
         
         .submenu .menu-item:hover a,
         .submenu .menu-item:hover .submenu-link {
             color: #ff6b35 !important;
+            text-shadow: 
+                0 0 8px rgba(255, 107, 53, 0.4),
+                0 1px 2px rgba(0, 0, 0, 0.5) !important;
+            transform: translateX(5px) !important;
         }
         
-        /* 選單關閉按鈕 */
+        .submenu .menu-item a::before,
+        .submenu-link::before {
+            content: '▶' !important;
+            position: absolute !important;
+            left: 8px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            color: rgba(255, 107, 53, 0.6) !important;
+            font-size: 10px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .submenu .menu-item:hover a::before,
+        .submenu .menu-item:hover .submenu-link::before {
+            color: #ff6b35 !important;
+            transform: translateY(-50%) translateX(3px) !important;
+        }
+        
+        /* 選單關閉按鈕 - 未來科技風格 */
         .menu-close {
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.2) 0%, 
-                rgba(255, 255, 255, 0.1) 100%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            border-radius: 10px !important;
-            width: 40px !important;
-            height: 40px !important;
+                rgba(255, 107, 53, 0.8) 0%, 
+                rgba(255, 107, 53, 0.6) 50%,
+                rgba(255, 107, 53, 0.8) 100%) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 15px !important;
+            width: 45px !important;
+            height: 45px !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             color: white !important;
-            font-size: 18px !important;
+            font-size: 20px !important;
             cursor: pointer !important;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
             position: relative !important;
             overflow: hidden !important;
-            animation: closeButtonFloat 3s ease-in-out infinite !important;
+            animation: closeButtonFloatAdvanced 4s ease-in-out infinite !important;
+            box-shadow: 
+                0 4px 15px rgba(255, 107, 53, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
         }
         
         .menu-close::before {
@@ -498,18 +750,38 @@
             left: 50% !important;
             width: 0 !important;
             height: 0 !important;
-            background: rgba(255, 255, 255, 0.2) !important;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                transparent 70%) !important;
             border-radius: 50% !important;
-            transition: all 0.3s ease !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
             transform: translate(-50%, -50%) !important;
+        }
+        
+        .menu-close::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 70%) !important;
+            animation: closeButtonShimmer 2s ease-in-out infinite !important;
         }
         
         .menu-close:hover {
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.3) 0%, 
-                rgba(255, 255, 255, 0.2) 100%) !important;
-            transform: scale(1.1) rotate(90deg) !important;
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2) !important;
+                rgba(255, 107, 53, 1) 0%, 
+                rgba(255, 107, 53, 0.8) 50%,
+                rgba(255, 107, 53, 1) 100%) !important;
+            transform: scale(1.15) rotate(180deg) !important;
+            box-shadow: 
+                0 8px 25px rgba(255, 107, 53, 0.5),
+                0 0 20px rgba(255, 107, 53, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
         }
         
         .menu-close:hover::before {
@@ -517,12 +789,32 @@
             height: 100% !important;
         }
         
-        @keyframes closeButtonFloat {
+        @keyframes closeButtonFloatAdvanced {
             0%, 100% {
-                transform: translateY(0) !important;
+                transform: translateY(0) rotate(0deg) !important;
+            }
+            25% {
+                transform: translateY(-3px) rotate(2deg) !important;
             }
             50% {
-                transform: translateY(-2px) !important;
+                transform: translateY(-1px) rotate(0deg) !important;
+            }
+            75% {
+                transform: translateY(-4px) rotate(-2deg) !important;
+            }
+        }
+        
+        @keyframes closeButtonShimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) !important;
+                opacity: 0 !important;
+            }
+            50% {
+                opacity: 1 !important;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) !important;
+                opacity: 0 !important;
             }
         }
         
@@ -2157,15 +2449,15 @@
     </script>
 
     <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115I" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115I" defer></script>
-    <script src="./js/products.js?v=20250115I" defer></script>
-    <script src="./js/cart.js?v=20250115I" defer></script>
-    <script src="./js/content-protection.js?v=20250115I" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115I">
+    <script src="./js/mobile-menu-simple.js?v=20250115J" defer></script>
+    <script src="./js/dropdown-menu.js?v=20250115J" defer></script>
+    <script src="./js/products.js?v=20250115J" defer></script>
+    <script src="./js/cart.js?v=20250115J" defer></script>
+    <script src="./js/content-protection.js?v=20250115J" defer></script>
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115J">
 
-    <script src="./js/main.js?v=20250115I" defer></script>
-    <script src="./js/auto-sales.js?v=20250115I" defer></script>
+    <script src="./js/main.js?v=20250115J" defer></script>
+    <script src="./js/auto-sales.js?v=20250115J" defer></script>
     <script>
         // 購物車圖標點擊事件 - 直接跳轉到購物車頁面
         function initCartSidebar() {
