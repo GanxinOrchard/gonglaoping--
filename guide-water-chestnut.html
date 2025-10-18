@@ -521,8 +521,7 @@
                     background: rgba(255, 255, 255, 0.3) !important;
                     transform: scale(1.05) !important;
                 }
-        
-        
+
         @keyframes slideInFromRight {
             0% {
                 transform: translateX(100%) !important;
@@ -544,8 +543,7 @@
                 transform: translateY(0) !important;
             }
         }
-        
-        
+
         /* 手機版選單響應式設計 */
         @media (max-width: 768px) {
             .main-menu {
@@ -1137,8 +1135,7 @@
             .mobile-social-section {
                 margin-bottom: 20px !important;
             }
-            
-            
+
             .mobile-contact-info {
                 display: flex !important;
                 flex-direction: column !important;
@@ -1173,8 +1170,7 @@
                 font-size: 14px !important;
                 font-weight: 500 !important;
             }
-            
-            
+
             .mobile-social-buttons {
                 display: flex !important;
                 gap: 10px !important;
@@ -1219,8 +1215,7 @@
             .mobile-social-btn i {
                 font-size: 14px !important;
             }
-            
-            
+
             /* 3. 移除所有背景卡片的圓角 */
             .advantage-card,
             .modern-product-card,
@@ -1294,8 +1289,7 @@
                 line-height: 1.5 !important;
                 color: #666 !important;
             }
-            
-            
+
             /* 為現有的商品標籤添加背景顏色 */
             .product-badge,
             .card-badge,
@@ -1581,218 +1575,19 @@
 </head>
 <body>
 <!-- 主要導覽列 - 開南風格 -->
-<header class="main-header">
-    <div class="container">
-        <!-- 桌面版導覽列 -->
-        <div class="header-content desktop-header">
-            <div class="logo-section">
-                <a href="index.html" class="logo">
-                    <img src="images/柑心商標.png" alt="柑心果園" class="logo-image">
-                    <div class="logo-text-container">
-                        <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
-                    </div>
-                </a>
-            </div>
-    
-            <!-- 桌面版頂部功能列 -->
-            <div class="header-actions">
-                <a href="cart.html" class="header-action cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>購物車</span>
-                    <span class="cart-count" id="topCartCount">0</span>
-                </a>
-                <div class="language-switcher">
-                    <span>繁體中文</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 桌面版導覽選單 -->
-        <nav class="desktop-nav">
-            <ul class="nav-menu">
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="nav-link">最新消息 <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="news.html?category=announcement">最新公告</a></li>
-                        <li><a href="news.html?category=new">新品上市</a></li>
-                        <li><a href="news.html?category=promotion">期間優惠</a></li>
-                        <li><a href="news.html?category=diary">果園日誌</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="nav-link">季節推薦 <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="season-recommend.html">季節推薦</a></li>
-                        <li><a href="season-ponkan.html">椪柑季節</a></li>
-                        <li><a href="season-murcott.html">茂谷柑季節</a></li>
-                        <li><a href="season-water-chestnut.html">菱角季節</a></li>
-                        <li><a href="season-taro.html">芋頭季節</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="nav-link">所有商品 <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                        <li><a href="products.html?category=季節限定">季節限定</a></li>
-                        <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a href="guide.html">選購指南</a></li>
-                        <li><a href="guide-ponkan.html">椪柑選購</a></li>
-                        <li><a href="guide-murcott.html">茂谷柑選購</a></li>
-                        <li><a href="guide-water-chestnut.html">菱角選購</a></li>
-                        <li><a href="guide-taro.html">芋頭選購</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="nav-link">關於我們 <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="about.html">關於柑心果園</a></li>
-                        <li><a href="farming.html">農場介紹</a></li>
-                        <li><a href="knowledge.html">知識分享</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a href="grading.html">分級標準</a></li>
-                        <li><a href="grading-ponkan.html">椪柑分級</a></li>
-                        <li><a href="grading-murcott.html">茂谷柑分級</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a href="contact.html">聯絡我們</a></li>
-                    </ul>
-                </li>
-                <li><a href="order-tracking.html" class="nav-link">訂單查詢</a></li>
-            </ul>
-        </nav>
-        
-        <!-- 手機版導覽列 -->
-        <div class="mobile-header">
-            <div class="mobile-top-row">
-                <a href="cart.html" class="mobile-action cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>購物車</span>
-                    <span class="cart-count" id="mobileCartCount">0</span>
-                </a>
-            </div>
-            
-            <div class="mobile-bottom-row">
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a href="index.html" class="mobile-logo">
-                    <img src="images/柑心商標.png" alt="柑心果園">
-                    <span>柑心果園</span>
-                </a>
-                <div class="mobile-actions">
-                    <a href="tel:+886-933-721-978" class="mobile-action">
-                        <i class="fas fa-phone"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 
 <!-- 手機選單 - 現代化設計 -->
-<div class="menu-overlay" id="menuOverlay"></div>
-<div class="main-menu" id="mainMenu">
-    <!-- 選單頭部 -->
-    <div class="menu-header">
-        <div class="menu-logo">
-            <img src="images/柑心商標.png" alt="柑心果園" class="menu-logo-img">
-            <div class="menu-logo-text">
-                <div class="logo-main">柑心果園</div>
+
                 <div class="logo-sub">Ganxin Orchard</div>
             </div>
         </div>
-        <button class="menu-close" id="menuClose">
-            <i class="fas fa-times"></i>
-        </button>
+        
     </div>
     
     <!-- 選單導航 -->
-    <nav class="menu-nav">
-        <ul class="menu-list">
-            <li class="menu-item dropdown">
-                <a href="javascript:void(0)" class="menu-link">
-                    <i class="fas fa-newspaper menu-icon"></i>
-                    <span class="menu-text">最新消息</span>
-                    <i class="fas fa-chevron-down menu-arrow"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="news.html?category=announcement" class="submenu-link">最新公告</a></li>
-                    <li><a href="news.html?category=new" class="submenu-link">新品上市</a></li>
-                    <li><a href="news.html?category=promotion" class="submenu-link">期間優惠</a></li>
-                    <li><a href="news.html?category=diary" class="submenu-link">果園日誌</a></li>
-                </ul>
-            </li>
-            
-            <li class="menu-item dropdown">
-                <a href="javascript:void(0)" class="menu-link">
-                    <i class="fas fa-calendar-alt menu-icon"></i>
-                    <span class="menu-text">季節推薦</span>
-                    <i class="fas fa-chevron-down menu-arrow"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="season-recommend.html" class="submenu-link">季節推薦</a></li>
-                    <li><a href="season-ponkan.html" class="submenu-link">椪柑季節</a></li>
-                    <li><a href="season-murcott.html" class="submenu-link">茂谷柑季節</a></li>
-                    <li><a href="season-water-chestnut.html" class="submenu-link">菱角季節</a></li>
-                    <li><a href="season-taro.html" class="submenu-link">芋頭季節</a></li>
-                </ul>
-            </li>
-            
-            <li class="menu-item dropdown">
-                <a href="javascript:void(0)" class="menu-link">
-                    <i class="fas fa-shopping-bag menu-icon"></i>
-                    <span class="menu-text">所有商品</span>
-                    <i class="fas fa-chevron-down menu-arrow"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="products.html?category=新鮮水果" class="submenu-link">新鮮水果</a></li>
-                    <li><a href="products.html?category=季節限定" class="submenu-link">季節限定</a></li>
-                    <li><a href="products.html?category=禮盒裝" class="submenu-link">禮盒裝</a></li>
-                    <li class="submenu-divider"></li>
-                    <li><a href="guide.html" class="submenu-link">選購指南</a></li>
-                    <li><a href="guide-ponkan.html" class="submenu-link">椪柑選購</a></li>
-                    <li><a href="guide-murcott.html" class="submenu-link">茂谷柑選購</a></li>
-                    <li><a href="guide-water-chestnut.html" class="submenu-link">菱角選購</a></li>
-                    <li><a href="guide-taro.html" class="submenu-link">芋頭選購</a></li>
-                </ul>
-            </li>
-            
-            <li class="menu-item dropdown">
-                <a href="javascript:void(0)" class="menu-link">
-                    <i class="fas fa-info-circle menu-icon"></i>
-                    <span class="menu-text">關於我們</span>
-                    <i class="fas fa-chevron-down menu-arrow"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="about.html" class="submenu-link">關於柑心果園</a></li>
-                    <li><a href="farming.html" class="submenu-link">農場介紹</a></li>
-                    <li><a href="knowledge.html" class="submenu-link">知識分享</a></li>
-                    <li class="submenu-divider"></li>
-                    <li><a href="grading.html" class="submenu-link">分級標準</a></li>
-                    <li><a href="grading-ponkan.html" class="submenu-link">椪柑分級</a></li>
-                    <li><a href="grading-murcott.html" class="submenu-link">茂谷柑分級</a></li>
-                    <li class="submenu-divider"></li>
-                    <li><a href="contact.html" class="submenu-link">聯絡我們</a></li>
-                </ul>
-            </li>
-            
-            <li class="menu-item">
-                <a href="order-tracking.html" class="menu-link">
-                    <i class="fas fa-search menu-icon"></i>
-                    <span class="menu-text">訂單查詢</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    
+
     <!-- 手機選單頁尾 -->
-    <div class="mobile-menu-footer">
-        <div class="mobile-contact-section">
-            <div class="mobile-contact-info">
-                <div class="mobile-contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>0933-721-978</span>
-                </div>
+    
                 <div class="mobile-contact-item">
                     <i class="fas fa-envelope"></i>
                     <span>s9000721@gmail.com</span>
@@ -1821,253 +1616,10 @@
 </div>
 
 <!-- 全新設計頁尾 -->
-<footer class="footer footer-modern">
-    <div class="container">
-        <!-- 頁尾波浪裝飾 -->
-        <div class="footer-wave">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="currentColor"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
-            </svg>
-        </div>
-        
-        <!-- 主要內容區域 -->
-        <div class="footer-main">
-            <!-- 左側品牌區域 -->
-            <div class="footer-left">
-                <div class="brand-showcase">
-                    <div class="brand-logo-modern">
-                        <img src="images/柑心商標.png" alt="柑心果園" class="logo-img">
-                        <div class="brand-text-modern">
-                            <h2>柑心果園</h2>
-                            <p class="brand-subtitle">GANXIN ORCHARD</p>
-                        </div>
-                    </div>
-                    <p class="brand-description-modern">
-                        台中豐原公老坪優質水果供應商，傳承百年果園經驗，提供新鮮的椪柑、茂谷柑等優質水果，產地直送到府，讓您品嚐最純正的台灣水果風味。
-                    </p>
-                    <div class="brand-tags">
-                        <span class="tag">友善栽培</span>
-                        <span class="tag">產地直送</span>
-                        <span class="tag">品質保證</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 右側連結區域 -->
-            <div class="footer-right">
-                <div class="links-grid">
-                    <div class="link-group">
-                        <h4 class="group-title">
-                            <i class="fas fa-handshake"></i>
-                            服務專區
-                        </h4>
-                        <ul class="link-list">
-                            <li><a href="about.html">關於我們</a></li>
-                            <li><a href="news.html">最新動態</a></li>
-                            <li><a href="products.html">精選商品</a></li>
-                            <li><a href="farming.html">農場介紹</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4 class="group-title">
-                            <i class="fas fa-users"></i>
-                            會員專區
-                        </h4>
-                        <ul class="link-list">
-                            <li><a href="order-tracking.html">訂單查詢</a></li>
-                            <li><a href="contact.html">門市資訊</a></li>
-                            <li><a href="policies.html?type=faq">常見問題</a></li>
-                            <li><a href="policies.html?type=terms">會員條款</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4 class="group-title">
-                            <i class="fas fa-shopping-bag"></i>
-                            商品分類
-                        </h4>
-                        <ul class="link-list">
-                            <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                            <li><a href="products.html?category=季節限定">季節限定</a></li>
-                            <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                            <li><a href="season-recommend.html">季節推薦</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4 class="group-title">
-                            <i class="fas fa-phone"></i>
-                            聯繫我們
-                        </h4>
-                        <div class="contact-modern">
-                            <div class="contact-item-modern">
-                                <i class="fas fa-phone"></i>
-                                <div>
-                                    <span class="contact-label">客服專線</span>
-                                    <span class="contact-value">0933-721-978</span>
-                                </div>
-                            </div>
-                            <div class="contact-item-modern">
-                                <i class="fas fa-envelope"></i>
-                                <div>
-                                    <span class="contact-label">電子信箱</span>
-                                    <span class="contact-value">s9000721@gmail.com</span>
-                                </div>
-                            </div>
-                            <div class="contact-item-modern">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <div>
-                                    <span class="contact-label">營業地址</span>
-                                    <span class="contact-value">台中市豐原區公老坪</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 社群媒體區域 -->
-        <div class="footer-social-modern">
-            <div class="social-content">
-                <h4>關注我們</h4>
-                <p>追蹤我們的社群媒體，獲取最新優惠資訊</p>
-                <div class="social-buttons">
-                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Facebook</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-btn line">
-                        <i class="fab fa-line"></i>
-                        <span>LINE</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-btn instagram">
-                        <i class="fab fa-instagram"></i>
-                        <span>Instagram</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 品牌標語區域 -->
-        <div class="footer-slogan">
-            <div class="slogan-item">
-                <div class="slogan-icon">柑心</div>
-                <span>柑心果園 GANXIN ORCHARD</span>
-            </div>
-            <div class="slogan-item">
-                <div class="slogan-icon">優質</div>
-                <span>優質水果 QUALITY FRUITS</span>
-            </div>
-            <div class="slogan-item">
-                <div class="slogan-icon">直送</div>
-                <span>產地直送 FRESH DELIVERY</span>
-            </div>
-        </div>
-        
-        <!-- 版權資訊 -->
-        <div class="footer-copyright">
-            <p>&copy; 2025 柑心果園有限公司 | 版權所有 All Rights Reserved.</p>
-            <p>台中豐原公老坪優質水果供應商 | 東勢茂谷柑產地直送</p>
-        </div>
-    </div>
-</footer>
-
 
     <!-- Header -->
-    <header class="header">
-        <div class="navbar">
-            <div class="container">
-                <div class="nav-content">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="./images/商標.jpg" alt="柑心果園" width="180" height="60" loading="lazy">
-                        </a>
-                    </div>
-                    
-                    <div class="nav-icons">
-                        <a href="cart.html" class="cart-icon" id="cartIcon">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count" id="cartCount">0</span>
-                        </a>
-                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                            <span class="menu-line"></span>
-                            <span class="menu-line"></span>
-                            <span class="menu-line"></span>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="main-menu" id="mainMenu">
-                    <ul>
-                        <li><a href="index.html">首頁</a></li>
-                        <li><a href="news.html">最新消息</a></li>
-                        <li><a href="knowledge.html">蔬果知識</a></li>
-                        <li class="dropdown">
-                            <a href="season-recommend.html">本季嚴選 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="season-recommend.html">當季推薦</a></li>
-                                <li><a href="season-ponkan.html">椪柑產季</a></li>
-                                <li><a href="season-murcott.html">茂谷柑產季</a></li>
-                                <li><a href="season-water-chestnut.html">菱角產季</a></li>
-                                <li><a href="season-taro.html">芋角產季</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="products.html">全部商品 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="products.html?category=優質水果">優質水果</a></li>
-                                <li><a href="products.html?category=新鮮蔬果">新鮮蔬果</a></li>
-                                <li><a href="products.html?category=冷凍食品">冷凍食品</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="farming.html">安心指南 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="farming.html">友善栽培</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="guide.html" class="active">挑選指南 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="guide-ponkan.html">椪柑挑選</a></li>
-                                <li><a href="guide-murcott.html">茂谷柑挑選</a></li>
-                                <li><a href="guide-water-chestnut.html">菱角挑選</a></li>
-                                <li><a href="guide-taro.html">芋角挑選</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="grading.html">規格分級 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="grading-ponkan.html">椪柑規格</a></li>
-                                <li><a href="grading-murcott.html">茂谷柑規格</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="about.html">關於我們 <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="about.html">關於柑心果園</a></li>
-                                <li><a href="contact.html">聯絡我們</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="order-tracking.html">訂單查詢</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <!-- 麵包屑導航 -->
-    <nav class="breadcrumb">
-        <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
-        <span class="breadcrumb-separator">/</span>
-        <a href="guide.html">挑選指南</a>
-        <span class="breadcrumb-separator">/</span>
-        <span>菱角挑選</span>
-    </nav>
 
     <!-- Page Header -->
     <div class="page-header">
@@ -2213,51 +1765,6 @@
 
     <!-- Footer -->
     <!-- 頁尾 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>關於柑心果園</h4>
-                    <p>我們致力於提供最新鮮、最優質的台灣在地農產品，從產地直送到您家，讓您吃得安心、健康。</p>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-line"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>客戶服務</h4>
-                    <ul>
-                        <li><a href="policies.html?type=faq">常見問題</a></li>
-                        <li><a href="policies.html?type=shipping">配送說明</a></li>
-                        <li><a href="policies.html?type=return">退換貨政策</a></li>
-                        <li><a href="policies.html?type=privacy">隱私權政策</a></li>
-                        <li><a href="policies.html?type=terms">服務條款</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>購物指南</h4>
-                    <ul>
-                        <li><a href="policies.html?type=how-to-order">如何訂購</a></li>
-                        <li><a href="policies.html?type=payment">付款方式</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>聯絡我們</h4>
-                    <ul class="contact-list">
-                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
-                        <li><i class="fas fa-envelope"></i> s9000721@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 台灣台中市豐原區公老坪/東勢/柑心果園</li>
-                        <li><i class="fas fa-clock"></i> 週一至週五 12:00-18:00</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有，翻印必究。</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="./js/cart.js"></script>    <script src="./js/content-protection.js?v=20250115FF" defer></script>
     <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115FF?v=20250110">
@@ -2268,58 +1775,9 @@
     <!-- 手機選單修復腳本 -->
     <script src="./js/mobile-menu-simple.js?v=20250115FF?v=20250104"></script>
     <!-- 頁尾 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>關於柑心果園</h4>
-                    <p>柑心果園專營公老坪椪柑、東勢茂谷柑等優質水果，產地直送新鮮美味。我們堅持自然有機種植，讓您品嚐到最純正的台灣水果風味。</p>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-line"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>客戶服務</h4>
-                    <ul>
-                        <li><a href="policies.html?type=faq">常見問題</a></li>
-                        <li><a href="policies.html?type=shipping">配送說明</a></li>
-                        <li><a href="policies.html?type=return">退換貨政策</a></li>
-                        <li><a href="policies.html?type=privacy">隱私權政策</a></li>
-                        <li><a href="policies.html?type=terms">使用條款</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>購物指南</h4>
-                    <ul>
-                        <li><a href="policies.html?type=how-to-order">如何訂購</a></li>
-                        <li><a href="policies.html?type=payment">付款方式</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>聯絡我們</h4>
-                    <ul class="contact-list">
-                        <li><i class="fas fa-phone"></i> 0933-721-978</li>
-                        <li><i class="fas fa-envelope"></i> s9000721@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 台中豐原公老坪/東勢/柑心果園</li>
-                        <li><i class="fas fa-clock"></i> 週一至週日 12:00-18:00</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- 回到頂部按鈕 -->
-    <button class="back-to-top" id="backToTop" aria-label="回到頂部">
-        <i class="fas fa-arrow-up"></i>
-    </button></body>
+    </body>
 </html>
-
-
 
 
