@@ -157,6 +157,679 @@
                 justify-content: center;
             }
         }
+        
+        /* 全新404頁尾樣式 - 美化版 */
+        .footer-404-new {
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 50%, #34495e 100%);
+            color: white;
+            padding: 80px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-404-new::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                var(--primary-color) 0%, 
+                var(--secondary-color) 25%, 
+                #ff6b35 50%, 
+                var(--secondary-color) 75%, 
+                var(--primary-color) 100%);
+            background-size: 300% 100%;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+        
+        .footer-404-new::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* 快速導航區域 - 美化版 */
+        .footer-404-quick-nav {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-bottom: 60px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-404-quick-nav::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, 
+                transparent 0deg, 
+                rgba(255, 107, 53, 0.1) 60deg, 
+                transparent 120deg, 
+                rgba(255, 193, 7, 0.1) 180deg, 
+                transparent 240deg, 
+                rgba(255, 107, 53, 0.1) 300deg, 
+                transparent 360deg);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .quick-nav-header {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4),
+                        0 0 0 4px rgba(255, 255, 255, 0.1);
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .header-icon::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, 
+                var(--primary-color), 
+                var(--secondary-color), 
+                #ff6b35, 
+                var(--secondary-color));
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .quick-nav-header h3 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .quick-nav-header p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        
+        .quick-nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .quick-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 28px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            min-width: 160px;
+            justify-content: center;
+        }
+        
+        .quick-nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.5s;
+        }
+        
+        .quick-nav-btn:hover::before {
+            left: 100%;
+        }
+        
+        .quick-nav-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.25) 0%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+        
+        .quick-nav-btn.primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4),
+                        0 0 0 2px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .quick-nav-btn.primary::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--primary-color), 
+                var(--secondary-color), 
+                #ff6b35, 
+                var(--secondary-color));
+            border-radius: 50px;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+        
+        .quick-nav-btn.primary:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.6),
+                        0 0 0 3px rgba(255, 255, 255, 0.2);
+        }
+        
+        .quick-nav-btn i {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+        
+        .quick-nav-btn:hover i {
+            transform: scale(1.2);
+        }
+        
+        /* 主要頁尾內容 */
+        .footer-404-main {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-404-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .brand-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .brand-logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .brand-text h4 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            color: white;
+        }
+        
+        .brand-text p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        
+        .brand-description p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+        
+        .brand-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+        }
+        
+        .contact-item i {
+            width: 20px;
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+        
+        .contact-item div {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2px;
+        }
+        
+        .contact-value {
+            font-size: 14px;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* 連結區域 */
+        .footer-404-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .links-section h5 {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .links-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .links-section li {
+            margin-bottom: 8px;
+        }
+        
+        .links-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .links-section a:hover {
+            color: var(--primary-color);
+            padding-left: 8px;
+        }
+        
+        /* 底部區域 */
+        .footer-404-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-section h5 {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        .social-link.facebook:hover { background: #1877f2; }
+        .social-link.line:hover { background: #00c300; }
+        .social-link.instagram:hover { background: #e4405f; }
+        .social-link.youtube:hover { background: #ff0000; }
+        
+        .copyright-section {
+            text-align: right;
+        }
+        
+        .copyright-section p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0 0 5px 0;
+            line-height: 1.4;
+        }
+        
+        /* 響應式設計 - 優化版 */
+        @media (max-width: 1024px) {
+            .footer-404-main {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .footer-404-links {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 35px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .footer-404-new {
+                padding: 60px 0 30px;
+            }
+            
+            .footer-404-quick-nav {
+                padding: 40px 25px;
+                margin-bottom: 50px;
+                border-radius: 20px;
+            }
+            
+            .quick-nav-header h3 {
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+            
+            .quick-nav-header p {
+                font-size: 16px;
+            }
+            
+            .header-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 30px;
+                margin-bottom: 20px;
+            }
+            
+            .quick-nav-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .quick-nav-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+            
+            .footer-404-main {
+                gap: 40px;
+            }
+            
+            .footer-404-links {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-404-bottom {
+                flex-direction: column;
+                gap: 25px;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .social-link {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+            
+            .copyright-section {
+                text-align: center;
+            }
+            
+            .copyright-section p {
+                font-size: 11px;
+                line-height: 1.5;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-404-new {
+                padding: 50px 0 25px;
+            }
+            
+            .footer-404-quick-nav {
+                padding: 30px 20px;
+                margin-bottom: 40px;
+                border-radius: 15px;
+            }
+            
+            .quick-nav-header h3 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            
+            .quick-nav-header p {
+                font-size: 14px;
+            }
+            
+            .header-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 26px;
+                margin-bottom: 18px;
+            }
+            
+            .quick-nav-buttons {
+                gap: 12px;
+            }
+            
+            .quick-nav-btn {
+                max-width: 100%;
+                padding: 12px 20px;
+                font-size: 13px;
+                min-width: auto;
+            }
+            
+            .footer-404-main {
+                gap: 35px;
+            }
+            
+            .footer-404-brand {
+                gap: 25px;
+            }
+            
+            .brand-logo {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .brand-logo-img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .brand-text h4 {
+                font-size: 20px;
+            }
+            
+            .brand-text p {
+                font-size: 12px;
+            }
+            
+            .brand-description p {
+                font-size: 13px;
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            .contact-item i {
+                font-size: 14px;
+            }
+            
+            .contact-label {
+                font-size: 11px;
+            }
+            
+            .contact-value {
+                font-size: 13px;
+            }
+            
+            .footer-404-links {
+                gap: 25px;
+            }
+            
+            .links-section h5 {
+                font-size: 15px;
+                margin-bottom: 15px;
+                padding-bottom: 8px;
+            }
+            
+            .links-section a {
+                font-size: 13px;
+                padding: 4px 0;
+            }
+            
+            .social-links {
+                gap: 10px;
+            }
+            
+            .social-link {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+            
+            .copyright-section p {
+                font-size: 10px;
+                line-height: 1.4;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .footer-404-quick-nav {
+                padding: 25px 15px;
+            }
+            
+            .quick-nav-header h3 {
+                font-size: 22px;
+            }
+            
+            .header-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 22px;
+            }
+            
+            .quick-nav-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+            
+            .brand-text h4 {
+                font-size: 18px;
+            }
+            
+            .links-section h5 {
+                font-size: 14px;
+            }
+            
+            .social-link {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -435,111 +1108,145 @@
     </div>
     </main>
 
-    <!-- 頁尾 -->
-    <footer class="footer">
+    <!-- 全新404頁尾設計 -->
+    <footer class="footer-404-new">
         <div class="container">
-            <!-- 主要頁尾內容 -->
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-section-header">
-                        <div class="footer-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h4>服務專區</h4>
+            <!-- 404專用快速導航 -->
+            <div class="footer-404-quick-nav">
+                <div class="quick-nav-header">
+                    <div class="header-icon">
+                        <i class="fas fa-compass"></i>
                     </div>
-                    <div class="footer-divider"></div>
-                    <ul>
-                        <li><a href="about.html">關於我們</a></li>
-                        <li><a href="news.html">最新動態</a></li>
-                        <li><a href="products.html">精選商品</a></li>
-                    </ul>
+                    <h3>迷路了？讓我們為您指路</h3>
+                    <p>點擊下方按鈕快速前往您需要的頁面</p>
                 </div>
-                <div class="footer-section">
-                    <div class="footer-section-header">
-                        <div class="footer-icon">
-                            <i class="fas fa-users"></i>
+                <div class="quick-nav-buttons">
+                    <a href="index.html" class="quick-nav-btn primary">
+                        <i class="fas fa-home"></i>
+                        <span>回到首頁</span>
+                    </a>
+                    <a href="products.html" class="quick-nav-btn">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>商品瀏覽</span>
+                    </a>
+                    <a href="season-recommend.html" class="quick-nav-btn">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>季節推薦</span>
+                    </a>
+                    <a href="contact.html" class="quick-nav-btn">
+                        <i class="fas fa-headset"></i>
+                        <span>聯絡客服</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 主要頁尾內容 - 重新設計 -->
+            <div class="footer-404-main">
+                <div class="footer-404-brand">
+                    <div class="brand-info">
+                        <div class="brand-logo">
+                            <img src="images/柑心商標.png" alt="柑心果園" class="brand-logo-img">
+                            <div class="brand-text">
+                                <h4>柑心果園</h4>
+                                <p>GANXIN ORCHARD</p>
+                            </div>
                         </div>
-                        <h4>會員專區</h4>
+                        <div class="brand-description">
+                            <p>台中豐原公老坪優質水果供應商，提供新鮮的椪柑、茂谷柑等優質水果，產地直送到府。</p>
+                        </div>
                     </div>
-                    <div class="footer-divider"></div>
-                    <div class="footer-links-grid">
+                    <div class="brand-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <span class="contact-label">客服專線</span>
+                                <span class="contact-value">0933-721-978</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span class="contact-label">客服信箱</span>
+                                <span class="contact-value">s9000721@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="contact-label">服務時間</span>
+                                <span class="contact-value">週一至週五 12:00-18:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-404-links">
+                    <div class="links-section">
+                        <h5>商品分類</h5>
                         <ul>
-                            <li><a href="order-tracking.html">訂單查詢</a></li>
-                            <li><a href="contact.html">門市資訊</a></li>
-                            <li><a href="policies.html?type=faq">常見問題</a></li>
+                            <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
+                            <li><a href="products.html?category=季節限定">季節限定</a></li>
+                            <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
+                            <li><a href="season-recommend.html">季節推薦</a></li>
                         </ul>
+                    </div>
+                    <div class="links-section">
+                        <h5>服務資訊</h5>
+                        <ul>
+                            <li><a href="about.html">關於我們</a></li>
+                            <li><a href="farming.html">農場介紹</a></li>
+                            <li><a href="knowledge.html">知識分享</a></li>
+                            <li><a href="order-tracking.html">訂單查詢</a></li>
+                        </ul>
+                    </div>
+                    <div class="links-section">
+                        <h5>選購指南</h5>
+                        <ul>
+                            <li><a href="guide-ponkan.html">椪柑選購</a></li>
+                            <li><a href="guide-murcott.html">茂谷柑選購</a></li>
+                            <li><a href="guide-water-chestnut.html">菱角選購</a></li>
+                            <li><a href="guide-taro.html">芋頭選購</a></li>
+                        </ul>
+                    </div>
+                    <div class="links-section">
+                        <h5>會員服務</h5>
                         <ul>
                             <li><a href="policies.html?type=terms">會員條款</a></li>
                             <li><a href="policies.html?type=privacy">隱私權保護</a></li>
-                            <li><a href="policies.html?type=cookie">Cookie政策及條款</a></li>
+                            <li><a href="policies.html?type=faq">常見問題</a></li>
+                            <li><a href="policies.html?type=cookie">Cookie政策</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <div class="footer-section-header">
-                        <div class="footer-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h4>聯繫客服</h4>
-                    </div>
-                    <div class="footer-divider"></div>
-                    <ul class="contact-list">
-                        <li>連絡電話: 0933-721-978</li>
-                        <li>客服信箱: s9000721@gmail.com</li>
-                        <li>客服時間: 週一~週五</li>
-                        <li><i class="fas fa-clock"></i> 12:00~18:00</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <div class="footer-section-header">
-                        <div class="footer-icon">
-                            <i class="fas fa-thumbs-up"></i>
-                        </div>
-                        <h4>關注我們</h4>
-                    </div>
-                    <div class="footer-divider"></div>
+            </div>
+
+            <!-- 社群媒體和版權 -->
+            <div class="footer-404-bottom">
+                <div class="social-section">
+                    <h5>關注我們</h5>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-facebook"></i>
+                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-link facebook">
+                            <i class="fab fa-facebook-f"></i>
                             <span>Facebook</span>
                         </a>
-                        <a href="#" target="_blank">
+                        <a href="#" target="_blank" class="social-link line">
                             <i class="fab fa-line"></i>
                             <span>LINE</span>
                         </a>
-                        <a href="#" target="_blank">
+                        <a href="#" target="_blank" class="social-link instagram">
                             <i class="fab fa-instagram"></i>
                             <span>Instagram</span>
                         </a>
-                        <a href="#" target="_blank">
+                        <a href="#" target="_blank" class="social-link youtube">
                             <i class="fab fa-youtube"></i>
-                            <span>Youtube</span>
+                            <span>YouTube</span>
                         </a>
                     </div>
                 </div>
-            </div>
-            
-            <!-- 品牌標誌區域 -->
-            <div class="footer-brands">
-                <div class="brand-logo">
-                    <div class="brand-icon">柑心</div>
-                    <span>柑心果園 GANXIN ORCHARD</span>
+                <div class="copyright-section">
+                    <p>&copy; 2025 柑心果園有限公司 | 版權所有 All Rights Reserved.</p>
+                    <p>台中豐原公老坪優質水果供應商 | 東勢茂谷柑產地直送</p>
                 </div>
-                <div class="brand-separator"></div>
-                <div class="brand-logo">
-                    <div class="brand-icon">優質</div>
-                    <span>優質水果 QUALITY FRUITS</span>
-                </div>
-                <div class="brand-separator"></div>
-                <div class="brand-logo">
-                    <div class="brand-icon">直送</div>
-                    <span>產地直送 FRESH DELIVERY</span>
-                </div>
-            </div>
-            
-            <!-- 版權資訊 -->
-            <div class="footer-bottom">
-                <p>Copyright © 2025 柑心果園有限公司 | 版權所有All Rights Reserved. | 台中豐原公老坪優質水果供應商 | 東勢茂谷柑產地直送 |</p>
             </div>
         </div>
     </footer>
