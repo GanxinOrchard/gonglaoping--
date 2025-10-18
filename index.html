@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115X" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115X">
+    <link rel="preload" href="./css/style.css?v=20250115Y" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115Y">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -954,6 +954,154 @@
                 color: #ff8c42 !important;
             }
             
+            /* 手機選單頁尾樣式 */
+            .mobile-menu-footer {
+                padding: 20px !important;
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+                border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
+                margin-top: auto !important;
+            }
+            
+            .mobile-contact-section,
+            .mobile-social-section {
+                margin-bottom: 25px !important;
+            }
+            
+            .mobile-section-title {
+                font-size: 16px !important;
+                font-weight: 600 !important;
+                color: #2c3e50 !important;
+                margin-bottom: 15px !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 8px !important;
+            }
+            
+            .mobile-section-title i {
+                color: #ff6b35 !important;
+                font-size: 14px !important;
+            }
+            
+            .mobile-contact-info {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+            }
+            
+            .mobile-contact-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 12px !important;
+                padding: 10px 15px !important;
+                background: white !important;
+                border-radius: 8px !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .mobile-contact-item:hover {
+                transform: translateY(-2px) !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            }
+            
+            .mobile-contact-item i {
+                color: #ff6b35 !important;
+                font-size: 14px !important;
+                width: 16px !important;
+                text-align: center !important;
+            }
+            
+            .mobile-contact-item span {
+                color: #2c3e50 !important;
+                font-size: 14px !important;
+                font-weight: 500 !important;
+            }
+            
+            .mobile-social-desc {
+                color: #6c757d !important;
+                font-size: 13px !important;
+                margin-bottom: 15px !important;
+                line-height: 1.4 !important;
+            }
+            
+            .mobile-social-buttons {
+                display: flex !important;
+                gap: 10px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            .mobile-social-btn {
+                display: flex !important;
+                align-items: center !important;
+                gap: 8px !important;
+                padding: 10px 16px !important;
+                border-radius: 25px !important;
+                text-decoration: none !important;
+                font-size: 13px !important;
+                font-weight: 500 !important;
+                transition: all 0.3s ease !important;
+                flex: 1 !important;
+                justify-content: center !important;
+                min-width: 0 !important;
+            }
+            
+            .mobile-social-btn.facebook {
+                background: #1877f2 !important;
+                color: white !important;
+            }
+            
+            .mobile-social-btn.line {
+                background: #00c300 !important;
+                color: white !important;
+            }
+            
+            .mobile-social-btn.instagram {
+                background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+                color: white !important;
+            }
+            
+            .mobile-social-btn:hover {
+                transform: translateY(-2px) !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+            }
+            
+            .mobile-social-btn i {
+                font-size: 14px !important;
+            }
+            
+            .mobile-brand-slogan {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 8px !important;
+                padding: 15px !important;
+                background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%) !important;
+                border-radius: 12px !important;
+                margin-top: 20px !important;
+            }
+            
+            .mobile-slogan-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+            
+            .mobile-slogan-item .slogan-icon {
+                background: rgba(255, 255, 255, 0.2) !important;
+                color: white !important;
+                font-size: 12px !important;
+                font-weight: 600 !important;
+                padding: 4px 8px !important;
+                border-radius: 4px !important;
+                min-width: 32px !important;
+                text-align: center !important;
+            }
+            
+            .mobile-slogan-item .slogan-text {
+                color: white !important;
+                font-size: 13px !important;
+                font-weight: 500 !important;
+            }
+            
             /* 3. 移除所有背景卡片的圓角 */
             .advantage-card,
             .modern-product-card,
@@ -1530,6 +1678,70 @@
                 </li>
             </ul>
         </nav>
+        
+        <!-- 手機選單頁尾內容 -->
+        <div class="mobile-menu-footer">
+            <!-- 聯絡我們區域 -->
+            <div class="mobile-contact-section">
+                <h4 class="mobile-section-title">
+                    <i class="fas fa-phone"></i>
+                    聯絡我們
+                </h4>
+                <div class="mobile-contact-info">
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>0933-721-978</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>s9000721@gmail.com</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>台中豐原公老坪</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 關注我們區域 -->
+            <div class="mobile-social-section">
+                <h4 class="mobile-section-title">
+                    <i class="fas fa-heart"></i>
+                    關注我們
+                </h4>
+                <p class="mobile-social-desc">追蹤我們的社群媒體，獲取最新優惠資訊</p>
+                <div class="mobile-social-buttons">
+                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="mobile-social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn line">
+                        <i class="fab fa-line"></i>
+                        <span>LINE</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 品牌標語 -->
+            <div class="mobile-brand-slogan">
+                <div class="mobile-slogan-item">
+                    <span class="slogan-icon">柑心</span>
+                    <span class="slogan-text">柑心果園 GANXIN ORCHARD</span>
+                </div>
+                <div class="mobile-slogan-item">
+                    <span class="slogan-icon">優質</span>
+                    <span class="slogan-text">優質水果 QUALITY FRUITS</span>
+                </div>
+                <div class="mobile-slogan-item">
+                    <span class="slogan-icon">直送</span>
+                    <span class="slogan-text">產地直送 FRESH DELIVERY</span>
+                </div>
+            </div>
+        </div>
         
         <!-- 選單底部 -->
         <div class="menu-footer">
