@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115E" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115E">
+    <link rel="preload" href="./css/style.css?v=20250115F" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115F">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -191,22 +191,22 @@
             transform: scale(1.1);
         }
         
-        /* 酷炫選單設計 */
+        /* 現代化選單設計 */
         .main-menu {
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(255, 255, 255, 0.9) 50%, 
-                rgba(255, 255, 255, 0.95) 100%) !important;
-            backdrop-filter: blur(20px) !important;
-            border: 1px solid rgba(255, 107, 53, 0.2) !important;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
-                        0 0 0 1px rgba(255, 107, 53, 0.1) !important;
-            animation: slideInFromRight 0.5s ease-out !important;
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 249, 250, 0.95) 100%) !important;
+            backdrop-filter: blur(15px) !important;
+            border: none !important;
+            border-left: 3px solid #ff6b35 !important;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15), 
+                        inset 0 0 0 1px rgba(255, 107, 53, 0.1) !important;
+            animation: slideInFromRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
             z-index: 9999 !important;
             position: fixed !important;
             top: 0 !important;
             right: 0 !important;
-            width: 300px !important;
+            width: 280px !important;
             height: 100vh !important;
             overflow-y: auto !important;
         }
@@ -225,11 +225,12 @@
         .menu-header {
             background: linear-gradient(135deg, 
                 #ff6b35 0%, 
-                #f7931e 50%, 
-                #ff8c42 100%) !important;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+                #f7931e 100%) !important;
+            border-bottom: none !important;
             position: relative !important;
             overflow: hidden !important;
+            padding: 20px !important;
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.2) !important;
         }
         
         .menu-header::before {
@@ -257,71 +258,46 @@
         }
         
         .menu-item {
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 53, 0.05) 0%, 
-                rgba(255, 255, 255, 0.1) 100%) !important;
-            margin: 8px 0 !important;
-            border-radius: 15px !important;
-            border: 1px solid rgba(255, 107, 53, 0.1) !important;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            background: transparent !important;
+            margin: 4px 0 !important;
+            border-radius: 8px !important;
+            border: none !important;
+            transition: all 0.3s ease !important;
             position: relative !important;
             overflow: hidden !important;
-            transform: translateY(0) !important;
-        }
-        
-        .menu-item::before {
-            content: '' !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 0 !important;
-            height: 100% !important;
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 53, 0.1) 0%, 
-                rgba(255, 107, 53, 0.2) 100%) !important;
-            transition: width 0.4s ease !important;
-            z-index: 0 !important;
         }
         
         .menu-item:hover {
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 53, 0.1) 0%, 
-                rgba(255, 107, 53, 0.15) 100%) !important;
-            transform: translateY(-3px) scale(1.02) !important;
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2), 
-                        0 0 20px rgba(255, 107, 53, 0.1) !important;
-            border-color: rgba(255, 107, 53, 0.3) !important;
-        }
-        
-        .menu-item:hover::before {
-            width: 100% !important;
+            background: rgba(255, 107, 53, 0.08) !important;
+            transform: translateX(5px) !important;
         }
         
         .menu-item a {
             position: relative !important;
             z-index: 1 !important;
-            color: #333 !important;
-            font-weight: 600 !important;
+            color: #444 !important;
+            font-weight: 500 !important;
             text-decoration: none !important;
-            display: block !important;
-            padding: 15px 20px !important;
-            transition: color 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            padding: 12px 16px !important;
+            transition: all 0.3s ease !important;
+            border-radius: 6px !important;
         }
         
         .menu-item:hover a {
             color: #ff6b35 !important;
-            text-shadow: 0 0 10px rgba(255, 107, 53, 0.3) !important;
+            background: rgba(255, 107, 53, 0.1) !important;
         }
         
         .submenu {
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.8) 0%, 
-                rgba(0, 0, 0, 0.9) 100%) !important;
-            border-radius: 15px !important;
-            border: 1px solid rgba(255, 107, 53, 0.3) !important;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+            background: rgba(248, 249, 250, 0.95) !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(255, 107, 53, 0.15) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
             backdrop-filter: blur(10px) !important;
             animation: fadeInUp 0.3s ease-out !important;
+            margin-top: 8px !important;
         }
         
         @keyframes fadeInUp {
@@ -336,17 +312,19 @@
         }
         
         .submenu .menu-item {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background: transparent !important;
+            border: none !important;
+            margin: 2px 0 !important;
         }
         
         .submenu .menu-item:hover {
-            background: rgba(255, 107, 53, 0.2) !important;
-            border-color: rgba(255, 107, 53, 0.4) !important;
+            background: rgba(255, 107, 53, 0.1) !important;
         }
         
         .submenu .menu-item a {
-            color: #fff !important;
+            color: #666 !important;
+            padding: 10px 16px !important;
+            font-size: 14px !important;
         }
         
         .submenu .menu-item:hover a {
@@ -355,31 +333,30 @@
         
         /* 選單關閉按鈕 */
         .menu-close {
-            background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
-            border: none !important;
-            border-radius: 50% !important;
-            width: 40px !important;
-            height: 40px !important;
+            background: rgba(255, 255, 255, 0.2) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 6px !important;
+            width: 36px !important;
+            height: 36px !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             color: white !important;
-            font-size: 18px !important;
+            font-size: 16px !important;
             cursor: pointer !important;
             transition: all 0.3s ease !important;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
         }
         
         .menu-close:hover {
-            transform: scale(1.1) rotate(90deg) !important;
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4) !important;
+            background: rgba(255, 255, 255, 0.3) !important;
+            transform: scale(1.05) !important;
         }
         
         /* 手機版選單修復 */
         @media (max-width: 768px) {
             .main-menu {
-                width: 100vw !important;
-                max-width: 350px !important;
+                width: 320px !important;
+                max-width: 90vw !important;
                 z-index: 99999 !important;
                 position: fixed !important;
                 top: 0 !important;
@@ -390,18 +367,18 @@
             }
             
             .menu-nav {
-                padding: 20px 15px 80px 15px !important;
+                padding: 20px 16px 80px 16px !important;
                 min-height: calc(100vh - 80px) !important;
             }
             
             .menu-item {
-                margin: 10px 0 !important;
-                border-radius: 12px !important;
+                margin: 6px 0 !important;
+                border-radius: 8px !important;
             }
             
             .menu-item a {
-                padding: 18px 20px !important;
-                font-size: 16px !important;
+                padding: 14px 16px !important;
+                font-size: 15px !important;
             }
             
             .submenu {
@@ -444,16 +421,16 @@
             }
             
             .menu-nav {
-                padding: 15px 10px 70px 10px !important;
+                padding: 16px 12px 70px 12px !important;
             }
             
             .menu-item a {
-                padding: 16px 15px !important;
-                font-size: 15px !important;
+                padding: 12px 14px !important;
+                font-size: 14px !important;
             }
             
             .submenu .menu-item a {
-                padding: 14px 15px !important;
+                padding: 10px 14px !important;
                 font-size: 13px !important;
             }
         }
@@ -2004,15 +1981,15 @@
     </script>
 
     <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115E" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115E" defer></script>
-    <script src="./js/products.js?v=20250115E" defer></script>
-    <script src="./js/cart.js?v=20250115E" defer></script>
-    <script src="./js/content-protection.js?v=20250115E" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115E">
+    <script src="./js/mobile-menu-simple.js?v=20250115F" defer></script>
+    <script src="./js/dropdown-menu.js?v=20250115F" defer></script>
+    <script src="./js/products.js?v=20250115F" defer></script>
+    <script src="./js/cart.js?v=20250115F" defer></script>
+    <script src="./js/content-protection.js?v=20250115F" defer></script>
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115F">
 
-    <script src="./js/main.js?v=20250115E" defer></script>
-    <script src="./js/auto-sales.js?v=20250115E" defer></script>
+    <script src="./js/main.js?v=20250115F" defer></script>
+    <script src="./js/auto-sales.js?v=20250115F" defer></script>
     <script>
         // 購物車圖標點擊事件 - 直接跳轉到購物車頁面
         function initCartSidebar() {
