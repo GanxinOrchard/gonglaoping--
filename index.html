@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115D" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115D">
+    <link rel="preload" href="./css/style.css?v=20250115E" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115E">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -202,6 +202,13 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
                         0 0 0 1px rgba(255, 107, 53, 0.1) !important;
             animation: slideInFromRight 0.5s ease-out !important;
+            z-index: 9999 !important;
+            position: fixed !important;
+            top: 0 !important;
+            right: 0 !important;
+            width: 300px !important;
+            height: 100vh !important;
+            overflow-y: auto !important;
         }
         
         @keyframes slideInFromRight {
@@ -366,6 +373,89 @@
         .menu-close:hover {
             transform: scale(1.1) rotate(90deg) !important;
             box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4) !important;
+        }
+        
+        /* 手機版選單修復 */
+        @media (max-width: 768px) {
+            .main-menu {
+                width: 100vw !important;
+                max-width: 350px !important;
+                z-index: 99999 !important;
+                position: fixed !important;
+                top: 0 !important;
+                right: 0 !important;
+                height: 100vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            
+            .menu-nav {
+                padding: 20px 15px 80px 15px !important;
+                min-height: calc(100vh - 80px) !important;
+            }
+            
+            .menu-item {
+                margin: 10px 0 !important;
+                border-radius: 12px !important;
+            }
+            
+            .menu-item a {
+                padding: 18px 20px !important;
+                font-size: 16px !important;
+            }
+            
+            .submenu {
+                margin-top: 10px !important;
+                border-radius: 12px !important;
+            }
+            
+            .submenu .menu-item {
+                margin: 8px 0 !important;
+            }
+            
+            .submenu .menu-item a {
+                padding: 15px 20px !important;
+                font-size: 14px !important;
+            }
+            
+            /* 確保選單按鈕在最上層 */
+            .menu-header {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 10 !important;
+                background: linear-gradient(135deg, 
+                    #ff6b35 0%, 
+                    #f7931e 50%, 
+                    #ff8c42 100%) !important;
+            }
+            
+            .menu-close {
+                position: absolute !important;
+                top: 15px !important;
+                right: 15px !important;
+                z-index: 11 !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-menu {
+                width: 100vw !important;
+                max-width: 100vw !important;
+            }
+            
+            .menu-nav {
+                padding: 15px 10px 70px 10px !important;
+            }
+            
+            .menu-item a {
+                padding: 16px 15px !important;
+                font-size: 15px !important;
+            }
+            
+            .submenu .menu-item a {
+                padding: 14px 15px !important;
+                font-size: 13px !important;
+            }
         }
         
         .submenu-link {
@@ -1914,15 +2004,15 @@
     </script>
 
     <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115D" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115D" defer></script>
-    <script src="./js/products.js?v=20250115D" defer></script>
-    <script src="./js/cart.js?v=20250115D" defer></script>
-    <script src="./js/content-protection.js?v=20250115D" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115D">
+    <script src="./js/mobile-menu-simple.js?v=20250115E" defer></script>
+    <script src="./js/dropdown-menu.js?v=20250115E" defer></script>
+    <script src="./js/products.js?v=20250115E" defer></script>
+    <script src="./js/cart.js?v=20250115E" defer></script>
+    <script src="./js/content-protection.js?v=20250115E" defer></script>
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115E">
 
-    <script src="./js/main.js?v=20250115D" defer></script>
-    <script src="./js/auto-sales.js?v=20250115D" defer></script>
+    <script src="./js/main.js?v=20250115E" defer></script>
+    <script src="./js/auto-sales.js?v=20250115E" defer></script>
     <script>
         // 購物車圖標點擊事件 - 直接跳轉到購物車頁面
         function initCartSidebar() {
