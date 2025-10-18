@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115C" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115C">
+    <link rel="preload" href="./css/style.css?v=20250115D" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115D">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -191,35 +191,181 @@
             transform: scale(1.1);
         }
         
-        /* 選單背景修復 - 改為白色 */
+        /* 酷炫選單設計 */
         .main-menu {
-            background: #ffffff !important;
-            backdrop-filter: blur(10px) !important;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(255, 255, 255, 0.9) 50%, 
+                rgba(255, 255, 255, 0.95) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 107, 53, 0.2) !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                        0 0 0 1px rgba(255, 107, 53, 0.1) !important;
+            animation: slideInFromRight 0.5s ease-out !important;
+        }
+        
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+            }
+            100% {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+            }
         }
         
         .menu-header {
-            background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
-            border-bottom: 1px solid rgba(255, 107, 53, 0.3) !important;
+            background: linear-gradient(135deg, 
+                #ff6b35 0%, 
+                #f7931e 50%, 
+                #ff8c42 100%) !important;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+        
+        .menu-header::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent) !important;
+            animation: shimmer 2s infinite !important;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100% !important; }
+            100% { left: 100% !important; }
         }
         
         .menu-nav {
             background: transparent !important;
+            padding: 20px !important;
         }
         
         .menu-item {
-            background: rgba(0, 0, 0, 0.05) !important;
-            margin: 5px 0 !important;
-            border-radius: 8px !important;
-            transition: all 0.3s ease !important;
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 0.05) 0%, 
+                rgba(255, 255, 255, 0.1) 100%) !important;
+            margin: 8px 0 !important;
+            border-radius: 15px !important;
+            border: 1px solid rgba(255, 107, 53, 0.1) !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            transform: translateY(0) !important;
+        }
+        
+        .menu-item::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 0 !important;
+            height: 100% !important;
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 0.1) 0%, 
+                rgba(255, 107, 53, 0.2) 100%) !important;
+            transition: width 0.4s ease !important;
+            z-index: 0 !important;
         }
         
         .menu-item:hover {
-            background: rgba(255, 107, 53, 0.1) !important;
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 0.1) 0%, 
+                rgba(255, 107, 53, 0.15) 100%) !important;
+            transform: translateY(-3px) scale(1.02) !important;
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2), 
+                        0 0 20px rgba(255, 107, 53, 0.1) !important;
+            border-color: rgba(255, 107, 53, 0.3) !important;
+        }
+        
+        .menu-item:hover::before {
+            width: 100% !important;
+        }
+        
+        .menu-item a {
+            position: relative !important;
+            z-index: 1 !important;
+            color: #333 !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            display: block !important;
+            padding: 15px 20px !important;
+            transition: color 0.3s ease !important;
+        }
+        
+        .menu-item:hover a {
+            color: #ff6b35 !important;
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.3) !important;
         }
         
         .submenu {
-            background: rgba(0, 0, 0, 0.3) !important;
-            border-radius: 8px !important;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.8) 0%, 
+                rgba(0, 0, 0, 0.9) 100%) !important;
+            border-radius: 15px !important;
+            border: 1px solid rgba(255, 107, 53, 0.3) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+            animation: fadeInUp 0.3s ease-out !important;
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0 !important;
+                transform: translateY(20px) !important;
+            }
+            100% {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        }
+        
+        .submenu .menu-item {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .submenu .menu-item:hover {
+            background: rgba(255, 107, 53, 0.2) !important;
+            border-color: rgba(255, 107, 53, 0.4) !important;
+        }
+        
+        .submenu .menu-item a {
+            color: #fff !important;
+        }
+        
+        .submenu .menu-item:hover a {
+            color: #ff6b35 !important;
+        }
+        
+        /* 選單關閉按鈕 */
+        .menu-close {
+            background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
+            border: none !important;
+            border-radius: 50% !important;
+            width: 40px !important;
+            height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+            font-size: 18px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
+        }
+        
+        .menu-close:hover {
+            transform: scale(1.1) rotate(90deg) !important;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4) !important;
         }
         
         .submenu-link {
@@ -1768,15 +1914,15 @@
     </script>
 
     <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115C" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115C" defer></script>
-    <script src="./js/products.js?v=20250115C" defer></script>
-    <script src="./js/cart.js?v=20250115C" defer></script>
-    <script src="./js/content-protection.js?v=20250115C" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115C">
+    <script src="./js/mobile-menu-simple.js?v=20250115D" defer></script>
+    <script src="./js/dropdown-menu.js?v=20250115D" defer></script>
+    <script src="./js/products.js?v=20250115D" defer></script>
+    <script src="./js/cart.js?v=20250115D" defer></script>
+    <script src="./js/content-protection.js?v=20250115D" defer></script>
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115D">
 
-    <script src="./js/main.js?v=20250115C" defer></script>
-    <script src="./js/auto-sales.js?v=20250115C" defer></script>
+    <script src="./js/main.js?v=20250115D" defer></script>
+    <script src="./js/auto-sales.js?v=20250115D" defer></script>
     <script>
         // 購物車圖標點擊事件 - 直接跳轉到購物車頁面
         function initCartSidebar() {
