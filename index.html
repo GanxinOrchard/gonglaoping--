@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115V" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115V">
+    <link rel="preload" href="./css/style.css?v=20250115W" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115W">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -893,6 +893,11 @@
             
             .news-ticker-item.prev {
                 transform: translateY(-100%) !important;
+                opacity: 0 !important;
+            }
+            
+            .news-ticker-item.next {
+                transform: translateY(100%) !important;
                 opacity: 0 !important;
             }
             
@@ -2473,23 +2478,30 @@
                 currentIndex = (currentIndex + 1) % newsItems.length;
                 console.log('切換到新聞項目:', currentIndex);
                 
-                // 新項目先移到下方
-                if (newsItems[currentIndex]) {
-                    newsItems[currentIndex].style.transform = 'translateY(100%)';
-                    newsItems[currentIndex].classList.add('active');
-                }
+                // 移除所有類別
+                newsItems.forEach((item, i) => {
+                    item.classList.remove('active', 'prev', 'next');
+                });
                 
-                // 添加動畫效果 - 當前項目向上滑出
+                // 當前項目向上滑出
                 if (newsItems[prevIndex]) {
                     newsItems[prevIndex].classList.add('prev');
                 }
                 
-                // 短暫延遲後讓新項目滑入
-                setTimeout(() => {
-                    if (newsItems[currentIndex]) {
+                // 新項目從下方滑入
+                if (newsItems[currentIndex]) {
+                    newsItems[currentIndex].classList.add('next');
+                    newsItems[currentIndex].style.transform = 'translateY(100%)';
+                    newsItems[currentIndex].style.opacity = '0';
+                    
+                    // 短暫延遲後讓新項目滑入
+                    setTimeout(() => {
+                        newsItems[currentIndex].classList.remove('next');
+                        newsItems[currentIndex].classList.add('active');
                         newsItems[currentIndex].style.transform = 'translateY(0)';
-                    }
-                }, 50);
+                        newsItems[currentIndex].style.opacity = '1';
+                    }, 50);
+                }
             }
             
             // 開始輪播
