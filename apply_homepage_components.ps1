@@ -1,10 +1,10 @@
-# ®M¥Î­º­¶²Õ¥ó¨ì©Ò¦³¤À­¶ªº¸}¥»
-Write-Host "¶}©l®M¥Î­º­¶²Õ¥ó¨ì©Ò¦³¤À­¶..." -ForegroundColor Green
+# ï¿½Mï¿½Î­ï¿½ï¿½ï¿½ï¿½Õ¥ï¿½ï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½ï¿½
+Write-Host "ï¿½}ï¿½lï¿½Mï¿½Î­ï¿½ï¿½ï¿½ï¿½Õ¥ï¿½ï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½..." -ForegroundColor Green
 
-# Åª¨ú¼ÒªO¤å¥ó
+# Åªï¿½ï¿½ï¿½ÒªOï¿½ï¿½ï¿½
 $templateContent = Get-Content "homepage_components_template.html" -Raw -Encoding UTF8
 
-# »Ý­n³B²zªºHTML¤å¥ó¦Cªí¡]±Æ°£­º­¶©M¼ÒªO¤å¥ó¡^
+# ï¿½Ý­nï¿½Bï¿½zï¿½ï¿½HTMLï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½]ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ÒªOï¿½ï¿½ï¿½^
 $htmlFiles = @(
     "about.html", "news.html", "contact.html", "products.html", "farming.html", 
     "season.html", "grading.html", "guide.html", "knowledge.html", "policies.html",
@@ -18,23 +18,23 @@ $htmlFiles = @(
 
 foreach ($file in $htmlFiles) {
     if (Test-Path $file) {
-        Write-Host "³B²z¤å¥ó: $file" -ForegroundColor Yellow
+        Write-Host "ï¿½Bï¿½zï¿½ï¿½ï¿½: $file" -ForegroundColor Yellow
         
         $content = Get-Content $file -Raw -Encoding UTF8
         
-        # ²¾°£²{¦³ªº¿ï³æ¡BÁÊª«¨®¡B­¶§À¡B¦^¨ì³»³¡«ö¶s
-        $content = $content -replace '<!-- ¤â¾÷¿ï³æ.*?</div>\s*</div>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
+        # ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bï¿½Êªï¿½ï¿½ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½Bï¿½^ï¿½ì³»ï¿½ï¿½ï¿½ï¿½ï¿½s
+        $content = $content -replace '<!-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.*?</div>\s*</div>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
         $content = $content -replace '<div class="menu-overlay".*?</div>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
         $content = $content -replace '<div class="main-menu".*?</div>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
         $content = $content -replace '<a href="cart\.html".*?</a>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
         $content = $content -replace '<footer.*?</footer>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
         $content = $content -replace '<button.*?back-to-top.*?</button>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
-        $content = $content -replace '<script>.*?¤W¤@­¶°O¾Ð¥\¯à.*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
+        $content = $content -replace '<script>.*?ï¿½Wï¿½@ï¿½ï¿½ï¿½Oï¿½Ð¥\ï¿½ï¿½.*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::Singleline
         
-        # ¦b </main> ¼ÐÅÒ«á´¡¤J¼ÒªO¤º®e
+        # ï¿½b </main> ï¿½ï¿½ï¿½Ò«á´¡ï¿½Jï¿½ÒªOï¿½ï¿½ï¿½e
         $content = $content -replace '</main>', "</main>`n`n$templateContent"
         
-        # §ó·sCSS©MJSª©¥»¸¹
+        # ï¿½ï¿½sCSSï¿½MJSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         $content = $content -replace 'style\.css\?v=\d+', 'style.css?v=20250115FF'
         $content = $content -replace 'mobile-menu-simple\.js\?v=\d+', 'mobile-menu-simple.js?v=20250115FF'
         $content = $content -replace 'dropdown-menu\.js\?v=\d+', 'dropdown-menu.js?v=20250115FF'
@@ -44,18 +44,18 @@ foreach ($file in $htmlFiles) {
         $content = $content -replace 'main\.js\?v=\d+', 'main.js?v=20250115FF'
         $content = $content -replace 'auto-sales\.js\?v=\d+', 'auto-sales.js?v=20250115FF'
         
-        # ½T«O¥]§t¥²­nªºCSS©MJS¤å¥ó
+        # ï¿½Tï¿½Oï¿½]ï¿½tï¿½ï¿½ï¿½nï¿½ï¿½CSSï¿½MJSï¿½ï¿½ï¿½
         if ($content -notmatch 'mobile-menu-simple\.js') {
             $content = $content -replace '</body>', '    <script src="./js/mobile-menu-simple.js?v=20250115FF" defer></script>`n    <script src="./js/dropdown-menu.js?v=20250115FF" defer></script>`n    <script src="./js/cart.js?v=20250115FF" defer></script>`n</body>'
         }
         
-        # «O¦s¤å¥ó
+        # ï¿½Oï¿½sï¿½ï¿½ï¿½
         Set-Content -Path $file -Value $content -Encoding UTF8 -NoNewline
-        Write-Host "§¹¦¨: $file" -ForegroundColor Green
+        Write-Host "ï¿½ï¿½ï¿½ï¿½: $file" -ForegroundColor Green
     } else {
-        Write-Host "¤å¥ó¤£¦s¦b: $file" -ForegroundColor Red
+        Write-Host "ï¿½ï¿½ó¤£¦sï¿½b: $file" -ForegroundColor Red
     }
 }
 
-Write-Host "©Ò¦³¤À­¶¤w¦¨¥\®M¥Î­º­¶²Õ¥ó¡I" -ForegroundColor Green
-Write-Host "¥]§t¥\¯à¡G¤â¾÷¿ï³æ¡BÁÊª«¨®«ö¶s¡B­¶§À¡B¦^¨ì³»³¡«ö¶s¡B¤W¤@­¶°O¾Ð¥\¯à" -ForegroundColor Cyan
+Write-Host "ï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½ï¿½ï¿½\ï¿½Mï¿½Î­ï¿½ï¿½ï¿½ï¿½Õ¥ï¿½I" -ForegroundColor Green
+Write-Host "ï¿½]ï¿½tï¿½\ï¿½ï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bï¿½Êªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½Bï¿½^ï¿½ì³»ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Bï¿½Wï¿½@ï¿½ï¿½ï¿½Oï¿½Ð¥\ï¿½ï¿½" -ForegroundColor Cyan
