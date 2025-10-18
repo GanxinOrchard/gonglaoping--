@@ -74,8 +74,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115J" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115J">
+    <link rel="preload" href="./css/style.css?v=20250115K" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115K">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -191,28 +191,26 @@
             transform: scale(1.1);
         }
         
-        /* 全新手機選單設計 - 未來科技風格 */
+        /* 全新手機選單設計 - 清晰可見風格 */
         .main-menu {
             background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.95) 0%, 
-                rgba(20, 20, 30, 0.98) 50%,
-                rgba(0, 0, 0, 0.95) 100%) !important;
-            backdrop-filter: blur(25px) !important;
-            border: 2px solid transparent !important;
-            border-radius: 25px !important;
-            background-clip: padding-box !important;
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 249, 250, 0.95) 50%,
+                rgba(255, 255, 255, 0.98) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 2px solid rgba(255, 107, 53, 0.3) !important;
+            border-radius: 20px !important;
             box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 107, 53, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 30px rgba(255, 107, 53, 0.2) !important;
-            animation: menuSlideInAdvanced 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+                0 20px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 107, 53, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+            animation: menuSlideInAdvanced 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
             z-index: 9999 !important;
             position: fixed !important;
             top: 15px !important;
             right: 15px !important;
-            width: 350px !important;
-            max-height: 90vh !important;
+            width: 320px !important;
+            max-height: 85vh !important;
             overflow: hidden !important;
             transform-origin: top right !important;
             position: relative !important;
@@ -460,18 +458,11 @@
         @keyframes itemFadeInAdvanced {
             0% {
                 opacity: 0 !important;
-                transform: translateY(30px) rotateX(15deg) scale(0.8) !important;
-                filter: blur(5px) !important;
-            }
-            50% {
-                opacity: 0.7 !important;
-                transform: translateY(-5px) rotateX(-5deg) scale(1.05) !important;
-                filter: blur(1px) !important;
+                transform: translateY(20px) !important;
             }
             100% {
                 opacity: 1 !important;
-                transform: translateY(0) rotateX(0deg) scale(1) !important;
-                filter: blur(0px) !important;
+                transform: translateY(0) !important;
             }
         }
         
@@ -481,19 +472,16 @@
         }
         
         .menu-item {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.05) 0%, 
-                rgba(255, 255, 255, 0.02) 100%) !important;
-            margin: 8px 0 !important;
-            border-radius: 15px !important;
+            background: rgba(255, 255, 255, 0.8) !important;
+            margin: 6px 0 !important;
+            border-radius: 12px !important;
             border: 1px solid rgba(255, 107, 53, 0.2) !important;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
             position: relative !important;
             overflow: hidden !important;
-            animation: itemFadeInAdvanced 0.8s ease-out forwards !important;
+            animation: itemFadeInAdvanced 0.6s ease-out forwards !important;
             opacity: 0 !important;
-            transform: translateY(30px) rotateX(15deg) !important;
-            backdrop-filter: blur(10px) !important;
+            transform: translateY(20px) !important;
         }
         
         .menu-item:nth-child(1) { animation-delay: 0.1s !important; }
@@ -556,7 +544,7 @@
         .menu-link {
             position: relative !important;
             z-index: 3 !important;
-            color: #ffffff !important;
+            color: #333333 !important;
             font-weight: 600 !important;
             text-decoration: none !important;
             display: flex !important;
@@ -565,7 +553,7 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
             border-radius: 12px !important;
             font-size: 16px !important;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+            text-shadow: none !important;
         }
         
         .menu-item:hover a,
@@ -621,14 +609,14 @@
         
         .submenu {
             background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.9) 0%, 
-                rgba(20, 20, 30, 0.95) 100%) !important;
+                rgba(248, 249, 250, 0.95) 0%, 
+                rgba(255, 255, 255, 0.98) 100%) !important;
             border-radius: 12px !important;
-            border: 1px solid rgba(255, 107, 53, 0.3) !important;
+            border: 1px solid rgba(255, 107, 53, 0.2) !important;
             box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.3),
-                0 0 15px rgba(255, 107, 53, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+                0 8px 25px rgba(0, 0, 0, 0.1),
+                0 0 15px rgba(255, 107, 53, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
             backdrop-filter: blur(15px) !important;
             animation: submenuSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
             margin-top: 10px !important;
@@ -683,11 +671,11 @@
         
         .submenu .menu-item a,
         .submenu-link {
-            color: #cccccc !important;
+            color: #666666 !important;
             padding: 12px 20px !important;
             font-size: 14px !important;
             font-weight: 500 !important;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+            text-shadow: none !important;
             position: relative !important;
         }
         
@@ -2449,15 +2437,15 @@
     </script>
 
     <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115J" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115J" defer></script>
-    <script src="./js/products.js?v=20250115J" defer></script>
-    <script src="./js/cart.js?v=20250115J" defer></script>
-    <script src="./js/content-protection.js?v=20250115J" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115J">
+    <script src="./js/mobile-menu-simple.js?v=20250115K" defer></script>
+    <script src="./js/dropdown-menu.js?v=20250115K" defer></script>
+    <script src="./js/products.js?v=20250115K" defer></script>
+    <script src="./js/cart.js?v=20250115K" defer></script>
+    <script src="./js/content-protection.js?v=20250115K" defer></script>
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115K">
 
-    <script src="./js/main.js?v=20250115J" defer></script>
-    <script src="./js/auto-sales.js?v=20250115J" defer></script>
+    <script src="./js/main.js?v=20250115K" defer></script>
+    <script src="./js/auto-sales.js?v=20250115K" defer></script>
     <script>
         // 購物車圖標點擊事件 - 直接跳轉到購物車頁面
         function initCartSidebar() {
