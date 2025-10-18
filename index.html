@@ -74,8 +74,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115BB" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115BB">
+    <link rel="preload" href="./css/style.css?v=20250115CC" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250115CC">
+    <!-- 預載入封面圖片以提升載入速度 -->
+    <link rel="preload" href="images/柑心果園販賣所-1.png" as="image">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -686,6 +688,10 @@
                 max-height: 60vh !important;
                 position: relative !important;
                 overflow: hidden !important;
+                /* 優化渲染性能 */
+                contain: layout style paint !important;
+                will-change: auto !important;
+                transform: translateZ(0) !important;
             }
             
             .hero-section * {
@@ -704,12 +710,26 @@
                 background: none !important;
                 background-color: transparent !important;
                 background-image: none !important;
+                /* 優化背景渲染性能 */
+                contain: layout style paint !important;
+                will-change: auto !important;
+                transform: translateZ(0) !important;
             }
             
             .hero-cover-image {
                 width: 100% !important;
                 height: 100% !important;
                 object-fit: cover !important;
+            /* 優化圖片載入性能 */
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: crisp-edges !important;
+            will-change: auto !important;
+            /* 減少重繪 */
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
+            /* 硬體加速 */
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
                 display: block !important;
                 position: absolute !important;
                 top: 0 !important;
@@ -1674,7 +1694,7 @@
         <!-- 英雄區域 - 使用原本封面圖片 -->
         <section class="hero-section" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
             <div class="hero-background" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
-                <img src="images/柑心果園販賣所-1.png" alt="柑心果園販賣所" class="hero-cover-image">
+                <img src="images/柑心果園販賣所-1.png" alt="柑心果園販賣所" class="hero-cover-image" loading="eager" decoding="async" fetchpriority="high">
                 <div class="hero-overlay"></div>
             </div>
             
@@ -2796,10 +2816,28 @@
             });
         }
 
+        // 優化封面圖片載入
+        function optimizeHeroImage() {
+            const heroImage = document.querySelector('.hero-cover-image');
+            if (heroImage) {
+                // 確保圖片載入完成後立即顯示
+                heroImage.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                    this.style.transition = 'opacity 0.3s ease';
+                });
+                
+                // 如果圖片已經載入完成
+                if (heroImage.complete) {
+                    heroImage.style.opacity = '1';
+                }
+            }
+        }
+
         // 頁面載入完成後執行
         document.addEventListener('DOMContentLoaded', () => {
             console.log('頁面載入完成，開始初始化功能');
             
+            optimizeHeroImage(); // 優化封面圖片載入
             initMobileMenu(); // 初始化手機選單
             initCartSidebar();
             initScrollAnimations();
