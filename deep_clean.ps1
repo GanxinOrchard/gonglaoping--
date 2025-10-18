@@ -1,7 +1,7 @@
-# æ·±åº¦æ¸…ç†è…³æœ¬ - ç§»é™¤æ‰€æœ‰è³¼ç‰©è»Šã€é å°¾ã€å›åˆ°é ‚éƒ¨æŒ‰éˆ•ç­‰å…§å®¹
-Set-Location 'c:\Users\å¼µ-1\CascadeProjects\ganxin-orchard'
+# ²`«×²M²z¸}¥» - ²¾°£©Ò¦³ÁÊª«¨®¡B­¶§À¡B¦^¨ì³»³¡«ö¶sµ¥¤º®e
+Set-Location 'c:\Users\±i-1\CascadeProjects\ganxin-orchard'
 
-# ç²å–æ‰€æœ‰HTMLæ–‡ä»¶ï¼ˆé™¤äº†index.htmlå’Œæ¨¡æ¿æ–‡ä»¶ï¼‰
+# Àò¨ú©Ò¦³HTML¤å¥ó¡]°£¤Findex.html©M¼ÒªO¤å¥ó¡^
 $htmlFiles = Get-ChildItem -Path '.' -Filter '*.html' | Where-Object { 
     $_.Name -ne 'index.html' -and 
     $_.Name -ne 'template_components.html' -and
@@ -11,53 +11,53 @@ $htmlFiles = Get-ChildItem -Path '.' -Filter '*.html' | Where-Object {
     $_.Name -ne 'hero-template.html'
 }
 
-Write-Host "é–‹å§‹æ·±åº¦æ¸…ç†..." -ForegroundColor Green
-Write-Host "æ‰¾åˆ° $($htmlFiles.Count) å€‹æ–‡ä»¶éœ€è¦è™•ç†" -ForegroundColor Yellow
+Write-Host "¶}©l²`«×²M²z..." -ForegroundColor Green
+Write-Host "§ä¨ì $($htmlFiles.Count) ­Ó¤å¥ó»İ­n³B²z" -ForegroundColor Yellow
 
 foreach ($file in $htmlFiles) {
-    Write-Host "è™•ç†æ–‡ä»¶: $($file.Name)"
+    Write-Host "³B²z¤å¥ó: $($file.Name)"
     $content = Get-Content -Path $file.FullName -Raw
     $originalContent = $content
     
-    # ç§»é™¤è³¼ç‰©è»Šç›¸é—œå…§å®¹
+    # ²¾°£ÁÊª«¨®¬ÛÃö¤º®e
     $content = $content -replace '(?s)<a[^>]*href="cart\.html"[^>]*>.*?</a>', ''
     $content = $content -replace '(?s)<div[^>]*class="[^"]*cart[^"]*"[^>]*>.*?</div>', ''
     $content = $content -replace '(?s)<i[^>]*class="[^"]*shopping-cart[^"]*"[^>]*>.*?</i>', ''
-    $content = $content -replace '(?s)è³¼ç‰©è»Š', ''
+    $content = $content -replace '(?s)ÁÊª«¨®', ''
     $content = $content -replace '(?s)cart\.js', ''
     
-    # ç§»é™¤é å°¾ç›¸é—œå…§å®¹
-    $content = $content -replace '(?s)<!-- é å°¾ -->.*?<!-- å›åˆ°é ‚éƒ¨æŒ‰éˆ• -->', ''
-    $content = $content -replace '(?s)<!-- å…¨æ–°è¨­è¨ˆé å°¾ -->.*?</footer>', ''
+    # ²¾°£­¶§À¬ÛÃö¤º®e
+    $content = $content -replace '(?s)<!-- ­¶§À -->.*?<!-- ¦^¨ì³»³¡«ö¶s -->', ''
+    $content = $content -replace '(?s)<!-- ¥ş·s³]­p­¶§À -->.*?</footer>', ''
     $content = $content -replace '(?s)<footer[^>]*>.*?</footer>', ''
-    $content = $content -replace '(?s)<!-- æ‰‹æ©Ÿé¸å–®é å°¾ -->.*?</div>', ''
+    $content = $content -replace '(?s)<!-- ¤â¾÷¿ï³æ­¶§À -->.*?</div>', ''
     $content = $content -replace '(?s)<div[^>]*class="[^"]*menu-footer[^"]*"[^>]*>.*?</div>', ''
     $content = $content -replace '(?s)<div[^>]*class="[^"]*mobile-menu-footer[^"]*"[^>]*>.*?</div>', ''
-    $content = $content -replace '(?s)é å°¾', ''
+    $content = $content -replace '(?s)­¶§À', ''
     
-    # ç§»é™¤å›åˆ°é ‚éƒ¨æŒ‰éˆ•
-    $content = $content -replace '(?s)<!-- å›åˆ°é ‚éƒ¨æŒ‰éˆ• -->.*?</div>', ''
+    # ²¾°£¦^¨ì³»³¡«ö¶s
+    $content = $content -replace '(?s)<!-- ¦^¨ì³»³¡«ö¶s -->.*?</div>', ''
     $content = $content -replace '(?s)<a[^>]*class="[^"]*back-to-top[^"]*"[^>]*>.*?</a>', ''
     $content = $content -replace '(?s)<div[^>]*class="[^"]*scroll-top[^"]*"[^>]*>.*?</div>', ''
     $content = $content -replace '(?s)<div[^>]*class="[^"]*go-top[^"]*"[^>]*>.*?</div>', ''
-    $content = $content -replace '(?s)å›åˆ°é ‚éƒ¨', ''
+    $content = $content -replace '(?s)¦^¨ì³»³¡', ''
     
-    # ç§»é™¤å¤šé¤˜çš„ç©ºç™½è¡Œ
+    # ²¾°£¦h¾lªºªÅ¥Õ¦æ
     $content = $content -replace '(?m)^\s*$\n\s*$', "`n"
     $content = $content -replace '(?m)\n\s*\n\s*\n', "`n`n"
     
-    # æ¸…ç†å¤šé¤˜çš„è¨»é‡‹
-    $content = $content -replace '(?s)<!-- é¸å–®å°èˆª -->\s*', ''
-    $content = $content -replace '(?s)<!-- é¸å–®åº•éƒ¨ -->\s*', ''
-    $content = $content -replace '(?s)<!-- è¼‰å…¥ç›¸é—œ JavaScript -->\s*', ''
+    # ²M²z¦h¾lªºµùÄÀ
+    $content = $content -replace '(?s)<!-- ¿ï³æ¾É¯è -->\s*', ''
+    $content = $content -replace '(?s)<!-- ¿ï³æ©³³¡ -->\s*', ''
+    $content = $content -replace '(?s)<!-- ¸ü¤J¬ÛÃö JavaScript -->\s*', ''
     
     if ($content -ne $originalContent) {
         Set-Content -Path $file.FullName -Value $content -Encoding UTF8
-        Write-Host "  æˆåŠŸæ¸…ç†: $($file.Name)" -ForegroundColor Green
+        Write-Host "  ¦¨¥\²M²z: $($file.Name)" -ForegroundColor Green
     } else {
-        Write-Host "  ç„¡éœ€æ¸…ç†: $($file.Name)" -ForegroundColor Cyan
+        Write-Host "  µL»İ²M²z: $($file.Name)" -ForegroundColor Cyan
     }
 }
 
-Write-Host "æ·±åº¦æ¸…ç†å®Œæˆï¼" -ForegroundColor Green
-Write-Host "è™•ç†äº† $($htmlFiles.Count) å€‹æ–‡ä»¶" -ForegroundColor Yellow
+Write-Host "²`«×²M²z§¹¦¨¡I" -ForegroundColor Green
+Write-Host "³B²z¤F $($htmlFiles.Count) ­Ó¤å¥ó" -ForegroundColor Yellow

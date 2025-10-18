@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>購物車 - 柑心果園</title>
+    <title> - 柑心果園</title>
     <link rel="stylesheet" href="./css/style.css?v=20250115FF">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -73,7 +73,7 @@
             color: #ddd;
         }
         
-        /* 購物車內容 */
+        /* 內容 */
         .cart-content {
             background: white;
             border-radius: 12px;
@@ -474,7 +474,7 @@
                 padding: 0;
             }
             
-            /* 隱藏購物車頁面的 logo 和購物車圖標 */
+            /* 隱藏頁面的 logo 和圖標 */
             .cart-page .header .logo {
                 display: none !important;
             }
@@ -488,7 +488,7 @@
                 justify-content: flex-end !important;
             }
             
-            /* 購物車封面 - 手機版 */
+            /* 封面 - 手機版 */
             .page-hero {
                 margin-top: 70px !important;
                 padding: 30px 0 25px !important;
@@ -523,13 +523,13 @@
                 display: none;
             }
             
-            /* 購物車內容區 */
+            /* 內容區 */
             .cart-content {
                 padding: 0 !important;
                 margin: 0 !important;
             }
             
-            /* 購物車列表 - 兩排網格佈局 */
+            /* 列表 - 兩排網格佈局 */
             #cartItemsList {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -537,7 +537,7 @@
                 padding: 0 15px;
             }
             
-            /* 手機版購物車項目 - 重新設計 */
+            /* 手機版項目 - 重新設計 */
             .cart-item {
                 display: flex;
                 flex-direction: column;
@@ -711,7 +711,7 @@
                 font-size: 12px;
             }
             
-            /* 空購物車樣式優化 */
+            /* 空樣式優化 */
             .cart-empty {
                 text-align: center;
                 padding: 60px 20px;
@@ -765,7 +765,7 @@
                 margin: 0 !important;
             }
             
-            /* 購物車總計 */
+            /* 總計 */
             .cart-summary {
                 margin: 0 !important;
                 border-radius: 0 !important;
@@ -970,15 +970,7 @@
                     margin: 0 !important;
                     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
                 }
-                
-                .menu-logo-text .logo-sub {
-                    color: #34495e !important;
-                    font-size: 12px !important;
-                    font-weight: 400 !important;
-                    margin: 0 !important;
-                    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6) !important;
-                }
-        
+
         .menu-nav {
             background: transparent !important;
             padding: 20px !important;
@@ -1672,7 +1664,7 @@
                 color: #ff8c42 !important;
             }
             
-            /* 手機選單頁尾樣式 */
+            /* 手機選單樣式 */
             .mobile-menu-footer {
                 padding: 20px !important;
                 background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
@@ -2173,11 +2165,7 @@
                 <a href="order-tracking.html" class="menu-link">訂單查詢</a>
             </li>
         </ul>
-        <div class="menu-footer">
-            <div class="menu-contact">
-                <p><i class="fas fa-phone"></i> 0933-721-978</p>
-                <p><i class="fas fa-envelope"></i> s9000721@gmail.com</p>
-            </div>
+        
         </div>
     </div>
     
@@ -2186,14 +2174,14 @@
     <!-- 統一Hero區塊 -->
     <section class="hero-slider">
         <div class="hero-content">
-            <h1 class="hero-title">購物車</h1>
+            <h1 class="hero-title"></h1>
             <p class="hero-subtitle">查看您選購的商品，準備結帳</p>
         </div>
     </section>
 
-    <!-- 購物車內容 -->
+    <!-- 內容 -->
     
-                <span class="step-label">購物車</span>
+                <span class="step-label"></span>
             </div>
             <i class="fas fa-chevron-right step-arrow"></i>
             <div class="step">
@@ -2207,7 +2195,7 @@
             </div>
         </div>
 
-        <!-- 購物車內容 -->
+        <!-- 內容 -->
 
                 <div class="summary-row">
                     <span>運費</span>
@@ -2289,23 +2277,19 @@
         </div>
     </div>
 
-    <!-- 頁尾 -->
-
-    <!-- 回到頂部按鈕 -->
-
     <script src="./js/products.js?v=20250115FF"></script>
-    <script src="./js/cart.js?v=20250115FF"></script>
+    <script src="./js/?v=20250115FF"></script>
     <script src="./js/content-protection.js?v=20250115FF" defer></script>
     <script src="./js/main.js?v=20250115FF"></script>
     <script src="./js/mobile-menu-simple.js?v=20250115FF"></script>
     
-    <!-- 回到頂部按鈕功能 -->
+    <!-- 按鈕功能 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const backToTopBtn = document.getElementById('backToTop');
             
             if (backToTopBtn) {
-                // 顯示/隱藏回到頂部按鈕
+                // 顯示/隱藏按鈕
                 window.addEventListener('scroll', function() {
                     if (window.pageYOffset > 300) {
                         backToTopBtn.style.display = 'block';
@@ -2314,12 +2298,9 @@
                     }
                 });
                 
-                // 點擊回到頂部
+                // 點擊
                 backToTopBtn.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
+                    );
                 });
             }
         });
@@ -2360,7 +2341,7 @@
                 const radio = this.querySelector('input[type="radio"]');
                 if (radio) {
                     radio.checked = true;
-                    // 觸發 change 事件以便 cart.js 保存到 localStorage
+                    // 觸發 change 事件以便  保存到 localStorage
                     radio.dispatchEvent(new Event('change', { bubbles: true }));
                 }
             });
@@ -2428,10 +2409,7 @@
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', loadRecommendedProducts);
     </script>
-    <!-- 頁尾 -->
-
-    <!-- 回到頂部按鈕 -->
+    
     </body>
 </html>
-
 

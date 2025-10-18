@@ -751,7 +751,7 @@
                 font-size: 16px;
             }
             
-            /* 手機版元素順序調整 - 加入購物車按鈕移到商品特色上方 */
+            /* 手機版元素順序調整 - 加入按鈕移到商品特色上方 */
             .product-detail-info {
                 display: flex;
                 flex-direction: column;
@@ -1031,15 +1031,7 @@
                     margin: 0 !important;
                     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
                 }
-                
-                .menu-logo-text .logo-sub {
-                    color: #34495e !important;
-                    font-size: 12px !important;
-                    font-weight: 400 !important;
-                    margin: 0 !important;
-                    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6) !important;
-                }
-        
+
         .menu-nav {
             background: transparent !important;
             padding: 20px !important;
@@ -1733,7 +1725,7 @@
                 color: #ff8c42 !important;
             }
             
-            /* 手機選單頁尾樣式 */
+            /* 手機選單樣式 */
             .mobile-menu-footer {
                 padding: 20px !important;
                 background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
@@ -2188,24 +2180,11 @@
 
 <!-- 手機選單 - 現代化設計 -->
 
-                <div class="logo-sub">Ganxin Orchard</div>
             </div>
         </div>
         
     </div>
-    
-    <!-- 選單導航 -->
 
-    <!-- 手機選單頁尾 -->
-    
-                <div class="mobile-contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>s9000721@gmail.com</span>
-                </div>
-                <div class="mobile-contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>台中市豐原區公老坪</span>
-                </div>
             </div>
         </div>
         
@@ -2225,7 +2204,7 @@
     </div>
 </div>
 
-<!-- 全新設計頁尾 -->
+<!-- 全新設計 -->
 
     <!-- 落下動畫容器 -->
     <div id="fallingAnimation" class="falling-animation-container"></div>
@@ -2291,11 +2270,7 @@
                 <a href="order-tracking.html" class="menu-link">訂單查詢</a>
             </li>
         </ul>
-        <div class="menu-footer">
-            <div class="menu-contact">
-                <p><i class="fas fa-phone"></i> 0933-721-978</p>
-                <p><i class="fas fa-envelope"></i> s9000721@gmail.com</p>
-            </div>
+        
         </div>
     </div>
     
@@ -2401,7 +2376,7 @@
                         </button>
                     </div>
                     <button class="btn-add-to-cart-large" id="addToCartBtn" onclick="addToCartFromDetail()">
-                        <i class="fas fa-cart-plus"></i> <span id="addToCartText">加入購物車</span>
+                        <i class="fas fa-cart-plus"></i> <span id="addToCartText">加入</span>
                     </button>
                 </div>
             </div>
@@ -2551,27 +2526,10 @@
         </div>
     </div>
 
-    <!-- 載入相關 JavaScript -->
-        
-            <button class="close-cart" id="closeCart">
-                <i class="fas fa-times"></i>
-            </button>
         </div>
 
             <div class="discount-info" id="discountInfo"></div>
-            
-                <div class="shipping-row">
-                    <span>運費：</span>
-                    <span id="shippingFee">NT$ 150</span>
-                </div>
-                <div class="discount-amount" id="discountAmount" style="display: none;">
-                    <span>折扣：</span>
-                    <span id="discountValue">-NT$ 0</span>
-                </div>
-                <div class="total">
-                    <span>總計：</span>
-                    <span id="total">NT$ 0</span>
-                </div>
+
                 <div class="shipping-notice">
                     <i class="fas fa-truck"></i> 滿 NT$1,800 免運費
                 </div>`n                <div class="discount-notice" style="margin-top: 10px; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 8px;">`n                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" style="color: #ff8c42; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">`n                        <i class="fab fa-facebook"></i> `n                        <span>查看 Facebook 最新優惠折扣</span>`n                    </a>`n                </div>`n            </div>
@@ -2603,535 +2561,8 @@
 
     </main>
     
-    <!-- 回到頂部按鈕 -->
+    <!-- 按鈕 -->
 
-    <!-- 頁尾 -->
-
-    <script src="./js/cache-clear.js?v=20251004i"></script>
-    <script src="./js/products.js?v=20250115FFi"></script>
-    <script src="./js/reviews.js?v=20251004i"></script>
-    <script src="./js/auto-sales.js?v=20250115FFi"></script>
-    <script src="./js/cart.js?v=20250115FFi"></script>    <script src="./js/content-protection.js?v=20250115FF" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115FF?v=20250110">
-    <script ?v=20250110" defer></script>
-
-    <script src="./js/main.js?v=20250115FFi"></script>
-    <script src="./js/product-gallery.js?v=20251004i"></script>
-    <script>
-        let currentProduct = null;
-        let currentQuantity = 1;
-        let selectedSpec = null;
-        
-        function getProductIdFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            return parseInt(params.get('id'));
-        }
-        
-        function loadProductDetail() {
-            const productId = getProductIdFromURL();
-            currentProduct = products.find(p => p.id === productId);
-            
-            if (!currentProduct) {
-                window.location.href = 'index.html';
-                return;
-            }
-            
-            if (currentProduct.images && currentProduct.images.length > 0) {
-                initProductGallery(currentProduct.id, currentProduct.images);
-            } else {
-                initProductGallery(currentProduct.id, [currentProduct.image]);
-            }
-            
-            document.getElementById('productCategory').textContent = currentProduct.category;
-            document.getElementById('productName').textContent = currentProduct.name;
-            document.getElementById('productPrice').textContent = currentProduct.price;
-            document.getElementById('productDescription').textContent = currentProduct.description;
-            document.getElementById('salesCount').textContent = currentProduct.salesCount || 0;
-            
-            // 更新麵包屑
-            const breadcrumbName = document.getElementById('breadcrumbProductName');
-            if (breadcrumbName) {
-                breadcrumbName.textContent = currentProduct.name;
-            }
-            
-            loadProductFeatures(currentProduct);
-            loadFlavorIndicators(currentProduct);
-            loadRelatedProducts(currentProduct);
-            updateMetaTags(currentProduct);
-            generateProductSchema(currentProduct);
-            
-            // 顯示預購提示和更改按鈕文字
-            if (currentProduct.isPreorder) {
-                const preorderNotice = document.getElementById('preorderNotice');
-                if (preorderNotice) preorderNotice.style.display = 'block';
-                
-                const addToCartText = document.getElementById('addToCartText');
-                if (addToCartText) addToCartText.textContent = '加入預購';
-            }
-            
-            // 顯示規格選擇
-            if (currentProduct.hasSpecs && currentProduct.specs && currentProduct.specs.length > 0) {
-                const specSelector = document.getElementById('specSelector');
-                if (specSelector) {
-                    specSelector.style.display = 'block';
-                    renderSpecs();
-                }
-            }
-            
-            document.title = `${currentProduct.name} - 柑心果園`;
-        }
-        
-        function renderSpecs() {
-            const specTabs = document.getElementById('specTabs');
-            const specTabContents = document.getElementById('specTabContents');
-            const specs = currentProduct.specs;
-            
-            // 渲染 Tab 導航
-            specTabs.innerHTML = specs.map((spec, index) => `
-                <button class="spec-tab ${index === 0 ? 'active' : ''}" onclick="switchSpecTab('${spec.id}', this)">
-                    ${spec.name}
-                </button>
-            `).join('');
-            
-            // 渲染 Tab 內容
-            specTabContents.innerHTML = specs.map((spec, index) => `
-                <div class="spec-tab-content ${index === 0 ? 'active' : ''}" id="tab-${spec.id}">
-                    <div class="spec-price-highlight">
-                        <span class="currency">NT$</span> ${spec.price.toLocaleString()}
-                    </div>
-                    
-                    ${spec.description ? `
-                        <div class="spec-description-box">
-                            <i class="fas fa-info-circle"></i> ${spec.description}
-                        </div>
-                    ` : ''}
-                    
-                    <div class="spec-detail-grid">
-                        <div class="spec-detail-item">
-                            <i class="fas fa-tag"></i>
-                            <div class="spec-detail-label">規格等級</div>
-                            <div class="spec-detail-value">${spec.name}</div>
-                        </div>
-                        ${spec.diameter ? `
-                        <div class="spec-detail-item">
-                            <i class="fas fa-ruler-combined"></i>
-                            <div class="spec-detail-label">果粒大小</div>
-                            <div class="spec-detail-value">${spec.diameter}</div>
-                        </div>
-                        ` : ''}
-                        <div class="spec-detail-item">
-                            <i class="fas fa-box"></i>
-                            <div class="spec-detail-label">包裝規格</div>
-                            <div class="spec-detail-value">${spec.weight || '-'}</div>
-                        </div>
-                        <div class="spec-detail-item">
-                            <i class="fas fa-dollar-sign"></i>
-                            <div class="spec-detail-label">單價</div>
-                            <div class="spec-detail-value">NT$ ${spec.price.toLocaleString()}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-            
-            if (specs.length > 0) {
-                selectSpec(specs[0].id);
-            }
-        }
-        
-        function switchSpecTab(specId, clickedTab) {
-            // 更新 Tab 狀態
-            document.querySelectorAll('.spec-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            clickedTab.classList.add('active');
-            
-            // 更新內容顯示
-            document.querySelectorAll('.spec-tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById('tab-' + specId).classList.add('active');
-            
-            // 更新選中的規格
-            selectSpec(specId);
-        }
-        
-        function selectSpec(specId, clickedElement) {
-            const spec = currentProduct.specs.find(s => s.id === specId);
-            if (!spec) return;
-            
-            selectedSpec = spec;
-            document.getElementById('productPrice').textContent = spec.price;
-            
-            document.querySelectorAll('.spec-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // 如果有傳入點擊的元素，就設為 active
-            if (clickedElement) {
-                const btn = clickedElement.closest ? clickedElement.closest('.spec-btn') : clickedElement;
-                if (btn) btn.classList.add('active');
-            } else {
-                // 否則根據 specId 找到對應的按鈕
-                const targetBtn = document.querySelector(`.spec-btn[onclick*="${specId}"]`);
-                if (targetBtn) targetBtn.classList.add('active');
-            }
-            
-            const specDetail = spec.weight ? spec.weight : (spec.diameter ? `單顆直徑約 ${spec.diameter}` : '');
-            document.getElementById('specInfo').innerHTML = `
-                <div class="selected-spec-info">
-                    <i class="fas fa-check-circle"></i>
-                    已選擇：<strong>${spec.name}</strong>${specDetail ? ` (${specDetail})` : ''}
-                </div>
-            `;
-        }
-        
-        function loadProductFeatures(product) {
-            const featuresEl = document.getElementById('productFeatures');
-            if (!featuresEl) return;
-            
-            let features = [];
-            
-            if (product.id >= 3 && product.id <= 5) {
-                features = [
-                    '新鮮菱角仁，口感綿密香甜',
-                    '營養豐富，含蛋白質、維生素B群、膳食纖維',
-                    '冷凍保存12個月，-18°C保存',
-                    '可煮湯、炒菜、煮粥、燉品，用途多樣',
-                    '產地直送，品質保證',
-                    '冷凍宅配，新鮮到府'
-                ];
-            } else {
-                features = [
-                    '產地直送，新鮮保證',
-                    '通過安全驗證，品質有保障',
-                    '冷藏宅配，維持最佳風味',
-                    '24小時內拍照反應，協助退換貨'
-                ];
-            }
-            
-            featuresEl.innerHTML = features.map(f => `<li>${f}</li>`).join('');
-            
-            // 載入料理方式圖片
-            loadCookingImages(product);
-            
-            // 載入商品介紹圖片
-            loadProductDetailImages(product);
-        }
-        
-        function loadCookingImages(product) {
-            const cookingSection = document.getElementById('cookingMethods');
-            const cookingGrid = document.getElementById('cookingImagesGrid');
-            
-            if (!product.cookingImages || product.cookingImages.length === 0) {
-                if (cookingSection) cookingSection.style.display = 'none';
-                return;
-            }
-            
-            cookingSection.style.display = 'block';
-            cookingGrid.innerHTML = product.cookingImages.map(cooking => `
-                <div style="text-align: center; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="${cooking.image}" alt="${cooking.title}" style="width: 100%; height: 250px; object-fit: cover;">
-                    <div style="padding: 15px;">
-                        <h3 style="color: var(--primary-color); font-size: 18px; margin: 0;">${cooking.title}</h3>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        function loadProductDetailImages(product) {
-            const detailImagesEl = document.getElementById('productDetailImages');
-            if (!detailImagesEl) return;
-            
-            if (!product.detailImages || product.detailImages.length === 0) {
-                detailImagesEl.style.display = 'none';
-                return;
-            }
-            
-            detailImagesEl.style.display = 'block';
-            detailImagesEl.innerHTML = product.detailImages.map(img => `
-                <div style="margin-bottom: 20px; text-align: center;">
-                    <img src="${img}" alt="${product.name} 商品介紹" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" loading="lazy">
-                </div>
-            `).join('');
-        }
-        
-        // 載入風味指標
-        function loadFlavorIndicators(product) {
-            const flavorSection = document.getElementById('flavorIndicators');
-            if (!flavorSection) return;
-            
-            // 只有水果類商品顯示風味指標
-            if (product.category !== '優質水果') {
-                flavorSection.style.display = 'none';
-                return;
-            }
-            
-            // 設定預設風味值
-            const sweetness = product.sweetness || 4;
-            const acidity = product.acidity || 3;
-            const aroma = product.aroma || 4;
-            
-            flavorSection.style.display = 'block';
-            
-            // 更新數值和進度條
-            document.getElementById('sweetnessValue').textContent = sweetness + '/5';
-            document.getElementById('acidityValue').textContent = acidity + '/5';
-            document.getElementById('aromaValue').textContent = aroma + '/5';
-            
-            setTimeout(() => {
-                document.getElementById('sweetnessBar').style.width = (sweetness / 5 * 100) + '%';
-                document.getElementById('acidityBar').style.width = (acidity / 5 * 100) + '%';
-                document.getElementById('aromaBar').style.width = (aroma / 5 * 100) + '%';
-            }, 100);
-        }
-        
-        // 載入相關商品推薦
-        function loadRelatedProducts(product) {
-            const relatedGrid = document.getElementById('relatedProductsGrid');
-            if (!relatedGrid) return;
-            
-            // 推薦同類別的其他商品
-            const related = products.filter(p => 
-                p.id !== product.id && 
-                p.category === product.category
-            ).slice(0, 3);
-            
-            // 如果同類別不足3個，補充其他商品
-            if (related.length < 3) {
-                const others = products.filter(p => 
-                    p.id !== product.id && 
-                    !related.includes(p)
-                ).slice(0, 3 - related.length);
-                related.push(...others);
-            }
-            
-            relatedGrid.innerHTML = related.map(p => `
-                <div class="product-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    ${p.badge ? `<span style="position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 1;">${p.badge}</span>` : ''}
-                    <div style="position: relative; overflow: hidden; height: 200px;">
-                        <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                    </div>
-                    <div style="padding: 20px;">
-                        <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 8px; height: 50px; overflow: hidden;">${p.name}</h3>
-                        <p style="font-size: 14px; color: #666; margin-bottom: 15px; height: 40px; overflow: hidden;">${p.description || ''}</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 24px; font-weight: 700; color: var(--primary-color);">NT$ ${p.price.toLocaleString()}</span>
-                            <a href="product-detail.html?id=${p.id}" style="background: var(--primary-color); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 14px; transition: background 0.3s;" onmouseover="this.style.background='var(--secondary-color)'" onmouseout="this.style.background='var(--primary-color)'">查看詳情</a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // 更新 Meta 標籤
-        function updateMetaTags(product) {
-            const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
-            const productUrl = baseUrl + 'product-detail.html?id=' + product.id;
-            
-            // 更新 title
-            document.getElementById('pageTitle').textContent = product.name + ' - 柑心果園';
-            document.getElementById('pageDescription').content = product.description || product.name;
-            
-            // 更新 OG 標籤
-            document.getElementById('ogTitle').content = product.name + ' - 柑心果園';
-            document.getElementById('ogDescription').content = product.description || product.name;
-            document.getElementById('ogImage').content = product.image;
-            document.getElementById('ogUrl').content = productUrl;
-        }
-        
-        // 生成 Product JSON-LD
-        function generateProductSchema(product) {
-            const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
-            const productUrl = baseUrl + 'product-detail.html?id=' + product.id;
-            
-            const schema = {
-                "@context": "https://schema.org/",
-                "@type": "Product",
-                "name": product.name,
-                "image": product.image,
-                "description": product.description || product.name,
-                "brand": {
-                    "@type": "Brand",
-                    "name": "柑心果園"
-                },
-                "offers": {
-                    "@type": "Offer",
-                    "url": productUrl,
-                    "priceCurrency": "TWD",
-                    "price": product.price,
-                    "availability": product.isPreorder ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
-                    "seller": {
-                        "@type": "Organization",
-                        "name": "柑心果園"
-                    }
-                }
-            };
-            
-            // 如果有評分資料，添加 aggregateRating
-            if (product.rating) {
-                schema.aggregateRating = {
-                    "@type": "AggregateRating",
-                    "ratingValue": product.rating,
-                    "reviewCount": product.reviewCount || 1
-                };
-            }
-            
-            document.getElementById('productSchema').textContent = JSON.stringify(schema, null, 2);
-        }
-        
-        function changeQuantity(change) {
-            currentQuantity = Math.max(1, currentQuantity + change);
-            document.getElementById('quantity').textContent = currentQuantity;
-        }
-        
-        function addToCartFromDetail() {
-            if (!currentProduct) return;
-            
-            if (currentProduct.hasSpecs && !selectedSpec) {
-                alert('請先選擇規格！');
-                return;
-            }
-            
-            addToCart(currentProduct.id, selectedSpec ? selectedSpec.id : null, currentQuantity);
-            
-            currentQuantity = 1;
-            document.getElementById('quantity').textContent = 1;
-            
-            const specText = selectedSpec ? ` (${selectedSpec.name})` : '';
-            alert(`已加入 ${currentQuantity} 件${specText}到購物車！`);
-        }
-        
-        // 評論系統由 reviews.js 處理
-        
-        function loadRecommendedProducts() {
-            const currentId = getProductIdFromURL();
-            let recommended = products.filter(p => p.id !== currentId);
-            
-            // 確保芋角總是出現在推薦中（如果當前商品不是芋角）
-            if (currentId !== 6) {
-                const taroProduct = products.find(p => p.id === 6);
-                if (taroProduct) {
-                    recommended = [taroProduct, ...recommended.filter(p => p.id !== 6)].slice(0, 3);
-                }
-            }
-            
-            recommended = recommended.slice(0, 3);
-            
-            const container = document.getElementById('recommendedProducts');
-            if (!container) return;
-            
-            container.innerHTML = recommended.map(product => `
-                <div class="product-card">
-                    <a href="product-detail.html?id=${product.id}">
-                        <div class="product-image">
-                            ${product.badge ? `<span class="badge">${product.badge}</span>` : ''}
-                            <img src="${product.image}" alt="${product.name}">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price">
-                                <span class="currency">NT$</span>
-                                <span class="amount">${product.price}</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            `).join('');
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProductDetail();
-            renderReviews(1, 10);
-            document.getElementById('averageRating').textContent = getAverageRating();
-            loadRecommendedProducts();
-        });
-    </script>
-    <script src="./js/orange-animation.js?v=20251004i"></script>
-    <script src="./js/falling-animation.js"></script>
-    
-    <!-- 落下動畫腳本 -->
-    <script>
-        // 根據商品 ID 顯示對應的落下動畫
-        function initFallingAnimation() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = parseInt(urlParams.get('id'));
-            
-            let animationImage = null;
-            
-            // 椪柑商品 (ID: 1)
-            if (productId === 1) {
-                animationImage = 'images/椪柑產品圖/椪柑商品介紹1.png';
-            }
-            // 茂谷柑商品 (ID: 2)
-            else if (productId === 2) {
-                animationImage = 'images/茂谷柑產品圖/茂谷柑商品介紹1.png';
-            }
-            // 菱角商品 (ID: 3)
-            else if (productId === 3) {
-                animationImage = 'images/新鮮蔬果菱角仁.jpg';
-            }
-            // 芋角商品 (ID: 6)
-            else if (productId === 6) {
-                animationImage = 'images/芋角/新鮮蔬果芋角2CM.jpg';
-            }
-            
-            // 如果有對應的動畫圖片，創建落下動畫
-            if (animationImage) {
-                const container = document.getElementById('fallingAnimation');
-                const itemCount = 8; // 落下物品數量
-                
-                for (let i = 0; i < itemCount; i++) {
-                    const item = document.createElement('div');
-                    item.className = 'falling-item';
-                    item.style.backgroundImage = `url('${animationImage}')`;
-                    item.style.left = `${Math.random() * 100}%`;
-                    item.style.animationDuration = `${5 + Math.random() * 5}s`; // 5-10秒
-                    item.style.animationDelay = `${Math.random() * 5}s`; // 隨機延遲
-                    
-                    container.appendChild(item);
-                }
-            }
-        }
-        
-        // 頁面載入時初始化動畫
-        document.addEventListener('DOMContentLoaded', initFallingAnimation);
-    </script>
-    
-    <!-- 載入必要的 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115FF"></script>
-    <script src="./js/dropdown-menu.js?v=20250115FF"></script>
-    <script src="./js/content-protection.js?v=20250115FF" defer></script>
-    <script src="./js/main.js?v=20250115FF"></script>
-    
-    <!-- 回到頂部按鈕功能 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            if (backToTopBtn) {
-                // 顯示/隱藏回到頂部按鈕
-                window.addEventListener('scroll', function() {
-                    if (window.pageYOffset > 300) {
-                        backToTopBtn.style.display = 'block';
-                    } else {
-                        backToTopBtn.style.display = 'none';
-                    }
-                });
-                
-                // 點擊回到頂部
-                backToTopBtn.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-        });
-    </script>
-    <!-- 頁尾 -->
-
-    <!-- 回到頂部按鈕 -->
     </body>
 </html>
-
 

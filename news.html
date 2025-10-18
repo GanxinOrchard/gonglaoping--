@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .news-hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)
+            color: var(--white
             padding: 80px 0 40px;
             text-align: center;
         }
@@ -27,21 +27,21 @@
         
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr
             gap: 30px;
             padding: 20px 0;
         }
         
         @media (max-width: 992px) {
             .news-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr
                 gap: 20px;
             }
         }
         
         @media (max-width: 576px) {
             .news-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr
                 gap: 15px;
             }
         }
@@ -51,19 +51,19 @@
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1
             transition: all 0.3s;
         }
         
         .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-5px
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15
         }
         
         .news-card-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            background: linear-gradient(135deg, #ff8c42, #ff6b35
             display: flex;
             align-items: center;
             justify-content: center;
@@ -75,7 +75,7 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.95
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 13px;
@@ -111,9 +111,9 @@
         
         .category-btn {
             padding: 12px 24px;
-            border: 2px solid var(--primary-color);
+            border: 2px solid var(--primary-color
             background: white;
-            color: var(--primary-color);
+            color: var(--primary-color
             border-radius: 25px;
             cursor: pointer;
             font-size: 16px;
@@ -123,15 +123,15 @@
         }
         
         .category-btn:hover {
-            background: var(--primary-color);
+            background: var(--primary-color
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-2px
         }
         
         .category-btn.active {
-            background: var(--primary-color);
+            background: var(--primary-color
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3
         }
         
         /* 下拉式選單樣式 */
@@ -158,13 +158,13 @@
         }
         
         .news-dropdown-toggle:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+            border-color: var(--primary-color
+            color: var(--primary-color
         }
         
         .news-dropdown-toggle.active {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
+            background: var(--primary-color
+            border-color: var(--primary-color
             color: white;
         }
         
@@ -176,11 +176,11 @@
             background: white;
             border: 2px solid #e5e7eb;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-10px);
+            transform: translateY(-10px
             transition: all 0.3s ease;
             margin-top: 5px;
         }
@@ -188,7 +188,7 @@
         .news-dropdown-menu.show {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
+            transform: translateY(0
         }
         
         .news-dropdown-item {
@@ -205,12 +205,12 @@
         
         .news-dropdown-item:hover {
             background: #f9fafb;
-            color: var(--primary-color);
+            color: var(--primary-color
         }
         
         .news-dropdown-item.active {
             background: #fff7ed;
-            color: var(--primary-color);
+            color: var(--primary-color
             font-weight: 600;
         }
         
@@ -230,11 +230,11 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(20px
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0
             }
         }
         
@@ -289,7 +289,7 @@
         .carousel-btn:hover {
             background: #ff8c42;
             color: white;
-            transform: scale(1.1);
+            transform: scale(1.1
         }
         
         @media (max-width: 768px) {
@@ -330,13 +330,13 @@
         
         @keyframes rotate-float {
             0% {
-                transform: rotate(0deg) translateY(0px);
+                transform: rotate(0deg) translateY(0px
             }
             50% {
-                transform: rotate(180deg) translateY(-20px);
+                transform: rotate(180deg) translateY(-20px
             }
             100% {
-                transform: rotate(360deg) translateY(0px);
+                transform: rotate(360deg) translateY(0px
             }
         }
         
@@ -349,11 +349,11 @@
 <style>
         /* 最新消息廣播器重新設計 */
         .broadcast-section {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            background: linear-gradient(135deg, #ff6b35, #f7931e
             color: white;
             padding: 20px 0;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3
         }
         
         .broadcast-content {
@@ -365,7 +365,7 @@
         .broadcast-icon {
             width: 50px;
             height: 50px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -384,7 +384,7 @@
             height: 50px;
             position: relative;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1
             border-radius: 25px;
             padding: 0 20px;
         }
@@ -399,7 +399,7 @@
             align-items: center;
             gap: 15px;
             opacity: 0;
-            transform: translateY(0);
+            transform: translateY(0
             transition: all 0.8s ease;
             color: white;
             text-decoration: none;
@@ -408,21 +408,21 @@
         
         .news-ticker-item.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0
         }
         
         .news-ticker-item.prev {
-            transform: translateY(-100%);
+            transform: translateY(-100%
             opacity: 0;
         }
         
         .news-ticker-item.next {
-            transform: translateY(100%);
+            transform: translateY(100%
             opacity: 0;
         }
         
         .news-date {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.3
             padding: 5px 12px;
             border-radius: 15px;
             font-size: 12px;
@@ -441,7 +441,7 @@
         .news-ticker-arrow {
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -452,8 +452,8 @@
         }
         
         .news-ticker-arrow:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3
+            transform: scale(1.1
         }
         
                 /* 手機選單設計 - 簡潔版本 */
@@ -533,15 +533,7 @@
                     margin: 0 !important;
                     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
                 }
-                
-                .menu-logo-text .logo-sub {
-                    color: #34495e !important;
-                    font-size: 12px !important;
-                    font-weight: 400 !important;
-                    margin: 0 !important;
-                    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6) !important;
-                }
-        
+
         .menu-nav {
             background: transparent !important;
             padding: 20px !important;
@@ -1109,9 +1101,9 @@
             }
             
             @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
+                0% { transform: scale(1 }
+                50% { transform: scale(1.05 }
+                100% { transform: scale(1 }
             }
             
             .broadcast-text {
@@ -1688,17 +1680,7 @@
 <body>
 <!-- 主要導覽列 - 開南風格 -->
 
-<!-- 手機選單 - 現代化設計 -->
-
-            </div>
-        </div>
-        
-    </div>
-    
-    <div class="mobile-contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-            </div>
+<!-- 手機選單 - 現代化設計 --></div>
         </div>
         
         <div class="mobile-social-section">
@@ -1707,15 +1689,11 @@
                     <i class="fab fa-facebook-f"></i>
                 </a>
                 <a href="#" target="_blank" class="mobile-social-button line">
-                    <i class="fab fa-line"></i>
+                    
                 </a>
                 <a href="#" target="_blank" class="mobile-social-button instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+                    
+                </a></div>
 
 <!-- 全新設計 -->
 
@@ -1801,45 +1779,45 @@
     <script>
         // 卡片輪播功能
         function scrollCarousel(type, direction) {
-            const carousel = document.getElementById(type + 'Carousel');
+            const carousel = document.getElementById(type + 'Carousel'
             const scrollAmount = 380; // 卡片寬度 + gap
             carousel.scrollBy({
                 left: direction * scrollAmount,
                 behavior: 'smooth'
-            });
+            }
         }
 
         // 拖曳滑動功能
         document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.getElementById('newsCarousel');
+            const carousel = document.getElementById('newsCarousel'
             let isDown = false;
             let startX;
             let scrollLeft;
 
             carousel.addEventListener('mousedown', (e) => {
                 isDown = true;
-                carousel.classList.add('grabbing');
+                carousel.classList.add('grabbing'
                 startX = e.pageX - carousel.offsetLeft;
                 scrollLeft = carousel.scrollLeft;
-            });
+            }
 
             carousel.addEventListener('mouseleave', () => {
                 isDown = false;
-                carousel.classList.remove('grabbing');
-            });
+                carousel.classList.remove('grabbing'
+            }
 
             carousel.addEventListener('mouseup', () => {
                 isDown = false;
-                carousel.classList.remove('grabbing');
-            });
+                carousel.classList.remove('grabbing'
+            }
 
             carousel.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
-                e.preventDefault();
+                e.preventDefault(
                 const x = e.pageX - carousel.offsetLeft;
                 const walk = (x - startX) * 2;
                 carousel.scrollLeft = scrollLeft - walk;
-            });
+            }
 
             // 觸控支援
             let touchStartX = 0;
@@ -1848,124 +1826,122 @@
             carousel.addEventListener('touchstart', (e) => {
                 touchStartX = e.touches[0].pageX;
                 touchScrollLeft = carousel.scrollLeft;
-            });
+            }
 
             carousel.addEventListener('touchmove', (e) => {
                 const touchX = e.touches[0].pageX;
                 const walk = (touchStartX - touchX) * 1.5;
                 carousel.scrollLeft = touchScrollLeft + walk;
-            });
-        });
+            }
+        }
 
     // 新聞分類篩選功能
     document.addEventListener('DOMContentLoaded', function() {
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const newsCards = document.querySelectorAll('.news-card');
-        const newsGrid = document.getElementById('newsGrid');
-        const dropdownToggle = document.getElementById('newsDropdownToggle');
-        const dropdownMenu = document.getElementById('newsDropdownMenu');
-        const dropdownItems = document.querySelectorAll('.news-dropdown-item');
+        const categoryBtns = document.querySelectorAll('.category-btn'
+        const newsCards = document.querySelectorAll('.news-card'
+        const newsGrid = document.getElementById('newsGrid'
+        const dropdownToggle = document.getElementById('newsDropdownToggle'
+        const dropdownMenu = document.getElementById('newsDropdownMenu'
+        const dropdownItems = document.querySelectorAll('.news-dropdown-item'
 
         // 檢查 URL 參數
-        const urlParams = new URLSearchParams(window.location.search);
-        const categoryParam = urlParams.get('category');
+        const urlParams = new URLSearchParams(window.location.search
+        const categoryParam = urlParams.get('category'
         
         // 如果有分類參數，自動篩選
         if (categoryParam) {
-            filterNews(categoryParam);
+            filterNews(categoryParam
             
             // 更新下拉選單的 active 狀態
             dropdownItems.forEach(item => {
                 if (item.getAttribute('data-category') === categoryParam) {
-                    item.classList.add('active');
+                    item.classList.add('active'
                     dropdownToggle.querySelector('span').textContent = item.textContent;
                 } else {
-                    item.classList.remove('active');
+                    item.classList.remove('active'
                 }
-            });
+            }
             
             // 更新按鈕的 active 狀態
             categoryBtns.forEach(btn => {
                 if (btn.getAttribute('data-category') === categoryParam) {
-                    btn.classList.add('active');
+                    btn.classList.add('active'
                 } else {
-                    btn.classList.remove('active');
+                    btn.classList.remove('active'
                 }
-            });
+            }
         }
 
         // 分類按鈕功能
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 // 移除所有按鈕的active類別
-                categoryBtns.forEach(b => b.classList.remove('active'));
+                categoryBtns.forEach(b => b.classList.remove('active')
                 // 添加active類別到當前按鈕
-                this.classList.add('active');
+                this.classList.add('active'
 
-                const selectedCategory = this.getAttribute('data-category');
-                filterNews(selectedCategory);
-            });
-        });
+                const selectedCategory = this.getAttribute('data-category'
+                filterNews(selectedCategory
+            }
+        }
 
         // 下拉式選單切換
         dropdownToggle.addEventListener('click', function() {
-            dropdownMenu.classList.toggle('show');
-            this.classList.toggle('active');
-        });
+            dropdownMenu.classList.toggle('show'
+            this.classList.toggle('active'
+        }
 
         // 下拉式選單項目點擊
         dropdownItems.forEach(item => {
             item.addEventListener('click', function() {
                 // 移除所有項目的active類別
-                dropdownItems.forEach(i => i.classList.remove('active'));
+                dropdownItems.forEach(i => i.classList.remove('active')
                 // 添加active類別到當前項目
-                this.classList.add('active');
+                this.classList.add('active'
 
-                const selectedCategory = this.getAttribute('data-category');
+                const selectedCategory = this.getAttribute('data-category'
                 const categoryText = this.textContent;
                 
                 // 更新按鈕文字
                 dropdownToggle.querySelector('span').textContent = categoryText;
                 
                 // 關閉下拉選單
-                dropdownMenu.classList.remove('show');
-                dropdownToggle.classList.remove('active');
+                dropdownMenu.classList.remove('show'
+                dropdownToggle.classList.remove('active'
                 
                 // 過濾新聞
-                filterNews(selectedCategory);
-            });
-        });
+                filterNews(selectedCategory
+            }
+        }
 
         // 點擊外部關閉下拉選單
         document.addEventListener('click', function(e) {
             if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                dropdownMenu.classList.remove('show');
-                dropdownToggle.classList.remove('active');
+                dropdownMenu.classList.remove('show'
+                dropdownToggle.classList.remove('active'
             }
-        });
+        }
 
         // 過濾新聞函數
         function filterNews(selectedCategory) {
             newsCards.forEach(card => {
-                const cardCategory = card.getAttribute('data-category');
+                const cardCategory = card.getAttribute('data-category'
                 
                 if (selectedCategory === 'all' || cardCategory === selectedCategory) {
-                    card.classList.remove('hidden');
-                    card.classList.add('fade-in');
+                    card.classList.remove('hidden'
+                    card.classList.add('fade-in'
                 } else {
-                    card.classList.add('hidden');
-                    card.classList.remove('fade-in');
+                    card.classList.add('hidden'
+                    card.classList.remove('fade-in'
                 }
-            });
+            }
 
             // 重新排列可見的卡片
-            const visibleCards = Array.from(newsCards).filter(card => !card.classList.contains('hidden'));
+            const visibleCards = Array.from(newsCards).filter(card => !card.classList.contains('hidden')
             visibleCards.forEach((card, index) => {
                 card.style.order = index;
-            });
-        }
-    });
-    </script>
+            }
+        }</script>
 
     <main id="main-content">
     <!-- 統一Hero區塊 -->
@@ -1999,9 +1975,6 @@
                         <div class="news-dropdown-item" data-category="new">新品上市</div>
                         <div class="news-dropdown-item" data-category="promotion">期間優惠</div>
                         <div class="news-dropdown-item" data-category="diary">果園日誌</div>
-                    </div>
-                </div>
-            </div>
             
             <div class="news-grid" id="newsGrid">
                 <!-- 2025.10.01 -->
@@ -2215,5 +2188,4 @@
     
     </body>
 </html>
-
 
