@@ -544,7 +544,7 @@
                 left: 0 !important;
                 width: 100% !important;
                 height: 100% !important;
-                background: rgba(0, 0, 0, 0.4) !important;
+                background: rgba(0, 0, 0, 0.2) !important;
                 z-index: 2 !important;
             }
             
@@ -553,51 +553,50 @@
                 z-index: 10 !important;
                 text-align: center !important;
                 color: white !important;
-                padding: 80px 20px 60px 20px !important;
-                margin-top: 60px !important;
+                padding: 20px 20px 40px 20px !important;
+                margin-top: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-end !important;
+                min-height: 60vh !important;
             }
             
             .hero-title {
-                font-size: 2.8rem !important;
-                font-weight: 800 !important;
-                margin-bottom: 1rem !important;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
-                line-height: 1.1 !important;
+                font-size: 2.2rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 0.5rem !important;
+                text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8) !important;
+                line-height: 1.2 !important;
             }
             
             .hero-subtitle {
-                font-size: 1.4rem !important;
-                margin-bottom: 1.5rem !important;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+                font-size: 1.2rem !important;
+                margin-bottom: 1rem !important;
+                text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8) !important;
                 font-weight: 300 !important;
             }
             
             .hero-description {
-                font-size: 1rem !important;
-                line-height: 1.6 !important;
-                margin-bottom: 2rem !important;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
-                max-width: 90% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
+                display: none !important;
             }
             
             .hero-buttons {
                 display: flex !important;
-                flex-direction: column !important;
-                gap: 15px !important;
+                flex-direction: row !important;
+                gap: 10px !important;
                 align-items: center !important;
+                justify-content: center !important;
             }
             
             .btn-primary,
             .btn-secondary {
-                padding: 12px 30px !important;
-                font-size: 1rem !important;
+                padding: 10px 20px !important;
+                font-size: 0.9rem !important;
                 border-radius: 25px !important;
                 text-decoration: none !important;
                 font-weight: 600 !important;
                 transition: all 0.3s ease !important;
-                min-width: 200px !important;
+                min-width: 120px !important;
                 text-align: center !important;
             }
             
@@ -614,9 +613,10 @@
             }
             
             .btn-secondary {
-                background: transparent !important;
+                background: rgba(255, 255, 255, 0.2) !important;
                 color: white !important;
                 border: 2px solid white !important;
+                backdrop-filter: blur(5px) !important;
             }
             
             .btn-secondary:hover {
@@ -1417,7 +1417,8 @@
             
             <!-- 版權資訊 -->
             <div class="footer-copyright">
-                <p>&copy; 2025 柑心果園 Ganxin Orchard. 版權所有.</p>
+                <p>&copy; 2025 柑心果園有限公司 | 版權所有 All Rights Reserved.</p>
+                <p>台中豐原公老坪優質水果供應商 | 東勢茂谷柑產地直送</p>
             </div>
         </div>
     </footer>

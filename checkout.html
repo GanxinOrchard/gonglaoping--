@@ -13,11 +13,533 @@
     
     <link rel="preload" href="./css/style.css?v=20250115EE" as="style">
     <link rel="stylesheet" href="./css/style.css?v=20250115EE">
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115EE">
     <!-- 預載入封面圖片以提升載入速度 -->
     <link rel="preload" href="images/柑心果園販賣所-1.png" as="image">
     <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <style>
+        /* 手機選單設計 - 簡潔版本 */
+        .menu-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.5) !important;
+            z-index: 9998 !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .menu-overlay.show {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        .main-menu {
+            display: none !important;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 249, 250, 0.95) 100%) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 107, 53, 0.2) !important;
+            border-radius: 15px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+            z-index: 9999 !important;
+            position: fixed !important;
+            top: 20px !important;
+            right: 20px !important;
+            width: 300px !important;
+            max-height: 80vh !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translateX(100%) scale(0.9) !important;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        }
+        
+        .main-menu.show {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateX(0) scale(1) !important;
+            animation: menuBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        }
+        
+        @keyframes menuBounceIn {
+            0% {
+                transform: translateX(100%) scale(0.8) !important;
+                opacity: 0 !important;
+            }
+            50% {
+                transform: translateX(-10px) scale(1.05) !important;
+                opacity: 0.8 !important;
+            }
+            100% {
+                transform: translateX(0) scale(1) !important;
+                opacity: 1 !important;
+            }
+        }
+        
+        .menu-header {
+            background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.3) !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 10 !important;
+            padding: 20px !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+            overflow: hidden !important;
+        }
+        
+        .menu-logo {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+        }
+        
+        .menu-logo-img {
+            width: 40px !important;
+            height: 40px !important;
+            object-fit: contain !important;
+        }
+        
+        .menu-logo-text .logo-main {
+            color: #2c3e50 !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            margin: 0 !important;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        .menu-logo-text .logo-sub {
+            color: #34495e !important;
+            font-size: 12px !important;
+            font-weight: 400 !important;
+            margin: 0 !important;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+        }
+        
+        .menu-nav {
+            background: transparent !important;
+            padding: 20px !important;
+        }
+        
+        .menu-item {
+            background: transparent !important;
+            margin: 4px 0 !important;
+            border-radius: 8px !important;
+            border: none !important;
+            transition: all 0.3s ease !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+        
+        .menu-item:hover {
+            background: rgba(255, 107, 53, 0.08) !important;
+            transform: translateX(5px) !important;
+        }
+        
+        .menu-item a {
+            display: flex !important;
+            align-items: center !important;
+            padding: 16px 20px !important;
+            color: #2c3e50 !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            font-size: 16px !important;
+            transition: all 0.3s ease !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        
+        .menu-item:hover a {
+            color: #ff6b35 !important;
+            text-shadow: 0 0 8px rgba(255, 107, 53, 0.3) !important;
+        }
+        
+        .menu-icon {
+            width: 20px !important;
+            height: 20px !important;
+            margin-right: 12px !important;
+            color: #ff6b35 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .menu-item:hover .menu-icon {
+            color: #ff6b35 !important;
+            transform: scale(1.1) !important;
+        }
+        
+        .menu-arrow {
+            margin-left: auto !important;
+            font-size: 12px !important;
+            color: #bdc3c7 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .menu-item:hover .menu-arrow {
+            color: #ff6b35 !important;
+            transform: rotate(180deg) !important;
+        }
+        
+        .submenu {
+            background: rgba(255, 107, 53, 0.05) !important;
+            border-radius: 12px !important;
+            margin: 8px 0 0 0 !important;
+            padding: 8px 0 !important;
+            border-left: 3px solid #ff6b35 !important;
+            max-height: 0 !important;
+            overflow: hidden !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .menu-item.active .submenu {
+            max-height: 500px !important;
+        }
+        
+        .submenu .menu-item {
+            background: transparent !important;
+            border: none !important;
+            margin: 2px 0 !important;
+        }
+        
+        .submenu .menu-item:hover {
+            background: rgba(255, 107, 53, 0.1) !important;
+        }
+        
+        .submenu .menu-item a,
+        .submenu-link {
+            color: #666666 !important;
+            padding: 12px 20px !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            text-shadow: none !important;
+            position: relative !important;
+        }
+        
+        .submenu .menu-item:hover a,
+        .submenu .menu-item:hover .submenu-link {
+            color: #ff6b35 !important;
+            text-shadow: 
+                0 0 8px rgba(255, 107, 53, 0.4),
+                0 1px 2px rgba(0, 0, 0, 0.5) !important;
+            transform: translateX(5px) !important;
+        }
+        
+        .submenu .menu-item a::before,
+        .submenu-link::before {
+            content: '▶' !important;
+            position: absolute !important;
+            left: 8px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            color: rgba(255, 107, 53, 0.6) !important;
+            font-size: 10px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .submenu .menu-item:hover a::before,
+        .submenu .menu-item:hover .submenu-link::before {
+            color: #ff6b35 !important;
+            transform: translateY(-50%) translateX(3px) !important;
+        }
+
+        /* 選單關閉按鈕 - 未來科技風格 */
+        .menu-close {
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 0.8) 0%, 
+                rgba(255, 107, 53, 0.6) 50%,
+                rgba(255, 107, 53, 0.8) 100%) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 15px !important;
+            width: 45px !important;
+            height: 45px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+            font-size: 20px !important;
+            cursor: pointer !important;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            animation: closeButtonFloatAdvanced 4s ease-in-out infinite !important;
+            box-shadow: 
+                0 4px 15px rgba(255, 107, 53, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        .menu-close::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                transparent 70%) !important;
+            border-radius: 50% !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transform: translate(-50%, -50%) !important;
+        }
+        
+        .menu-close::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 70%) !important;
+            animation: closeButtonShimmer 2s ease-in-out infinite !important;
+        }
+        
+        .menu-close:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 1) 0%, 
+                rgba(255, 107, 53, 0.8) 50%,
+                rgba(255, 107, 53, 1) 100%) !important;
+            transform: scale(1.15) rotate(180deg) !important;
+            box-shadow: 
+                0 8px 25px rgba(255, 107, 53, 0.5),
+                0 0 20px rgba(255, 107, 53, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+        }
+        
+        .menu-close:hover::before {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        @keyframes closeButtonFloatAdvanced {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) !important;
+            }
+            25% {
+                transform: translateY(-3px) rotate(2deg) !important;
+            }
+            50% {
+                transform: translateY(-1px) rotate(0deg) !important;
+            }
+            75% {
+                transform: translateY(-4px) rotate(-2deg) !important;
+            }
+        }
+        
+        @keyframes closeButtonShimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) !important;
+                opacity: 0 !important;
+            }
+            50% {
+                opacity: 1 !important;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) !important;
+                opacity: 0 !important;
+            }
+        }
+        
+        /* 手機版選單修復 */
+        @media (max-width: 768px) {
+            .main-menu {
+                width: 280px !important;
+                max-width: 85vw !important;
+                z-index: 99999 !important;
+                position: fixed !important;
+                top: 15px !important;
+                right: 15px !important;
+                max-height: 85vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            
+            .menu-nav {
+                padding: 15px 16px 20px 16px !important;
+            }
+            
+            .menu-item {
+                margin: 6px 0 !important;
+                border-radius: 8px !important;
+            }
+            
+            .menu-item a {
+                padding: 14px 16px !important;
+                font-size: 15px !important;
+            }
+            
+            .submenu {
+                margin-top: 10px !important;
+                border-radius: 12px !important;
+            }
+            
+            .submenu .menu-item {
+                margin: 8px 0 !important;
+            }
+            
+            .submenu .menu-item a {
+                padding: 15px 20px !important;
+                font-size: 14px !important;
+            }
+            
+            /* 確保選單按鈕在最上層 */
+            .menu-header {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 10 !important;
+                background: linear-gradient(135deg, 
+                    #ff6b35 0%, 
+                    #f7931e 50%, 
+                    #ff8c42 100%) !important;
+            }
+            
+            .menu-close {
+                position: absolute !important;
+                top: 15px !important;
+                right: 15px !important;
+                z-index: 11 !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-menu {
+                width: 90vw !important;
+                max-width: 90vw !important;
+                top: 10px !important;
+                right: 5vw !important;
+                left: 5vw !important;
+            }
+            
+            .menu-nav {
+                padding: 12px 12px 20px 12px !important;
+            }
+            
+            .menu-item a {
+                padding: 12px 14px !important;
+                font-size: 14px !important;
+            }
+            
+            .submenu .menu-item a {
+                padding: 10px 14px !important;
+                font-size: 13px !important;
+            }
+        }
+        
+        .submenu-link {
+            color: #666666 !important;
+        }
+        
+        .submenu-link:hover {
+            background: rgba(255, 107, 53, 0.1) !important;
+            color: #ff6b35 !important;
+        }
+        
+        .submenu-divider {
+            height: 1px !important;
+            background: rgba(255, 107, 53, 0.2) !important;
+            margin: 8px 0 !important;
+        }
+        
+        .mobile-menu-footer {
+            padding: 20px !important;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+            border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
+            margin-top: auto !important;
+        }
+        
+        .mobile-contact-section,
+        .mobile-social-section {
+            margin-bottom: 20px !important;
+        }
+        
+        .mobile-contact-info {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+        
+        .mobile-contact-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 8px 12px !important;
+            background: rgba(255, 107, 53, 0.05) !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .mobile-contact-item:hover {
+            background: rgba(255, 107, 53, 0.1) !important;
+            transform: translateX(5px) !important;
+        }
+        
+        .mobile-contact-item i {
+            color: #ff6b35 !important;
+            font-size: 14px !important;
+            width: 16px !important;
+        }
+        
+        .mobile-contact-item span {
+            color: #2c3e50 !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+        }
+        
+        .mobile-social-buttons {
+            display: flex !important;
+            gap: 10px !important;
+            flex-wrap: wrap !important;
+        }
+        
+        .mobile-social-btn {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 10px 16px !important;
+            border-radius: 25px !important;
+            text-decoration: none !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+            flex: 1 !important;
+            justify-content: center !important;
+            min-width: 0 !important;
+        }
+        
+        .mobile-social-btn.facebook {
+            background: #1877f2 !important;
+            color: white !important;
+        }
+        
+        .mobile-social-btn.line {
+            background: #00c300 !important;
+            color: white !important;
+        }
+        
+        .mobile-social-btn.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+            color: white !important;
+        }
+        
+        .mobile-social-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        .mobile-social-btn i {
+            font-size: 14px !important;
+        }
+    </style>
 </head>
 <body>
     <!-- 主要導覽列 - 開南風格 -->
@@ -238,20 +760,45 @@
             </ul>
         </nav>
         
-        <!-- 選單底部 -->
-        <div class="menu-footer">
-            <div class="menu-contact">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>0933-721-978</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>s9000721@gmail.com</span>
+        <!-- 手機選單頁尾內容 -->
+        <div class="mobile-menu-footer">
+            <!-- 聯絡我們區域 -->
+            <div class="mobile-contact-section">
+                <div class="mobile-contact-info">
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>0933-721-978</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>s9000721@gmail.com</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>台中豐原公老坪</span>
+                    </div>
                 </div>
             </div>
+            
+            <!-- 關注我們區域 -->
+            <div class="mobile-social-section">
+                <div class="mobile-social-buttons">
+                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="mobile-social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn line">
+                        <i class="fab fa-line"></i>
+                        <span>LINE</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+            
         </div>
-        
     </div>
 
     <!-- 主要內容 -->
@@ -487,7 +1034,103 @@
     <!-- 腳本 -->
     <script src="./js/main.js?v=20250115EE"></script>
     <script src="./js/mobile-menu-simple.js?v=20250115EE"></script>
+    <script src="./js/dropdown-menu.js?v=20250115EE"></script>
+    <script src="./js/products.js?v=20250115EE"></script>
+    <script src="./js/navigation-clean.js?v=20250115EE"></script>
+    <script src="./js/auto-sales.js?v=20250115EE"></script>
     <script src="./js/content-protection.js?v=20250115EE" defer></script>
     <script src="./js/checkout-new.js?v=20250115EE"></script>
+    
+    <script>
+        // 手機選單功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mainMenu = document.getElementById('mainMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const menuClose = document.getElementById('menuClose');
+            const dropdownItems = document.querySelectorAll('.menu-item.dropdown');
+            
+            // 開啟選單
+            function openMenu() {
+                mainMenu.classList.add('show');
+                menuOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            }
+            
+            // 關閉選單
+            function closeMenu() {
+                mainMenu.classList.remove('show');
+                menuOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                
+                // 關閉所有子選單
+                dropdownItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+            
+            // 切換選單
+            mobileMenuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (mainMenu.classList.contains('show')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+            
+            // 關閉按鈕
+            menuClose.addEventListener('click', closeMenu);
+            
+            // 點擊遮罩關閉選單
+            menuOverlay.addEventListener('click', closeMenu);
+            
+            // 子選單切換
+            dropdownItems.forEach(item => {
+                const link = item.querySelector('.menu-link');
+                
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // 關閉其他子選單
+                    dropdownItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // 切換當前子選單
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // 點擊子選單連結時關閉選單
+            const submenuLinks = document.querySelectorAll('.submenu-link');
+            submenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMenu();
+                });
+            });
+            
+            // ESC 鍵關閉選單
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainMenu.classList.contains('show')) {
+                    closeMenu();
+                }
+            });
+            
+            // 視窗大小改變時關閉選單
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && mainMenu.classList.contains('show')) {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
