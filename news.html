@@ -2,199 +2,148 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>最新消息 - 柑心果園 | 椪柑茂谷產季資訊</title>
     <meta name="description" content="柑心果園最新消息，公老坪椪柑、東勢茂谷柑產季資訊、優惠活動、果園動態。掌握最新產季資訊，不錯過最佳購買時機。">
     <meta name="keywords" content="椪柑產季,茂谷產季,公老坪椪柑,東勢茂谷,水果優惠,產季資訊,柑心果園消息">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Google Fonts - Noto Sans TC (開南大學字體) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="preload" href="./css/style.css?v=20250115EE" as="style">
     <link rel="stylesheet" href="./css/style.css?v=20250115EE">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .news-hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--white);
-            padding: 80px 0 40px;
-            text-align: center;
-        }
-        
-        .news-hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
-        
-        .news-section {
-            padding: 60px 0;
-            background: #f9fafb;
-        }
-        
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            padding: 20px 0;
-        }
-        
-        @media (max-width: 992px) {
-            .news-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .news-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-        }
-        
-        .news-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
-        .news-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .news-card-content {
-            padding: 20px;
-        }
-        
-        .news-card h3 {
-            color: var(--primary-color);
-            font-size: 18px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .news-card p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .news-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            color: #999;
-        }
-        
-        .news-date {
-            background: var(--primary-color);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-        
-        .news-category {
-            background: #f0f0f0;
-            color: #666;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-    </style>
+    <!-- 預載入封面圖片以提升載入速度 -->
+    <link rel="preload" href="images/柑心果園販賣所-1.png" as="image">
+    <link rel="stylesheet" href="news-season-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header-modern">
+    <!-- 主要導覽列 - 開南風格 -->
+    <header class="main-header">
         <div class="container">
-            <div class="header-left">
-                <a href="index.html" class="brand-logo">
-                    <img src="images/柑心商標.png" alt="柑心果園" class="logo-img">
-                    <div class="logo-text">
-                        <span class="logo-main">柑心果園</span>
-                        <span class="logo-sub">GANXIN ORCHARD</span>
-                    </div>
-                </a>
-            </div>
-            <nav class="header-nav">
-                <ul class="nav-list">
-                    <li class="nav-item dropdown">
-                        <a href="news.html" class="nav-link">最新消息</a>
-                        <div class="dropdown-content">
-                            <a href="news.html?category=announcement">最新公告</a>
-                            <a href="news.html?category=new">新品上市</a>
-                            <a href="news.html?category=promotion">期間優惠</a>
-                            <a href="news.html?category=diary">果園日誌</a>
+            <!-- 桌面版導覽列 -->
+            <div class="header-content desktop-header">
+                <div class="logo-section">
+                    <a href="index.html" class="logo">
+                        <img src="images/柑心商標.png" alt="柑心果園" class="logo-image">
+                        <div class="logo-text-container">
+                            <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
                         </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="season-recommend.html" class="nav-link">季節推薦</a>
-                        <div class="dropdown-content">
-                            <a href="season-ponkan.html">椪柑季節</a>
-                            <a href="season-murcott.html">茂谷柑季節</a>
-                            <a href="season-water-chestnut.html">菱角季節</a>
-                            <a href="season-taro.html">芋頭季節</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="products.html" class="nav-link">所有商品</a>
-                        <div class="dropdown-content">
-                            <a href="products.html?category=新鮮水果">新鮮水果</a>
-                            <a href="products.html?category=季節限定">季節限定</a>
-                            <a href="products.html?category=禮盒裝">禮盒裝</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="guide.html">選購指南</a>
-                            <a href="guide-ponkan.html">椪柑選購</a>
-                            <a href="guide-murcott.html">茂谷柑選購</a>
-                            <a href="guide-water-chestnut.html">菱角選購</a>
-                            <a href="guide-taro.html">芋頭選購</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="about.html" class="nav-link">關於我們</a>
-                        <div class="dropdown-content">
-                            <a href="about.html">關於柑心果園</a>
-                            <a href="farming.html">農場介紹</a>
-                            <a href="knowledge.html">知識分享</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="grading.html">分級標準</a>
-                            <a href="grading-ponkan.html">椪柑分級</a>
-                            <a href="grading-murcott.html">茂谷柑分級</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="contact.html">聯絡我們</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="order-tracking.html" class="nav-link">訂單查詢</a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <a href="cart.html" class="header-action cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>購物車</span>
-                    <span class="cart-count" id="topCartCount">0</span>
-                </a>
-                <div class="language-switcher">
-                    <span>繁體中文</span>
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="language-dropdown">
-                        <a href="#">English</a>
-                        <a href="#">日本語</a>
+                    </a>
+                </div>
+    
+                <!-- 桌面版頂部功能列 -->
+                <div class="header-actions">
+                    <a href="cart.html" class="header-action cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>購物車</span>
+                        <span class="cart-count" id="topCartCount">0</span>
+                    </a>
+                    <div class="language-switcher">
+                        <span>繁體中文</span>
                     </div>
                 </div>
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+            </div>
+            
+            <!-- 桌面版導覽選單 -->
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">最新消息 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="news.html?category=announcement">最新公告</a></li>
+                            <li><a href="news.html?category=new">新品上市</a></li>
+                            <li><a href="news.html?category=promotion">期間優惠</a></li>
+                            <li><a href="news.html?category=diary">果園日誌</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">季節推薦 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="season-recommend.html">季節推薦</a></li>
+                            <li><a href="season-ponkan.html">椪柑季節</a></li>
+                            <li><a href="season-murcott.html">茂谷柑季節</a></li>
+                            <li><a href="season-water-chestnut.html">菱角季節</a></li>
+                            <li><a href="season-taro.html">芋頭季節</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">所有商品 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
+                            <li><a href="products.html?category=季節限定">季節限定</a></li>
+                            <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="season-recommend.html">季節推薦</a></li>
+                            <li><a href="season-ponkan.html">椪柑季節</a></li>
+                            <li><a href="season-murcott.html">茂谷柑季節</a></li>
+                            <li><a href="season-water-chestnut.html">菱角季節</a></li>
+                            <li><a href="season-taro.html">芋頭季節</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="guide.html">選購指南</a></li>
+                            <li><a href="guide-ponkan.html">椪柑選購</a></li>
+                            <li><a href="guide-murcott.html">茂谷柑選購</a></li>
+                            <li><a href="guide-water-chestnut.html">菱角選購</a></li>
+                            <li><a href="guide-taro.html">芋頭選購</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">關於我們 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html">關於柑心果園</a></li>
+                            <li><a href="farming.html">農場介紹</a></li>
+                            <li><a href="knowledge.html">知識分享</a></li>
+                            <li><a href="knowledge.html?category=cutting">切法技巧</a></li>
+                            <li><a href="knowledge.html?category=growing">種植知識</a></li>
+                            <li><a href="knowledge.html?category=storing">保存方法</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="grading.html">分級標準</a></li>
+                            <li><a href="grading-ponkan.html">椪柑分級</a></li>
+                            <li><a href="grading-murcott.html">茂谷柑分級</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="contact.html">聯絡我們</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="order-tracking.html" class="nav-link">訂單查詢</a></li>
+                </ul>
+            </nav>
+            
+            <!-- 手機版導覽列 -->
+            <div class="mobile-header">
+                <!-- 手機版頂部購物車和搜尋 -->
+                <div class="mobile-top-row">
+                    <a href="cart.html" class="mobile-action cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>購物車</span>
+                        <span class="cart-count" id="mobileCartCount">0</span>
+                        </a>
+                    </div>
+                    
+                <!-- 手機版底部標誌和漢堡選單 -->
+                <div class="mobile-bottom-row">
+                    <div class="mobile-logo-section">
+                        <a href="index.html" class="mobile-logo">
+                            <img src="images/柑心商標.png" alt="柑心果園" class="mobile-logo-image">
+                            <div class="mobile-logo-text">
+                                <span class="mobile-logo-main">柑心果園</span>
+                                <span class="mobile-logo-sub">GANXIN ORCHARD</span>
+                            </div>
+                        </a>
+                    </div>
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
-
+    
     <!-- 手機選單 - 現代化設計 -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="main-menu" id="mainMenu">
@@ -291,157 +240,67 @@
             </ul>
         </nav>
         
-        <!-- 手機選單頁尾內容 -->
-        <div class="mobile-menu-footer">
-            <!-- 聯絡我們區域 -->
-            <div class="mobile-contact-section">
-                <div class="mobile-contact-info">
-                    <div class="mobile-contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <span>0933-721-978</span>
-                    </div>
-                    <div class="mobile-contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>s9000721@gmail.com</span>
-                    </div>
-                    <div class="mobile-contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>台中豐原公老坪</span>
-                    </div>
+        <!-- 選單底部 -->
+        <div class="menu-footer">
+            <div class="menu-contact">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>0933-721-978</span>
                 </div>
-            </div>
-            
-            <!-- 關注我們區域 -->
-            <div class="mobile-social-section">
-                <div class="mobile-social-buttons">
-                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="mobile-social-btn facebook">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Facebook</span>
-                    </a>
-                    <a href="#" target="_blank" class="mobile-social-btn line">
-                        <i class="fab fa-line"></i>
-                        <span>LINE</span>
-                    </a>
-                    <a href="#" target="_blank" class="mobile-social-btn instagram">
-                        <i class="fab fa-instagram"></i>
-                        <span>Instagram</span>
-                    </a>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>s9000721@gmail.com</span>
                 </div>
             </div>
         </div>
+        
     </div>
 
     <!-- 主要內容 -->
-    <main>
-        <!-- 最新消息英雄區 -->
-        <section class="news-hero">
+    <main id="main-content">
+        <!-- 英雄區域 - 使用原本封面圖片 -->
+        <section class="hero-section" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+            <div class="hero-background" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                <img src="images/柑心果園販賣所-1.png" alt="柑心果園販賣所" class="hero-cover-image" loading="eager" decoding="async" fetchpriority="high">
+                <div class="hero-overlay"></div>
+            </div>
+            
             <div class="container">
-                <h1>最新消息</h1>
-                <p>掌握柑心果園最新動態與產季資訊</p>
+                <div class="hero-content" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                    <div class="hero-text">
+                        <h1 class="hero-title">柑心果園</h1>
+                        <p class="hero-subtitle">台灣優質水果，產地直送</p>
+                        <p class="hero-description">傳承百年的果園經驗，為您提供最純正、最新鮮的台灣水果。每一顆果實都承載著我們對品質的堅持。</p>
+                        <div class="hero-buttons">
+                            <a href="products.html" class="btn-primary">立即選購</a>
+                            <a href="about.html" class="btn-secondary">了解更多</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- 最新消息內容 -->
-        <section class="news-section">
-            <div class="container">
-                <div class="news-grid">
-                    <!-- 新聞卡片 1 -->
-                    <div class="news-card">
-                        <img src="images/椪柑產品圖/椪柑1.jpg" alt="椪柑產季開始">
-                        <div class="news-card-content">
-                            <h3>🍊 椪柑產季開始！</h3>
-                            <p>今年椪柑品質極佳，甜度穩定在12-14度，歡迎選購新鮮椪柑。我們堅持友善栽培，讓每一顆椪柑都充滿自然的甜味。</p>
-                            <div class="news-meta">
-                                <span class="news-date">2025.01.15</span>
-                                <span class="news-category">產季資訊</span>
-                            </div>
-                        </div>
+        <div class="container">
+            <div class="news-content">
+                <h2>最新消息</h2>
+                <div class="news-list">
+                    <div class="news-item">
+                        <h3>椪柑產季開始</h3>
+                        <p>公老坪椪柑正式進入產季，歡迎選購最新鮮的椪柑。</p>
+                        <span class="news-date">2025-01-15</span>
                     </div>
-
-                    <!-- 新聞卡片 2 -->
-                    <div class="news-card">
-                        <img src="images/茂谷柑產品圖/茂谷柑1.jpg" alt="茂谷柑預購開跑">
-                        <div class="news-card-content">
-                            <h3>🍊 茂谷柑預購開跑！</h3>
-                            <p>皮薄多汁的茂谷柑預計2月出貨，預購享早鳥優惠。茂谷柑是我們果園的招牌產品，深受顧客喜愛。</p>
-                            <div class="news-meta">
-                                <span class="news-date">2025.01.12</span>
-                                <span class="news-category">預購優惠</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 新聞卡片 3 -->
-                    <div class="news-card">
-                        <img src="images/禮盒裝/禮盒1.jpg" alt="春節禮盒優惠">
-                        <div class="news-card-content">
-                            <h3>🎁 春節禮盒優惠開跑！</h3>
-                            <p>精選水果禮盒，送禮自用兩相宜，數量有限。包含椪柑、茂谷柑等優質水果，是春節送禮的最佳選擇。</p>
-                            <div class="news-meta">
-                                <span class="news-date">2025.01.10</span>
-                                <span class="news-category">優惠活動</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 新聞卡片 4 -->
-                    <div class="news-card">
-                        <img src="images/果園照片/果園1.jpg" alt="友善栽培成果">
-                        <div class="news-card-content">
-                            <h3>🌱 友善栽培成果分享</h3>
-                            <p>我們堅持有機栽培，不使用化學農藥，讓果樹在自然環境中健康成長。今年的果實品質更上一層樓。</p>
-                            <div class="news-meta">
-                                <span class="news-date">2025.01.08</span>
-                                <span class="news-category">果園日誌</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 新聞卡片 5 -->
-                    <div class="news-card">
-                        <img src="images/菱角產品圖/菱角1.jpg" alt="菱角季節到來">
-                        <div class="news-card-content">
-                            <h3>🌿 菱角季節到來！</h3>
-                            <p>新鮮菱角開始採收，口感清脆甘甜。菱角是我們果園的特色產品，深受顧客喜愛。</p>
-                            <div class="news-meta">
-                                <span class="news-date">2025.01.05</span>
-                                <span class="news-category">季節限定</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 新聞卡片 6 -->
-                    <div class="news-card">
-                        <img src="images/芋頭產品圖/芋頭1.jpg" alt="芋頭新品上市">
-                        <div class="news-card-content">
-                            <h3>🍠 芋頭新品上市！</h3>
-                            <p>精選優質芋頭，口感綿密香甜。芋頭是我們果園的新產品，歡迎品嚐。</p>
-                            <div class="news-meta">
-                                <span class="news-date">2025.01.03</span>
-                                <span class="news-category">新品上市</span>
-                            </div>
-                        </div>
+                    <div class="news-item">
+                        <h3>茂谷柑預購優惠</h3>
+                        <p>東勢茂谷柑預購優惠活動開始，限時特價中。</p>
+                        <span class="news-date">2025-01-10</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
-    <!-- 購物車按鈕 -->
-    <a href="cart.html" class="header-action cart-link">
-        <i class="fas fa-shopping-cart"></i>
-        <span>購物車</span>
-        <span class="cart-count" id="topCartCount">0</span>
-    </a>
-
-    <!-- 手機版購物車按鈕 -->
-    <a href="cart.html" class="mobile-action cart-link">
-        <i class="fas fa-shopping-cart"></i>
-        <span>購物車</span>
-        <span class="cart-count" id="mobileCartCount">0</span>
-    </a>
-
-    <!-- 頁尾 -->
+    <!-- 全新設計頁尾 -->
     <footer class="footer footer-modern">
         <div class="container">
             <!-- 頁尾波浪裝飾 -->
@@ -597,213 +456,14 @@
         </div>
     </footer>
 
-    <!-- 回到頂部按鈕 -->
-    <button id="backToTop" class="back-to-top" title="回到頂部">
+    <!-- 手機版回到頂部按鈕 -->
+    <button class="back-to-top mobile-only" id="backToTop" aria-label="回到頂部">
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- 上一頁記憶功能 JavaScript -->
-    <script>
-    // 上一頁記憶功能
-    function initBackButton() {
-        // 檢查是否有上一頁歷史記錄
-        if (window.history.length > 1) {
-            const backButton = document.createElement('button');
-            backButton.id = 'backButton';
-            backButton.className = 'back-button';
-            backButton.title = '回到上一頁';
-            backButton.innerHTML = '<i class="fas fa-arrow-left"></i>';
-            document.body.appendChild(backButton);
-
-            backButton.addEventListener('click', function() {
-                window.history.back();
-            });
-        }
-    }
-
-    // 回到頂部功能
-    function initBackToTop() {
-        const backToTopButton = document.getElementById('backToTop');
-        
-        if (backToTopButton) {
-            // 顯示/隱藏按鈕
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 200) { // 捲動超過200px時顯示
-                    backToTopButton.style.display = 'block';
-                    backToTopButton.style.opacity = '1';
-                } else {
-                    backToTopButton.style.opacity = '0';
-                    // 使用 setTimeout 延遲 display: none，確保動畫完成
-                    setTimeout(() => {
-                        if (window.scrollY <= 200) { // 再次檢查，避免快速捲動時的閃爍
-                            backToTopButton.style.display = 'none';
-                        }
-                    }, 300);
-                }
-            });
-
-            // 點擊回到頂部
-            backToTopButton.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-    }
-
-    // 購物車功能
-    function initCartSidebar() {
-        const cartIcon = document.getElementById('cartIcon');
-        if (cartIcon) {
-            cartIcon.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.location.href = 'cart.html';
-            });
-        }
-    }
-
-    // 手機選單功能
-    function initMobileMenu() {
-        const menuToggle = document.getElementById('menuToggle');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const mainMenu = document.getElementById('mainMenu');
-        const menuClose = document.getElementById('menuClose');
-        const dropdowns = document.querySelectorAll('.menu-item.dropdown > .menu-link');
-
-        if (menuToggle && menuOverlay && mainMenu && menuClose) {
-            menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation(); // 防止點擊菜單按鈕時觸發 overlay 的點擊事件
-                mainMenu.classList.add('show');
-                menuOverlay.classList.add('show');
-                document.body.style.overflow = 'hidden'; // 防止背景滾動
-            });
-
-            menuClose.addEventListener('click', () => {
-                mainMenu.classList.remove('show');
-                menuOverlay.classList.remove('show');
-                document.body.style.overflow = ''; // 恢復背景滾動
-            });
-
-            menuOverlay.addEventListener('click', () => {
-                mainMenu.classList.remove('show');
-                menuOverlay.classList.remove('show');
-                document.body.style.overflow = ''; // 恢復背景滾動
-            });
-        }
-
-        // 下拉選單功能
-        dropdowns.forEach(dropdownLink => {
-            const submenu = dropdownLink.nextElementSibling;
-            const arrow = dropdownLink.querySelector('.menu-arrow');
-
-            if (submenu && arrow) {
-                dropdownLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation(); // 阻止事件冒泡到父級菜單項
-
-                    const isOpen = submenu.style.display === 'block';
-
-                    // 關閉所有其他打開的下拉選單
-                    dropdowns.forEach(otherDropdownLink => {
-                        const otherSubmenu = otherDropdownLink.nextElementSibling;
-                        const otherArrow = otherDropdownLink.querySelector('.menu-arrow');
-                        if (otherSubmenu && otherArrow && otherSubmenu !== submenu) {
-                            if (otherSubmenu.style.display === 'block') {
-                                otherSubmenu.style.display = 'none';
-                                otherArrow.style.transform = 'rotate(0deg)';
-                            }
-                        }
-                    });
-                    
-                    // 切換當前下拉選單
-                    if (isOpen) {
-                        submenu.style.display = 'none';
-                        arrow.style.transform = 'rotate(0deg)';
-                    } else {
-                        submenu.style.display = 'block';
-                        arrow.style.transform = 'rotate(180deg)';
-                    }
-                });
-            }
-        });
-    }
-
-    // 頁面載入完成後執行
-    document.addEventListener('DOMContentLoaded', () => {
-        initBackButton(); // 初始化上一頁按鈕
-        initBackToTop(); // 初始化回到頂部按鈕
-        initCartSidebar(); // 初始化購物車側邊欄
-        initMobileMenu(); // 初始化手機選單
-    });
-    </script>
-
-    <!-- 回到頂部按鈕樣式 -->
-    <style>
-    .back-to-top {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .back-to-top.show {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    /* 上一頁按鈕樣式 */
-    .back-button {
-        position: fixed;
-        bottom: 80px; /* 調整位置，避免與回到頂部按鈕重疊 */
-        right: 20px;
-        background-color: #6c757d; /* 灰色 */
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        transition: background-color 0.3s ease;
-    }
-
-    .back-button:hover {
-        background-color: #5a6268;
-    }
-
-    @media (max-width: 768px) {
-        .back-to-top, .back-button {
-            width: 45px;
-            height: 45px;
-            font-size: 20px;
-            bottom: 15px;
-            right: 15px;
-        }
-        .back-button {
-            bottom: 70px; /* 調整手機版位置 */
-        }
-    }
-    </style>
+    <!-- 腳本 -->
+    <script src="./js/main.js?v=20250115EE"></script>
+    <script src="./js/mobile-menu-simple.js?v=20250115EE"></script>
+    <script src="./js/content-protection.js?v=20250115EE" defer></script>
 </body>
 </html>

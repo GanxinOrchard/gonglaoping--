@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>知識詳情 - 柑心果園</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css">`n    <link rel="stylesheet" href="news-season-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .article-detail {
@@ -154,1374 +154,250 @@
             }
         }
     </style>
+    <!-- 銝餉?撠汗??- ??憸冽 -->
 
-<style>
-        /* 最新消息廣播器重新設計 */
-        .broadcast-section {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 20px 0;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-        }
-        
-        .broadcast-content {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .broadcast-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-        
-        .broadcast-text h3 {
-            font-size: 18px;
-            margin: 0 0 10px 0;
-            font-weight: 600;
-        }
-        
-        .news-ticker {
-            height: 50px;
-            position: relative;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            padding: 0 20px;
-        }
-        
-        .news-ticker-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            opacity: 0;
-            transform: translateY(0);
-            transition: all 0.8s ease;
-            color: white;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-        
-        .news-ticker-item.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .news-ticker-item.prev {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-        
-        .news-ticker-item.next {
-            transform: translateY(100%);
-            opacity: 0;
-        }
-        
-        .news-date {
-            background: rgba(255, 255, 255, 0.3);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        
-        .news-text {
-            font-size: 16px;
-            font-weight: 500;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex: 1;
-        }
-        
-        .news-ticker-arrow {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-        
-        .news-ticker-arrow:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-        
-                /* 手機選單設計 - 簡潔版本 */
-                .main-menu {
-                    display: none !important;
-                    background: linear-gradient(135deg, 
-                        rgba(255, 255, 255, 0.98) 0%, 
-                        rgba(248, 249, 250, 0.95) 100%) !important;
-                    backdrop-filter: blur(15px) !important;
-                    border: 1px solid rgba(255, 107, 53, 0.2) !important;
-                    border-radius: 15px !important;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
-                    z-index: 9999 !important;
-                    position: fixed !important;
-                    top: 20px !important;
-                    right: 20px !important;
-                    width: 300px !important;
-                    max-height: 80vh !important;
-                    overflow-y: auto !important;
-                    -webkit-overflow-scrolling: touch !important;
-                    opacity: 0 !important;
-                    visibility: hidden !important;
-                    transform: translateX(100%) scale(0.9) !important;
-                    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-                }
-                
-                .main-menu.show {
-                    display: block !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
-                    transform: translateX(0) scale(1) !important;
-                    animation: menuBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-                }
-                
-                @keyframes menuBounceIn {
-                    0% {
-                        transform: translateX(100%) scale(0.8) !important;
-                        opacity: 0 !important;
-                    }
-                    50% {
-                        transform: translateX(-10px) scale(1.05) !important;
-                        opacity: 0.8 !important;
-                    }
-                    100% {
-                        transform: translateX(0) scale(1) !important;
-                        opacity: 1 !important;
-                    }
-                }
-                
-                .menu-header {
-                    background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
-                    border-bottom: 1px solid rgba(255, 107, 53, 0.3) !important;
-                    position: sticky !important;
-                    top: 0 !important;
-                    z-index: 10 !important;
-                    padding: 20px !important;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-                    overflow: hidden !important;
-                }
-                
-                .menu-logo {
-                    display: flex !important;
-                    align-items: center !important;
-                    gap: 12px !important;
-                }
-                
-                .menu-logo-img {
-                    width: 40px !important;
-                    height: 40px !important;
-                    object-fit: contain !important;
-                }
-                
-                .menu-logo-text .logo-main {
-                    color: #2c3e50 !important;
-                    font-size: 18px !important;
-                    font-weight: 700 !important;
-                    margin: 0 !important;
-                    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
-                }
+    <!-- ???詨 - ?曆誨?身閮?-->
 
-        .menu-nav {
-            background: transparent !important;
-            padding: 20px !important;
-        }
+                    <div class="logo-sub">Ganxin Orchard</div>
+                </div>
+            </div>
+            <button class="menu-close" id="menuClose" aria-label="???詨">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
         
-                .menu-item {
-                    background: transparent !important;
-                    margin: 4px 0 !important;
-                    border-radius: 8px !important;
-                    border: none !important;
-                    transition: all 0.3s ease !important;
-                    position: relative !important;
-                    overflow: hidden !important;
-                }
-                
-                .menu-item:hover {
-                    background: rgba(255, 107, 53, 0.08) !important;
-                    transform: translateX(5px) !important;
-                }
+        <!-- ?詨撠 -->
         
-                .menu-item a,
-                .menu-link {
-                    position: relative !important;
-                    z-index: 1 !important;
-                    color: #444 !important;
-                    font-weight: 500 !important;
-                    text-decoration: none !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    padding: 12px 16px !important;
-                    transition: all 0.3s ease !important;
-                    border-radius: 6px !important;
-                }
-                
-                .menu-item:hover a,
-                .menu-item:hover .menu-link {
-                    color: #ff6b35 !important;
-                    background: rgba(255, 107, 53, 0.1) !important;
-                }
+    </div>
+    <!-- 主要導覽列 - 開南風格 -->
+    <header class="main-header">
+        <div class="container">
+            <!-- 桌面版導覽列 -->
+            <div class="header-content desktop-header">
+                <div class="logo-section">
+                    <a href="index.html" class="logo">
+                        <img src="images/柑心商標.png" alt="柑心果園" class="logo-image">
+                        <div class="logo-text-container">
+                            <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
+                        </div>
+                    </a>
+                </div>
         
-                .submenu {
-                    background: rgba(248, 249, 250, 0.95) !important;
-                    border-radius: 8px !important;
-                    border: 1px solid rgba(255, 107, 53, 0.15) !important;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-                    backdrop-filter: blur(10px) !important;
-                    animation: fadeInUp 0.3s ease-out !important;
-                    margin-top: 8px !important;
-                }
+                <!-- 桌面版頂部功能列 -->
+                <div class="header-actions">
+                    <a href="cart.html" class="header-action cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>購物車</span>
+                        <span class="cart-count" id="topCartCount">0</span>
+                    </a>
+                    <div class="language-switcher">
+                        <button class="lang-btn active">繁中</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 桌面版導覽選單 -->
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">最新消息 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="news.html?category=announcement">最新公告</a></li>
+                            <li><a href="news.html?category=season">產季資訊</a></li>
+                            <li><a href="news.html?category=promotion">優惠活動</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">季節推薦 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="season-recommend.html">季節推薦</a></li>
+                            <li><a href="season-ponkan.html">椪柑產季</a></li>
+                            <li><a href="season-murcott.html">茂谷產季</a></li>
+                            <li><a href="season-taro.html">芋角產季</a></li>
+                            <li><a href="season-water-chestnut.html">菱角產季</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">所有商品 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
+                            <li><a href="products.html?category=季節限定">季節限定</a></li>
+                            <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
+                            <li><a href="products.html?category=預購商品">預購商品</a></li>
+                            <li><a href="grading.html">商品分級</a></li>
+                            <li><a href="guide.html">選購指南</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">關於我們 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html">關於柑心果園</a></li>
+                            <li><a href="farming.html">農場介紹</a></li>
+                            <li><a href="contact.html">聯絡我們</a></li>
+                            <li><a href="policies.html">服務條款</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="order-tracking.html" class="nav-link">訂單查詢</a></li>
+                </ul>
+            </nav>
+            
+            <!-- 手機版導覽列 -->
+            <div class="mobile-header">
+                <!-- 手機版頂部購物車和搜尋 -->
+                <div class="mobile-top-row">
+                    <a href="cart.html" class="mobile-action cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>購物車</span>
+                        <span class="cart-count" id="mobileCartCount">0</span>
+                    </a>
+                    <div class="mobile-logo">
+                        <a href="index.html" class="mobile-logo-link">
+                            <img src="images/柑心商標.png" alt="柑心果園" class="mobile-logo-image">
+                            <div class="mobile-logo-text">
+                                <span class="mobile-logo-main">柑心果園</span>
+                                <span class="mobile-logo-sub">GANXIN ORCHARD</span>
+                            </div>
+                        </a>
+                    </div>
+                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- 手機選單 - 現代化設計 -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="main-menu" id="mainMenu">
+        <!-- 選單頭部 -->
+        <div class="menu-header">
+            <div class="menu-logo">
+                <img src="images/柑心商標.png" alt="柑心果園" class="menu-logo-img">
+                <div class="menu-logo-text">
+                    <div class="logo-main">柑心果園</div>
+                    <div class="logo-sub">Ganxin Orchard</div>
+                </div>
+            </div>
+            <button class="menu-close" id="menuClose" aria-label="關閉選單">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
         
-        .submenu .menu-item {
-            background: transparent !important;
-            border: none !important;
-            margin: 2px 0 !important;
-        }
-        
-        .submenu .menu-item:hover {
-            background: rgba(255, 107, 53, 0.1) !important;
-        }
-        
-        .submenu .menu-item a,
-        .submenu-link {
-            color: #000 !important;
-            padding: 10px 16px !important;
-            font-size: 14px !important;
-        }
-        
-        .submenu .menu-item:hover a,
-        .submenu .menu-item:hover .submenu-link {
-            color: #ff6b35 !important;
-        }
-        
-                .menu-close {
-                    background: rgba(255, 255, 255, 0.2) !important;
-                    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-                    border-radius: 6px !important;
-                    width: 36px !important;
-                    height: 36px !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    color: white !important;
-                    font-size: 16px !important;
-                    cursor: pointer !important;
-                    transition: all 0.3s ease !important;
-                }
-                
-                .menu-close:hover {
-                    background: rgba(255, 255, 255, 0.3) !important;
-                    transform: scale(1.05) !important;
-                }
-
-        @keyframes slideInFromRight {
-            0% {
-                transform: translateX(100%) !important;
-                opacity: 0 !important;
-            }
-            100% {
-                transform: translateX(0) !important;
-                opacity: 1 !important;
-            }
-        }
-        
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0 !important;
-                transform: translateY(10px) !important;
-            }
-            100% {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-            }
-        }
-
-        /* 手機版選單響應式設計 */
-        @media (max-width: 768px) {
-            .main-menu {
-                width: 280px !important;
-                max-width: 85vw !important;
-                z-index: 99999 !important;
-                position: fixed !important;
-                top: 15px !important;
-                right: 15px !important;
-                max-height: 85vh !important;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-            }
-            
-            .menu-nav {
-                padding: 15px 16px 20px 16px !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .main-menu {
-                width: 90vw !important;
-                max-width: 90vw !important;
-                top: 10px !important;
-                right: 5vw !important;
-                left: 5vw !important;
-            }
-            
-            .menu-nav {
-                padding: 12px 12px 20px 12px !important;
-            }
-        }
-        
-        .submenu .menu-item {
-            background: transparent !important;
-            border: none !important;
-            margin: 2px 0 !important;
-        }
-        
-        .submenu .menu-item:hover {
-            background: rgba(255, 107, 53, 0.1) !important;
-        }
-        
-        .submenu .menu-item a,
-        .submenu-link {
-            color: #666666 !important;
-            padding: 12px 20px !important;
-            font-size: 14px !important;
-            font-weight: 500 !important;
-            text-shadow: none !important;
-            position: relative !important;
-        }
-        
-        .submenu .menu-item:hover a,
-        .submenu .menu-item:hover .submenu-link {
-            color: #ff6b35 !important;
-            text-shadow: 
-                0 0 8px rgba(255, 107, 53, 0.4),
-                0 1px 2px rgba(0, 0, 0, 0.5) !important;
-            transform: translateX(5px) !important;
-        }
-        
-        .submenu .menu-item a::before,
-        .submenu-link::before {
-            content: '▶' !important;
-            position: absolute !important;
-            left: 8px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            color: rgba(255, 107, 53, 0.6) !important;
-            font-size: 10px !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .submenu .menu-item:hover a::before,
-        .submenu .menu-item:hover .submenu-link::before {
-            color: #ff6b35 !important;
-            transform: translateY(-50%) translateX(3px) !important;
-        }
-        
-        /* 選單關閉按鈕 - 未來科技風格 */
-        .menu-close {
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 53, 0.8) 0%, 
-                rgba(255, 107, 53, 0.6) 50%,
-                rgba(255, 107, 53, 0.8) 100%) !important;
-            border: 2px solid rgba(255, 255, 255, 0.3) !important;
-            border-radius: 15px !important;
-            width: 45px !important;
-            height: 45px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            color: white !important;
-            font-size: 20px !important;
-            cursor: pointer !important;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            position: relative !important;
-            overflow: hidden !important;
-            animation: closeButtonFloatAdvanced 4s ease-in-out infinite !important;
-            box-shadow: 
-                0 4px 15px rgba(255, 107, 53, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-        }
-        
-        .menu-close::before {
-            content: '' !important;
-            position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            width: 0 !important;
-            height: 0 !important;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.3) 0%, 
-                transparent 70%) !important;
-            border-radius: 50% !important;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            transform: translate(-50%, -50%) !important;
-        }
-        
-        .menu-close::after {
-            content: '' !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            background: linear-gradient(45deg, 
-                transparent 30%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                transparent 70%) !important;
-            animation: closeButtonShimmer 2s ease-in-out infinite !important;
-        }
-        
-        .menu-close:hover {
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 53, 1) 0%, 
-                rgba(255, 107, 53, 0.8) 50%,
-                rgba(255, 107, 53, 1) 100%) !important;
-            transform: scale(1.15) rotate(180deg) !important;
-            box-shadow: 
-                0 8px 25px rgba(255, 107, 53, 0.5),
-                0 0 20px rgba(255, 107, 53, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-        }
-        
-        .menu-close:hover::before {
-            width: 100% !important;
-            height: 100% !important;
-        }
-        
-        @keyframes closeButtonFloatAdvanced {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg) !important;
-            }
-            25% {
-                transform: translateY(-3px) rotate(2deg) !important;
-            }
-            50% {
-                transform: translateY(-1px) rotate(0deg) !important;
-            }
-            75% {
-                transform: translateY(-4px) rotate(-2deg) !important;
-            }
-        }
-        
-        @keyframes closeButtonShimmer {
-            0% {
-                transform: translateX(-100%) translateY(-100%) !important;
-                opacity: 0 !important;
-            }
-            50% {
-                opacity: 1 !important;
-            }
-            100% {
-                transform: translateX(100%) translateY(100%) !important;
-                opacity: 0 !important;
-            }
-        }
-        
-        /* 手機版選單修復 */
-        @media (max-width: 768px) {
-            .main-menu {
-                width: 280px !important;
-                max-width: 85vw !important;
-                z-index: 99999 !important;
-                position: fixed !important;
-                top: 15px !important;
-                right: 15px !important;
-                max-height: 85vh !important;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-            }
-            
-            .menu-nav {
-                padding: 15px 16px 20px 16px !important;
-            }
-            
-            .menu-item {
-                margin: 6px 0 !important;
-                border-radius: 8px !important;
-            }
-            
-            .menu-item a {
-                padding: 14px 16px !important;
-                font-size: 15px !important;
-            }
-            
-            .submenu {
-                margin-top: 10px !important;
-                border-radius: 12px !important;
-            }
-            
-            .submenu .menu-item {
-                margin: 8px 0 !important;
-            }
-            
-            .submenu .menu-item a {
-                padding: 15px 20px !important;
-                font-size: 14px !important;
-            }
-            
-            /* 確保選單按鈕在最上層 */
-            .menu-header {
-                position: sticky !important;
-                top: 0 !important;
-                z-index: 10 !important;
-                background: linear-gradient(135deg, 
-                    #ff6b35 0%, 
-                    #f7931e 50%, 
-                    #ff8c42 100%) !important;
-            }
-            
-            .menu-close {
-                position: absolute !important;
-                top: 15px !important;
-                right: 15px !important;
-                z-index: 11 !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .main-menu {
-                width: 90vw !important;
-                max-width: 90vw !important;
-                top: 10px !important;
-                right: 5vw !important;
-                left: 5vw !important;
-            }
-            
-            .menu-nav {
-                padding: 12px 12px 20px 12px !important;
-            }
-            
-            .menu-item a {
-                padding: 12px 14px !important;
-                font-size: 14px !important;
-            }
-            
-            .submenu .menu-item a {
-                padding: 10px 14px !important;
-                font-size: 13px !important;
-            }
-        }
-        
-        .submenu-link {
-            color: rgba(255, 255, 255, 0.9) !important;
-        }
-        
-        .submenu-link:hover {
-            background: rgba(255, 255, 255, 0.1) !important;
-            color: white !important;
-        }
-
-        /* 手機版樣式 - 重新設計 */
-        @media (max-width: 768px) {
-            /* 強制覆蓋所有可能的背景 */
-            body, html, main, section, div {
-                background: transparent !important;
-                background-color: transparent !important;
-                background-image: none !important;
-            }
-            /* 1. 徹底移除手機版封面白色背景 */
-            .hero-section {
-                background: none !important;
-                background-color: transparent !important;
-                background-image: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                min-height: 60vh !important;
-                max-height: 60vh !important;
-                position: relative !important;
-                overflow: hidden !important;
-                /* 優化渲染性能 */
-                contain: layout style paint !important;
-                will-change: auto !important;
-                transform: translateZ(0) !important;
-            }
-            
-            .hero-section * {
-                background: none !important;
-                background-color: transparent !important;
-                background-image: none !important;
-            }
-            
-            .hero-background {
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                z-index: 1 !important;
-                background: none !important;
-                background-color: transparent !important;
-                background-image: none !important;
-                /* 優化背景渲染性能 */
-                contain: layout style paint !important;
-                will-change: auto !important;
-                transform: translateZ(0) !important;
-            }
-            
-            .hero-cover-image {
-                width: 100% !important;
-                height: 100% !important;
-                object-fit: cover !important;
-            /* 優化圖片載入性能 */
-            image-rendering: -webkit-optimize-contrast !important;
-            image-rendering: crisp-edges !important;
-            will-change: auto !important;
-            /* 減少重繪 */
-            backface-visibility: hidden !important;
-            -webkit-backface-visibility: hidden !important;
-            /* 硬體加速 */
-            transform: translateZ(0) !important;
-            -webkit-transform: translateZ(0) !important;
-                display: block !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                z-index: 1 !important;
-            }
-            
-            .hero-overlay {
-                background: rgba(0, 0, 0, 0.3) !important;
-                z-index: 2 !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-            }
-            
-            .hero-content {
-                position: relative !important;
-                z-index: 10 !important;
-                padding: 100px 20px 40px 20px !important;
-                text-align: center !important;
-                background: none !important;
-                background-color: transparent !important;
-                background-image: none !important;
-                margin-top: 80px !important;
-            }
-            
-            .hero-text {
-                background: none !important;
-                background-color: transparent !important;
-                background-image: none !important;
-            }
-            
-            .hero-title {
-                color: white !important;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
-                font-size: 2.5rem !important;
-                margin-bottom: 15px !important;
-                font-weight: bold !important;
-            }
-            
-            .hero-subtitle {
-                color: white !important;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
-                font-size: 1.2rem !important;
-                margin-bottom: 10px !important;
-            }
-            
-            .hero-description {
-                color: white !important;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
-                font-size: 1rem !important;
-                margin-bottom: 20px !important;
-            }
-            
-            .hero-buttons {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 15px !important;
-                align-items: center !important;
-            }
-            
-            .btn-primary, .btn-secondary {
-                width: 100% !important;
-                max-width: 280px !important;
-                padding: 15px 30px !important;
-                font-size: 16px !important;
-                font-weight: bold !important;
-            }
-            
-            /* 2. 最新消息重新設計 - 現代化風格 */
-            .broadcast-section {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                padding: 20px 0 !important;
-                margin: 0 !important;
-                position: relative !important;
-                overflow: hidden !important;
-            }
-            
-            .broadcast-section::before {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') !important;
-                opacity: 0.3 !important;
-                z-index: 1 !important;
-            }
-            
-            .broadcast-content {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 1px !important;
-                padding: 1px 20px !important;
-                position: relative !important;
-                z-index: 2 !important;
-            }
-            
-            .broadcast-icon {
-                width: 24px !important;
-                height: 24px !important;
-                background: transparent !important;
-                border-radius: 0 !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-size: 16px !important;
-                color: #ff6b35 !important;
-                flex-shrink: 0 !important;
-                box-shadow: none !important;
-                animation: pulse 2s infinite !important;
-            }
-            
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
-            }
-            
-            .broadcast-text {
-                flex: 1 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 10px !important;
-            }
-            
-            .broadcast-header {
-                display: flex !important;
-                align-items: center !important;
-                gap: 4px !important;
-                margin-bottom: 0px !important;
-            }
-            
-            .broadcast-text h3 {
-                font-size: 16px !important;
-                margin: 0 !important;
-                color: white !important;
-                font-weight: bold !important;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-                line-height: 1.2 !important;
-                letter-spacing: 0.5px !important;
-            }
-            
-            .news-ticker {
-                width: 100% !important;
-                height: 24px !important;
-                background: transparent !important;
-                border-radius: 0 !important;
-                padding: 0px 0 !important;
-                position: relative !important;
-                overflow: hidden !important;
-                backdrop-filter: none !important;
-                border: none !important;
-            }
-            
-            .news-ticker-item {
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                height: 24px !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 3px !important;
-                opacity: 0 !important;
-                transform: translateY(0) !important;
-                transition: all 0.8s ease !important;
-                color: white !important;
-                text-decoration: none !important;
-                padding: 0 !important;
-            }
-            
-            .news-ticker-item.active {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-            }
-            
-            .news-ticker-item.prev {
-                transform: translateY(-100%) !important;
-                opacity: 0 !important;
-            }
-            
-            .news-ticker-item.next {
-                transform: translateY(100%) !important;
-                opacity: 0 !important;
-            }
-            
-            .news-date {
-                background: transparent !important;
-                color: #ff6b35 !important;
-                padding: 0 !important;
-                border-radius: 0 !important;
-                font-size: 9px !important;
-                font-weight: bold !important;
-                white-space: nowrap !important;
-                box-shadow: none !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.3px !important;
-                flex-shrink: 0 !important;
-                border-right: 1px solid #ff6b35 !important;
-                padding-right: 3px !important;
-                margin-right: 3px !important;
-            }
-            
-            .news-text {
-                color: white !important;
-                font-size: 10px !important;
-                font-weight: 600 !important;
-                flex: 1 !important;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
-                line-height: 0.9 !important;
-                display: -webkit-box !important;
-                -webkit-line-clamp: 2 !important;
-                -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-            }
-            
-            .news-ticker-arrow {
-                width: 16px !important;
-                height: 16px !important;
-                background: transparent !important;
-                border-radius: 0 !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                color: #ff6b35 !important;
-                font-size: 9px !important;
-                margin-left: 3px !important;
-                transition: all 0.3s ease !important;
-                border: none !important;
-                flex-shrink: 0 !important;
-            }
-            
-            .news-ticker-arrow:hover {
-                background: transparent !important;
-                transform: scale(1.1) !important;
-                color: #ff8c42 !important;
-            }
-            
-            /* 手機選單樣式 */
-            .mobile-menu-footer {
-                padding: 20px !important;
-                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
-                border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
-                margin-top: auto !important;
-            }
-            
-            .mobile-contact-section,
-            .mobile-social-section {
-                margin-bottom: 20px !important;
-            }
-
-            .mobile-contact-info {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 12px !important;
-            }
-            
-            .mobile-contact-item {
-                display: flex !important;
-                align-items: center !important;
-                gap: 12px !important;
-                padding: 10px 15px !important;
-                background: white !important;
-                border-radius: 8px !important;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-                transition: all 0.3s ease !important;
-            }
-            
-            .mobile-contact-item:hover {
-                transform: translateY(-2px) !important;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-            }
-            
-            .mobile-contact-item i {
-                color: #ff6b35 !important;
-                font-size: 14px !important;
-                width: 16px !important;
-                text-align: center !important;
-            }
-            
-            .mobile-contact-item span {
-                color: #2c3e50 !important;
-                font-size: 14px !important;
-                font-weight: 500 !important;
-            }
-
-            .mobile-social-buttons {
-                display: flex !important;
-                gap: 10px !important;
-                flex-wrap: wrap !important;
-            }
-            
-            .mobile-social-btn {
-                display: flex !important;
-                align-items: center !important;
-                gap: 8px !important;
-                padding: 10px 16px !important;
-                border-radius: 25px !important;
-                text-decoration: none !important;
-                font-size: 13px !important;
-                font-weight: 500 !important;
-                transition: all 0.3s ease !important;
-                flex: 1 !important;
-                justify-content: center !important;
-                min-width: 0 !important;
-            }
-            
-            .mobile-social-btn.facebook {
-                background: #1877f2 !important;
-                color: white !important;
-            }
-            
-            .mobile-social-btn.line {
-                background: #00c300 !important;
-                color: white !important;
-            }
-            
-            .mobile-social-btn.instagram {
-                background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
-                color: white !important;
-            }
-            
-            .mobile-social-btn:hover {
-                transform: translateY(-2px) !important;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
-            }
-            
-            .mobile-social-btn i {
-                font-size: 14px !important;
-            }
-
-            /* 3. 移除所有背景卡片的圓角 */
-            .advantage-card,
-            .modern-product-card,
-            .product-hero,
-            .product-card,
-            .testimonial-card,
-            .card-image-wrapper,
-            .card-image,
-            .hero-image,
-            .card-photo,
-            .season-card,
-            .feature-card,
-            .card-content,
-            .hero-content,
-            .product-info {
-                border-radius: 0 !important;
-            }
-            
-            /* 4. 手機版整體布局優化 */
-            .container {
-                padding: 0 15px !important;
-                max-width: 100% !important;
-            }
-            
-            .section-header {
-                text-align: center !important;
-                margin-bottom: 30px !important;
-            }
-            
-            .section-title {
-                font-size: 2rem !important;
-                margin-bottom: 10px !important;
-                color: #333 !important;
-            }
-            
-            .section-subtitle {
-                font-size: 1rem !important;
-                color: #666 !important;
-            }
-            
-            /* 商品網格手機版優化 */
-            .modern-products-grid,
-            .advantages-grid,
-            .products-showcase {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-            }
-            
-            .secondary-products-grid {
-                grid-template-columns: 1fr !important;
-                gap: 15px !important;
-            }
-            
-            /* 按鈕手機版優化 */
-            .btn-primary, .btn-secondary {
-                width: 100% !important;
-                max-width: 300px !important;
-                padding: 15px 30px !important;
-                font-size: 16px !important;
-                font-weight: bold !important;
-                border-radius: 0 !important;
-            }
-            
-            /* 文字可讀性優化 */
-            .card-title, .product-title {
-                line-height: 1.3 !important;
-                color: #333 !important;
-            }
-            
-            .card-description, .product-description {
-                line-height: 1.5 !important;
-                color: #666 !important;
-            }
-
-            /* 為現有的商品標籤添加背景顏色 */
-            .product-badge,
-            .card-badge,
-            .product-category,
-            .modern-product-card .product-tag,
-            .modern-product-card .feature-tag,
-            .modern-product-card .feature-badge {
-                background: linear-gradient(135deg, #ff6b35, #e74c3c) !important;
-                color: white !important;
-                padding: 4px 8px !important;
-                border-radius: 0 !important;
-                font-size: 9px !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.5px !important;
-                display: inline-block !important;
-                text-align: center !important;
-                line-height: 1.2 !important;
-            }
-            
-            .card-badge.hot {
-                background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
-            }
-            
-            .card-badge.preorder {
-                background: linear-gradient(135deg, #3498db, #2980b9) !important;
-            }
-            
-            .card-badge.offer {
-                background: linear-gradient(135deg, #f39c12, #e67e22) !important;
-            }
-            
-            .product-category {
-                background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
-            }
-            
-            .product-season {
-                background: linear-gradient(135deg, #3498db, #2980b9) !important;
-                color: white !important;
-                padding: 3px 6px !important;
-                border-radius: 0 !important;
-                font-size: 8px !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.5px !important;
-                display: inline-block !important;
-                text-align: center !important;
-                line-height: 1.2 !important;
-            }
-            
-            .product-meta {
-                display: flex !important;
-                gap: 8px !important;
-                margin-bottom: 10px !important;
-                flex-wrap: wrap !important;
-            }
-            
-            .card-features {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                gap: 6px !important;
-                margin-bottom: 15px !important;
-            }
-            
-            /* 精選商品區域的現代化卡片樣式 */
-            .modern-product-card {
-                background: white !important;
-                border-radius: 0 !important;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-                overflow: hidden !important;
-                transition: all 0.3s ease !important;
-                position: relative !important;
-                z-index: 2 !important;
-            }
-            
-            .modern-product-card:hover {
-                transform: translateY(-8px) !important;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-            }
-            
-            .card-image-wrapper {
-                position: relative !important;
-                overflow: hidden !important;
-            }
-            
-            .card-image {
-                width: 100% !important;
-                height: 200px !important;
-                object-fit: cover !important;
-                border-radius: 0 !important;
-            }
-            
-            .image-overlay {
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                background: rgba(0, 0, 0, 0.5) !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                opacity: 0 !important;
-                transition: opacity 0.3s ease !important;
-            }
-            
-            .modern-product-card:hover .image-overlay {
-                opacity: 1 !important;
-            }
-            
-            .overlay-buttons {
-                display: flex !important;
-                gap: 10px !important;
-            }
-            
-            .overlay-btn {
-                width: 40px !important;
-                height: 40px !important;
-                background: rgba(255, 255, 255, 0.9) !important;
-                border: none !important;
-                border-radius: 0 !important;
-                color: #333 !important;
-                font-size: 16px !important;
-                cursor: pointer !important;
-                transition: all 0.3s ease !important;
-            }
-            
-            .overlay-btn:hover {
-                background: #ff6b35 !important;
-                color: white !important;
-                transform: scale(1.1) !important;
-            }
-            
-            .product-badge {
-                position: absolute !important;
-                top: 15px !important;
-                right: 15px !important;
-                padding: 5px 10px !important;
-                border-radius: 0 !important;
-                font-size: 10px !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.5px !important;
-                z-index: 3 !important;
-            }
-            
-            .preorder-badge {
-                background: linear-gradient(135deg, #3498db, #2980b9) !important;
-                color: white !important;
-            }
-            
-            .hot-badge {
-                background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
-                color: white !important;
-            }
-            
-            .new-badge {
-                background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
-                color: white !important;
-            }
-            
-            .card-content {
-                padding: 20px !important;
-            }
-            
-            .product-category-tag {
-                background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
-                color: white !important;
-                padding: 4px 8px !important;
-                border-radius: 0 !important;
-                font-size: 9px !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.5px !important;
-                display: inline-block !important;
-                margin-bottom: 10px !important;
-                text-align: center !important;
-            }
-            
-            .product-title {
-                font-size: 1.2rem !important;
-                color: #2c3e50 !important;
-                margin-bottom: 10px !important;
-                font-weight: bold !important;
-                line-height: 1.3 !important;
-            }
-            
-            .rating-section {
-                display: flex !important;
-                align-items: center !important;
-                gap: 8px !important;
-                margin-bottom: 15px !important;
-            }
-            
-            .stars {
-                color: #ffc107 !important;
-                font-size: 12px !important;
-            }
-            
-            .rating-text {
-                font-size: 11px !important;
-                color: #7f8c8d !important;
-            }
-            
-            .price-section {
-                margin-bottom: 15px !important;
-            }
-            
-            .current-price {
-                font-size: 1.1rem !important;
-                color: #e74c3c !important;
-                font-weight: bold !important;
-            }
-            
-            .price-suffix {
-                font-size: 0.9rem !important;
-                color: #95a5a6 !important;
-                margin-left: 5px !important;
-            }
-            
-            .modern-view-detail-btn {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                gap: 8px !important;
-                width: 100% !important;
-                padding: 12px 20px !important;
-                background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
-                color: white !important;
-                text-decoration: none !important;
-                border-radius: 0 !important;
-                font-size: 14px !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.5px !important;
-                transition: all 0.3s ease !important;
-            }
-            
-            .modern-view-detail-btn:hover {
-                background: linear-gradient(135deg, #e55a2b, #d67e1a) !important;
-                transform: translateY(-2px) !important;
-                box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
-            }
-            
-            .card-price {
-                font-size: 1rem !important;
-                color: #e74c3c !important;
-                font-weight: bold !important;
-            }
-            
-            .card-price .price-suffix {
-                font-size: 0.8rem !important;
-                color: #95a5a6 !important;
-            }
-            
-            .card-content .product-tag {
-                background: linear-gradient(135deg, #ff6b35, #e74c3c) !important;
-                color: white !important;
-                padding: 3px 6px !important;
-                border-radius: 0 !important;
-                font-size: 9px !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.5px !important;
-                display: inline-block !important;
-                margin-bottom: 8px !important;
-            }
-            
-            .card-content .season-tag {
-                background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
-                color: white !important;
-                padding: 3px 6px !important;
-                border-radius: 0 !important;
-                font-size: 9px !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.5px !important;
-                display: inline-block !important;
-                margin-bottom: 8px !important;
-            }
-        }
-    </style>
+        <!-- 選單導航 -->
+        <nav class="menu-nav">
+            <ul class="menu-list">
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>最新消息</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li class="menu-item">
+                            <a href="news.html?category=announcement" class="submenu-link">最新公告</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="news.html?category=season" class="submenu-link">產季資訊</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="news.html?category=promotion" class="submenu-link">優惠活動</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>季節推薦</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li class="menu-item">
+                            <a href="season-recommend.html" class="submenu-link">季節推薦</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="season-ponkan.html" class="submenu-link">椪柑產季</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="season-murcott.html" class="submenu-link">茂谷產季</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="season-taro.html" class="submenu-link">芋角產季</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="season-water-chestnut.html" class="submenu-link">菱角產季</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>所有商品</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li class="menu-item">
+                            <a href="products.html?category=新鮮水果" class="submenu-link">新鮮水果</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="products.html?category=季節限定" class="submenu-link">季節限定</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="products.html?category=禮盒裝" class="submenu-link">禮盒裝</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="products.html?category=預購商品" class="submenu-link">預購商品</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="grading.html" class="submenu-link">商品分級</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="guide.html" class="submenu-link">選購指南</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>關於我們</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li class="menu-item">
+                            <a href="about.html" class="submenu-link">關於柑心果園</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="farming.html" class="submenu-link">農場介紹</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="contact.html" class="submenu-link">聯絡我們</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="policies.html" class="submenu-link">服務條款</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="order-tracking.html" class="menu-link">
+                        <i class="fas fa-search"></i>
+                        <span>訂單查詢</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="menu-footer">
+                <div class="menu-contact">
+                    <p><i class="fas fa-phone"></i> 0933-721-978</p>
+                    <p><i class="fas fa-envelope"></i> s9000721@gmail.com</p>
+                </div>
+            </div>
+        </nav>
+    </div>
 </head>
 <body>
-<!-- 主要導覽列 - 開南風格 -->
-
-<!-- 手機選單 - 現代化設計 -->
-
-            </div>
-        </div>
-        
-    </div>
-
-            </div>
-        </div>
-        
-        <div class="mobile-social-section">
-            <div class="mobile-social-buttons">
-                <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="mobile-social-button facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" target="_blank" class="mobile-social-button line">
-                    <i class="fab fa-line"></i>
-                </a>
-                <a href="#" target="_blank" class="mobile-social-button instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 全新設計 -->
-
     <!-- 統一導覽列 -->
 
-    <!-- 手機選單 -->
-
-        </div>
         <ul class="menu-list">
             <li class="menu-item">
                 <a href="news.html" class="menu-link">最新消息</a>
@@ -1567,19 +443,17 @@
                 <a href="order-tracking.html" class="menu-link">訂單查詢</a>
             </li>
         </ul>
-        
+        <div class="menu-footer">
+            <div class="menu-contact">
+                <p><i class="fas fa-phone"></i> 0933-721-978</p>
+                <p><i class="fas fa-envelope"></i> s9000721@gmail.com</p>
+            </div>
         </div>
     </div>
     
     <!-- 選單遮罩 -->
 
     <!-- 統一Hero區塊 -->
-    <section class="hero-slider">
-        <div class="hero-content">
-            <h1 class="hero-title">知識詳情</h1>
-            <p class="hero-subtitle">專業的椪柑和茂谷柑知識分享，教您如何挑選優質水果</p>
-        </div>
-    </section>
 
     <!-- 文章內容 -->
     <section class="article-detail">
@@ -1594,69 +468,137 @@
         </div>
     </section>
 
-                <div class="shipping-notice">
-                    <i class="fas fa-truck"></i> 滿 NT$1,800 免運費
-                </div>`n                <div class="discount-notice" style="margin-top: 10px; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 8px;">`n                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" style="color: #ff8c42; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">`n                        <i class="fab fa-facebook"></i> `n                        <span>查看 Facebook 最新優惠折扣</span>`n                    </a>`n                </div>`n            </div>
-            <button class="btn-checkout" id="checkoutBtn">前往結帳</button>
-        </div>
-    </div>
+    <!-- 載入相關 JavaScript -->
 
-    <!-- 結帳彈窗 -->
-    <div class="modal" id="checkoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>結帳資訊</h3>
-                <button class="close-modal" id="closeCheckoutModal">
-                    <i class="fas fa-times"></i>
-                </button>
+    <script src="./js/cart.js?v=20251004i"></script>
+    
+    <!-- 全新設計頁尾 -->
+    <footer class="footer footer-modern">
+        <div class="container">
+            <!-- 頁尾波浪裝飾 -->
+            <div class="footer-wave">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
+                    <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="currentColor"></path>
+                    <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
+                </svg>
             </div>
-            <div class="modal-body">
-                <form id="checkoutForm">
-                    <div class="form-group">
-                        <label for="customerName">姓名 *</label>
-                        <input type="text" id="customerName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerPhone">電話 *</label>
-                        <input type="tel" id="customerPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerEmail">Email *</label>
-                        <input type="email" id="customerEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerAddress">配送地址 *</label>
-                        <textarea id="customerAddress" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerNote">備註</label>
-                        <textarea id="customerNote" rows="2"></textarea>
-                    </div>
-                    <div class="order-summary">
-                        <h4>訂單摘要</h4>
-                        <div id="checkoutSummary"></div>
-                        <div class="checkout-total">
-                            <span>總金額：</span>
-                            <span id="checkoutTotal">NT$ 0</span>
+            
+            <!-- 主要內容區域 -->
+            <div class="footer-main">
+                <!-- 左側品牌區域 -->
+                <div class="footer-left">
+                    <div class="brand-showcase">
+                        <div class="brand-logo-modern">
+                            <img src="images/柑心商標.png" alt="柑心果園" class="logo-img">
+                            <div class="brand-text-modern">
+                                <h2>柑心果園</h2>
+                                <p class="brand-subtitle">GANXIN ORCHARD</p>
+                            </div>
+                        </div>
+                        <p class="brand-description-modern">
+                            台中豐原公老坪優質水果供應商，傳承百年果園經驗，提供新鮮的椪柑、茂谷柑等優質水果，產地直送到府，讓您品嚐最純正的台灣水果風味。
+                        </p>
+                        <div class="brand-tags">
+                            <span class="tag">友善栽培</span>
+                            <span class="tag">產地直送</span>
+                            <span class="tag">品質保證</span>
                         </div>
                     </div>
-                    <div class="payment-methods">
-                        <h4>付款方式</h4>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="linepay" checked>
-                            <span><i class="fab fa-line"></i> LINE Pay</span>
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="cod">
-                            <span><i class="fas fa-money-bill-wave"></i> 貨到付款</span>
-                        </label>
+                </div>
+                
+                <!-- 右側連結區域 -->
+                <div class="footer-right">
+                    <div class="links-grid">
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-handshake"></i>
+                                服務專區
+                            </h4>
+                            <ul class="link-list">
+                                <li><a href="about.html">關於我們</a></li>
+                                <li><a href="news.html">最新動態</a></li>
+                                <li><a href="products.html">精選商品</a></li>
+                                <li><a href="farming.html">農場介紹</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-users"></i>
+                                會員專區
+                            </h4>
+                            <ul class="link-list">
+                                <li><a href="order-tracking.html">訂單查詢</a></li>
+                                <li><a href="contact.html">門市資訊</a></li>
+                                <li><a href="policies.html?type=faq">常見問題</a></li>
+                                <li><a href="policies.html?type=terms">會員條款</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-shopping-bag"></i>
+                                商品分類
+                            </h4>
+                            <ul class="link-list">
+                                <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
+                                <li><a href="products.html?category=季節限定">季節限定</a></li>
+                                <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
+                                <li><a href="season-recommend.html">季節推薦</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-phone"></i>
+                                聯繫我們
+                            </h4>
+                            <div class="contact-modern">
+                                <div class="contact-item-modern">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <span class="contact-label">客服專線</span>
+                                        <span class="contact-value">0933-721-978</span>
+                                    </div>
+                                </div>
+                                <div class="contact-item-modern">
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <span class="contact-label">電子信箱</span>
+                                        <span class="contact-value">s9000721@gmail.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn-submit-order">確認訂單並付款</button>
-                </form>
+                </div>
+            </div>
+            
+            <!-- 頁尾底部 -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2024 柑心果園 Ganxin Orchard. 版權所有.</p>
+                        <p>台中豐原公老坪 | 優質水果供應商</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="policies.html?type=privacy">隱私政策</a>
+                        <a href="policies.html?type=terms">服務條款</a>
+                        <a href="policies.html?type=faq">常見問題</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </footer>
 
-    </body>
+    <!-- 手機版回到頂部按鈕 -->
+    <button class="back-to-top mobile-only" id="backToTop" aria-label="回到頂部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 回到頂部功能 -->
+    
+    <script src="./js/main.js?v=20250115"></script>`n    <script src="./js/mobile-menu-simple.js?v=20250115"></script>`n</body>
 </html>
 

@@ -1,0 +1,360 @@
+/* 統一選單和封面樣式 - 適用於所有分頁 */
+
+/* 手機選單設計 - 統一版本 */
+.main-menu {
+    display: none !important;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.98) 0%, 
+        rgba(248, 249, 250, 0.95) 100%) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255, 107, 53, 0.2) !important;
+    border-radius: 15px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    z-index: 9999 !important;
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 300px !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateX(100%) scale(0.9) !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.main-menu.show {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(0) scale(1) !important;
+    animation: menuBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+@keyframes menuBounceIn {
+    0% {
+        transform: translateX(100%) scale(0.8) !important;
+        opacity: 0 !important;
+    }
+    50% {
+        transform: translateX(-10px) scale(1.05) !important;
+        opacity: 0.8 !important;
+    }
+    100% {
+        transform: translateX(0) scale(1) !important;
+        opacity: 1 !important;
+    }
+}
+
+.menu-header {
+    background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.3) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    padding: 20px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+}
+
+.menu-logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.menu-logo-img {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
+}
+
+.menu-logo-text .logo-main {
+    color: #2c3e50 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+.menu-logo-text .logo-sub {
+    color: #34495e !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+}
+
+.menu-nav {
+    background: transparent !important;
+    padding: 20px !important;
+}
+
+.menu-item {
+    background: transparent !important;
+    margin: 4px 0 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.menu-item:hover {
+    background: rgba(255, 107, 53, 0.08) !important;
+    transform: translateX(5px) !important;
+}
+
+.menu-item a,
+.menu-link {
+    position: relative !important;
+    z-index: 1 !important;
+    color: #444 !important;
+    text-decoration: none !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    border-radius: 6px !important;
+}
+
+.menu-item:hover a,
+.menu-item:hover .menu-link {
+    color: #ff6b35 !important;
+    background: rgba(255, 107, 53, 0.1) !important;
+}
+
+.submenu {
+    background: rgba(248, 249, 250, 0.95) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 107, 53, 0.15) !important;
+    margin-left: 20px !important;
+    margin-top: 8px !important;
+}
+
+.submenu .menu-item {
+    background: transparent !important;
+    border: none !important;
+    margin: 2px 0 !important;
+}
+
+.submenu .menu-item:hover {
+    background: rgba(255, 107, 53, 0.1) !important;
+}
+
+.submenu .menu-item a,
+.submenu-link {
+    color: #000 !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+}
+
+.submenu .menu-item:hover a,
+.submenu .menu-item:hover .submenu-link {
+    color: #ff6b35 !important;
+}
+
+.menu-close {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 6px !important;
+    color: #2c3e50 !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.menu-close:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    transform: scale(1.05) !important;
+}
+
+/* 統一封面樣式 */
+.hero-section {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 60vh !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: translateZ(0) !important;
+}
+
+.hero-section * {
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.hero-background {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 1 !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    contain: layout style paint !important;
+    will-change: auto !important;
+}
+
+.hero-cover-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    opacity: 1 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.hero-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    z-index: 2 !important;
+}
+
+.hero-content {
+    position: relative !important;
+    z-index: 3 !important;
+    text-align: center !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    margin-top: 80px !important;
+}
+
+.hero-text {
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.hero-title {
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    margin-bottom: 1rem !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem !important;
+    color: white !important;
+    margin-bottom: 2rem !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 手機版選單響應式設計 */
+@media (max-width: 768px) {
+    .main-menu {
+        width: 280px !important;
+        max-width: 85vw !important;
+        z-index: 99999 !important;
+        top: 15px !important;
+        right: 15px !important;
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .menu-nav {
+        padding: 15px 16px 20px 16px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-menu {
+        width: 90vw !important;
+        max-width: 90vw !important;
+        top: 10px !important;
+        right: 10px !important;
+        left: 5vw !important;
+    }
+    
+    .menu-nav {
+        padding: 12px 12px 20px 12px !important;
+    }
+}
+
+/* 確保所有分頁的選單樣式一致 */
+.main-header {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.1) !important;
+}
+
+.header-content {
+    background: transparent !important;
+}
+
+.desktop-nav {
+    background: transparent !important;
+}
+
+.nav-menu {
+    background: transparent !important;
+}
+
+.nav-menu li {
+    background: transparent !important;
+}
+
+.nav-menu li:hover {
+    background: rgba(255, 107, 53, 0.05) !important;
+}
+
+.nav-menu li a {
+    color: #333 !important;
+    transition: all 0.3s ease !important;
+}
+
+.nav-menu li:hover a {
+    color: #ff6b35 !important;
+}
+
+.dropdown-menu {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 107, 53, 0.2) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dropdown-menu li {
+    background: transparent !important;
+}
+
+.dropdown-menu li:hover {
+    background: rgba(255, 107, 53, 0.08) !important;
+}
+
+.dropdown-menu li a {
+    color: #333 !important;
+}
+
+.dropdown-menu li:hover a {
+    color: #ff6b35 !important;
+}
+
+
+
+
