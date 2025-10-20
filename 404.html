@@ -442,47 +442,103 @@
                     }
                 }
                 
-                /* 404錯誤頁面樣式 */
+                /* 404錯誤頁面樣式 - 重新設計 */
                 .error-container {
-                    min-height: 60vh;
+                    min-height: 80vh;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     text-align: center;
-                    padding: 40px 20px;
+                    padding: 80px 20px;
+                    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                /* 背景裝飾 */
+                .error-container::before {
+                    content: '';
+                    position: absolute;
+                    top: -50%;
+                    right: -10%;
+                    width: 500px;
+                    height: 500px;
+                    background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+                    border-radius: 50%;
+                    animation: float 6s ease-in-out infinite;
+                }
+                
+                .error-container::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -30%;
+                    left: -10%;
+                    width: 400px;
+                    height: 400px;
+                    background: radial-gradient(circle, rgba(247, 147, 30, 0.1) 0%, transparent 70%);
+                    border-radius: 50%;
+                    animation: float 8s ease-in-out infinite reverse;
+                }
+                
+                @keyframes float {
+                    0%, 100% { transform: translateY(0px); }
+                    50% { transform: translateY(-30px); }
                 }
                 
                 .error-content {
-                    max-width: 600px;
+                    max-width: 700px;
                     margin: 0 auto;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                /* 404 圖示 */
+                .error-icon {
+                    font-size: 180px;
+                    margin-bottom: 20px;
+                    animation: bounce 2s ease-in-out infinite;
+                }
+                
+                @keyframes bounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-20px); }
                 }
                 
                 .error-code {
-                    font-size: 120px;
+                    font-size: 140px;
                     font-weight: 900;
-                    color: #ff6b35;
+                    background: linear-gradient(135deg, #ff6b35, #f7931e);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
                     margin: 0;
-                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
                     line-height: 1;
+                    text-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+                    animation: glow 2s ease-in-out infinite;
+                }
+                
+                @keyframes glow {
+                    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5)); }
+                    50% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8)); }
                 }
                 
                 .error-title {
-                    font-size: 32px;
+                    font-size: 36px;
                     font-weight: 700;
                     color: #2c3e50;
-                    margin: 20px 0;
+                    margin: 30px 0 20px;
                 }
                 
                 .error-message {
                     font-size: 18px;
                     color: #7f8c8d;
-                    margin-bottom: 30px;
-                    line-height: 1.6;
+                    margin-bottom: 40px;
+                    line-height: 1.8;
                 }
                 
                 .error-actions {
                     display: flex;
-                    gap: 15px;
+                    gap: 20px;
                     justify-content: center;
                     flex-wrap: wrap;
                 }
@@ -557,6 +613,55 @@
                         justify-content: center;
                     }
                 }
+                
+                /* 為404頁面設定黑色header，跟首頁一樣 */
+                .main-header {
+                    background: rgba(0, 0, 0, 0.9) !important;
+                    backdrop-filter: blur(10px) !important;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                    position: relative !important;
+                }
+                
+                .main-header.scrolled {
+                    background: rgba(0, 0, 0, 0.95) !important;
+                }
+                
+                /* 強制所有header內的元素使用白色文字 - 使用具體的顏色值 */
+                .main-header,
+                .main-header *:not(.dropdown-menu):not(.dropdown-menu *),
+                .main-header a,
+                .main-header span,
+                .main-header div,
+                .desktop-nav,
+                .desktop-nav *:not(.dropdown-menu):not(.dropdown-menu *),
+                .nav-link,
+                .logo-main,
+                .header-action,
+                .header-action span,
+                .language-switcher,
+                .language-switcher span {
+                    color: #ffffff !important;
+                }
+                
+                /* 下拉選單例外：使用深色文字 */
+                .dropdown-menu,
+                .dropdown-menu *,
+                .dropdown-menu a,
+                .dropdown-menu li {
+                    color: #333333 !important;
+                    background-color: white !important;
+                }
+                
+                /* 購物車數量badge */
+                .cart-count {
+                    background: #ff6b35 !important;
+                    color: #ffffff !important;
+                }
+                
+                /* 確保icon也是白色 */
+                .main-header i:not(.dropdown-menu i) {
+                    color: #ffffff !important;
+                }
     </style>
 </head>
 <body>
@@ -607,20 +712,14 @@
                             <li><a href="season-murcott.html">茂谷柑季節</a></li>
                             <li><a href="season-water-chestnut.html">菱角季節</a></li>
                             <li><a href="season-taro.html">芋頭季節</a></li>
+                            <li><a href="products.html?category=季節限定">季節限定商品</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="nav-link">所有商品 <i class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                            <li><a href="products.html?category=季節限定">季節限定</a></li>
                             <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a href="season-recommend.html">季節推薦</a></li>
-                            <li><a href="season-ponkan.html">椪柑季節</a></li>
-                            <li><a href="season-murcott.html">茂谷柑季節</a></li>
-                            <li><a href="season-water-chestnut.html">菱角季節</a></li>
-                            <li><a href="season-taro.html">芋頭季節</a></li>
                             <li class="dropdown-divider"></li>
                             <li><a href="guide.html">選購指南</a></li>
                             <li><a href="guide-ponkan.html">椪柑選購</a></li>
@@ -728,6 +827,7 @@
                         <li><a href="season-murcott.html" class="submenu-link">茂谷柑季節</a></li>
                         <li><a href="season-water-chestnut.html" class="submenu-link">菱角季節</a></li>
                         <li><a href="season-taro.html" class="submenu-link">芋頭季節</a></li>
+                        <li><a href="products.html?category=季節限定" class="submenu-link">季節限定商品</a></li>
                     </ul>
                 </li>
                 
@@ -739,7 +839,6 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="products.html?category=新鮮水果" class="submenu-link">新鮮水果</a></li>
-                        <li><a href="products.html?category=季節限定" class="submenu-link">季節限定</a></li>
                         <li><a href="products.html?category=禮盒裝" class="submenu-link">禮盒裝</a></li>
                         <li class="submenu-divider"></li>
                         <li><a href="guide.html" class="submenu-link">選購指南</a></li>
@@ -780,23 +879,44 @@
                 </li>
             </ul>
         </nav>
-        
-        <!-- 選單頁尾 -->
-        <div class="menu-footer">
-            <div class="menu-contact">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>0933-721-978</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>s9000721@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>台中市豐原區公老坪</span>
+        <!-- 手機選單頁尾內容 -->
+        <div class="mobile-menu-footer">
+            <!-- 聯絡我們區域 -->
+            <div class="mobile-contact-section">
+                <div class="mobile-contact-info">
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>0933-721-978</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>s9000721@gmail.com</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>台中豐原公老坪</span>
+                    </div>
                 </div>
             </div>
+            
+            <!-- 關注我們區域 -->
+            <div class="mobile-social-section">
+                <div class="mobile-social-buttons">
+                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="mobile-social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn line">
+                        <i class="fab fa-line"></i>
+                        <span>LINE</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 
@@ -808,20 +928,31 @@
         <!-- 404錯誤頁面內容 -->
         <section class="error-container">
             <div class="error-content">
+                <!-- 404 圖示 -->
+                <div class="error-icon">🍊</div>
+                
+                <!-- 404 代碼 -->
                 <h1 class="error-code">404</h1>
-                <h2 class="error-title">頁面不存在</h2>
+                
+                <!-- 標題 -->
+                <h2 class="error-title">哎呀！找不到這顆水果</h2>
+                
+                <!-- 訊息 -->
                 <p class="error-message">
-                    抱歉，您要尋找的頁面不存在或已被移除。<br>
-                    請檢查網址是否正確，或返回首頁繼續瀏覽。
+                    看來這個頁面已經被採收走了～<br>
+                    或許它正在果園的某個角落等著您發現！<br>
+                    讓我們帶您回到新鮮水果的世界吧！
                 </p>
+                
+                <!-- 按鈕 -->
                 <div class="error-actions">
                     <a href="index.html" class="btn-primary">
                         <i class="fas fa-home"></i>
-                        返回首頁
+                        返回果園首頁
                     </a>
-                    <a href="javascript:history.back()" class="btn-secondary">
-                        <i class="fas fa-arrow-left"></i>
-                        返回上頁
+                    <a href="products.html" class="btn-secondary">
+                        <i class="fas fa-shopping-basket"></i>
+                        瀏覽商品
                     </a>
                 </div>
             </div>
@@ -899,7 +1030,6 @@
                             </h4>
                             <ul class="link-list">
                                 <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                                <li><a href="products.html?category=季節限定">季節限定</a></li>
                                 <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
                                 <li><a href="season-recommend.html">季節推薦</a></li>
                             </ul>

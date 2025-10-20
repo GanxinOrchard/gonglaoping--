@@ -68,7 +68,7 @@
             top: -100px;
             opacity: ${opacity};
             animation: floatDown ${animationDuration}s linear ${animationDelay}s infinite;
-            background: radial-gradient(circle at 30% 30%, #ffb347, #ff8c42);
+            background: radial-gradient(circle at 30% 30%, #ff8c42, #ff6b35);
             border-radius: 50%;
             box-shadow: inset -5px -5px 10px rgba(0,0,0,0.2),
                         inset 5px 5px 10px rgba(255,255,255,0.3);
