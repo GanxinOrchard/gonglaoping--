@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title id="pageTitle">商品詳情 - 柑心果園</title>
     <meta name="description" id="pageDescription" content="柑心果園優質農產品，產地直送，新鮮安心。">
     <link rel="icon" type="image/png" href="images/logo.png">
@@ -17,10 +17,26 @@
     <!-- Product JSON-LD (動態生成) -->
     <script type="application/ld+json" id="productSchema"></script>
     
-    <link rel="stylesheet" href="./css/style.css">`n    <link rel="stylesheet" href="news-season-styles.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="preload" href="./css/style.css?v=20250123" as="style">
+    <link rel="stylesheet" href="./css/style.css?v=20250123">
+    <link rel="stylesheet" href="./news-season-styles.css?v=20250123">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <!-- 重新設計樣式 -->
     <style>
+        /* 全域重置 - 確保封面圖緊貼頂部 */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #main-content {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+        
         /* 最新消息廣播器重新設計 */
         .broadcast-section {
             background: linear-gradient(135deg, #ff6b35, #f7931e);
@@ -130,6 +146,26 @@
             transform: scale(1.1);
         }
         
+        /* 手機選單遮罩 */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-overlay.show,
+        .menu-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
         /* 手機選單設計 - 簡潔版本 */
         .main-menu {
             display: none !important;
@@ -154,7 +190,9 @@
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
         }
         
-        .main-menu.show {
+        .main-menu.show,
+        .main-menu.open,
+        .main-menu.active {
             display: block !important;
             opacity: 1 !important;
             visibility: visible !important;
@@ -1361,6 +1399,1438 @@
                 margin-bottom: 8px !important;
             }
         }
+        
+        /* 商品詳情頁樣式 */
+        .product-detail-page {
+            padding: 40px 0;
+            background: #f8f9fa;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .loading-message i {
+            font-size: 48px;
+            color: #ff6b35;
+            margin-bottom: 20px;
+        }
+        
+        .product-not-found {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .product-not-found i {
+            font-size: 72px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .product-not-found h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .product-not-found p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .product-detail-content {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+        
+        .product-image-gallery .main-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            background: #f5f5f5;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .product-image-gallery .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumbnail-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: #ff6b35;
+            transform: scale(1.05);
+        }
+        
+        .product-header {
+            margin-bottom: 20px;
+        }
+        
+        .product-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .product-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .product-price-section {
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+        
+        .current-price {
+            font-size: 36px;
+            color: #ff6b35;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .current-price .currency {
+            font-size: 24px;
+        }
+        
+        .current-price .price-suffix {
+            font-size: 18px;
+            color: #999;
+            margin-left: 8px;
+        }
+        
+        .sales-count {
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .sales-count i {
+            color: #ff6b35;
+        }
+        
+        .product-specs {
+            margin-bottom: 30px;
+        }
+        
+        .product-specs h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .spec-option {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .spec-option:hover {
+            border-color: #ff6b35;
+            background: #fff5f2;
+        }
+        
+        .spec-option.active {
+            border-color: #ff6b35;
+            background: linear-gradient(135deg, #fff5f2, #ffe8df);
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
+        }
+        
+        .spec-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .spec-detail, .spec-weight {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        
+        .spec-price {
+            font-size: 20px;
+            color: #ff6b35;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        
+        .spec-description {
+            font-size: 12px;
+            color: #999;
+            font-style: italic;
+        }
+        
+        .product-shipping-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .shipping-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .shipping-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .shipping-item i {
+            color: #ff6b35;
+            font-size: 16px;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .quantity-selector label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: #f8f9fa;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        .qty-btn:hover {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        .quantity-controls input {
+            width: 60px;
+            height: 40px;
+            border: none;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-add-to-cart, .btn-buy-now {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add-to-cart {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+        }
+        
+        .btn-add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn-buy-now {
+            background: #2c3e50;
+            color: white;
+        }
+        
+        .btn-buy-now:hover {
+            background: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
+        }
+        
+        .product-detail-images {
+            padding: 40px;
+            border-top: 1px solid #eee;
+        }
+        
+        .product-detail-images h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .product-detail-images img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .cooking-images-section {
+            padding: 40px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .cooking-images-section h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .cooking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .cooking-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cooking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        .cooking-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+        
+        .cooking-card h4 {
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 20px;
+            }
+            
+            .product-name {
+                font-size: 24px;
+            }
+            
+            .current-price {
+                font-size: 28px;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .thumbnail-images {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .product-detail-images,
+            .cooking-images-section {
+                padding: 20px;
+            }
+            
+            .cooking-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 確保容器樣式正確 */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 確保主內容區域不被 header 遮擋 */
+        .product-detail-page {
+            margin: 0;
+            padding: 0;
+            min-height: 60vh;
+        }
+        
+        /* 確保選單在最上層 */
+        .main-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* 商品詳情封面區域 */
+        .product-hero-section {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .product-hero-image {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .hero-cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .product-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+            z-index: 1;
+        }
+        
+        .product-hero-content {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 14px;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+        }
+        
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: #ff6b35;
+        }
+        
+        .breadcrumb span:not(:last-child) {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .breadcrumb span:last-child {
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .product-hero-section {
+                height: 200px;
+            }
+            
+            .product-hero-content {
+                bottom: 20px;
+            }
+            
+            .breadcrumb {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            
+            .product-detail-container {
+                padding: 20px;
+            }
+            
+            .product-detail-info h1 {
+                font-size: 24px;
+            }
+            
+            .product-detail-price {
+                font-size: 32px;
+            }
+            
+            .spec-selector {
+                padding: 20px;
+            }
+            
+            .spec-tabs {
+                flex-direction: column;
+            }
+            
+            .spec-detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .quantity-selector {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* 修復商品詳情頁樣式 */
+        .product-detail-page {
+            background: #f8f9fa;
+        }
+        
+        .product-detail-page .container {
+            max-width: 1400px !important;
+            padding-top: 40px;
+        }
+        
+        .product-detail-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 40px;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+        
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        @media (max-width: 1024px) {
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .product-detail-image {
+                position: relative;
+                top: 0;
+            }
+        }
+        
+        .product-detail-image {
+            position: sticky;
+            top: 120px;
+        }
+        
+        .product-detail-category {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .product-detail-info h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .product-detail-price {
+            font-size: 42px;
+            font-weight: 900;
+            color: #ff6b35;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        
+        .product-detail-price .currency {
+            font-size: 28px;
+        }
+        
+        .sales-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: inline-flex;
+        }
+        
+        .product-detail-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #ff6b35;
+        }
+        
+        .spec-selector {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff5f2, #ffe8df);
+            border-radius: 16px;
+            border: 2px solid #ff6b35;
+        }
+        
+        .spec-selector h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .spec-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .spec-tab {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .spec-tab:hover {
+            border-color: #ff6b35;
+            background: #fff5f2;
+        }
+        
+        .spec-tab.active {
+            border-color: #ff6b35;
+            background: #ff6b35;
+            color: white;
+        }
+        
+        .spec-tab-content {
+            display: none;
+        }
+        
+        .spec-tab-content.active {
+            display: block;
+        }
+        
+        .spec-price-highlight {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        .spec-description-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .spec-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .spec-detail-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .spec-detail-label {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .spec-detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .product-detail-features {
+            margin-bottom: 30px;
+        }
+        
+        .product-detail-features h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .product-detail-features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .product-detail-features li {
+            padding: 12px 0 12px 30px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .product-detail-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ff6b35;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .flavor-indicators {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .flavor-indicators h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .flavor-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .flavor-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .flavor-bar-bg {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .flavor-bar {
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+        
+        #sweetnessBar {
+            background: linear-gradient(90deg, #ffd700, #ff8c00);
+        }
+        
+        #acidityBar {
+            background: linear-gradient(90deg, #90ee90, #32cd32);
+        }
+        
+        #aromaBar {
+            background: linear-gradient(90deg, #ff69b4, #ff1493);
+        }
+        
+        .preorder-notice {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ffc107;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .preorder-notice i {
+            color: #856404;
+            font-size: 24px;
+        }
+        
+        .preorder-notice strong {
+            color: #856404;
+            font-size: 16px;
+        }
+        
+        .preorder-notice p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #856404;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .quantity-selector button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: #f8f9fa;
+            color: #333;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quantity-selector button:hover {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        .quantity-selector span {
+            min-width: 60px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .btn-add-to-cart-large {
+            flex: 1;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add-to-cart-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+        }
+        
+        .cooking-methods-section,
+        .product-detail-images-section,
+        .related-products-section {
+            margin: 50px 0;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        
+        .cooking-methods-section h2,
+        .related-products-section h2 {
+            text-align: center;
+            color: #ff6b35;
+            font-size: 32px;
+            margin-bottom: 40px;
+            font-weight: 800;
+        }
+        
+        #cookingImagesGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        #relatedProductsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .cooking-methods-section,
+            .product-detail-images-section,
+            .related-products-section {
+                padding: 20px;
+                margin: 30px 0;
+            }
+            
+            .cooking-methods-section h2,
+            .related-products-section h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            
+            #cookingImagesGrid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            #relatedProductsGrid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #relatedProductsGrid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 40px;
+            align-items: start;
+        }
+        
+        .product-image-gallery {
+            position: sticky;
+            top: 120px;
+        }
+        
+        .product-image-gallery .main-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .product-image-gallery .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+        }
+        
+        .thumbnail-images {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+            background: #fff;
+        }
+        
+        .thumbnail:hover {
+            border-color: #ff6b35;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+        }
+        
+        .thumbnail.active {
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+        }
+        
+        .product-info {
+            position: relative;
+        }
+        
+        .product-category {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+        }
+        
+        .product-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .product-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .product-price-section {
+            color: #999;
+            font-weight: 600;
+        }
+        
+        .sales-count {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 15px;
+        }
+        
+        .sales-count i {
+            color: #ff6b35;
+            font-size: 18px;
+        }
+        
+        .product-specs h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .spec-option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .spec-option:hover {
+            border-color: #ff6b35;
+            background: #fff5f2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+        }
+        
+        .spec-option.active {
+            border-color: #ff6b35;
+            background: linear-gradient(135deg, #fff5f2, #ffe8df);
+            box-shadow: 0 4px 16px rgba(255, 107, 53, 0.25);
+        }
+        
+        .spec-option.active::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .spec-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .spec-detail, .spec-weight {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+        
+        .spec-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ff6b35;
+            margin: 10px 0;
+        }
+        
+        .spec-description {
+            font-size: 13px;
+            color: #999;
+            font-style: italic;
+            margin-top: 8px;
+        }
+        
+        .product-shipping-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ff6b35;
+        }
+        
+        .shipping-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .shipping-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .shipping-item i {
+            color: #ff6b35;
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .quantity-selector label {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .qty-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: #f8f9fa;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qty-btn:hover {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        .qty-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .quantity-controls input {
+            width: 80px;
+            height: 50px;
+            border: none;
+            border-left: 2px solid #ddd;
+            border-right: 2px solid #ddd;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .quantity-controls input:focus {
+            outline: none;
+            background: #fff5f2;
+        }
+        
+        .product-actions {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 15px;
+        }
+        
+        .btn-add-to-cart, .btn-buy-now {
+            padding: 18px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-add-to-cart {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn-add-to-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+        }
+        
+        .btn-add-to-cart:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-buy-now {
+            background: #2c3e50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+        }
+        
+        .btn-buy-now:hover {
+            background: #1a252f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4);
+        }
+        
+        .btn-buy-now:active {
+            transform: translateY(-1px);
+        }
+        
+        /* 商品詳細介紹區域 */
+        .product-detail-images {
+            padding: 60px 40px;
+            background: #fff;
+        }
+        
+        .product-detail-images h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .product-detail-images h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 2px;
+        }
+        
+        .product-detail-images img {
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 1024px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 30px 20px;
+            }
+            
+            .product-image-gallery {
+                position: relative;
+                top: 0;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .product-main {
+                padding: 20px 15px;
+                gap: 30px;
+            }
+            
+            .product-name {
+                font-size: 26px;
+            }
+            
+            .current-price {
+                font-size: 32px;
+            }
+            
+            .thumbnail-images {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .product-actions {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .product-detail-images {
+                padding: 40px 20px;
+            }
+            
+            .specs-grid {
+                gap: 12px;
+            }
+            
+            .spec-option {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1386,7 +2856,7 @@
                         <span class="cart-count" id="topCartCount">0</span>
                     </a>
                     <div class="language-switcher">
-                        <button class="lang-btn active">繁中</button>
+                        <span>繁體中文</span>
                     </div>
                 </div>
             </div>
@@ -1398,18 +2868,20 @@
                         <a href="javascript:void(0)" class="nav-link">最新消息 <i class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="news.html?category=announcement">最新公告</a></li>
-                            <li><a href="news.html?category=season">產季資訊</a></li>
-                            <li><a href="news.html?category=promotion">優惠活動</a></li>
+                            <li><a href="news.html?category=new">新品上市</a></li>
+                            <li><a href="news.html?category=promotion">期間優惠</a></li>
+                            <li><a href="news.html?category=diary">果園日誌</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="nav-link">季節推薦 <i class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="season-recommend.html">季節推薦</a></li>
-                            <li><a href="season-ponkan.html">椪柑產季</a></li>
-                            <li><a href="season-murcott.html">茂谷產季</a></li>
-                            <li><a href="season-taro.html">芋角產季</a></li>
-                            <li><a href="season-water-chestnut.html">菱角產季</a></li>
+                            <li><a href="season-ponkan.html">椪柑季節</a></li>
+                            <li><a href="season-murcott.html">茂谷柑季節</a></li>
+                            <li><a href="season-water-chestnut.html">菱角季節</a></li>
+                            <li><a href="season-taro.html">芋頭季節</a></li>
+                            <li><a href="products.html?category=季節限定">季節限定商品</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -1417,9 +2889,12 @@
                         <ul class="dropdown-menu">
                             <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
                             <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                            <li><a href="products.html?category=預購商品">預購商品</a></li>
-                            <li><a href="grading.html">商品分級</a></li>
+                            <li class="dropdown-divider"></li>
                             <li><a href="guide.html">選購指南</a></li>
+                            <li><a href="guide-ponkan.html">椪柑選購</a></li>
+                            <li><a href="guide-murcott.html">茂谷柑選購</a></li>
+                            <li><a href="guide-water-chestnut.html">菱角選購</a></li>
+                            <li><a href="guide-taro.html">芋頭選購</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -1427,8 +2902,16 @@
                         <ul class="dropdown-menu">
                             <li><a href="about.html">關於柑心果園</a></li>
                             <li><a href="farming.html">農場介紹</a></li>
+                            <li><a href="knowledge.html">知識分享</a></li>
+                            <li><a href="knowledge.html?category=cutting">切法技巧</a></li>
+                            <li><a href="knowledge.html?category=growing">種植知識</a></li>
+                            <li><a href="knowledge.html?category=storing">保存方法</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="grading.html">分級標準</a></li>
+                            <li><a href="grading-ponkan.html">椪柑分級</a></li>
+                            <li><a href="grading-murcott.html">茂谷柑分級</a></li>
+                            <li class="dropdown-divider"></li>
                             <li><a href="contact.html">聯絡我們</a></li>
-                            <li><a href="policies.html">服務條款</a></li>
                         </ul>
                     </li>
                     <li><a href="order-tracking.html" class="nav-link">訂單查詢</a></li>
@@ -1443,9 +2926,13 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span>購物車</span>
                         <span class="cart-count" id="mobileCartCount">0</span>
-                    </a>
-                    <div class="mobile-logo">
-                        <a href="index.html" class="mobile-logo-link">
+                        </a>
+                    </div>
+                    
+                <!-- 手機版底部標誌和漢堡選單 -->
+                <div class="mobile-bottom-row">
+                    <div class="mobile-logo-section">
+                        <a href="index.html" class="mobile-logo">
                             <img src="images/柑心商標.png" alt="柑心果園" class="mobile-logo-image">
                             <div class="mobile-logo-text">
                                 <span class="mobile-logo-main">柑心果園</span>
@@ -1600,157 +3087,144 @@
         </div>
         
     </div>
-            
-            <!-- 主要內容區域 -->
-            <div class="footer-main">
-                <!-- 左側品牌區域 -->
-                <div class="footer-left">
-                    <div class="brand-showcase">
-                        <div class="brand-logo-modern">
-                            <img src="images/柑心商標.png" alt="柑心果園" class="logo-img">
-                            <div class="brand-text-modern">
-                                <h2>柑心果園</h2>
-                                <p class="brand-subtitle">GANXIN ORCHARD</p>
-                            </div>
-                        </div>
-                        <p class="brand-description-modern">
-                            台中豐原公老坪優質水果供應商，傳承百年果園經驗，提供新鮮的椪柑、茂谷柑等優質水果，產地直送到府，讓您品嚐最純正的台灣水果風味。
-                        </p>
-                        <div class="brand-tags">
-                            <span class="tag">友善栽培</span>
-                            <span class="tag">產地直送</span>
-                            <span class="tag">品質保證</span>
-                        </div>
-                    </div>
+
+    <!-- 商品詳情封面區域 -->
+    <section class="product-hero-section">
+        <div class="product-hero-image">
+            <img src="images/蔬果知識封面圖.png" alt="商品詳情 - 柑心果園" class="hero-cover-img">
+            <div class="product-hero-overlay"></div>
+            <div class="product-hero-content">
+                <div class="container">
+                    <nav class="breadcrumb">
+                        <a href="index.html">首頁</a>
+                        <span>/</span>
+                        <a href="products.html">所有商品</a>
+                        <span>/</span>
+                        <span id="breadcrumbProductName">商品詳情</span>
+                    </nav>
                 </div>
-                
-                <!-- 右側連結區域 -->
-                <div class="footer-right">
-                    <div class="links-grid">
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-handshake"></i>
-                                服務專區
-                            </h4>
-                            <ul class="link-list">
-                                <li><a href="about.html">關於我們</a></li>
-                                <li><a href="news.html">最新動態</a></li>
-                                <li><a href="products.html">精選商品</a></li>
-                                <li><a href="farming.html">農場介紹</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-users"></i>
-                                會員專區
-                            </h4>
-                            <ul class="link-list">
-                                <li><a href="order-tracking.html">訂單查詢</a></li>
-                                <li><a href="contact.html">門市資訊</a></li>
-                                <li><a href="policies.html?type=faq">常見問題</a></li>
-                                <li><a href="policies.html?type=terms">會員條款</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-shopping-bag"></i>
-                                商品分類
-                            </h4>
-                            <ul class="link-list">
-                                <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                                <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                                <li><a href="season-recommend.html">季節推薦</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-phone"></i>
-                                聯繫我們
-                            </h4>
-                            <div class="contact-modern">
-                                <div class="contact-item-modern">
-                                    <i class="fas fa-phone"></i>
-                                    <div>
-                                        <span class="contact-label">客服專線</span>
-                                        <span class="contact-value">0933-721-978</span>
-                                    </div>
-                                </div>
-                                <div class="contact-item-modern">
-                                    <i class="fas fa-envelope"></i>
-                                    <div>
-                                        <span class="contact-label">電子信箱</span>
-                                        <span class="contact-value">s9000721@gmail.com</span>
-                                    </div>
-                                </div>
-                                <div class="contact-item-modern">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div>
-                                        <span class="contact-label">營業地址</span>
-                                        <span class="contact-value">台中市豐原區公老坪</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 社群媒體區域 -->
-            <div class="footer-social-modern">
-                <div class="social-content">
-                    <h4>關注我們</h4>
-                    <p>追蹤我們的社群媒體，獲取最新優惠資訊</p>
-                    <div class="social-buttons">
-                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
-                            <i class="fab fa-facebook-f"></i>
-                            <span>Facebook</span>
-                        </a>
-                        <a href="#" target="_blank" class="social-btn line">
-                            <i class="fab fa-line"></i>
-                            <span>LINE</span>
-                        </a>
-                        <a href="#" target="_blank" class="social-btn instagram">
-                            <i class="fab fa-instagram"></i>
-                            <span>Instagram</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 品牌標語區域 -->
-            <div class="footer-slogan">
-                <div class="slogan-item">
-                    <div class="slogan-icon">柑心</div>
-                    <span>柑心果園 GANXIN ORCHARD</span>
-                </div>
-                <div class="slogan-item">
-                    <div class="slogan-icon">優質</div>
-                    <span>優質水果 QUALITY FRUITS</span>
-                </div>
-                <div class="slogan-item">
-                    <div class="slogan-icon">直送</div>
-                    <span>產地直送 FRESH DELIVERY</span>
-                </div>
-            </div>
-            
-            <!-- 版權資訊 -->
-            <div class="footer-copyright">
-                <p>&copy; 2025 柑心果園有限公司 | 版權所有 All Rights Reserved.</p>
-                <p>台中豐原公老坪優質水果供應商 | 東勢茂谷柑產地直送</p>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- 回到頂部功能 -->
-    
-    <script src="./js/dropdown-menu.js?v=20250120"></script>
-<script src="./js/main.js?v=20250115" defer></script>
-<script src="./js/mobile-menu-simple.js?v=20250115" defer></script>
-<script src="./js/cart.js?v=20250115" defer></script>
-    <script src="./js/cart.js?v=20250115" defer></script>
+    <!-- 商品詳情主要內容 -->
+    <main class="product-detail-page" id="main-content">
+        <div class="container">
+            <!-- 商品詳情容器 -->
+            <div class="product-detail-container" id="productDetailContainer">
+                <!-- 商品詳情網格 -->
+                <div class="product-detail-grid">
+                    <!-- 左側：商品圖片 -->
+                    <div class="product-detail-image">
+                        <div id="productGallery"></div>
+                    </div>
+                    
+                    <!-- 右側：商品資訊 -->
+                    <div class="product-detail-info">
+                        <div class="product-detail-category" id="productCategory"></div>
+                        <h1 id="productName"></h1>
+                        <div class="product-detail-price">
+                            <span class="currency">NT$</span>
+                            <span id="productPrice"></span>
+                        </div>
+                        
+                        <div class="sales-info">
+                            <i class="fas fa-fire" style="color: #f59e0b;"></i>
+                            已售出 <strong id="salesCount" style="color: var(--primary-color);">0</strong> 件
+                        </div>
+                        
+                        <div class="product-detail-description" id="productDescription"></div>
+                        
+                        <!-- 規格選擇 - Tab 版本 -->
+                        <div class="spec-selector" id="specSelector" style="display:none;">
+                            <h3><i class="fas fa-layer-group"></i> 規格分級</h3>
+                            <div class="spec-tabs" id="specTabs"></div>
+                            <div id="specTabContents"></div>
+                            <div id="specInfo" style="margin-top: 15px;"></div>
+                        </div>
+                        
+                        <div class="product-detail-features">
+                            <h3>商品特色</h3>
+                            <ul id="productFeatures"></ul>
+                        </div>
+                        
+                        <!-- 風味指標 -->
+                        <div class="flavor-indicators" id="flavorIndicators" style="display: none;">
+                            <h3><i class="fas fa-star"></i> 風味指標</h3>
+                            <div class="flavor-grid">
+                                <div class="flavor-item">
+                                    <div class="flavor-label">
+                                        <span>🍯 甜度</span>
+                                        <span id="sweetnessValue">-</span>
+                                    </div>
+                                    <div class="flavor-bar-bg">
+                                        <div id="sweetnessBar" class="flavor-bar"></div>
+                                    </div>
+                                </div>
+                                <div class="flavor-item">
+                                    <div class="flavor-label">
+                                        <span>🍋 酸度</span>
+                                        <span id="acidityValue">-</span>
+                                    </div>
+                                    <div class="flavor-bar-bg">
+                                        <div id="acidityBar" class="flavor-bar"></div>
+                                    </div>
+                                </div>
+                                <div class="flavor-item">
+                                    <div class="flavor-label">
+                                        <span>🌸 香氣</span>
+                                        <span id="aromaValue">-</span>
+                                    </div>
+                                    <div class="flavor-bar-bg">
+                                        <div id="aromaBar" class="flavor-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 預購提示 -->
+                        <div id="preorderNotice" style="display: none;" class="preorder-notice">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>目前為提前預購</strong>
+                                <p>預購商品將於產季到貨後依訂單順序出貨</p>
+                            </div>
+                        </div>
+
+                        <div class="product-actions">
+                            <div class="quantity-selector">
+                                <button onclick="changeQuantity(-1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span id="quantity">1</span>
+                                <button onclick="changeQuantity(1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <button class="btn-add-to-cart-large" id="addToCartBtn" onclick="addToCartFromDetail()">
+                                <i class="fas fa-cart-plus"></i> <span id="addToCartText">加入購物車</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 料理方式 -->
+            <div class="cooking-methods-section" id="cookingMethods" style="display: none;">
+                <h2><i class="fas fa-utensils"></i> 料理方式</h2>
+                <div id="cookingImagesGrid"></div>
+            </div>
+
+            <!-- 商品介紹圖片 -->
+            <div class="product-detail-images-section" id="productDetailImages"></div>
+
+            <!-- 相關商品推薦 -->
+            <div class="related-products-section" id="relatedProductsSection">
+                <h2><i class="fas fa-heart"></i> 您可能也喜歡</h2>
+                <div id="relatedProductsGrid"></div>
+            </div>
+        </div>
+    </main>
 
     <!-- 全新設計頁尾 -->
     <footer class="footer footer-modern">
@@ -1906,6 +3380,326 @@
             </div>
         </div>
     </footer>
+
+    <!-- 載入必要的 CSS -->
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250123">
+    
+    <!-- 載入必要的 JavaScript -->
+    <script src="./js/cache-clear.js?v=20250123"></script>
+    <script src="./js/products.js?v=20250123"></script>
+    <script src="./js/reviews.js?v=20250123"></script>
+    <script src="./js/cart.js?v=20250123"></script>
+    <script src="./js/main.js?v=20250123"></script>
+    <script src="./js/mobile-menu-simple.js?v=20250123" defer></script>
+    <script src="./js/dropdown-menu.js?v=20250123" defer></script>
+    <script src="./js/product-gallery.js?v=20250123"></script>
+    <script src="./js/orange-animation.js?v=20250123"></script>
+    <script src="./js/falling-animation.js?v=20250123"></script>
+    
+    <!-- 商品詳情頁核心邏輯 -->
+    <script>
+        let currentProduct = null;
+        let currentQuantity = 1;
+        let selectedSpec = null;
+        
+        function getProductIdFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id'));
+        }
+        
+        function loadProductDetail() {
+            const productId = getProductIdFromURL();
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (!currentProduct) {
+                window.location.href = 'products.html';
+                return;
+            }
+            
+            // 初始化圖片輪播
+            if (currentProduct.images && currentProduct.images.length > 0) {
+                initProductGallery(currentProduct.id, currentProduct.images);
+            } else {
+                initProductGallery(currentProduct.id, [currentProduct.image]);
+            }
+            
+            // 更新頁面資訊
+            document.getElementById('productCategory').textContent = currentProduct.category;
+            document.getElementById('productName').textContent = currentProduct.name;
+            document.getElementById('productPrice').textContent = currentProduct.price;
+            document.getElementById('productDescription').textContent = currentProduct.description;
+            document.getElementById('salesCount').textContent = currentProduct.salesCount || 0;
+            
+            // 更新麵包屑
+            const breadcrumbName = document.getElementById('breadcrumbProductName');
+            if (breadcrumbName) {
+                breadcrumbName.textContent = currentProduct.name;
+            }
+            
+            loadProductFeatures(currentProduct);
+            loadFlavorIndicators(currentProduct);
+            loadRelatedProducts(currentProduct);
+            updateMetaTags(currentProduct);
+            
+            // 顯示規格選擇
+            if (currentProduct.hasSpecs && currentProduct.specs && currentProduct.specs.length > 0) {
+                const specSelector = document.getElementById('specSelector');
+                if (specSelector) {
+                    specSelector.style.display = 'block';
+                    renderSpecs();
+                }
+            }
+            
+            // 顯示預購提示
+            if (currentProduct.isPreorder) {
+                const preorderNotice = document.getElementById('preorderNotice');
+                if (preorderNotice) preorderNotice.style.display = 'flex';
+                
+                const addToCartText = document.getElementById('addToCartText');
+                if (addToCartText) addToCartText.textContent = '加入預購';
+            }
+            
+            document.title = `${currentProduct.name} - 柑心果園`;
+        }
+        
+        function renderSpecs() {
+            const specTabs = document.getElementById('specTabs');
+            const specTabContents = document.getElementById('specTabContents');
+            const specs = currentProduct.specs;
+            
+            specTabs.innerHTML = specs.map((spec, index) => `
+                <button class="spec-tab ${index === 0 ? 'active' : ''}" onclick="switchSpecTab('${spec.id}', this)">
+                    ${spec.name}
+                </button>
+            `).join('');
+            
+            specTabContents.innerHTML = specs.map((spec, index) => `
+                <div class="spec-tab-content ${index === 0 ? 'active' : ''}" id="tab-${spec.id}">
+                    <div class="spec-price-highlight">
+                        <span class="currency">NT$</span> ${spec.price.toLocaleString()}
+                    </div>
+                    ${spec.description ? `
+                        <div class="spec-description-box">
+                            <i class="fas fa-info-circle"></i> ${spec.description}
+                        </div>
+                    ` : ''}
+                    <div class="spec-detail-grid">
+                        <div class="spec-detail-item">
+                            <i class="fas fa-tag"></i>
+                            <div class="spec-detail-label">規格等級</div>
+                            <div class="spec-detail-value">${spec.name}</div>
+                        </div>
+                        <div class="spec-detail-item">
+                            <i class="fas fa-ruler-combined"></i>
+                            <div class="spec-detail-label">果粒大小</div>
+                            <div class="spec-detail-value">${spec.diameter || spec.weight || '-'}</div>
+                        </div>
+                        <div class="spec-detail-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div class="spec-detail-label">單價</div>
+                            <div class="spec-detail-value">NT$ ${spec.price.toLocaleString()}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            if (specs.length > 0) {
+                selectSpec(specs[0].id);
+            }
+        }
+        
+        function switchSpecTab(specId, clickedTab) {
+            document.querySelectorAll('.spec-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            clickedTab.classList.add('active');
+            
+            document.querySelectorAll('.spec-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + specId).classList.add('active');
+            
+            selectSpec(specId);
+        }
+        
+        function selectSpec(specId) {
+            const spec = currentProduct.specs.find(s => s.id === specId);
+            if (!spec) return;
+            
+            selectedSpec = spec;
+            document.getElementById('productPrice').textContent = spec.price.toLocaleString();
+            
+            const specDetail = spec.weight ? spec.weight : (spec.diameter ? `單顆直徑約 ${spec.diameter}` : '');
+            document.getElementById('specInfo').innerHTML = `
+                <div style="background: white; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                    已選擇：<strong>${spec.name}</strong>${specDetail ? ` (${specDetail})` : ''}
+                </div>
+            `;
+        }
+        
+        function loadProductFeatures(product) {
+            const featuresEl = document.getElementById('productFeatures');
+            if (!featuresEl) return;
+            
+            let features = [];
+            
+            if (product.id >= 3 && product.id <= 5) {
+                features = [
+                    '新鮮菱角仁，口感綿密香甜',
+                    '營養豐富，含蛋白質、維生素B群、膳食纖維',
+                    '冷凍保存12個月，-18°C保存',
+                    '可煮湯、炒菜、煮粥、燉品，用途多樣',
+                    '產地直送，品質保證',
+                    '冷凍宅配，新鮮到府'
+                ];
+            } else {
+                features = [
+                    '產地直送，新鮮保證',
+                    '通過安全驗證，品質有保障',
+                    '冷藏宅配，維持最佳風味',
+                    '24小時內拍照反應，協助退換貨'
+                ];
+            }
+            
+            featuresEl.innerHTML = features.map(f => `<li>${f}</li>`).join('');
+            
+            loadCookingImages(product);
+            loadProductDetailImages(product);
+        }
+        
+        function loadCookingImages(product) {
+            const cookingSection = document.getElementById('cookingMethods');
+            const cookingGrid = document.getElementById('cookingImagesGrid');
+            
+            if (!product.cookingImages || product.cookingImages.length === 0) {
+                if (cookingSection) cookingSection.style.display = 'none';
+                return;
+            }
+            
+            cookingSection.style.display = 'block';
+            cookingGrid.innerHTML = product.cookingImages.map(cooking => `
+                <div style="text-align: center; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                    <img src="${cooking.image}" alt="${cooking.title}" style="width: 100%; height: 250px; object-fit: cover;">
+                    <div style="padding: 15px;">
+                        <h3 style="color: var(--primary-color); font-size: 18px; margin: 0;">${cooking.title}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function loadProductDetailImages(product) {
+            const detailImagesEl = document.getElementById('productDetailImages');
+            if (!detailImagesEl) return;
+            
+            if (!product.detailImages || product.detailImages.length === 0) {
+                detailImagesEl.style.display = 'none';
+                return;
+            }
+            
+            detailImagesEl.style.display = 'block';
+            detailImagesEl.innerHTML = product.detailImages.map(img => `
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <img src="${img}" alt="${product.name} 商品介紹" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            `).join('');
+        }
+        
+        function loadFlavorIndicators(product) {
+            const flavorSection = document.getElementById('flavorIndicators');
+            if (!flavorSection) return;
+            
+            if (product.category !== '優質水果') {
+                flavorSection.style.display = 'none';
+                return;
+            }
+            
+            const sweetness = product.sweetness || 4;
+            const acidity = product.acidity || 3;
+            const aroma = product.aroma || 4;
+            
+            flavorSection.style.display = 'block';
+            
+            document.getElementById('sweetnessValue').textContent = sweetness + '/5';
+            document.getElementById('acidityValue').textContent = acidity + '/5';
+            document.getElementById('aromaValue').textContent = aroma + '/5';
+            
+            setTimeout(() => {
+                document.getElementById('sweetnessBar').style.width = (sweetness / 5 * 100) + '%';
+                document.getElementById('acidityBar').style.width = (acidity / 5 * 100) + '%';
+                document.getElementById('aromaBar').style.width = (aroma / 5 * 100) + '%';
+            }, 100);
+        }
+        
+        function loadRelatedProducts(product) {
+            const relatedGrid = document.getElementById('relatedProductsGrid');
+            if (!relatedGrid) return;
+            
+            const related = products.filter(p => 
+                p.id !== product.id && 
+                p.category === product.category
+            ).slice(0, 3);
+            
+            if (related.length < 3) {
+                const others = products.filter(p => 
+                    p.id !== product.id && 
+                    !related.includes(p)
+                ).slice(0, 3 - related.length);
+                related.push(...others);
+            }
+            
+            relatedGrid.innerHTML = related.map(p => `
+                <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.3s; cursor: pointer;" onclick="window.location.href='product-detail.html?id=${p.id}'">
+                    ${p.badge ? `<span style="position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 1;">${p.badge}</span>` : ''}
+                    <div style="position: relative; overflow: hidden; height: 200px;">
+                        <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                    </div>
+                    <div style="padding: 20px;">
+                        <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 8px;">${p.name}</h3>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 15px;">${p.description || ''}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 24px; font-weight: 700; color: var(--primary-color);">NT$ ${p.price.toLocaleString()}</span>
+                            <span style="background: var(--primary-color); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 14px;">查看詳情</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateMetaTags(product) {
+            document.getElementById('pageTitle').textContent = product.name + ' - 柑心果園';
+            document.getElementById('pageDescription').content = product.description || product.name;
+            document.getElementById('ogTitle').content = product.name + ' - 柑心果園';
+            document.getElementById('ogDescription').content = product.description || product.name;
+            document.getElementById('ogImage').content = product.image;
+        }
+        
+        function changeQuantity(change) {
+            currentQuantity = Math.max(1, currentQuantity + change);
+            document.getElementById('quantity').textContent = currentQuantity;
+        }
+        
+        function addToCartFromDetail() {
+            if (!currentProduct) return;
+            
+            if (currentProduct.hasSpecs && !selectedSpec) {
+                alert('請先選擇規格！');
+                return;
+            }
+            
+            addToCart(currentProduct.id, selectedSpec ? selectedSpec.id : null, currentQuantity);
+            
+            const specText = selectedSpec ? ` (${selectedSpec.name})` : '';
+            alert(`已加入 ${currentQuantity} 件${specText}到購物車！`);
+            
+            currentQuantity = 1;
+            document.getElementById('quantity').textContent = 1;
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductDetail();
+        });
+    </script>
 
 </body>
 </html>

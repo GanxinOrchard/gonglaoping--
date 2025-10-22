@@ -31,6 +31,239 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <!-- 重新設計樣式 -->
     <style>
+        /* 麵包屑導航 */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto 30px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .breadcrumb-separator {
+            color: #999;
+        }
+        
+        /* 商品頁面樣式 */
+        .products-page {
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+        
+        .products-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .products-header h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+        
+        .products-header p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .filter-group {
+            margin-bottom: 25px;
+        }
+        
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .filter-label {
+            font-weight: 700;
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-label i {
+            color: #ff6b35;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .filter-btn {
+            padding: 10px 24px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .filter-btn:hover {
+            border-color: #ff6b35;
+            color: #ff6b35;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .product-count {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        
+        .product-count span {
+            color: #ff6b35;
+            font-weight: 800;
+            font-size: 18px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .no-products {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+        }
+        
+        .no-products i {
+            font-size: 72px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+            color: #ccc;
+        }
+        
+        .no-products h3 {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .no-products p {
+            font-size: 14px;
+        }
+        
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .breadcrumb {
+                margin-top: 15px;
+                margin-bottom: 20px;
+                font-size: 12px;
+            }
+            
+            .products-page {
+                padding: 0 15px;
+            }
+            
+            .products-header {
+                margin-bottom: 30px;
+            }
+            
+            .products-header h1 {
+                font-size: 24px;
+            }
+            
+            .products-header p {
+                font-size: 14px;
+            }
+            
+            .filter-section {
+                padding: 20px 15px;
+            }
+            
+            .filter-label {
+                font-size: 14px;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .product-count {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .products-header h1 {
+                font-size: 20px;
+            }
+            
+            .filter-section {
+                padding: 15px 10px;
+            }
+            
+            .filter-buttons {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .products-grid {
+                gap: 10px;
+            }
+        }
+        
         /* 最新消息廣播器重新設計 */
         .broadcast-section {
             background: linear-gradient(135deg, #ff6b35, #f7931e);
@@ -1445,6 +1678,99 @@
                 margin-top: 0 !important;
             }
         }
+        
+        /* 商品卡片點擊樣式 */
+        .product-card {
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .product-card .product-image {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #f8f9fa;
+        }
+        
+        .product-card .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .product-card:hover {
+                transform: none;
+            }
+            
+            .product-card .product-info {
+                padding: 12px;
+            }
+            
+            .product-card .product-name {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+            
+            .product-card .product-description {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            
+            .product-card .product-price {
+                font-size: 18px;
+            }
+            
+            .btn-view-detail {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+        
+        .btn-view-detail {
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-view-detail:hover {
+            background: linear-gradient(135deg, #e55a2b, #d67e1a);
+            transform: scale(1.02);
+        }
+        
+        .product-card .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b35;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
     </style>
     <link rel="stylesheet" href="./css/navigation-clean.css">
 </head>
@@ -1692,18 +2018,13 @@
 
     <!-- 主要內容 -->
     <main id="main-content">
-    <section class="hero-slider">
-        <div class="slider-container">
-            <div class="slide active">
-                <img src="images/柑心果園販賣所-2.png" alt="柑心果園全部商品" fetchpriority="high" onerror="this.src='https://via.placeholder.com/1920x600/ff8c42/ffffff?text=全部商品'">
-                <div class="slide-content">
-                    <h1>全部商品</h1>
-                    <p>精選優質農產品，產地直送，新鮮安心</p>
-                    <a href="#main-content" class="btn-primary">立即選購</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    
+    <!-- 麵包屑導航 -->
+    <nav class="breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>全部商品</span>
+    </nav>
 
     <!-- 商品頁面 -->
     <div class="products-page">
@@ -1715,7 +2036,10 @@
         <!-- 篩選區 -->
         <div class="filter-section">
             <div class="filter-group">
-                <label class="filter-label">品種分類</label>
+                <label class="filter-label">
+                    <i class="fas fa-layer-group"></i>
+                    品種分類
+                </label>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="category" data-value="全部">全部商品</button>
                     <button class="filter-btn" data-filter="category" data-value="優質水果">優質水果</button>
@@ -1725,7 +2049,10 @@
             </div>
             
             <div class="filter-group">
-                <label class="filter-label">商品狀態</label>
+                <label class="filter-label">
+                    <i class="fas fa-tags"></i>
+                    商品狀態
+                </label>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="status" data-value="全部">全部狀態</button>
                     <button class="filter-btn" data-filter="status" data-value="現貨">現貨供應</button>
@@ -1795,7 +2122,7 @@
             
             // 渲染商品卡片
             grid.innerHTML = filteredProducts.map(product => `
-                <div class="product-card">
+                <div class="product-card" onclick="window.location.href='product-detail.html?id=${product.id}'" style="cursor: pointer;">
                     ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
                     <div class="product-image">
                         <img src="${product.image}" alt="${product.name}" loading="lazy">
@@ -1804,9 +2131,11 @@
                         <h3 class="product-name">${product.name}</h3>
                         <p class="product-description">${product.description || ''}</p>
                         <div class="product-footer">
-                            <span class="product-price">NT$ ${product.price.toLocaleString()}</span>
+                            <span class="product-price">NT$ ${product.price.toLocaleString()}${product.hasSpecs ? ' 起' : ''}</span>
                             <div class="product-actions">
-                                <a href="product-detail.html?id=${product.id}" class="btn-view-detail">查看詳情</a>
+                                <button class="btn-view-detail" onclick="event.stopPropagation(); window.location.href='product-detail.html?id=${product.id}'">
+                                    <i class="fas fa-info-circle"></i> 查看詳情
+                                </button>
                             </div>
                         </div>
                     </div>
