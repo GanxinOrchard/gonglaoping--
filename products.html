@@ -1446,7 +1446,104 @@
             }
         }
         
-        /* ========== 商品卡片樣式（舊版）========== */
+        /* ========== 商品頁面容器 ========== */
+        .products-page {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .products-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .products-header h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .products-header p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+        
+        /* ========== 篩選區樣式 ========== */
+        .filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .filter-group {
+            margin-bottom: 20px;
+        }
+        
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 14px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: transparent;
+        }
+        
+        .product-count {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .no-products {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .no-products i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+        
+        /* ========== 商品網格 ========== */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1538,52 +1635,176 @@
         
         .product-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
+            width: 100%;
         }
         
         .btn-view-detail {
-            padding: 8px 16px;
+            flex: 1;
+            padding: 10px 16px;
             background: transparent;
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
             text-decoration: none;
             border-radius: 25px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             transition: all 0.3s ease;
             text-align: center;
+            display: inline-block;
         }
         
         .btn-view-detail:hover {
             background: var(--primary-color);
             color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-add-cart {
+            flex: 1;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn-add-cart:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+        
+        /* ========== 響應式設計 ========== */
+        @media (max-width: 1024px) {
+            .products-page {
+                margin-top: 100px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
         }
         
         @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
+            .products-page {
+                margin-top: 90px;
+                padding: 0 15px;
             }
             
-            .product-footer {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
+            .products-header h1 {
+                font-size: 28px;
             }
             
-            .product-actions {
-                justify-content: space-between;
+            .products-header p {
+                font-size: 14px;
             }
             
-            .btn-view-detail {
-                flex: 1;
-                text-align: center;
+            .filter-section {
+                padding: 20px 15px;
+            }
+            
+            .filter-buttons {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 13px;
             }
             
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
+            }
+            
+            .product-card {
+                border-radius: 8px;
+            }
+            
+            .product-image {
+                height: 160px;
+            }
+            
+            .product-info {
+                padding: 15px;
+            }
+            
+            .product-name {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+            
+            .product-description {
+                font-size: 13px;
+                margin-bottom: 12px;
+                -webkit-line-clamp: 2;
+            }
+            
+            .product-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .product-price {
+                font-size: 18px;
+            }
+            
+            .product-actions {
+                width: 100%;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .btn-view-detail,
+            .btn-add-cart {
+                width: 100%;
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .products-page {
+                padding: 0 10px;
+            }
+            
+            .products-header h1 {
+                font-size: 24px;
+            }
+            
+            .filter-section {
+                padding: 15px;
+            }
+            
+            .products-grid {
+                gap: 10px;
+            }
+            
+            .product-image {
+                height: 140px;
+            }
+            
+            .product-info {
+                padding: 12px;
+            }
+            
+            .product-name {
+                font-size: 15px;
+            }
+            
+            .product-price {
+                font-size: 16px;
             }
         }
     </style>
@@ -1936,18 +2157,21 @@
             
             // 渲染商品卡片
             grid.innerHTML = filteredProducts.map(product => `
-                <div class="product-card">
+                <div class="product-card" data-product-id="${product.id}">
                     ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
                     <div class="product-image">
-                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">${product.name}</h3>
-                        <p class="product-description">${product.description || ''}</p>
+                        <p class="product-description">${product.description || '新鮮美味，產地直送'}</p>
                         <div class="product-footer">
                             <span class="product-price">NT$ ${product.price.toLocaleString()}</span>
                             <div class="product-actions">
                                 <a href="product-detail.html?id=${product.id}" class="btn-view-detail">查看詳情</a>
+                                <button class="btn-add-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
+                                    <i class="fas fa-shopping-cart"></i> 加入購物車
+                                </button>
                             </div>
                         </div>
                     </div>
