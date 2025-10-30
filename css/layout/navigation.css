@@ -1,0 +1,150 @@
+/* ========================================
+   桌面版選單樣式
+   ======================================== */
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 0;
+}
+
+.desktop-nav .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 5px;
+    align-items: center;
+}
+
+.desktop-nav .nav-menu li {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.desktop-nav .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    position: relative;
+    border-radius: 8px;
+    line-height: 1.4;
+}
+
+.desktop-nav .nav-link:hover {
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.05);
+}
+
+.desktop-nav .nav-link i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.desktop-nav .dropdown {
+    position: relative;
+}
+
+.desktop-nav .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    margin-top: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    list-style: none;
+}
+
+.desktop-nav .dropdown.active .dropdown-menu,
+.desktop-nav .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.desktop-nav .dropdown-menu li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.desktop-nav .dropdown-menu li a {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.desktop-nav .dropdown-menu li a:hover {
+    background: rgba(255, 107, 53, 0.08);
+    color: #ff6b35;
+    padding-left: 24px;
+}
+
+.desktop-nav .dropdown-menu li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: #ff6b35;
+    transition: height 0.2s ease;
+}
+
+.desktop-nav .dropdown-menu li a:hover::before {
+    height: 60%;
+}
+
+.desktop-nav .dropdown-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 8px 0;
+}
+
+/* 下拉選單箭頭旋轉動畫 */
+.desktop-nav .dropdown.active .nav-link i,
+.desktop-nav .dropdown:hover .nav-link i {
+    transform: rotate(180deg);
+}
+
+/* 確保選單在大螢幕上正常顯示 */
+@media (min-width: 769px) {
+    .desktop-nav {
+        display: flex !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none !important;
+    }
+}

@@ -5,25 +5,52 @@
 (function() {
     'use strict';
     
-    // 等待 DOM 載入完成
+    // 防止重複初始化
+    let isInitialized = false;
+    
+    // 等待模板載入完成
+    document.addEventListener('templatesLoaded', function() {
+        console.log('📱 模板載入完成，開始初始化手機選單');
+        // 增加延遲以確保 DOM 完全 ready
+        setTimeout(initMobileMenu, 500);
+    });
+    
+    // 備用：如果沒有模板系統，等待 DOM 載入
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMobileMenu);
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initMobileMenu, 600);
+        });
     } else {
-        initMobileMenu();
+        setTimeout(initMobileMenu, 600);
     }
     
     function initMobileMenu() {
+        // 如果已經初始化，直接返回
+        if (isInitialized) {
+            console.log('ℹ️ 手機選單已經初始化，跳過');
+            return;
+        }
         const toggle = document.getElementById('mobileMenuToggle');
         const menu = document.getElementById('mainMenu');
         const overlay = document.getElementById('menuOverlay');
         const closeBtn = document.getElementById('menuClose');
         
         if (!toggle || !menu) {
-            console.error('找不到手機版選單元素', { toggle, menu });
+            console.warn('⚠️ 找不到手機版選單元素，1秒後重試...', { 
+                toggle: !!toggle, 
+                menu: !!menu,
+                overlay: !!overlay,
+                closeBtn: !!closeBtn
+            });
+            // 重試一次
+            setTimeout(initMobileMenu, 1000);
             return;
         }
         
-        console.log('手機版選單初始化成功', { toggle, menu, overlay, closeBtn });
+        console.log('✅ 手機版選單初始化成功', { toggle, menu, overlay, closeBtn });
+        
+        // 標記為已初始化
+        isInitialized = true;
         
         // 綁定漢堡按鈕點擊事件
         toggle.addEventListener('click', function(e) {

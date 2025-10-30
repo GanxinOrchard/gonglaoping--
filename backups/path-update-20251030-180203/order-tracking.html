@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>訂單查詢 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <main id="main-content">
+    <section class="hero-section" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+            <div class="hero-background" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                <img src="images/常見問題封面圖.png" alt="訂單查詢" class="hero-cover-image" loading="eager" decoding="async" fetchpriority="high">
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="container">
+                <div class="hero-content" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                    <div class="hero-text">
+                        <h1 class="hero-title">訂單查詢</h1>
+                        <p class="hero-subtitle">快速查詢您的訂單狀態</p>
+                        <p class="hero-description">輸入您的訂單編號或聯絡資訊，即可查詢訂單配送進度與詳細資訊。</p>
+                        <div class="hero-buttons">
+                            <a href="#tracking-form" class="btn-primary">立即查詢</a>
+                            <a href="contact.html" class="btn-secondary">聯絡客服</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 訂單查詢表單 -->
+        <section class="tracking-section" id="tracking-form">
+            <div class="container">
+                <div class="tracking-container">
+                    <div class="tracking-header">
+                        <div class="tracking-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h2>查詢您的訂單</h2>
+                        <p>請輸入訂單編號或聯絡資訊進行查詢</p>
+                    </div>
+                    
+                    <div class="tracking-form-card">
+                        <form id="trackingForm" class="tracking-form">
+                            <div class="form-group">
+                                <label for="orderNumber">
+                                    <i class="fas fa-hashtag"></i> 訂單編號
+                                </label>
+                                <input type="text" id="orderNumber" placeholder="例如：ORD20251020001" required>
+                                <small class="form-hint">訂單編號可在訂單確認信中找到</small>
+                            </div>
+                            
+                            <div class="form-divider">
+                                <span>或</span>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">
+                                        <i class="fas fa-phone"></i> 聯絡電話
+                                    </label>
+                                    <input type="tel" id="phone" placeholder="0933-721-978">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">
+                                        <i class="fas fa-envelope"></i> 電子信箱
+                                    </label>
+                                    <input type="email" id="email" placeholder="your@email.com">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-search"></i> 查詢訂單
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- 查詢結果區域 -->
+                    <div id="trackingResult" class="tracking-result" style="display: none;">
+                        <!-- 結果將由JavaScript動態顯示 -->
+                    </div>
+                    
+                    <!-- 幫助資訊 -->
+                    <div class="tracking-help">
+                        <h3><i class="fas fa-question-circle"></i> 需要協助？</h3>
+                        <div class="help-grid">
+                            <div class="help-item">
+                                <i class="fas fa-clock"></i>
+                                <h4>配送時間</h4>
+                                <p>一般訂單 1-3 個工作天送達</p>
+                            </div>
+                            <div class="help-item">
+                                <i class="fas fa-truck"></i>
+                                <h4>物流追蹤</h4>
+                                <p>出貨後會提供物流單號</p>
+                            </div>
+                            <div class="help-item">
+                                <i class="fas fa-headset"></i>
+                                <h4>客服支援</h4>
+                                <p>電話：0933-721-978</p>
+                            </div>
+                            <div class="help-item">
+                                <i class="fas fa-envelope"></i>
+                                <h4>電子郵件</h4>
+                                <p>s9000721@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>

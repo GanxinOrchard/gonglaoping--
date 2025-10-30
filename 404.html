@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -11,14 +11,14 @@
     <meta name="author" content="柑心果園 Ganxin Orchard">
     <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://ganxinorchard.github.io/gonglaoping--/404.html">
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="icon" type="image/png" href="images/shared/logo/logo.png">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ganxinorchard.github.io/gonglaoping--/404.html">
     <meta property="og:title" content="404 頁面不存在 - 柑心果園">
     <meta property="og:description" content="抱歉，您要尋找的頁面不存在。請返回柑心果園首頁，探索我們的優質水果產品。">
-    <meta property="og:image" content="https://ganxinorchard.github.io/gonglaoping--/images/椪柑產品圖/椪柑1.jpg">
+    <meta property="og:image" content="https://ganxinorchard.github.io/gonglaoping--/images/products/ponkan/gallery/椪柑1.jpg">
     <meta property="og:locale" content="zh_TW">
     <meta property="og:site_name" content="柑心果園">
     
@@ -27,901 +27,182 @@
     <meta name="twitter:url" content="https://ganxinorchard.github.io/gonglaoping--/404.html">
     <meta name="twitter:title" content="404 頁面不存在 - 柑心果園">
     <meta name="twitter:description" content="抱歉，您要尋找的頁面不存在。請返回柑心果園首頁，探索我們的優質水果產品。">
-    <meta name="twitter:image" content="https://ganxinorchard.github.io/gonglaoping--/images/椪柑產品圖/椪柑1.jpg">
+    <meta name="twitter:image" content="https://ganxinorchard.github.io/gonglaoping--/images/products/ponkan/gallery/椪柑1.jpg">
     
     <meta http-equiv="Cache-Control" content="public, max-age=31536000">
     
-    <!-- Google Fonts - Noto Sans TC (開南大學字體) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <link rel="preload" href="./css/style.css?v=20250115EE" as="style">
-    <link rel="stylesheet" href="./css/style.css?v=20250115EE">
-    <link rel="stylesheet" href="news-season-styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <!-- 統一 CSS 架構 -->
+    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 重新設計樣式 -->
     <style>
-        /* 最新消息廣播器重新設計 */
-        .broadcast-section {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 20px 0;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-        }
-        
-        .broadcast-content {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .broadcast-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
+        /* 404 專屬樣式 */
+        .error-container {
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-        
-        .broadcast-text h3 {
-            font-size: 18px;
-            margin: 0 0 10px 0;
-            font-weight: 600;
-        }
-        
-        .news-ticker {
-            height: 50px;
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             position: relative;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            padding: 0 20px;
         }
         
-        .news-ticker-item {
+        .error-container::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+        
+        .error-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .error-icon {
+            font-size: 180px;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .error-code {
+            font-size: 140px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .error-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 30px 0 20px;
+        }
+        
+        .error-message {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .error-actions {
             display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
-            gap: 15px;
-            opacity: 0;
-            transform: translateY(0);
-            transition: all 0.8s ease;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
             color: white;
             text-decoration: none;
-            white-space: nowrap;
         }
         
-        .news-ticker-item.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .news-ticker-item.prev {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-        
-        .news-ticker-item.next {
-            transform: translateY(100%);
-            opacity: 0;
-        }
-        
-        .news-date {
-            background: rgba(255, 255, 255, 0.3);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        
-        .news-text {
+        .btn-secondary {
+            background: transparent;
+            color: #ff6b35;
+            padding: 15px 30px;
+            border: 2px solid #ff6b35;
+            border-radius: 25px;
             font-size: 16px;
-            font-weight: 500;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex: 1;
-        }
-        
-        .news-ticker-arrow {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            gap: 10px;
             transition: all 0.3s ease;
-            flex-shrink: 0;
         }
         
-        .news-ticker-arrow:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
+        .btn-secondary:hover {
+            background: #ff6b35;
+            color: white;
+            transform: translateY(-2px);
+            text-decoration: none;
         }
         
-                /* 手機選單設計 - 簡潔版本 */
-                .main-menu {
-                    display: none !important;
-                    background: linear-gradient(135deg, 
-                        rgba(255, 255, 255, 0.98) 0%, 
-                        rgba(248, 249, 250, 0.95) 100%) !important;
-                    backdrop-filter: blur(15px) !important;
-                    border: 1px solid rgba(255, 107, 53, 0.2) !important;
-                    border-radius: 15px !important;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
-                    z-index: 9999 !important;
-                    position: fixed !important;
-                    top: 20px !important;
-                    right: 20px !important;
-                    width: 300px !important;
-                    max-height: 80vh !important;
-                    overflow-y: auto !important;
-                    -webkit-overflow-scrolling: touch !important;
-                    opacity: 0 !important;
-                    visibility: hidden !important;
-                    transform: translateX(100%) scale(0.9) !important;
-                    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-                }
-                
-                .main-menu.show {
-                    display: block !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
-                    transform: translateX(0) scale(1) !important;
-                    animation: menuBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-                }
-                
-                @keyframes menuBounceIn {
-                    0% {
-                        transform: translateX(100%) scale(0.8) !important;
-                        opacity: 0 !important;
-                    }
-                    50% {
-                        transform: translateX(-10px) scale(1.05) !important;
-                        opacity: 0.8 !important;
-                    }
-                    100% {
-                        transform: translateX(0) scale(1) !important;
-                        opacity: 1 !important;
-                    }
-                }
-                
-                .menu-header {
-                    background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
-                    border-bottom: 1px solid rgba(255, 107, 53, 0.3) !important;
-                    position: sticky !important;
-                    top: 0 !important;
-                    z-index: 10 !important;
-                    padding: 20px !important;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-                    overflow: hidden !important;
-                }
-                
-                .menu-logo {
-                    display: flex !important;
-                    align-items: center !important;
-                    gap: 12px !important;
-                }
-                
-                .menu-logo-img {
-                    width: 40px !important;
-                    height: 40px !important;
-                    object-fit: contain !important;
-                }
-                
-                .menu-logo-text .logo-main {
-                    color: #2c3e50 !important;
-                    font-size: 18px !important;
-                    font-weight: 700 !important;
-                    margin: 0 !important;
-                    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
-                }
-                
-                .menu-logo-text .logo-sub {
-                    color: #34495e !important;
-                    font-size: 12px !important;
-                    font-weight: 400 !important;
-                    margin: 0 !important;
-                    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6) !important;
-                }
-
-                .menu-nav {
-                    background: transparent !important;
-                    padding: 20px !important;
-                }
-                
-                .menu-list {
-                    list-style: none !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                }
-                
-                .menu-item {
-                    margin-bottom: 8px !important;
-                }
-                
-                .menu-link {
-                    display: flex !important;
-                    align-items: center !important;
-                    gap: 15px !important;
-                    padding: 15px 20px !important;
-                    color: #2c3e50 !important;
-                    text-decoration: none !important;
-                    border-radius: 12px !important;
-                    transition: all 0.3s ease !important;
-                    font-weight: 500 !important;
-                    position: relative !important;
-                    overflow: hidden !important;
-                }
-                
-                .menu-link:hover {
-                    background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
-                    color: white !important;
-                    transform: translateX(5px) !important;
-                    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3) !important;
-                }
-                
-                .menu-icon {
-                    width: 20px !important;
-                    height: 20px !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    font-size: 16px !important;
-                    flex-shrink: 0 !important;
-                }
-                
-                .menu-text {
-                    flex: 1 !important;
-                    font-size: 16px !important;
-                }
-                
-                .menu-arrow {
-                    font-size: 12px !important;
-                    transition: transform 0.3s ease !important;
-                }
-                
-                .menu-item.dropdown.active .menu-arrow {
-                    transform: rotate(180deg) !important;
-                }
-                
-                .submenu {
-                    list-style: none !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    background: rgba(255, 107, 53, 0.05) !important;
-                    border-radius: 8px !important;
-                    margin-top: 8px !important;
-                    max-height: 0 !important;
-                    overflow: hidden !important;
-                    transition: all 0.3s ease !important;
-                }
-                
-                .menu-item.dropdown.active .submenu {
-                    max-height: 500px !important;
-                    padding: 8px 0 !important;
-                }
-                
-                .submenu-link {
-                    display: block !important;
-                    padding: 12px 20px 12px 55px !important;
-                    color: #7f8c8d !important;
-                    text-decoration: none !important;
-                    font-size: 14px !important;
-                    transition: all 0.3s ease !important;
-                    border-radius: 6px !important;
-                    margin: 2px 8px !important;
-                }
-                
-                .submenu-link:hover {
-                    background: rgba(255, 107, 53, 0.1) !important;
-                    color: #ff6b35 !important;
-                    transform: translateX(5px) !important;
-                }
-                
-                .submenu-divider {
-                    height: 1px !important;
-                    background: rgba(255, 107, 53, 0.2) !important;
-                    margin: 8px 20px !important;
-                }
-                
-                .menu-close {
-                    position: absolute !important;
-                    top: 15px !important;
-                    right: 15px !important;
-                    background: rgba(255, 255, 255, 0.2) !important;
-                    border: none !important;
-                    color: #2c3e50 !important;
-                    width: 35px !important;
-                    height: 35px !important;
-                    border-radius: 50% !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    cursor: pointer !important;
-                    transition: all 0.3s ease !important;
-                    font-size: 16px !important;
-                }
-                
-                .menu-close:hover {
-                    background: rgba(255, 255, 255, 0.3) !important;
-                    transform: scale(1.1) !important;
-                }
-                
-                .menu-overlay {
-                    display: none !important;
-                    position: fixed !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                    background: rgba(0, 0, 0, 0.5) !important;
-                    z-index: 9998 !important;
-                    opacity: 0 !important;
-                    transition: opacity 0.3s ease !important;
-                }
-                
-                .menu-overlay.show {
-                    display: block !important;
-                    opacity: 1 !important;
-                }
-                
-                .menu-footer {
-                    background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
-                    border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
-                    padding: 20px !important;
-                    margin-top: auto !important;
-                }
-                
-                .menu-contact {
-                    display: flex !important;
-                    flex-direction: column !important;
-                    gap: 10px !important;
-                }
-                
-                .contact-item {
-                    display: flex !important;
-                    align-items: center !important;
-                    gap: 10px !important;
-                    color: #2c3e50 !important;
-                    font-size: 14px !important;
-                }
-                
-                .contact-item i {
-                    color: #ff6b35 !important;
-                    width: 16px !important;
-                }
-                
-                /* 手機版回到頂部按鈕 */
-                .back-to-top {
-                    position: fixed !important;
-                    bottom: 20px !important;
-                    right: 20px !important;
-                    width: 50px !important;
-                    height: 50px !important;
-                    background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
-                    color: white !important;
-                    border: none !important;
-                    border-radius: 50% !important;
-                    cursor: pointer !important;
-                    display: none !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    font-size: 18px !important;
-                    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
-                    transition: all 0.3s ease !important;
-                    z-index: 1000 !important;
-                }
-                
-                .back-to-top:hover {
-                    transform: translateY(-3px) !important;
-                    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4) !important;
-                }
-                
-                .back-to-top.show {
-                    display: flex !important;
-                }
-                
-                @media (max-width: 768px) {
-                    .back-to-top {
-                        display: flex !important;
-                    }
-                }
-                
-                /* 404錯誤頁面樣式 - 重新設計 */
-                .error-container {
-                    min-height: 80vh;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                    padding: 80px 20px;
-                    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-                    position: relative;
-                    overflow: hidden;
-                }
-                
-                /* 背景裝飾 */
-                .error-container::before {
-                    content: '';
-                    position: absolute;
-                    top: -50%;
-                    right: -10%;
-                    width: 500px;
-                    height: 500px;
-                    background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
-                    border-radius: 50%;
-                    animation: float 6s ease-in-out infinite;
-                }
-                
-                .error-container::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -30%;
-                    left: -10%;
-                    width: 400px;
-                    height: 400px;
-                    background: radial-gradient(circle, rgba(247, 147, 30, 0.1) 0%, transparent 70%);
-                    border-radius: 50%;
-                    animation: float 8s ease-in-out infinite reverse;
-                }
-                
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-30px); }
-                }
-                
-                .error-content {
-                    max-width: 700px;
-                    margin: 0 auto;
-                    position: relative;
-                    z-index: 1;
-                }
-                
-                /* 404 圖示 */
-                .error-icon {
-                    font-size: 180px;
-                    margin-bottom: 20px;
-                    animation: bounce 2s ease-in-out infinite;
-                }
-                
-                @keyframes bounce {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(-20px); }
-                }
-                
-                .error-code {
-                    font-size: 140px;
-                    font-weight: 900;
-                    background: linear-gradient(135deg, #ff6b35, #f7931e);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    margin: 0;
-                    line-height: 1;
-                    text-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-                    animation: glow 2s ease-in-out infinite;
-                }
-                
-                @keyframes glow {
-                    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5)); }
-                    50% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8)); }
-                }
-                
-                .error-title {
-                    font-size: 36px;
-                    font-weight: 700;
-                    color: #2c3e50;
-                    margin: 30px 0 20px;
-                }
-                
-                .error-message {
-                    font-size: 18px;
-                    color: #7f8c8d;
-                    margin-bottom: 40px;
-                    line-height: 1.8;
-                }
-                
-                .error-actions {
-                    display: flex;
-                    gap: 20px;
-                    justify-content: center;
-                    flex-wrap: wrap;
-                }
-                
-                .btn-primary {
-                    background: linear-gradient(135deg, #ff6b35, #f7931e);
-                    color: white;
-                    padding: 15px 30px;
-                    border: none;
-                    border-radius: 25px;
-                    font-size: 16px;
-                    font-weight: 600;
-                    text-decoration: none;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 10px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-                }
-                
-                .btn-primary:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
-                    color: white;
-                    text-decoration: none;
-                }
-                
-                .btn-secondary {
-                    background: transparent;
-                    color: #ff6b35;
-                    padding: 15px 30px;
-                    border: 2px solid #ff6b35;
-                    border-radius: 25px;
-                    font-size: 16px;
-                    font-weight: 600;
-                    text-decoration: none;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 10px;
-                    transition: all 0.3s ease;
-                }
-                
-                .btn-secondary:hover {
-                    background: #ff6b35;
-                    color: white;
-                    transform: translateY(-2px);
-                    text-decoration: none;
-                }
-                
-                @media (max-width: 768px) {
-                    .error-code {
-                        font-size: 80px;
-                    }
-                    
-                    .error-title {
-                        font-size: 24px;
-                    }
-                    
-                    .error-message {
-                        font-size: 16px;
-                    }
-                    
-                    .error-actions {
-                        flex-direction: column;
-                        align-items: center;
-                    }
-                    
-                    .btn-primary,
-                    .btn-secondary {
-                        width: 100%;
-                        max-width: 300px;
-                        justify-content: center;
-                    }
-                }
-                
-                /* 為404頁面設定黑色header，跟首頁一樣 */
-                .main-header {
-                    background: rgba(0, 0, 0, 0.9) !important;
-                    backdrop-filter: blur(10px) !important;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                    position: relative !important;
-                }
-                
-                .main-header.scrolled {
-                    background: rgba(0, 0, 0, 0.95) !important;
-                }
-                
-                /* 強制所有header內的元素使用白色文字 - 使用具體的顏色值 */
-                .main-header,
-                .main-header *:not(.dropdown-menu):not(.dropdown-menu *),
-                .main-header a,
-                .main-header span,
-                .main-header div,
-                .desktop-nav,
-                .desktop-nav *:not(.dropdown-menu):not(.dropdown-menu *),
-                .nav-link,
-                .logo-main,
-                .header-action,
-                .header-action span,
-                .language-switcher,
-                .language-switcher span {
-                    color: #ffffff !important;
-                }
-                
-                /* 下拉選單例外：使用深色文字 */
-                .dropdown-menu,
-                .dropdown-menu *,
-                .dropdown-menu a,
-                .dropdown-menu li {
-                    color: #333333 !important;
-                    background-color: white !important;
-                }
-                
-                /* 購物車數量badge */
-                .cart-count {
-                    background: #ff6b35 !important;
-                    color: #ffffff !important;
-                }
-                
-                /* 確保icon也是白色 */
-                .main-header i:not(.dropdown-menu i) {
-                    color: #ffffff !important;
-                }
+        @media (max-width: 768px) {
+            .error-icon {
+                font-size: 120px;
+            }
+            
+            .error-code {
+                font-size: 80px;
+            }
+            
+            .error-title {
+                font-size: 24px;
+            }
+            
+            .error-message {
+                font-size: 16px;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- 主要導覽列 - 開南風格 -->
-    <header class="main-header">
-        <div class="container">
-            <!-- 桌面版導覽列 -->
-            <div class="header-content desktop-header">
-                <div class="logo-section">
-                    <a href="index.html" class="logo">
-                        <img src="images/柑心商標.png" alt="柑心果園" class="logo-image">
-                        <div class="logo-text-container">
-                            <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
-                        </div>
-                    </a>
-                </div>
+    <!-- 統一頁頭 -->
+    <div id="header-container"></div>
     
-                <!-- 桌面版頂部功能列 -->
-                <div class="header-actions">
-                    <a href="cart.html" class="header-action cart-link">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>購物車</span>
-                        <span class="cart-count" id="topCartCount">0</span>
-                    </a>
-                    <div class="language-switcher">
-                        <span>繁體中文</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 桌面版導覽選單 -->
-            <nav class="desktop-nav">
-                <ul class="nav-menu">
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="nav-link">最新消息 <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="news.html?category=announcement">最新公告</a></li>
-                            <li><a href="news.html?category=new">新品上市</a></li>
-                            <li><a href="news.html?category=promotion">期間優惠</a></li>
-                            <li><a href="news.html?category=diary">果園日誌</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="nav-link">季節推薦 <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="season-recommend.html">季節推薦</a></li>
-                            <li><a href="season-ponkan.html">椪柑季節</a></li>
-                            <li><a href="season-murcott.html">茂谷柑季節</a></li>
-                            <li><a href="season-water-chestnut.html">菱角季節</a></li>
-                            <li><a href="season-taro.html">芋頭季節</a></li>
-                            <li><a href="products.html?category=季節限定">季節限定商品</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="nav-link">所有商品 <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                            <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a href="guide.html">選購指南</a></li>
-                            <li><a href="guide-ponkan.html">椪柑選購</a></li>
-                            <li><a href="guide-murcott.html">茂谷柑選購</a></li>
-                            <li><a href="guide-water-chestnut.html">菱角選購</a></li>
-                            <li><a href="guide-taro.html">芋頭選購</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="nav-link">關於我們 <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="about.html">關於柑心果園</a></li>
-                            <li><a href="farming.html">農場介紹</a></li>
-                            <li><a href="knowledge.html">知識分享</a></li>
-                            <li><a href="knowledge.html?category=cutting">切法技巧</a></li>
-                            <li><a href="knowledge.html?category=growing">種植知識</a></li>
-                            <li><a href="knowledge.html?category=storing">保存方法</a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a href="grading.html">分級標準</a></li>
-                            <li><a href="grading-ponkan.html">椪柑分級</a></li>
-                            <li><a href="grading-murcott.html">茂谷柑分級</a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a href="contact.html">聯絡我們</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="order-tracking.html" class="nav-link">訂單查詢</a></li>
-                </ul>
-            </nav>
-            
-            <!-- 手機版導覽列 -->
-            <div class="mobile-header">
-                <!-- 手機版頂部購物車和搜尋 -->
-                <div class="mobile-top-row">
-                    <a href="cart.html" class="mobile-action cart-link">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>購物車</span>
-                        <span class="cart-count" id="mobileCartCount">0</span>
-                        </a>
-                    </div>
-                    
-                <!-- 手機版底部標誌和漢堡選單 -->
-                <div class="mobile-bottom-row">
-                    <div class="mobile-logo-section">
-                        <a href="index.html" class="mobile-logo">
-                            <img src="images/柑心商標.png" alt="柑心果園" class="mobile-logo-image">
-                            <div class="mobile-logo-text">
-                                <span class="mobile-logo-main">柑心果園</span>
-                                <span class="mobile-logo-sub">GANXIN ORCHARD</span>
-                            </div>
-                        </a>
-                    </div>
-                    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="開啟選單">
-                        <span class="menu-line"></span>
-                        <span class="menu-line"></span>
-                        <span class="menu-line"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- 手機選單 - 現代化設計 -->
-    <div class="menu-overlay" id="menuOverlay"></div>
-    <div class="main-menu" id="mainMenu">
-        <!-- 選單頭部 -->
-        <div class="menu-header">
-            <div class="menu-logo">
-                <img src="images/柑心商標.png" alt="柑心果園" class="menu-logo-img">
-                <div class="menu-logo-text">
-                    <div class="logo-main">柑心果園</div>
-                    <div class="logo-sub">Ganxin Orchard</div>
-                </div>
-            </div>
-            <button class="menu-close" id="menuClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <!-- 選單導航 -->
-        <nav class="menu-nav">
-            <ul class="menu-list">
-                <li class="menu-item dropdown">
-                    <a href="javascript:void(0)" class="menu-link">
-                        <i class="fas fa-newspaper menu-icon"></i>
-                        <span class="menu-text">最新消息</span>
-                        <i class="fas fa-chevron-down menu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="news.html?category=announcement" class="submenu-link">最新公告</a></li>
-                        <li><a href="news.html?category=new" class="submenu-link">新品上市</a></li>
-                        <li><a href="news.html?category=promotion" class="submenu-link">期間優惠</a></li>
-                        <li><a href="news.html?category=diary" class="submenu-link">果園日誌</a></li>
-                    </ul>
-                </li>
-                
-                <li class="menu-item dropdown">
-                    <a href="javascript:void(0)" class="menu-link">
-                        <i class="fas fa-calendar-alt menu-icon"></i>
-                        <span class="menu-text">季節推薦</span>
-                        <i class="fas fa-chevron-down menu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="season-recommend.html" class="submenu-link">季節推薦</a></li>
-                        <li><a href="season-ponkan.html" class="submenu-link">椪柑季節</a></li>
-                        <li><a href="season-murcott.html" class="submenu-link">茂谷柑季節</a></li>
-                        <li><a href="season-water-chestnut.html" class="submenu-link">菱角季節</a></li>
-                        <li><a href="season-taro.html" class="submenu-link">芋頭季節</a></li>
-                        <li><a href="products.html?category=季節限定" class="submenu-link">季節限定商品</a></li>
-                    </ul>
-                </li>
-                
-                <li class="menu-item dropdown">
-                    <a href="javascript:void(0)" class="menu-link">
-                        <i class="fas fa-shopping-bag menu-icon"></i>
-                        <span class="menu-text">所有商品</span>
-                        <i class="fas fa-chevron-down menu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="products.html?category=新鮮水果" class="submenu-link">新鮮水果</a></li>
-                        <li><a href="products.html?category=禮盒裝" class="submenu-link">禮盒裝</a></li>
-                        <li class="submenu-divider"></li>
-                        <li><a href="guide.html" class="submenu-link">選購指南</a></li>
-                        <li><a href="guide-ponkan.html" class="submenu-link">椪柑選購</a></li>
-                        <li><a href="guide-murcott.html" class="submenu-link">茂谷柑選購</a></li>
-                        <li><a href="guide-water-chestnut.html" class="submenu-link">菱角選購</a></li>
-                        <li><a href="guide-taro.html" class="submenu-link">芋頭選購</a></li>
-                    </ul>
-                </li>
-                
-                <li class="menu-item dropdown">
-                    <a href="javascript:void(0)" class="menu-link">
-                        <i class="fas fa-info-circle menu-icon"></i>
-                        <span class="menu-text">關於我們</span>
-                        <i class="fas fa-chevron-down menu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="about.html" class="submenu-link">關於柑心果園</a></li>
-                        <li><a href="farming.html" class="submenu-link">農場介紹</a></li>
-                        <li><a href="knowledge.html" class="submenu-link">知識分享</a></li>
-                        <li><a href="knowledge.html?category=cutting" class="submenu-link">切法技巧</a></li>
-                        <li><a href="knowledge.html?category=growing" class="submenu-link">種植知識</a></li>
-                        <li><a href="knowledge.html?category=storing" class="submenu-link">保存方法</a></li>
-                        <li class="submenu-divider"></li>
-                        <li><a href="grading.html" class="submenu-link">分級標準</a></li>
-                        <li><a href="grading-ponkan.html" class="submenu-link">椪柑分級</a></li>
-                        <li><a href="grading-murcott.html" class="submenu-link">茂谷柑分級</a></li>
-                        <li class="submenu-divider"></li>
-                        <li><a href="contact.html" class="submenu-link">聯絡我們</a></li>
-                    </ul>
-                </li>
-                
-                <li class="menu-item">
-                    <a href="order-tracking.html" class="menu-link">
-                        <i class="fas fa-search menu-icon"></i>
-                        <span class="menu-text">訂單查詢</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- 手機選單頁尾內容 -->
-        <div class="mobile-menu-footer">
-            <!-- 聯絡我們區域 -->
-            <div class="mobile-contact-section">
-                <div class="mobile-contact-info">
-                    <div class="mobile-contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <span>0933-721-978</span>
-                    </div>
-                    <div class="mobile-contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>s9000721@gmail.com</span>
-                    </div>
-                    <div class="mobile-contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>台中豐原公老坪</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 關注我們區域 -->
-            <div class="mobile-social-section">
-                <div class="mobile-social-buttons">
-                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="mobile-social-btn facebook">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Facebook</span>
-                    </a>
-                    <a href="#" target="_blank" class="mobile-social-btn line">
-                        <i class="fab fa-line"></i>
-                        <span>LINE</span>
-                    </a>
-                    <a href="#" target="_blank" class="mobile-social-btn instagram">
-                        <i class="fab fa-instagram"></i>
-                        <span>Instagram</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
-
-    <!-- 選單遮罩 -->
-    <div class="menu-overlay" id="menuOverlay"></div>
+    <!-- 手機選單 -->
+    <div id="mobile-menu-container"></div>
 
     <!-- 主要內容 -->
     <main id="main-content">
@@ -959,204 +240,14 @@
         </section>
     </main>
 
-    <!-- 全新設計頁尾 -->
-    <footer class="footer footer-modern">
-        <div class="container">
-            <!-- 頁尾波浪裝飾 -->
-            <div class="footer-wave">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
-                    <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="currentColor"></path>
-                    <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
-                </svg>
-            </div>
-            
-            <!-- 主要內容區域 -->
-            <div class="footer-main">
-                <!-- 左側品牌區域 -->
-                <div class="footer-left">
-                    <div class="brand-showcase">
-                        <div class="brand-logo-modern">
-                            <img src="images/柑心商標.png" alt="柑心果園" class="logo-img">
-                            <div class="brand-text-modern">
-                                <h2>柑心果園</h2>
-                                <p class="brand-subtitle">GANXIN ORCHARD</p>
-                            </div>
-                        </div>
-                        <p class="brand-description-modern">
-                            台中豐原公老坪優質水果供應商，傳承百年果園經驗，提供新鮮的椪柑、茂谷柑等優質水果，產地直送到府，讓您品嚐最純正的台灣水果風味。
-                        </p>
-                        <div class="brand-tags">
-                            <span class="tag">友善栽培</span>
-                            <span class="tag">產地直送</span>
-                            <span class="tag">品質保證</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 右側連結區域 -->
-                <div class="footer-right">
-                    <div class="links-grid">
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-handshake"></i>
-                                服務專區
-                            </h4>
-                            <ul class="link-list">
-                                <li><a href="about.html">關於我們</a></li>
-                                <li><a href="news.html">最新動態</a></li>
-                                <li><a href="products.html">精選商品</a></li>
-                                <li><a href="farming.html">農場介紹</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-users"></i>
-                                會員專區
-                            </h4>
-                            <ul class="link-list">
-                                <li><a href="order-tracking.html">訂單查詢</a></li>
-                                <li><a href="contact.html">門市資訊</a></li>
-                                <li><a href="policies.html?type=faq">常見問題</a></li>
-                                <li><a href="policies.html?type=terms">會員條款</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-shopping-bag"></i>
-                                商品分類
-                            </h4>
-                            <ul class="link-list">
-                                <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
-                                <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
-                                <li><a href="season-recommend.html">季節推薦</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="link-group">
-                            <h4 class="group-title">
-                                <i class="fas fa-phone"></i>
-                                聯繫我們
-                            </h4>
-                            <div class="contact-modern">
-                                <div class="contact-item-modern">
-                                    <i class="fas fa-phone"></i>
-                                    <div>
-                                        <span class="contact-label">客服專線</span>
-                                        <span class="contact-value">0933-721-978</span>
-                                    </div>
-                                </div>
-                                <div class="contact-item-modern">
-                                    <i class="fas fa-envelope"></i>
-                                    <div>
-                                        <span class="contact-label">電子信箱</span>
-                                        <span class="contact-value">s9000721@gmail.com</span>
-                                    </div>
-                                </div>
-                                <div class="contact-item-modern">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div>
-                                        <span class="contact-label">營業地址</span>
-                                        <span class="contact-value">台中市豐原區公老坪</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 社群媒體區域 -->
-            <div class="footer-social-modern">
-                <div class="social-content">
-                    <h4>關注我們</h4>
-                    <p>追蹤我們的社群媒體，獲取最新優惠資訊</p>
-                    <div class="social-buttons">
-                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
-                            <i class="fab fa-facebook-f"></i>
-                            <span>Facebook</span>
-                        </a>
-                        <a href="#" target="_blank" class="social-btn line">
-                            <i class="fab fa-line"></i>
-                            <span>LINE</span>
-                        </a>
-                        <a href="#" target="_blank" class="social-btn instagram">
-                            <i class="fab fa-instagram"></i>
-                            <span>Instagram</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 品牌標語區域 -->
-            <div class="footer-slogan">
-                <div class="slogan-item">
-                    <div class="slogan-icon">柑心</div>
-                    <span>柑心果園 GANXIN ORCHARD</span>
-                </div>
-                <div class="slogan-item">
-                    <div class="slogan-icon">優質</div>
-                    <span>優質水果 QUALITY FRUITS</span>
-                </div>
-                <div class="slogan-item">
-                    <div class="slogan-icon">直送</div>
-                    <span>產地直送 FRESH DELIVERY</span>
-                </div>
-            </div>
-            
-            <!-- 版權資訊 -->
-            <div class="footer-copyright">
-                <p>&copy; 2025 柑心果園有限公司 | 版權所有 All Rights Reserved.</p>
-                <p>台中豐原公老坪優質水果供應商 | 東勢茂谷柑產地直送</p>
-            </div>
-        </div>
-    </footer>
+    <!-- 統一頁尾 -->
+    <div id="footer-container"></div>
 
-
-    <!-- 錯誤處理和手機版選單修復 -->
-    <script>
-    window.addEventListener('unhandledrejection', function(e){
-      console.warn('Silenced unhandledrejection:', e.reason);
-    });
-    window.addEventListener('error', function(e){
-      console.warn('Silenced error:', e.message);
-    });
-    </script>
-
-    <!-- 載入相關 JavaScript -->
-    <script src="./js/mobile-menu-simple.js?v=20250115K" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115K" defer></script>
-    <script src="./js/products.js?v=20250115K" defer></script>
-    <script src="./js/cart.js?v=20250115K" defer></script>
-    <script src="./js/content-protection.js?v=20250115K" defer></script>
-    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250115K">
-
-    <script src="./js/main.js?v=20250115K" defer></script>
-    <script src="./js/auto-sales.js?v=20250115K" defer></script>
-    <script>
-        // 購物車圖標點擊事件 - 直接跳轉到購物車頁面
-        function initCartSidebar() {
-            const cartIcon = document.getElementById('cartIcon');
-
-            // 如果存在購物車圖標，添加點擊事件
-            if (cartIcon) {
-                cartIcon.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.location.href = 'cart.html';
-                });
-            }
-        }
-
-        // 返回上一頁功能
-        function goBack() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = 'index.html';
-            }
-        }
-    </script>
+    <!-- JavaScript -->
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/main.js" defer></script>
 </body>
 </html>

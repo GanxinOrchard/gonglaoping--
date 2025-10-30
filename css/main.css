@@ -1,0 +1,22 @@
+/* ========================================
+   柑心果園 - 主 CSS 入口檔案
+   統一管理所有樣式模組
+   ======================================== */
+
+/* 核心樣式 - 使用現有的 style.css */
+@import url('./style.css');
+
+/* 其他現有 CSS（保持相容性） */
+@import url('./navigation-clean.css');
+
+/* 佈局樣式 - 這些要最後載入以覆蓋衝突 */
+@import url('./layout/header.css');
+@import url('./layout/navigation.css');
+/* @import url('./layout/hero.css'); */ /* 註解掉：會覆蓋各頁面的封面樣式 */
+@import url('./layout/footer.css');
+
+/* 元件樣式 */
+@import url('./components/broadcast.css');
+
+/* 手機選單樣式 - 最後載入確保優先級 */
+@import url('./layout/navigation-mobile.css');

@@ -1,0 +1,167 @@
+/* ========================================
+   Season 系列頁面 - 手機版封面優化
+   解決手機版文字排版不美觀的問題
+   ======================================== */
+
+/* 手機版封面優化 (768px 以下) */
+@media (max-width: 768px) {
+    /* Hero Section 基礎設定 */
+    .hero-section {
+        min-height: 60vh !important;
+        padding: 0 !important;
+    }
+    
+    /* Hero 背景圖片 */
+    .hero-background {
+        min-height: 60vh !important;
+    }
+    
+    .hero-cover-image {
+        object-fit: cover;
+        object-position: center;
+        filter: brightness(0.75); /* 稍微變暗，讓文字更清楚 */
+    }
+    
+    /* Hero 內容區域 */
+    .hero-content {
+        padding: 2rem 1rem !important;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 60vh;
+    }
+    
+    /* 標題優化 */
+    .hero-title {
+        font-size: 2rem !important; /* 36px -> 32px */
+        line-height: 1.3 !important;
+        margin-bottom: 0.75rem !important;
+        font-weight: 700 !important;
+        text-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.3),
+            0 4px 8px rgba(0, 0, 0, 0.2) !important;
+        letter-spacing: 0.05em;
+        /* 文字背景（可選） */
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+    }
+    
+    /* 副標題優化 */
+    .hero-subtitle {
+        font-size: 0.95rem !important; /* 16px -> 15px */
+        line-height: 1.5 !important;
+        margin-bottom: 1.5rem !important;
+        opacity: 0.95;
+        text-shadow: 
+            0 1px 3px rgba(0, 0, 0, 0.4),
+            0 2px 6px rgba(0, 0, 0, 0.3) !important;
+        max-width: 90%;
+        /* 文字背景 */
+        background: rgba(0, 0, 0, 0.15);
+        padding: 0.4rem 1.2rem;
+        border-radius: 6px;
+        backdrop-filter: blur(3px);
+    }
+    
+    /* 按鈕區域 */
+    .hero-actions {
+        display: flex;
+        flex-direction: column; /* 垂直排列 */
+        gap: 0.75rem !important;
+        width: 100%;
+        max-width: 280px;
+        margin-top: 1rem;
+    }
+    
+    /* 按鈕樣式 */
+    .hero-actions .btn {
+        width: 100% !important;
+        padding: 0.875rem 1.5rem !important;
+        font-size: 0.95rem !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .hero-actions .btn:active {
+        transform: scale(0.98);
+    }
+    
+    /* 主要按鈕 */
+    .hero-actions .btn-primary {
+        background: linear-gradient(135deg, #ff8c42 0%, #ff7028 100%) !important;
+        border: none !important;
+    }
+    
+    /* 次要按鈕 */
+    .hero-actions .btn-outline {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border: 2px solid rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(8px) !important;
+    }
+}
+
+/* 小手機 (480px 以下) */
+@media (max-width: 480px) {
+    .hero-section {
+        min-height: 55vh !important;
+    }
+    
+    .hero-background {
+        min-height: 55vh !important;
+    }
+    
+    .hero-content {
+        min-height: 55vh;
+        padding: 1.5rem 0.75rem !important;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem !important; /* 28px */
+        padding: 0.4rem 1.2rem;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.875rem !important; /* 14px */
+        padding: 0.35rem 1rem;
+        margin-bottom: 1.25rem !important;
+    }
+    
+    .hero-actions {
+        gap: 0.65rem !important;
+        max-width: 260px;
+    }
+    
+    .hero-actions .btn {
+        padding: 0.75rem 1.25rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* 替代方案：純色背景 + 文字（更清晰） */
+@media (max-width: 768px) {
+    .hero-content-alt {
+        background: linear-gradient(
+            135deg,
+            rgba(255, 140, 66, 0.85) 0%,
+            rgba(44, 95, 45, 0.85) 100%
+        ) !important;
+        padding: 2.5rem 1.5rem !important;
+        border-radius: 12px;
+        margin: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hero-content-alt .hero-title,
+    .hero-content-alt .hero-subtitle {
+        background: none !important;
+        backdrop-filter: none !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    }
+}

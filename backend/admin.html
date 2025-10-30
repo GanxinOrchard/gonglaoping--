@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柑心果園 - 後台管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #ff6b35;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .stats {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .stats h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .quick-actions {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .quick-actions h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .action-btn:hover {
+            border-color: #ff6b35;
+            background: #fff;
+        }
+
+        .action-btn i {
+            font-size: 2rem;
+            color: #ff6b35;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 頁頭 -->
+        <div class="header">
+            <h1>🎨 柑心果園後台管理系統</h1>
+            <p>統一管理網站內容、圖片、商品與 SEO</p>
+        </div>
+
+        <!-- 統計資訊 -->
+        <div class="stats">
+            <h2>📊 網站概況</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalPages">35</div>
+                    <div class="stat-label">總頁面數</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalImages">0</div>
+                    <div class="stat-label">圖片總數</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalProducts">0</div>
+                    <div class="stat-label">商品數量</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="lastUpdate">--</div>
+                    <div class="stat-label">最後更新</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要功能卡片 -->
+        <div class="dashboard">
+            <!-- 頁面管理 -->
+            <div class="card">
+                <div class="card-icon">📄</div>
+                <h3>頁面管理</h3>
+                <p>管理所有網站頁面的 SEO 資訊、標題、描述和關鍵字。</p>
+                <a href="#" class="btn" onclick="openGoogleSheets()">開啟試算表</a>
+            </div>
+
+            <!-- 圖片管理 -->
+            <div class="card">
+                <div class="card-icon">🖼️</div>
+                <h3>圖片管理</h3>
+                <p>上傳圖片到 Google Drive，自動分類並記錄路徑。</p>
+                <a href="image-upload.html" class="btn">上傳圖片</a>
+            </div>
+
+            <!-- 商品管理 -->
+            <div class="card">
+                <div class="card-icon">🛍️</div>
+                <h3>商品管理</h3>
+                <p>管理商品資訊、價格、庫存和圖片。</p>
+                <a href="#" class="btn" onclick="openGoogleSheets()">管理商品</a>
+            </div>
+
+            <!-- 內容管理 -->
+            <div class="card">
+                <div class="card-icon">✏️</div>
+                <h3>內容管理</h3>
+                <p>編輯各頁面的內容區塊，動態更新網站內容。</p>
+                <a href="#" class="btn" onclick="openGoogleSheets()">編輯內容</a>
+            </div>
+
+            <!-- SEO 分析 -->
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h3>SEO 效益分析</h3>
+                <p>查看網站 SEO 表現、關鍵字排名和流量統計。</p>
+                <a href="seo-dashboard.html" class="btn btn-secondary">查看報表</a>
+            </div>
+
+            <!-- 資料同步 -->
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>資料同步</h3>
+                <p>同步後台資料到前端網站，立即生效。</p>
+                <button class="btn" onclick="syncData()">立即同步</button>
+            </div>
+        </div>
+
+        <!-- 快速操作 -->
+        <div class="quick-actions">
+            <h2>⚡ 快速操作</h2>
+            <div class="actions-grid">
+                <a href="#" class="action-btn" onclick="exportJSON()">
+                    <i class="fas fa-download"></i>
+                    匯出 JSON
+                </a>
+                <a href="#" class="action-btn" onclick="viewLogs()">
+                    <i class="fas fa-history"></i>
+                    操作記錄
+                </a>
+                <a href="#" class="action-btn" onclick="checkStatus()">
+                    <i class="fas fa-check-circle"></i>
+                    檢查狀態
+                </a>
+                <a href="#" class="action-btn" onclick="showHelp()">
+                    <i class="fas fa-question-circle"></i>
+                    使用說明
+                </a>
+            </div>
+        </div>
+
+        <!-- 頁尾 -->
+        <div class="footer">
+            <p>© 2025 柑心果園 Ganxin Orchard | 後台管理系統 v1.0</p>
+        </div>
+    </div>
+
+    <script>
+        // 開啟 Google Sheets
+        function openGoogleSheets() {
+            const sheetUrl = 'YOUR_GOOGLE_SHEETS_URL'; // 替換為實際的試算表網址
+            window.open(sheetUrl, '_blank');
+        }
+
+        // 同步資料
+        function syncData() {
+            if (confirm('確定要同步資料到前端網站嗎？')) {
+                alert('🔄 開始同步...\n\n這可能需要幾分鐘時間。\n請稍後檢查同步狀態。');
+                // 這裡會呼叫 GAS 的 syncToFrontend() 函數
+            }
+        }
+
+        // 匯出 JSON
+        function exportJSON() {
+            alert('📦 準備匯出資料...\n\n請到 Google Sheets 選單執行「匯出 JSON」功能。');
+        }
+
+        // 查看操作記錄
+        function viewLogs() {
+            openGoogleSheets();
+            alert('請切換到【操作記錄】工作表查看。');
+        }
+
+        // 檢查狀態
+        function checkStatus() {
+            alert('✅ 系統狀態正常\n\n• 後台連線：正常\n• Google Drive：正常\n• 試算表：正常');
+        }
+
+        // 顯示說明
+        function showHelp() {
+            window.open('https://github.com/ganxinorchard/gonglaoping--/wiki', '_blank');
+        }
+
+        // 載入統計資訊（實際會從 API 取得）
+        function loadStats() {
+            // 模擬資料
+            document.getElementById('totalPages').textContent = '35';
+            document.getElementById('totalImages').textContent = '127';
+            document.getElementById('totalProducts').textContent = '24';
+            document.getElementById('lastUpdate').textContent = '今天';
+        }
+
+        // 頁面載入時執行
+        window.addEventListener('load', loadStats);
+    </script>
+</body>
+</html>

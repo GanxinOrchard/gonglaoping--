@@ -1,0 +1,135 @@
+# 🍊 柑心果園 - 上傳到 GitHub 快速指南
+
+## 📝 準備工作（5 分鐘）
+
+### 1. 在 GitHub 建立 Repository
+
+前往：https://github.com/new
+
+填寫：
+```
+Repository name: ganxin-orchard
+Description: 柑心果園網站
+Public ✓
+
+⚠️ 不要勾選任何初始化選項
+```
+
+點擊 "Create repository"
+
+---
+
+### 2. 複製 Repository URL
+
+建立後會顯示網址，複製它：
+```
+https://github.com/你的帳號/ganxin-orchard.git
+```
+
+---
+
+## 🚀 開始上傳（3 分鐘）
+
+### 1. 執行上傳腳本
+
+雙擊：
+```
+📂 上傳到GitHub.bat
+```
+
+---
+
+### 2. 輸入 Repository URL
+
+貼上剛才複製的網址
+
+---
+
+### 3. 輸入提交訊息
+
+例如：
+```
+初始提交
+```
+或
+```
+網站首次上傳
+```
+
+---
+
+### 4. 等待完成
+
+上傳完成！🎉
+
+---
+
+## 🌐 讓網站上線（2 分鐘）
+
+### 1. 前往 Repository 設定
+
+```
+你的 Repository → Settings → Pages
+```
+
+---
+
+### 2. 設定發布來源
+
+```
+Source: Deploy from a branch
+Branch: main
+Folder: / (root)
+```
+
+點擊 Save
+
+---
+
+### 3. 取得網址
+
+等待 1-2 分鐘後，網址會顯示：
+```
+https://你的帳號.github.io/ganxin-orchard
+```
+
+---
+
+## ✅ 完成！
+
+網站現在已經上線，全球可訪問！
+
+---
+
+## 🔄 後續更新（超簡單）
+
+```
+修改檔案 → 雙擊「上傳到GitHub.bat」→ 完成！
+```
+
+---
+
+## 🔑 身份驗證問題？
+
+如果推送時要求密碼：
+
+### 建立 Personal Access Token
+
+1. 前往：https://github.com/settings/tokens
+2. Generate new token (classic)
+3. 勾選 repo 權限
+4. 複製 token
+5. 推送時用 token 作為密碼
+
+---
+
+## 📞 需要詳細說明？
+
+查看：
+```
+GitHub上傳說明.txt
+```
+
+---
+
+**開始上傳吧！** 🚀

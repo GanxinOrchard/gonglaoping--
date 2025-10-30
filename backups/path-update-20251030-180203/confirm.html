@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>確認訂單 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <main id="main-content">
+    <section class="hero-section" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+            <div class="hero-background" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                <img src="images/購物車封面.png" alt="訂單完成" class="hero-cover-image" loading="eager" decoding="async" fetchpriority="high">
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="container">
+                <div class="hero-content" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                    <div class="hero-text">
+                        <h1 class="hero-title">訂單完成</h1>
+                        <p class="hero-subtitle">感謝您的訂購！</p>
+                        <p class="hero-description">我們已收到您的訂單，將盡快為您處理。您可以在「訂單查詢」頁面追蹤訂單狀態。</p>
+                        <div class="hero-buttons">
+                            <a href="order-tracking.html" class="btn-primary">查詢訂單</a>
+                            <a href="index.html" class="btn-secondary">返回首頁</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 訂單完成內容 -->
+        <div class="container">
+            <div class="complete-page">
+                <!-- 步驟指示器 -->
+                <div class="steps-indicator">
+                    <div class="step">
+                        <div class="step-number"><i class="fas fa-check"></i></div>
+                        <span class="step-label">購物車</span>
+                    </div>
+                    <i class="fas fa-chevron-right step-arrow"></i>
+                    <div class="step">
+                        <div class="step-number"><i class="fas fa-check"></i></div>
+                        <span class="step-label">填寫資料</span>
+                    </div>
+                    <i class="fas fa-chevron-right step-arrow"></i>
+                    <div class="step">
+                        <div class="step-number"><i class="fas fa-check"></i></div>
+                        <span class="step-label">訂單完成</span>
+                    </div>
+                </div>
+
+                <!-- 完成訊息 -->
+                <div class="complete-message">
+                    <div class="complete-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h1>訂單已完成！</h1>
+                    <p>感謝您的訂購！<br>我們已收到您的訂單，將盡快為您處理。</p>
+                    
+                    <!-- 訂單編號區域 - 等待後端提供實際訂單編號 -->
+                    <div class="order-number" id="orderNumberSection" style="display: none;">
+                        <div class="order-number-label">訂單編號</div>
+                        <div class="order-number-value" id="orderNumber">-</div>
+                    </div>
+                    
+                    <p style="font-size: 14px; color: #999;">
+                        訂單確認信已發送至您的電子郵件信箱，<br>
+                        您也可以在「訂單查詢」頁面追蹤訂單狀態。
+                    </p>
+                </div>
+
+                <!-- 提示訊息 -->
+                <div class="notice-box">
+                    <h3><i class="fas fa-info-circle"></i> 溫馨提示</h3>
+                    <ul>
+                        <li>我們將在 1-2 個工作天內處理您的訂單</li>
+                        <li>出貨後將以簡訊或電子郵件通知您</li>
+                        <li>如有任何問題，請聯繫客服：0933-721-978</li>
+                        <li>您可以在「訂單查詢」頁面追蹤配送進度</li>
+                    </ul>
+                </div>
+
+                <!-- 操作按鈕 -->
+                <div class="complete-actions">
+                    <a href="index.html" class="btn btn-secondary">
+                        <i class="fas fa-home"></i> 返回首頁
+                    </a>
+                    <a href="order-tracking.html" class="btn btn-primary">
+                        <i class="fas fa-search"></i> 查詢訂單
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>
+
+

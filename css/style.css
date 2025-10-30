@@ -262,7 +262,19 @@ ul {
     font-size: 12px;
 }
 
-/* 主�?導航??- ?��??�景?��??��??��?�?*/
+/* ========================================
+   ⚠️ 頁頭樣式已移至統一管理
+   已移至：css/layout/header.css
+   原因：避免與統一模板衝突
+   修改日期：2025-01-23
+   ======================================== */
+
+/*
+ * 以下頁頭樣式已註解，保留供參考
+ * 請前往 css/layout/header.css 修改頁頭樣式
+ */
+
+/* 註解：已移到 css/layout/header.css 統一管理
 .main-header {
     background: transparent;
     color: var(--white);
@@ -275,12 +287,12 @@ ul {
     transition: all 0.3s ease;
 }
 
-/* 滑�??��??��??��? */
 .main-header.scrolled {
     background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
     position: fixed;
 }
+*/
 
 .header-content {
     display: flex;
@@ -306,11 +318,6 @@ ul {
     font-weight: 500;
     padding: 8px 12px;
     border-radius: 0;
-}
-
-.header-action:hover {
-    background-color: var(--primary-color);
-    color: white;
 }
 
 .header-action:hover {
@@ -383,6 +390,7 @@ ul {
     line-height: 1;
     white-space: nowrap;
 }
+*/
 
 /* 桌面?��??�樣式已移至 navigation-clean.css 統�?管�? */
 
@@ -485,7 +493,7 @@ ul {
 .news-ticker-item .news-date {
     font-size: 14px;
     font-weight: 600;
-    color: #e74c3c;
+    color: white !important;
     flex-shrink: 0;
     display: inline-block;
 }
@@ -494,6 +502,7 @@ ul {
     font-size: 14px;
     font-weight: 500;
     flex: 1;
+    color: #e74c3c !important;
 }
 
 .news-ticker-arrow {
@@ -559,7 +568,7 @@ ul {
 }
 
 .broadcast-text h3 {
-    color: white;
+    color: #e74c3c;
     font-size: 18px;
     font-weight: 700;
     margin: 0 0 10px 0;
@@ -623,7 +632,7 @@ ul {
 
 .news-date {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.9);
+    color: white !important;
     font-weight: 600;
     background: rgba(255, 255, 255, 0.2);
     padding: 4px 8px;
@@ -681,7 +690,7 @@ ul {
     .broadcast-text h3 {
         font-size: 16px;
         margin-bottom: 8px;
-        color: white !important;
+        color: #e74c3c !important;
         font-weight: 700 !important;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
     }
@@ -1041,7 +1050,19 @@ ul {
     border: none;
 }
 
-/* ?��??�header�?? */
+/* ========================================
+   ⚠️ 手機版頁頭樣式已移至統一管理
+   已移至：css/layout/header.css
+   原因：避免與統一模板衝突
+   修改日期：2025-01-23
+   ======================================== */
+
+/*
+ * 以下手機版頁頭樣式已註解，保留供參考
+ * 請前往 css/layout/header.css 修改手機版頁頭樣式
+ */
+
+/*
 .mobile-header {
     display: none;
     width: 100%;
@@ -1144,6 +1165,7 @@ ul {
     top: 0;
     left: 0;
 }
+*/
 
 /* ?��?式設�?*/
 @media (max-width: 1024px) {
@@ -1296,13 +1318,13 @@ ul {
     
     .news-ticker-item .news-date {
         font-size: 12px;
-        color: #e74c3c;
+        color: white;  /* 改為白色，與 broadcast.css 統一 */
         display: inline-block;
     }
     
     .news-text {
         font-size: 13px;
-        color: white;
+        color: #e74c3c;  /* 改為紅色，與 broadcast.css 統一 */
     }
     
     .news-ticker-arrow {
@@ -13127,7 +13149,18 @@ body.menu-open {
     }
 }
 
-/* ?�新?�代?��?尾設�?*/
+/* ========================================
+   ⚠️ 頁尾樣式已移至統一管理
+   已移至：css/layout/footer.css
+   原因：避免與統一模板衝突
+   修改日期：2025-01-23
+   
+   注意：以下大量頁尾相關樣式已註解
+   包含：.footer-modern、動畫、波浪、佈局等
+   請前往 css/layout/footer.css 修改頁尾樣式
+   ======================================== */
+
+/*
 .footer-modern {
     background: linear-gradient(135deg, 
         #1a1a1a 0%, 
@@ -13202,6 +13235,7 @@ body.menu-open {
         transform: scale(1.05);
     }
 }
+*/
 
 /* 波浪裝飾 */
 .footer-wave {

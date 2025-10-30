@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Pay 付款 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <main id="main-content">
+    <main class="linepay-container">
+        <div class="linepay-content">
+            <!-- LINE Pay Logo -->
+            <div class="linepay-logo">
+                <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                    <text x="10" y="40" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#00B900">LINE Pay</text>
+                </svg>
+            </div>
+            
+            <h1 class="linepay-title">LINE Pay 支付</h1>
+            <p class="linepay-subtitle">安全、快速、便利的支付方式</p>
+            
+            <!-- 訂單資訊 -->
+            <div class="order-info" id="orderInfo">
+                <div class="order-info-title">訂單資訊</div>
+                <div class="order-item">
+                    <span class="order-label">訂單編號</span>
+                    <span class="order-value" id="orderNumber">載入中...</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-label">商品名稱</span>
+                    <span class="order-value" id="productName">柑心果園商品</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-label">支付金額</span>
+                    <span class="order-value">NT$ <span id="orderAmount">0</span></span>
+                </div>
+            </div>
+            
+            <!-- QR Code 區域 (桌面版) -->
+            <div class="qrcode-section" id="qrcodeSection">
+                <h3>請使用 LINE App 掃描 QR Code</h3>
+                <div class="qrcode-image" id="qrcodeImage">
+                    <!-- QR Code 將動態插入這裡 -->
+                </div>
+                <p class="qrcode-hint">在付款認證完成之前請勿關閉此頁</p>
+            </div>
+            
+            <!-- 手機版跳轉提示 -->
+            <div class="mobile-redirect" id="mobileRedirect">
+                <div class="loading-spinner"></div>
+                <p class="redirect-text">正在跳轉到 LINE Pay...</p>
+            </div>
+            
+            <!-- 付款按鈕 -->
+            <button class="linepay-button" id="payButton">
+                <i class="fab fa-line"></i>
+                前往 LINE Pay 付款
+            </button>
+        </div>
+    </main>
+
+    <!-- 全新設計頁尾 -->
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>

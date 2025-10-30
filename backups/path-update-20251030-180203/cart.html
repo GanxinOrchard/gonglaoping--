@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>購物車 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <main id="main-content">
+    <section class="hero-section" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+            <div class="hero-background" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                <img src="images/購物車封面.png" alt="購物車" class="hero-cover-image" loading="eager" decoding="async" fetchpriority="high">
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="container">
+                <div class="hero-content" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                    <div class="hero-text">
+                        <h1 class="hero-title">購物車</h1>
+                        <p class="hero-subtitle">您的精選商品</p>
+                        <p class="hero-description">查看您選購的優質水果，確認訂單內容後即可進行結帳，享受新鮮水果的美味。</p>
+                        <div class="hero-buttons">
+                            <a href="products.html" class="btn-primary">繼續購物</a>
+                            <a href="checkout.html" class="btn-secondary">立即結帳</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 購物車內容 -->
+        <div class="cart-page">
+            <!-- 步驟指示器 -->
+            <div class="steps-indicator">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <span class="step-label">購物車</span>
+                </div>
+                <i class="fas fa-chevron-right step-arrow"></i>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span class="step-label">填寫資料</span>
+                </div>
+                <i class="fas fa-chevron-right step-arrow"></i>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span class="step-label">確認訂單</span>
+                </div>
+            </div>
+
+            <!-- 購物車內容 -->
+            <div class="cart-content">
+                <div id="cartItemsList"></div>
+                
+                <div id="cartSummary" class="cart-summary" style="display: none;">
+                    <div class="summary-row">
+                        <span>商品總金額</span>
+                        <span id="subtotalAmount" data-subtotal>NT$ 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>運費</span>
+                        <span id="shippingAmount" data-shipping>NT$ 180</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>折扣</span>
+                        <span id="discountAmount" data-discount>NT$ 0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>總計</span>
+                        <span id="totalAmount" data-total>NT$ 0</span>
+                    </div>
+                </div>
+
+                <!-- 折扣碼 -->
+                <div class="cart-section" id="discountSection" style="display: none; margin-top: 30px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
+                        <i class="fas fa-tag"></i> 折扣碼
+                    </h3>
+                    <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                        更多優惠資訊請追蹤我們的 
+                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" style="color: var(--primary-color); text-decoration: none;">
+                            <i class="fab fa-facebook"></i> Facebook 粉絲專頁
+                        </a>
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="cartDiscountCode" data-coupon-input placeholder="輸入折扣碼" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+                        <button data-action="apply-coupon" style="padding: 12px 24px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">套用</button>
+                    </div>
+                    <div id="cartDiscountMessage" data-coupon-msg style="margin-top: 10px; display: none; padding: 10px; border-radius: 6px; font-size: 14px;"></div>
+                </div>
+
+                <!-- 配送方式 -->
+                <div class="cart-section" id="deliverySection" style="display: none; margin-top: 20px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
+                        <i class="fas fa-truck"></i> 配送方式
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;" class="delivery-option-cart" data-value="home">
+                            <input type="radio" name="cartDelivery" data-ship="home" value="home" checked style="margin-right: 8px;">
+                            <div style="display: inline-block;">
+                                <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-home"></i> 宅配到府</div>
+                                <div style="font-size: 13px; color: #666;">運費 NT$ 180</div>
+                                <div style="font-size: 12px; color: #999;">滿 $1800 免運</div>
+                            </div>
+                        </label>
+                        <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;" class="delivery-option-cart" data-value="pickup">
+                            <input type="radio" name="cartDelivery" data-ship="pickup" value="pickup" style="margin-right: 8px;">
+                            <div style="display: inline-block;">
+                                <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-store"></i> 門市自取</div>
+                                <div style="font-size: 13px; color: #666;">免運費</div>
+                                <div style="font-size: 12px; color: #999;">到店自取更優惠</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 付款方式 -->
+                <div class="cart-section" id="paymentSection" style="display: none; margin-top: 20px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="font-size: 20px; margin-bottom: 15px; color: #333;">
+                        <i class="fas fa-credit-card"></i> 付款方式
+                    </h3>
+                    <div id="paymentOptions" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                        <label style="padding: 15px; border: 2px solid var(--primary-color); background: rgba(255, 140, 66, 0.1); border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart active" data-value="匯款">
+                            <input type="radio" name="pay_method" value="匯款" checked style="display: none;">
+                            <div style="font-weight: 600; color: var(--primary-color);"><i class="fas fa-university"></i> 匯款</div>
+                        </label>
+                        <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="LINE Pay">
+                            <input type="radio" name="pay_method" value="LINE Pay" style="display: none;">
+                            <div style="font-weight: 600;"><i class="fab fa-line"></i> LINE Pay</div>
+                        </label>
+                        <label style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.3s;" class="payment-option-cart" data-value="現金">
+                            <input type="radio" name="pay_method" value="現金" style="display: none;">
+                            <div style="font-weight: 600;"><i class="fas fa-money-bill-wave"></i> 現金</div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="cart-actions">
+                    <a href="https://ganxinorchard.github.io/gonglaoping--/" class="btn btn-back">
+                        <i class="fas fa-arrow-left"></i> 繼續購物
+                    </a>
+                    <button id="clearCartButton" class="btn btn-clear" onclick="clearCart()">
+                        <i class="fas fa-trash"></i> 清空購物車
+                    </button>
+                    <button id="checkoutButton" class="btn btn-checkout" data-action="go-checkout" disabled>
+                        下一步：填寫資料 <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 推薦商品輪播 -->
+            <div id="recommendedSection" style="margin-top: 30px; background: #f8f9fa; padding: 40px 0; width: 100vw; margin-left: calc(-50vw + 50%);">
+                <h2 style="text-align: center; font-size: 28px; margin-bottom: 30px; color: #333;">
+                    <i class="fas fa-heart" style="color: var(--primary-color);"></i> 您可能也喜歡
+                </h2>
+                <div style="position: relative; overflow: hidden;">
+                    <button class="carousel-btn carousel-prev" onclick="scrollRecommended(-1)" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div id="recommendedProducts" style="display: flex; overflow-x: auto; scroll-behavior: smooth; gap: 20px; padding: 10px 60px; scrollbar-width: none; -ms-overflow-style: none;">
+                        <!-- 推薦商品將由 JavaScript 動態載入 -->
+                    </div>
+                    <button class="carousel-btn carousel-next" onclick="scrollRecommended(1)" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>
+
+

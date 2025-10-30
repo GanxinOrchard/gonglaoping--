@@ -1,0 +1,821 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Pay 付款確認 - 柑心果園</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="./css/style.css?v=20250120">
+    <link rel="stylesheet" href="./css/navigation-clean.css?v=20250120">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Header 黑色背景 */
+        .main-header {
+            background: rgba(0, 0, 0, 0.9) !important;
+            backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative !important;
+        }
+        
+        .main-header.scrolled {
+            background: rgba(0, 0, 0, 0.95) !important;
+        }
+        
+        /* 強制所有導覽文字是白色 */
+        header.main-header * {
+            color: #ffffff !important;
+        }
+        
+        /* 下拉選單是深色 */
+        header.main-header .dropdown-menu,
+        header.main-header .dropdown-menu * {
+            color: #333333 !important;
+            background-color: #ffffff !important;
+        }
+        
+        /* 付款確認頁面樣式 */
+        .confirm-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .confirm-content {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+            text-align: center;
+        }
+        
+        /* 成功/失敗圖示 */
+        .status-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        .status-icon.success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+        
+        .status-icon.failed {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .status-icon.processing {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .confirm-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .confirm-title.success {
+            color: #27ae60;
+        }
+        
+        .confirm-title.failed {
+            color: #e74c3c;
+        }
+        
+        .confirm-title.processing {
+            color: #3498db;
+        }
+        
+        .confirm-message {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        /* 訂單詳情 */
+        .order-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .order-details-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .total-amount {
+            font-size: 24px;
+            color: #27ae60;
+            font-weight: 700;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        /* 按鈕 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .btn-secondary-custom {
+            background: transparent;
+            color: #ff6b35;
+            padding: 15px 35px;
+            border: 2px solid #ff6b35;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary-custom:hover {
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Loading */
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .confirm-content {
+                padding: 40px 25px;
+            }
+            
+            .confirm-title {
+                font-size: 26px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-primary-custom,
+            .btn-secondary-custom {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (從 index.html 複製) -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content desktop-header">
+                <div class="logo-section">
+                    <a href="index.html" class="logo">
+                        <img src="images/柑心商標.png" alt="柑心果園" class="logo-image">
+                        <div class="logo-text-container">
+                            <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="header-actions">
+                    <a href="cart.html" class="header-action cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>購物車</span>
+                        <span class="cart-count" id="topCartCount">0</span>
+                    </a>
+                    <div class="language-switcher">
+                        <span>繁體中文</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">最新消息 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="news.html?category=announcement">最新公告</a></li>
+                            <li><a href="news.html?category=new">新品上市</a></li>
+                            <li><a href="news.html?category=promotion">期間優惠</a></li>
+                            <li><a href="news.html?category=diary">果園日誌</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">季節推薦 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="season-recommend.html">季節推薦</a></li>
+                            <li><a href="season-ponkan.html">椪柑季節</a></li>
+                            <li><a href="season-murcott.html">茂谷柑季節</a></li>
+                            <li><a href="season-water-chestnut.html">菱角季節</a></li>
+                            <li><a href="season-taro.html">芋頭季節</a></li>
+                            <li><a href="products.html?category=季節限定">季節限定商品</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">所有商品 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
+                            <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="guide.html">選購指南</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="nav-link">關於我們 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html">關於柑心果園</a></li>
+                            <li><a href="farming.html">農場介紹</a></li>
+                            <li><a href="knowledge.html">知識分享</a></li>
+                            <li><a href="contact.html">聯絡我們</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="order-tracking.html" class="nav-link">訂單查詢</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-header">
+                <div class="mobile-top-row">
+                    <a href="cart.html" class="mobile-action cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>購物車</span>
+                        <span class="cart-count" id="mobileCartCount">0</span>
+                    </a>
+                </div>
+                <div class="mobile-bottom-row">
+                    <a href="index.html" class="mobile-logo">
+                        <img src="images/柑心商標.png" alt="柑心果園">
+                        <span>柑心果園</span>
+                    </a>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 手機選單 - 現代化設計 -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="main-menu" id="mainMenu">
+        <!-- 選單頭部 -->
+        <div class="menu-header">
+            <div class="menu-logo">
+                <img src="images/柑心商標.png" alt="柑心果園" class="menu-logo-img">
+                <div class="menu-logo-text">
+                    <div class="logo-main">柑心果園</div>
+                    <div class="logo-sub">Ganxin Orchard</div>
+                </div>
+            </div>
+            <button class="menu-close" id="menuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- 選單導航 -->
+        <nav class="menu-nav">
+            <ul class="menu-list">
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-newspaper menu-icon"></i>
+                        <span class="menu-text">最新消息</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="news.html?category=announcement" class="submenu-link">最新公告</a></li>
+                        <li><a href="news.html?category=new" class="submenu-link">新品上市</a></li>
+                        <li><a href="news.html?category=promotion" class="submenu-link">期間優惠</a></li>
+                        <li><a href="news.html?category=diary" class="submenu-link">果園日誌</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-calendar-alt menu-icon"></i>
+                        <span class="menu-text">季節推薦</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="season-recommend.html" class="submenu-link">季節推薦</a></li>
+                        <li><a href="season-ponkan.html" class="submenu-link">椪柑季節</a></li>
+                        <li><a href="season-murcott.html" class="submenu-link">茂谷柑季節</a></li>
+                        <li><a href="season-water-chestnut.html" class="submenu-link">菱角季節</a></li>
+                        <li><a href="season-taro.html" class="submenu-link">芋頭季節</a></li>
+                        <li><a href="products.html?category=季節限定" class="submenu-link">季節限定商品</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-shopping-bag menu-icon"></i>
+                        <span class="menu-text">所有商品</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="products.html?category=新鮮水果" class="submenu-link">新鮮水果</a></li>
+                        <li><a href="products.html?category=禮盒裝" class="submenu-link">禮盒裝</a></li>
+                        <li class="submenu-divider"></li>
+                        <li><a href="guide.html" class="submenu-link">選購指南</a></li>
+                        <li><a href="guide-ponkan.html" class="submenu-link">椪柑選購</a></li>
+                        <li><a href="guide-murcott.html" class="submenu-link">茂谷柑選購</a></li>
+                        <li><a href="guide-water-chestnut.html" class="submenu-link">菱角選購</a></li>
+                        <li><a href="guide-taro.html" class="submenu-link">芋頭選購</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-item dropdown">
+                    <a href="javascript:void(0)" class="menu-link">
+                        <i class="fas fa-info-circle menu-icon"></i>
+                        <span class="menu-text">關於我們</span>
+                        <i class="fas fa-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="about.html" class="submenu-link">關於柑心果園</a></li>
+                        <li><a href="farming.html" class="submenu-link">農場介紹</a></li>
+                        <li><a href="knowledge.html" class="submenu-link">知識分享</a></li>
+                        <li class="submenu-divider"></li>
+                        <li><a href="grading.html" class="submenu-link">分級標準</a></li>
+                        <li><a href="grading-ponkan.html" class="submenu-link">椪柑分級</a></li>
+                        <li><a href="grading-murcott.html" class="submenu-link">茂谷柑分級</a></li>
+                        <li class="submenu-divider"></li>
+                        <li><a href="contact.html" class="submenu-link">聯絡我們</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="order-tracking.html" class="menu-link">
+                        <i class="fas fa-search menu-icon"></i>
+                        <span class="menu-text">訂單查詢</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- 手機選單頁尾內容 -->
+        <div class="mobile-menu-footer">
+            <!-- 聯絡我們區域 -->
+            <div class="mobile-contact-section">
+                <div class="mobile-contact-info">
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>0933-721-978</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>s9000721@gmail.com</span>
+                    </div>
+                    <div class="mobile-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>台中豐原公老坪</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 關注我們區域 -->
+            <div class="mobile-social-section">
+                <div class="mobile-social-buttons">
+                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="mobile-social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn line">
+                        <i class="fab fa-line"></i>
+                        <span>LINE</span>
+                    </a>
+                    <a href="#" target="_blank" class="mobile-social-btn instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+
+
+    <!-- 付款確認內容 -->
+    <main class="confirm-container">
+        <div class="confirm-content" id="confirmContent">
+            <!-- Loading 狀態 -->
+            <div id="loadingState">
+                <div class="loading-spinner"></div>
+                <p style="color: #7f8c8d; margin-top: 20px;">正在確認付款狀態...</p>
+            </div>
+            
+            <!-- 確認結果將動態插入這裡 -->
+        </div>
+    </main>
+
+    <!-- 全新設計頁尾 -->
+    <footer class="footer footer-modern">
+        <div class="container">
+            <!-- 頁尾波浪裝飾 -->
+            <div class="footer-wave">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
+                    <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="currentColor"></path>
+                    <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
+                </svg>
+            </div>
+            
+            <!-- 主要內容區域 -->
+            <div class="footer-main">
+                <!-- 左側品牌區域 -->
+                <div class="footer-left">
+                    <div class="brand-showcase">
+                        <div class="brand-logo-modern">
+                            <img src="images/柑心商標.png" alt="柑心果園" class="logo-img">
+                            <div class="brand-text-modern">
+                                <h2>柑心果園</h2>
+                                <p class="brand-subtitle">GANXIN ORCHARD</p>
+                            </div>
+                        </div>
+                        <p class="brand-description-modern">
+                            台中豐原公老坪優質水果供應商，傳承百年果園經驗，提供新鮮的椪柑、茂谷柑等優質水果，產地直送到府，讓您品嚐最純正的台灣水果風味。
+                        </p>
+                        <div class="brand-tags">
+                            <span class="tag">友善栽培</span>
+                            <span class="tag">產地直送</span>
+                            <span class="tag">品質保證</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右側連結區域 -->
+                <div class="footer-right">
+                    <div class="links-grid">
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-handshake"></i>
+                                服務專區
+                            </h4>
+                            <ul class="link-list">
+                                <li><a href="about.html">關於我們</a></li>
+                                <li><a href="news.html">最新動態</a></li>
+                                <li><a href="products.html">精選商品</a></li>
+                                <li><a href="farming.html">農場介紹</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-users"></i>
+                                會員專區
+                            </h4>
+                            <ul class="link-list">
+                                <li><a href="order-tracking.html">訂單查詢</a></li>
+                                <li><a href="contact.html">門市資訊</a></li>
+                                <li><a href="policies.html?type=faq">常見問題</a></li>
+                                <li><a href="policies.html?type=terms">會員條款</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-shopping-bag"></i>
+                                商品分類
+                            </h4>
+                            <ul class="link-list">
+                                <li><a href="products.html?category=新鮮水果">新鮮水果</a></li>
+                                <li><a href="products.html?category=禮盒裝">禮盒裝</a></li>
+                                <li><a href="season-recommend.html">季節推薦</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-group">
+                            <h4 class="group-title">
+                                <i class="fas fa-phone"></i>
+                                聯繫我們
+                            </h4>
+                            <div class="contact-modern">
+                                <div class="contact-item-modern">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <span class="contact-label">客服專線</span>
+                                        <span class="contact-value">0933-721-978</span>
+                                    </div>
+                                </div>
+                                <div class="contact-item-modern">
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <span class="contact-label">電子信箱</span>
+                                        <span class="contact-value">s9000721@gmail.com</span>
+                                    </div>
+                                </div>
+                                <div class="contact-item-modern">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <span class="contact-label">營業地址</span>
+                                        <span class="contact-value">台中市豐原區公老坪</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 社群媒體區域 -->
+            <div class="footer-social-modern">
+                <div class="social-content">
+                    <h4>關注我們</h4>
+                    <p>追蹤我們的社群媒體，獲取最新優惠資訊</p>
+                    <div class="social-buttons">
+                        <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="#" target="_blank" class="social-btn line">
+                            <i class="fab fa-line"></i>
+                            <span>LINE</span>
+                        </a>
+                        <a href="#" target="_blank" class="social-btn instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 品牌標語區域 -->
+            <div class="footer-slogan">
+                <div class="slogan-item">
+                    <div class="slogan-icon">柑心</div>
+                    <span>柑心果園 GANXIN ORCHARD</span>
+                </div>
+                <div class="slogan-item">
+                    <div class="slogan-icon">優質</div>
+                    <span>優質水果 QUALITY FRUITS</span>
+                </div>
+                <div class="slogan-item">
+                    <div class="slogan-icon">直送</div>
+                    <span>產地直送 FRESH DELIVERY</span>
+                </div>
+            </div>
+            
+            <!-- 版權資訊 -->
+            <div class="footer-copyright">
+                <p>&copy; 2025 柑心果園有限公司 | 版權所有 All Rights Reserved.</p>
+                <p>台中豐原公老坪優質水果供應商 | 東勢茂谷柑產地直送</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // LINE Pay 設定
+        const LINE_PAY_CONFIG = {
+            channelId: '1657163831',
+            channelSecret: '492cf50453a0a694dd5b70d1a8a33aa4'
+        };
+        
+        // 從 URL 獲取參數
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                transactionId: params.get('transactionId'),
+                orderId: params.get('orderId'),
+                status: params.get('status')
+            };
+        }
+        
+        // 確認付款
+        async function confirmPayment() {
+            const params = getUrlParams();
+            
+            try {
+                // 調用後端 API 確認付款
+                const response = await fetch('/api/linepay/confirm', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        transactionId: params.transactionId,
+                        orderId: params.orderId
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.returnCode === '0000') {
+                    // 付款成功
+                    showSuccessPage(result.info);
+                } else {
+                    // 付款失敗
+                    showFailedPage(result.returnMessage);
+                }
+                
+            } catch (error) {
+                console.error('Confirm error:', error);
+                showFailedPage('付款確認失敗，請聯繫客服');
+            }
+        }
+        
+        // 顯示成功頁面
+        function showSuccessPage(orderInfo) {
+            const content = `
+                <div class="status-icon success">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h1 class="confirm-title success">付款成功！</h1>
+                <p class="confirm-message">
+                    感謝您的購買！<br>
+                    我們已收到您的付款，訂單正在處理中。<br>
+                    您將收到訂單確認郵件。
+                </p>
+                
+                <div class="order-details">
+                    <div class="order-details-title">訂單詳情</div>
+                    <div class="detail-item">
+                        <span class="detail-label">訂單編號</span>
+                        <span class="detail-value">${orderInfo.orderId || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">交易編號</span>
+                        <span class="detail-value">${orderInfo.transactionId || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">付款時間</span>
+                        <span class="detail-value">${new Date().toLocaleString('zh-TW')}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">付款方式</span>
+                        <span class="detail-value">LINE Pay</span>
+                    </div>
+                    <div class="total-amount">
+                        總金額：NT$ ${orderInfo.amount ? orderInfo.amount.toLocaleString() : '0'}
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="order-tracking.html?orderId=${orderInfo.orderId}" class="btn-primary-custom">
+                        <i class="fas fa-search"></i>
+                        查看訂單
+                    </a>
+                    <a href="index.html" class="btn-secondary-custom">
+                        <i class="fas fa-home"></i>
+                        返回首頁
+                    </a>
+                </div>
+            `;
+            
+            document.getElementById('confirmContent').innerHTML = content;
+        }
+        
+        // 顯示失敗頁面
+        function showFailedPage(message) {
+            const content = `
+                <div class="status-icon failed">
+                    <i class="fas fa-times"></i>
+                </div>
+                <h1 class="confirm-title failed">付款失敗</h1>
+                <p class="confirm-message">
+                    ${message || '付款過程中發生錯誤'}<br>
+                    請重新嘗試或聯繫客服。
+                </p>
+                
+                <div class="action-buttons">
+                    <a href="cart.html" class="btn-primary-custom">
+                        <i class="fas fa-shopping-cart"></i>
+                        返回購物車
+                    </a>
+                    <a href="contact.html" class="btn-secondary-custom">
+                        <i class="fas fa-headset"></i>
+                        聯繫客服
+                    </a>
+                </div>
+            `;
+            
+            document.getElementById('confirmContent').innerHTML = content;
+        }
+        
+        // 頁面載入時執行
+        window.addEventListener('DOMContentLoaded', function() {
+            const params = getUrlParams();
+            
+            // 如果有 transactionId，進行付款確認
+            if (params.transactionId) {
+                confirmPayment();
+            } else if (params.status === 'success') {
+                // 直接顯示成功（用於測試）
+                setTimeout(() => {
+                    showSuccessPage({
+                        orderId: params.orderId,
+                        transactionId: 'TEST-' + Date.now(),
+                        amount: 1000
+                    });
+                }, 1000);
+            } else {
+                // 顯示失敗
+                setTimeout(() => {
+                    showFailedPage('無效的付款請求');
+                }, 1000);
+            }
+        });
+    </script>
+    
+    <script src="./js/main.js"></script>
+    <script src="./js/dropdown-menu.js"></script>
+    <script src="./js/mobile-menu-simple.js"></script>
+</body>
+</html>

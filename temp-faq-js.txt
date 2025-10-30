@@ -1,0 +1,48 @@
+﻿<!-- FAQ JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ 項目展開/收合
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // 關閉其他項目
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+                    
+                    // 切換當前項目
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+            
+            // FAQ 分類篩選
+            const categoryBtns = document.querySelectorAll('.faq-category-btn');
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.dataset.category;
+                    
+                    // 更新按鈕狀態
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // 篩選 FAQ 項目
+                    faqItems.forEach(item => {
+                        const itemCategory = item.dataset.category;
+                        if (category === 'all' || itemCategory === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                            item.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    

@@ -1,0 +1,188 @@
+﻿<section class="hero-slider">
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="images/常見問題封面圖.png" alt="柑心果園常見問題" fetchpriority="high" onerror="this.src='https://via.placeholder.com/1920x600/ff8c42/ffffff?text=常見問題'">
+                <div class="slide-content">
+                    <h1>常見問題</h1>
+                    <p>快速解答您的疑問，提供完善的客戶服務</p>
+                    <a href="#main-content" class="btn-primary">查看問題</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常見問題頁面 -->
+    <div class="faq-page">
+        <div class="faq-container">
+            <div class="faq-header">
+                <h1>常見問題</h1>
+                <p>為您整理了最常見的問題與解答，若有其他疑問歡迎聯繫我們</p>
+            </div>
+
+            <!-- FAQ 分類 -->
+            <div class="faq-categories">
+                <button class="faq-category-btn active" data-category="all">全部問題</button>
+                <button class="faq-category-btn" data-category="order">訂購相關</button>
+                <button class="faq-category-btn" data-category="shipping">配送相關</button>
+                <button class="faq-category-btn" data-category="product">商品相關</button>
+                <button class="faq-category-btn" data-category="payment">付款相關</button>
+            </div>
+
+            <!-- FAQ 列表 -->
+            <div class="faq-list">
+                <!-- 訂購相關 -->
+                <div class="faq-item" data-category="order">
+                    <div class="faq-question">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>如何下訂單？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>您可以透過以下方式下訂單：</p>
+                        <ol>
+                            <li>瀏覽我們的商品頁面，選擇您想要的商品</li>
+                            <li>點擊「加入購物車」按鈕</li>
+                            <li>前往購物車確認訂單內容</li>
+                            <li>填寫配送資訊並選擇付款方式</li>
+                            <li>完成訂單後，我們會儘快為您處理</li>
+                        </ol>
+                        <p>也可以直接透過 Facebook 粉絲專頁或 LINE 聯繫我們訂購。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="order">
+                    <div class="faq-question">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>訂單處理需要多久時間？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>我們會在收到訂單後的 1-2 個工作天內處理您的訂單。如遇假日或產季高峰期，處理時間可能會稍微延長，我們會主動與您聯繫告知最新進度。</p>
+                    </div>
+                </div>
+
+                <!-- 配送相關 -->
+                <div class="faq-item" data-category="shipping">
+                    <div class="faq-question">
+                        <i class="fas fa-truck"></i>
+                        <h3>配送範圍與運費？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>配送範圍：</strong>台灣本島全區配送</p>
+                        <p><strong>運費標準：</strong></p>
+                        <ul>
+                            <li>訂單金額未滿 1,800 元：運費 150 元</li>
+                            <li>訂單金額滿 1,800 元以上：免運費</li>
+                        </ul>
+                        <p>離島地區運費另計，詳情請聯繫客服。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="shipping">
+                    <div class="faq-question">
+                        <i class="fas fa-clock"></i>
+                        <h3>配送時間需要多久？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>一般情況下，商品會在訂單確認後的 3-5 個工作天內送達。實際配送時間可能因以下因素而有所不同：</p>
+                        <ul>
+                            <li>配送地區（偏遠地區可能需要更多時間）</li>
+                            <li>天氣狀況</li>
+                            <li>產季供應狀況</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 商品相關 -->
+                <div class="faq-item" data-category="product">
+                    <div class="faq-question">
+                        <i class="fas fa-leaf"></i>
+                        <h3>水果的保存期限是多久？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>不同水果的保存期限不同：</p>
+                        <ul>
+                            <li><strong>椪柑：</strong>常溫保存約 7-10 天，冷藏可延長至 2-3 週</li>
+                            <li><strong>茂谷柑：</strong>常溫保存約 5-7 天，冷藏可延長至 2 週</li>
+                        </ul>
+                        <p>建議收到商品後儘快食用，以享受最佳風味。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="product">
+                    <div class="faq-question">
+                        <i class="fas fa-certificate"></i>
+                        <h3>你們的水果有什麼品質保證？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>柑心果園堅持以下品質保證：</p>
+                        <ul>
+                            <li>產地直送，確保新鮮度</li>
+                            <li>友善栽培，減少農藥使用</li>
+                            <li>嚴格品質把關，每批水果都經過挑選</li>
+                            <li>若有品質問題，提供退換貨服務</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 付款相關 -->
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>支援哪些付款方式？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>我們提供多種付款方式供您選擇：</p>
+                        <ul>
+                            <li><strong>LINE Pay：</strong>安全便捷的線上支付</li>
+                            <li><strong>銀行轉帳：</strong>訂單確認後提供帳號資訊</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <i class="fas fa-undo"></i>
+                        <h3>可以退換貨嗎？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>退換貨政策：</strong></p>
+                        <p>由於水果為生鮮商品，一般情況下不接受退換貨。但如遇以下情況，請於收到商品後 24 小時內聯繫我們：</p>
+                        <ul>
+                            <li>商品有明顯瑕疵或損壞</li>
+                            <li>配送錯誤商品</li>
+                            <li>商品腐敗變質</li>
+                        </ul>
+                        <p>我們會根據實際情況提供退款或補寄服務。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聯繫客服 -->
+            <div class="faq-contact">
+                <h3>找不到您要的答案嗎？</h3>
+                <p>歡迎透過以下方式聯繫我們的客服團隊</p>
+                <div class="contact-buttons">
+                    <a href="tel:0933-721-978" class="contact-btn">
+                        <i class="fas fa-phone"></i>
+                        <span>電話聯繫</span>
+                    </a>
+                    <a href="mailto:s9000721@gmail.com" class="contact-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email 聯繫</span>
+                    </a>
+                    <a href="https://www.facebook.com/share/19vDVjSz9Y/?mibextid=wwXIfr" target="_blank" class="contact-btn">
+                        <i class="fab fa-facebook"></i>
+                        <span>Facebook 訊息</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    

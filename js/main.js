@@ -1,10 +1,20 @@
 // 主要功能腳本
 
-// 主要功能初始化
+// 等待模板載入完成後初始化
+document.addEventListener('templatesLoaded', () => {
+    console.log('🎯 模板載入完成，開始初始化主功能');
+    // 稍微延遲以確保 DOM 完全 ready
+    setTimeout(() => {
+        // 初始化導覽列（包含滾動監聽）
+        initNavigation();
+        
+        // 初始化其他功能
+        initOtherFeatures();
+    }, 300);
+});
+
+// 主要功能初始化（備用）
 document.addEventListener('DOMContentLoaded', () => {
-    // 初始化導覽列
-    initNavigation();
-    
     // 付款方式切換顯示匯款資訊
     const paymentOptions = document.querySelectorAll('input[name="payment"]');
     const bankInfo = document.getElementById('bankInfo');
@@ -20,18 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    
-    // 初始化其他功能
-    initOtherFeatures();
 });
 
 // 初始化導覽列
 function initNavigation() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const mainMenu = document.getElementById('mainMenu');
-    const menuClose = document.getElementById('menuClose');
     const mainHeader = document.querySelector('.main-header');
     
+    console.log('🔧 初始化導覽功能...', { 
+        mainHeader: !!mainHeader 
+    });
     
     // 初始化最新消息輪播
     initNewsTicker();
@@ -39,16 +46,31 @@ function initNavigation() {
     // 購物車數量更新
     updateCartCount();
 
-    // 滑動時添加半透明效果
+    // 滑動時添加半透明效果 - 頁頭背景變化
     if (mainHeader) {
+        console.log('✅ 找到 .main-header，綁定滾動監聽器');
+        
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
+            const scrollY = window.scrollY;
+            
+            if (scrollY > 100) {
                 mainHeader.classList.add('scrolled');
+                console.log('📜 滾動 > 100px，添加 .scrolled class');
             } else {
                 mainHeader.classList.remove('scrolled');
             }
         });
+        
+        // 立即檢查當前滾動位置
+        if (window.scrollY > 100) {
+            mainHeader.classList.add('scrolled');
+        }
+    } else {
+        console.error('❌ 找不到 .main-header 元素，無法綁定滾動監聽器');
     }
+    
+    // 注意：手機選單的初始化已移到 mobile-menu-simple.js 中處理
+    // 避免重複綁定導致衝突
 }
 
 // 初始化最新消息輪播 - 逐篇顯示
@@ -239,19 +261,22 @@ function initOtherFeatures() {
     
     // 滾動時固定導航欄效果
     let lastScroll = 0;
-    const header = document.querySelector('.header');
+    const header = document.querySelector('.main-header');  // 修復：正確的 class 名稱
     
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            header.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-        } else {
-            header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-        }
-        
-        lastScroll = currentScroll;
-    });
+    // 加入空值檢查
+    if (header) {
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    }
     
     // 商品卡片懸停效果增強
     const productCards = document.querySelectorAll('.product-card');

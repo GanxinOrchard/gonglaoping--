@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>結帳 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <main id="main-content">
+    <section class="hero-section" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+            <div class="hero-background" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                <img src="images/柑心果園販賣所-1.png" alt="柑心果園販賣所" class="hero-cover-image" loading="eager" decoding="async" fetchpriority="high">
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="container">
+                <div class="hero-content" style="background: transparent !important; background-color: transparent !important; background-image: none !important;">
+                    <div class="hero-text">
+                        <h1 class="hero-title">柑心果園</h1>
+                        <p class="hero-subtitle">台灣優質水果，產地直送</p>
+                        <p class="hero-description">傳承百年的果園經驗，為您提供最純正、最新鮮的台灣水果。每一顆果實都承載著我們對品質的堅持。</p>
+                        <div class="hero-buttons">
+                            <a href="products.html" class="btn-primary">立即選購</a>
+                            <a href="about.html" class="btn-secondary">了解更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 結帳內容 -->
+        <div class="container">
+            <div class="checkout-content">
+                <h2>結帳</h2>
+                <div class="checkout-form">
+                    <form id="checkoutForm">
+                        <div class="form-group">
+                            <label for="customerName">姓名 *</label>
+                            <input type="text" id="customerName" name="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">電話 *</label>
+                            <input type="tel" id="customerPhone" name="customerPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerEmail">電子信箱</label>
+                            <input type="email" id="customerEmail" name="customerEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryAddress">配送地址 *</label>
+                            <textarea id="deliveryAddress" name="deliveryAddress" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>付款方式 *</label>
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="cod" required>
+                                    <span>貨到付款</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="transfer" required>
+                                    <span>銀行轉帳</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <a href="cart.html" class="btn btn-back">返回購物車</a>
+                            <button type="submit" class="btn btn-primary">確認訂單</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>
+
+
