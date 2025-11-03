@@ -3,7 +3,7 @@
         <!-- 桌面版導覽列 -->
         <div class="header-content desktop-header">
             <div class="logo-section">
-                <a href="index.html" class="logo">
+                <a href="./index.html" class="logo">
                     <img src="./images/shared/logo/柑心商標.png" alt="柑心果園" class="logo-image">
                     <div class="logo-text-container">
                         <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
@@ -95,7 +95,7 @@
             <!-- 手機版底部標誌和漢堡選單 -->
             <div class="mobile-bottom-row">
                 <div class="mobile-logo-section">
-                    <a href="index.html" class="mobile-logo">
+                    <a href="./index.html" class="mobile-logo">
                         <img src="./images/shared/logo/柑心商標.png" alt="柑心果園" class="mobile-logo-image">
                         <div class="mobile-logo-text">
                             <span class="mobile-logo-main">柑心果園</span>
@@ -112,30 +112,3 @@
         </div>
     </div>
 </header>
-<script>
-// 確保LOGO連結在所有環境都能正確工作
-(function() {
-    function fixLogoLinks() {
-        const logoLinks = document.querySelectorAll('.logo, .mobile-logo');
-        logoLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const currentPath = window.location.pathname;
-                if (currentPath.includes('/gonglaoping--/')) {
-                    window.location.href = '/gonglaoping--/index.html';
-                } else if (currentPath.includes('/index.html')) {
-                    window.location.href = 'index.html';
-                } else {
-                    window.location.href = './index.html';
-                }
-            });
-        });
-    }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixLogoLinks);
-    } else {
-        fixLogoLinks();
-    }
-})();
-</script>
