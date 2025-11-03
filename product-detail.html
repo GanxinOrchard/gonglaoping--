@@ -1,27 +1,66 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">商品詳情 - 柑心果園</title>
     <meta name="description" id="pageDescription" content="柑心果園優質農產品，產地直送，新鮮安心。">
-    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="./css/main.css?v=20251103">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <!-- 商品詳情頁專用樣式 -->
+    <link rel="stylesheet" href="./css/product-detail-page.css?v=20251103">
 </head>
 <body>
     <div id="header-container"></div>
     <div id="mobile-menu-container"></div>
 
     <main id="main-content">
-    
+        <!-- 麵包屑 -->
+        <div class="breadcrumb-container">
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="index.html">首頁</a>
+                    <span class="separator">/</span>
+                    <a href="products.html">全部商品</a>
+                    <span class="separator">/</span>
+                    <span id="breadcrumbProductName">商品詳情</span>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- 商品詳情容器 -->
+        <div class="container">
+            <div id="productDetailContainer">
+                <!-- 內容由 product-detail.js 動態產生 -->
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>載入中...</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div id="footer-container"></div>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+    
     <script src="./js/template-loader.js"></script>
     <script src="./js/mobile-menu-simple.js" defer></script>
     <script src="./js/dropdown-menu.js" defer></script>
     <script src="./js/cart.js" defer></script>
+    <script src="./js/products.js"></script>
+    <script src="./js/product-detail.js"></script>
+    <script src="./js/product-gallery.js" defer></script>
     <script src="./js/main.js" defer></script>
 </body>
 </html>

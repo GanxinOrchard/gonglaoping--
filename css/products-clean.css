@@ -1,0 +1,324 @@
+/* ====================================================
+   商品頁專用樣式 - 獨立載入，避免干擾
+   ==================================================== */
+
+/* 商品頁面容器 */
+#products {
+    background: #f5f5f5;
+}
+
+#products .products-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 15px;
+}
+
+/* 篩選區 */
+#products .filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+#products .filter-group {
+    margin-bottom: 15px;
+}
+
+#products .filter-group:last-child {
+    margin-bottom: 0;
+}
+
+#products .filter-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+#products .filter-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#products .filter-btn {
+    padding: 6px 16px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#products .filter-btn:hover {
+    border-color: #ff6b35;
+    color: #ff6b35;
+}
+
+#products .filter-btn.active {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    border-color: #ff6b35;
+}
+
+/* 商品數量 */
+#products .product-count {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#products .product-count span {
+    color: #ff6b35;
+    font-weight: 700;
+}
+
+/* 商品網格 */
+#products .products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+/* 商品卡片 */
+#products .product-card {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.2s;
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+#products .product-card:hover {
+    border-color: #ff6b35;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+/* 商品圖片 */
+#products .product-image {
+    position: relative;
+    padding-top: 100%;
+    background: #fff;
+    overflow: hidden;
+}
+
+#products .product-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+#products .product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+/* 徽章 */
+#products .product-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 3px 8px;
+    font-size: 0.65rem;
+    color: white;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    z-index: 2;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+#products .badge-hot,
+#products .product-badge.hot {
+    background: linear-gradient(135deg, #ff3b3b, #ff5252);
+}
+
+#products .badge-preorder,
+#products .product-badge.preorder {
+    background: linear-gradient(135deg, #ff9500, #ffb74d);
+}
+
+#products .badge-new,
+#products .product-badge.new {
+    background: linear-gradient(135deg, #34c759, #66bb6a);
+}
+
+#products .product-category {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 0.6rem;
+    z-index: 2;
+}
+
+/* 商品資訊 */
+#products .product-info {
+    padding: 8px;
+}
+
+#products .product-name {
+    font-size: 0.875rem;
+    color: #333;
+    line-height: 1.3;
+    height: 2.3em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 4px;
+}
+
+#products .product-description {
+    font-size: 0.75rem;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 4px;
+}
+
+#products .product-price {
+    font-size: 1.25rem;
+    color: #ff3b3b;
+    font-weight: 700;
+}
+
+#products .product-price .currency {
+    font-size: 0.7em;
+    font-weight: 400;
+}
+
+#products .product-price .suffix {
+    font-size: 0.6em;
+    color: #999;
+    margin-left: 4px;
+}
+
+/* 分頁器 */
+#products .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+}
+
+#products .pagination-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#products .pagination-btn:hover:not(:disabled) {
+    border-color: #ff6b35;
+    color: #ff6b35;
+}
+
+#products .pagination-btn.active {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    border-color: #ff6b35;
+}
+
+#products .pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+#products #pageNumbers {
+    display: flex;
+    gap: 8px;
+}
+
+/* 無商品提示 */
+#products .no-products {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+#products .no-products i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.3;
+    display: block;
+}
+
+#products .no-products h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+#products .no-products p {
+    font-size: 1rem;
+}
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+    #products .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    #products .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #products .products-page {
+        padding: 15px 8px;
+    }
+    
+    #products .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+    
+    #products .product-name {
+        font-size: 0.8rem;
+    }
+    
+    #products .product-price {
+        font-size: 1.1rem;
+    }
+    
+    #products .filter-section {
+        padding: 12px;
+    }
+    
+    #products .filter-btn {
+        padding: 5px 12px;
+        font-size: 0.8rem;
+    }
+}
