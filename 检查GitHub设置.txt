@@ -1,0 +1,41 @@
+🔍 检查GitHub Pages设置步骤
+
+您的repository：https://github.com/GanxinOrchard/gonglaoping--
+
+请按以下步骤检查：
+
+1. 打开 GitHub repository 页面
+   https://github.com/GanxinOrchard/gonglaoping--
+
+2. 点击 Settings（设置）
+
+3. 在左侧菜单找到 "Pages"
+
+4. 查看 "Custom domain" 栏位
+
+5. 如果显示 "www.ganxinorchard.com"：
+   ❌ 请点击旁边的 "Remove" 删除它
+   ✅ 然后点击 "Save" 保存
+
+6. 正确的设置应该是：
+   - Source: Deploy from a branch
+   - Branch: main / (root)
+   - Custom domain: 留空（或者如果您真的购买了域名才填写）
+
+7. 删除后，等待2-3分钟让GitHub Pages重新部署
+
+8. 然后访问正确的网址：
+   https://ganxinorchard.github.io/gonglaoping--/
+
+---
+
+如果Custom domain栏位是空的，问题可能是：
+- 浏览器DNS缓存
+- 浏览器收藏夹有错误的网址
+- ISP的DNS缓存
+
+解决方法：
+1. 清除浏览器缓存 (Ctrl + Shift + Delete)
+2. 清除DNS缓存 (运行：ipconfig /flushdns)
+3. 使用无痕模式访问
+4. 使用手机的行动网络访问（避开WiFi的DNS）

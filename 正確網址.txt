@@ -1,0 +1,24 @@
+柑心果園 - 正確的GitHub Pages網址
+
+✅ 首頁：
+https://ganxinorchard.github.io/gonglaoping--/
+
+✅ 全部商品：
+https://ganxinorchard.github.io/gonglaoping--/products.html
+
+✅ 商品詳情（椪柑）：
+https://ganxinorchard.github.io/gonglaoping--/product-detail.html?id=1
+
+✅ 購物車：
+https://ganxinorchard.github.io/gonglaoping--/cart.html
+
+✅ 關於我們：
+https://ganxinorchard.github.io/gonglaoping--/about.html
+
+❌ 錯誤的網址（不要使用）：
+https://www.ganxinorchard.com/
+
+注意：
+1. 網址中包含 /gonglaoping--/ 是正常的
+2. 如果要使用自己的域名，需要購買並設定DNS
+3. 清除瀏覽器快取後重新訪問
