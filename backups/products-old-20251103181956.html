@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>全部商品 - 柑心果園 | 新鮮椪柑、茂谷柑線上選購</title>
+    <meta name="description" content="柑心果園全部商品，提供新鮮椪柑、茂谷柑等優質水果，產地直送，品質保證。">
+    <meta name="keywords" content="柑心果園,椪柑,茂谷柑,水果,商品,線上購物,台中豐原,公老坪">
+    
+    <!-- 基礎CSS - Header/Footer用 -->
+    <link rel="stylesheet" href="./css/main.css?v=20251103181">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <!-- 主要內容 -->
+    <main id="main-content" style="background: #f5f5f5;">
+        <!-- Hero Section -->
+        <section class="hero-section" style="position: relative; min-height: 60vh; display: flex; align-items: center; overflow: hidden;">
+            <img src="images/products/store/gallery/柑心果園販賣所-2.png" alt="全部商品" 
+                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" 
+                 fetchpriority="high">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 1;"></div>
+            <div class="container" style="position: relative; z-index: 2;">
+                <div class="hero-content" style="text-align: center;" data-aos="fade-up">
+                    <h1 style="font-size: 3.5rem; font-weight: 900; color: white; margin-bottom: 20px; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
+                        全部商品
+                    </h1>
+                    <p style="font-size: 1.5rem; color: white; margin-bottom: 30px; text-shadow: 1px 1px 4px rgba(0,0,0,0.3);">
+                        精選優質農產品，產地直送，新鮮安心
+                    </p>
+                    <a href="#products" class="btn" 
+                       style="display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; background: linear-gradient(135deg, #ff6b35, #f7931e); color: white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(255,107,53,0.4);">
+                        <i class="fas fa-shopping-bag"></i> 開始選購
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 商品區域 -->
+        <div id="products">
+            <link rel="stylesheet" href="./css/products-clean.css?v=20251103181">
+            <div class="products-page">
+                <!-- 篩選區 -->
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label class="filter-label">品種分類</label>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="category" data-value="全部">全部商品</button>
+                            <button class="filter-btn" data-filter="category" data-value="優質水果">優質水果</button>
+                            <button class="filter-btn" data-filter="category" data-value="新鮮蔬果">新鮮蔬果</button>
+                            <button class="filter-btn" data-filter="category" data-value="冷凍食品">冷凍食品</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">商品狀態</label>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="status" data-value="全部">全部狀態</button>
+                            <button class="filter-btn" data-filter="status" data-value="現貨">現貨供應</button>
+                            <button class="filter-btn" data-filter="status" data-value="預購">預購商品</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商品數量 -->
+                <div class="product-count">
+                    顯示 <span id="productCount">0</span> 項商品
+                </div>
+
+                <!-- 商品網格 -->
+                <div class="products-grid" id="productsGrid">
+                    <!-- 商品將由 JavaScript 動態載入 -->
+                </div>
+
+                <!-- 無商品提示 -->
+                <div class="no-products" id="noProducts" style="display: none;">
+                    <i class="fas fa-box-open"></i>
+                    <h3>沒有符合條件的商品</h3>
+                    <p>請嘗試調整篩選條件</p>
+                </div>
+                
+                <!-- 分頁器 -->
+                <div class="pagination" id="pagination" style="display: none;">
+                    <button class="pagination-btn" id="prevPage" onclick="changePage(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div id="pageNumbers"></div>
+                    <button class="pagination-btn" id="nextPage" onclick="changePage(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+    
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js?v=20251103181"></script>
+    <script src="./js/products.js?v=20251103181"></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>
