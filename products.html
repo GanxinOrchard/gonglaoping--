@@ -2021,12 +2021,17 @@
     <link rel="stylesheet" href="./css/navigation-clean.css">
 </head>
 <body class="dark-header">
-    <!-- 簡化頁首 - 只有LOGO -->
-    <header class="simple-header">
-        <div class="container">
-            <a href="./index.html" class="logo-link">
-                <img src="images/logo.png" alt="柑心果園" class="header-logo">
-                <span class="logo-text">柑心果園</span>
+    <!-- 簡化頁首 - LOGO + 購物車 -->
+    <header class="simple-header" style="background: white; padding: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="./index.html" class="logo-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #2c3e50;">
+                <img src="images/logo.png" alt="柑心果園" class="header-logo" style="width: 50px; height: 50px; object-fit: contain;">
+                <span class="logo-text" style="font-size: 24px; font-weight: 700; color: #ff6b35;">柑心果園</span>
+            </a>
+            <a href="cart.html" class="cart-link" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #2c3e50; padding: 10px 20px; border: 2px solid #ff6b35; border-radius: 25px;">
+                <i class="fas fa-shopping-cart" style="font-size: 20px; color: #ff6b35;"></i>
+                <span style="font-weight: 600;">購物車</span>
+                <span class="cart-count" id="headerCartCount" style="position: absolute; top: -8px; right: -8px; background: #ff6b35; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; display: none;">0</span>
             </a>
         </div>
     </header>
