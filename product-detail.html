@@ -21,6 +21,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <!-- 重新設計樣式 -->
     <style>
+        /* 麵包屑樣式 */
+        .breadcrumb-nav {
+            background: white;
+            padding: 15px 0;
+            margin-top: 80px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .breadcrumb-nav .container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .breadcrumb-nav a {
+            color: #666;
+            text-decoration: none;
+        }
+        .breadcrumb-nav a:hover {
+            color: #ff6b35;
+        }
+        @media (max-width: 768px) {
+            .breadcrumb-nav {
+                margin-top: 130px;
+            }
+        }
+    </style>
+    <style>
         /* 最新消息廣播器重新設計 */
         .broadcast-section {
             background: linear-gradient(135deg, #ff6b35, #f7931e);
@@ -1363,9 +1390,23 @@
         }
     </style>
 </head>
-<body>
+<body class="dark-header">
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+    
+    <!-- 麵包屑導航 -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+            <span style="color: #999;">/</span>
+            <a href="products.html">全部商品</a>
+            <span style="color: #999;">/</span>
+            <span id="breadcrumbProductName" style="color: #ff6b35; font-weight: 600;">商品詳情</span>
+        </div>
+    </nav>
+    
     <!-- 主要導覽列 - 開南風格 -->
-    <header class="main-header">
+    <header class="main-header" style="display: none;">
         <div class="container">
             <!-- 桌面版導覽列 -->
             <div class="header-content desktop-header">
@@ -1746,11 +1787,25 @@
 
     <!-- 回到頂部功能 -->
     
+    <script src="./js/template-loader.js"></script>
     <script src="./js/dropdown-menu.js?v=20250120"></script>
-<script src="./js/main.js?v=20250115" defer></script>
-<script src="./js/mobile-menu-simple.js?v=20250115" defer></script>
-<script src="./js/cart.js?v=20250115" defer></script>
+    <script src="./js/main.js?v=20250115" defer></script>
+    <script src="./js/mobile-menu-simple.js?v=20250115" defer></script>
     <script src="./js/cart.js?v=20250115" defer></script>
+    <script src="./js/products.js"></script>
+    <script>
+        // 更新麵包屑商品名稱
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            if (productId && typeof products !== 'undefined') {
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    document.getElementById('breadcrumbProductName').textContent = product.name;
+                }
+            }
+        });
+    </script>
 
     <!-- 全新設計頁尾 -->
     <footer class="footer footer-modern">

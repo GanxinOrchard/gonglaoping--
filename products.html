@@ -1887,9 +1887,21 @@
     </style>
     <link rel="stylesheet" href="./css/navigation-clean.css">
 </head>
-<body>
+<body class="dark-header">
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+    
+    <!-- 麵包屑導航 -->
+    <nav style="background: white; padding: 15px 0; margin-top: 80px; border-bottom: 1px solid #e0e0e0;">
+        <div class="container" style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+            <a href="index.html" style="color: #666; text-decoration: none;"><i class="fas fa-home"></i> 首頁</a>
+            <span style="color: #999;">/</span>
+            <span style="color: #ff6b35; font-weight: 600;">全部商品</span>
+        </div>
+    </nav>
+    
     <!-- 主要導覽列 - 開南風格 -->
-    <header class="main-header">
+    <header class="main-header" style="display: none;">
         <div class="container">
             <!-- 桌面版導覽列 -->
             <div class="header-content desktop-header">

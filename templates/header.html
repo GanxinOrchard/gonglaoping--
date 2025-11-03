@@ -112,3 +112,30 @@
         </div>
     </div>
 </header>
+<script>
+// 確保LOGO連結在所有環境都能正確工作
+(function() {
+    function fixLogoLinks() {
+        const logoLinks = document.querySelectorAll('.logo, .mobile-logo');
+        logoLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/gonglaoping--/')) {
+                    window.location.href = '/gonglaoping--/index.html';
+                } else if (currentPath.includes('/index.html')) {
+                    window.location.href = 'index.html';
+                } else {
+                    window.location.href = './index.html';
+                }
+            });
+        });
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixLogoLinks);
+    } else {
+        fixLogoLinks();
+    }
+})();
+</script>

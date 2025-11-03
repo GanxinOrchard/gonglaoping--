@@ -3,15 +3,22 @@
    ======================================== */
 
 .main-header {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    box-shadow: none !important;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: var(--z-header, 10000);
     transition: all 0.3s ease;
+}
+
+/* 允許頁面自定義header背景 */
+body.dark-header .main-header {
+    background: rgba(0, 0, 0, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* 滾動後的樣式 - 加強優先級 */
