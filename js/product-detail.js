@@ -259,8 +259,9 @@ function initEventListeners(product) {
             price: price,
             quantity: quantity,
             image: product.image,
-            spec: specName,
-            specId: selectedSpec ? selectedSpec.id : null
+            selectedSpec: specName,
+            selectedSpecId: selectedSpec ? selectedSpec.id : null,
+            shippingType: product.shippingType || 'normal'
         };
         
         // 加入購物車（使用 cart.js 的功能）
@@ -269,11 +270,11 @@ function initEventListeners(product) {
             alert(`已將 ${product.name} ${specName} x ${quantity} 加入購物車`);
         } else {
             // 如果 cart.js 還沒載入，存到 localStorage
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            let cart = JSON.parse(localStorage.getItem('ganxin_cart') || localStorage.getItem('cart') || '[]');
             
             // 檢查是否已有相同商品和規格
             const existingItemIndex = cart.findIndex(item => 
-                item.id === cartItem.id && item.specId === cartItem.specId
+                item.id === cartItem.id && item.selectedSpecId === cartItem.selectedSpecId
             );
             
             if (existingItemIndex !== -1) {
@@ -282,7 +283,8 @@ function initEventListeners(product) {
                 cart.push(cartItem);
             }
             
-            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('ganxin_cart', JSON.stringify(cart));
+            localStorage.setItem('cart', JSON.stringify(cart)); // 同步舊 key
             
             // 更新購物車數量顯示
             updateCartCount();
@@ -304,12 +306,14 @@ function initEventListeners(product) {
             price: price,
             quantity: quantity,
             image: product.image,
-            spec: specName,
-            specId: selectedSpec ? selectedSpec.id : null
+            selectedSpec: specName,
+            selectedSpecId: selectedSpec ? selectedSpec.id : null,
+            shippingType: product.shippingType || 'normal'
         };
         
         // 清空購物車，只保留當前商品
-        localStorage.setItem('cart', JSON.stringify([cartItem]));
+        localStorage.setItem('ganxin_cart', JSON.stringify([cartItem]));
+        localStorage.setItem('cart', JSON.stringify([cartItem])); // 同步舊 key
         
         // 跳轉到結帳頁
         window.location.href = 'checkout.html';
@@ -318,7 +322,7 @@ function initEventListeners(product) {
 
 // 更新購物車數量顯示
 function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const cart = JSON.parse(localStorage.getItem('ganxin_cart') || localStorage.getItem('cart') || '[]');
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     
     const cartCountElements = document.querySelectorAll('.cart-count');

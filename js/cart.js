@@ -185,12 +185,9 @@ function addToCart(productId, specId = null, quantity = 1) {
         const existingItem = cart.find(item => item.id === product.id && item.selectedSpecId === product.selectedSpecId);
         
         if (existingItem) {
-            existingItem.quantity += quantity;
+            existingItem.quantity += product.quantity;
         } else {
-            cart.push({
-                ...product,
-                quantity: quantity
-            });
+            cart.push(product);
         }
         
         localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
