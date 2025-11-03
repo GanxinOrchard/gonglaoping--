@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結帳 - 柑心果園</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/checkout-page.css">
+    
+    <style>
+        /* 面包屑样式 */
+        .breadcrumb-nav {
+            background: #f8f9fa;
+            padding: 15px 0;
+            margin-top: 120px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-nav a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: #ff6b35;
+        }
+        
+        .breadcrumb-nav .separator {
+            color: #999;
+        }
+        
+        .breadcrumb-nav .current {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一模板Header -->
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <!-- 面包屑导航 -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <a href="./index.html"><i class="fas fa-home"></i> 首頁</a>
+            <span class="separator">/</span>
+            <a href="./cart.html">購物車</a>
+            <span class="separator">/</span>
+            <span class="current">結帳</span>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main id="main-content" style="padding: 40px 0; min-height: 600px;">
+        <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <!-- 页面标题 -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 36px; color: #2c3e50; margin-bottom: 10px;">結帳</h1>
+                <p style="color: #666; font-size: 16px;">請填寫收件資訊</p>
+            </div>
+
+            <!-- 结帐表单（由checkout-new.js渲染） -->
+            <div id="checkoutContainer">
+                <!-- 由checkout-new.js动态填充 -->
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- JavaScript -->
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/products.js"></script>
+    <script src="./js/checkout-new.js"></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>

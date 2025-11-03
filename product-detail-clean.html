@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品詳情 - 柑心果園</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* 面包屑样式 */
+        .breadcrumb-nav {
+            background: #f8f9fa;
+            padding: 15px 0;
+            margin-top: 120px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-nav a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: #ff6b35;
+        }
+        
+        .breadcrumb-nav .separator {
+            color: #999;
+        }
+        
+        .breadcrumb-nav .current {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一模板Header -->
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <!-- 面包屑导航 -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <a href="./index.html"><i class="fas fa-home"></i> 首頁</a>
+            <span class="separator">/</span>
+            <a href="./products.html">全部商品</a>
+            <span class="separator">/</span>
+            <span id="breadcrumbProductName" class="current">商品詳情</span>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main id="main-content" style="padding: 40px 0; min-height: 600px;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <!-- 商品详情容器（由JavaScript动态填充） -->
+            <div id="productDetailContainer">
+                <!-- 载入中提示 -->
+                <div style="text-align: center; padding: 100px 20px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: #ff6b35; margin-bottom: 20px;"></i>
+                    <p style="font-size: 18px; color: #666;">正在載入商品資訊...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- JavaScript -->
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/products.js"></script>
+    <script src="./js/product-detail.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/main.js" defer></script>
+    
+    <script>
+        // 初始化商品详情页
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            
+            console.log('商品ID:', productId);
+            console.log('商品數據:', typeof products !== 'undefined' ? products.length : '未載入');
+            
+            if (productId && typeof products !== 'undefined') {
+                const product = products.find(p => p.id === productId);
+                console.log('找到商品:', product);
+                
+                if (product) {
+                    // 更新面包屑
+                    const breadcrumbProductName = document.getElementById('breadcrumbProductName');
+                    if (breadcrumbProductName) {
+                        breadcrumbProductName.textContent = product.name;
+                    }
+                    
+                    // 渲染商品详情
+                    if (typeof renderProductDetail === 'function') {
+                        renderProductDetail(product);
+                    }
+                } else {
+                    document.getElementById('productDetailContainer').innerHTML = `
+                        <div style="text-align: center; padding: 100px 20px;">
+                            <i class="fas fa-exclamation-circle" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                            <h3 style="color: #666;">找不到商品</h3>
+                            <p style="color: #999; margin-bottom: 30px;">該商品不存在或已下架</p>
+                            <a href="products.html" style="display: inline-block; padding: 12px 30px; background: #ff6b35; color: white; text-decoration: none; border-radius: 25px;">
+                                返回商品列表
+                            </a>
+                        </div>
+                    `;
+                }
+            } else {
+                document.getElementById('productDetailContainer').innerHTML = `
+                    <div style="text-align: center; padding: 100px 20px;">
+                        <i class="fas fa-exclamation-circle" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                        <h3 style="color: #666;">缺少商品ID</h3>
+                        <p style="color: #999; margin-bottom: 30px;">請從商品列表選擇商品</p>
+                        <a href="products.html" style="display: inline-block; padding: 12px 30px; background: #ff6b35; color: white; text-decoration: none; border-radius: 25px;">
+                            前往商品列表
+                        </a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
