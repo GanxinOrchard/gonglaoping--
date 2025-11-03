@@ -63,6 +63,15 @@
         </div>
     </nav>
 
+    <!-- 封面圖片 -->
+    <section class="page-hero" style="position: relative; height: 300px; overflow: hidden; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+        <img src="images/products/store/gallery/柑心果園販賣所-1.png" alt="商品詳情" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5)); display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; text-align: center;">
+            <h1 id="heroProductName" style="font-size: 42px; font-weight: 700; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">商品詳情</h1>
+            <p style="font-size: 18px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">了解更多產品資訊</p>
+        </div>
+    </section>
+
     <!-- 主要内容 -->
     <main id="main-content" style="padding: 40px 0; min-height: 600px;">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
@@ -107,6 +116,12 @@
                     const breadcrumbProductName = document.getElementById('breadcrumbProductName');
                     if (breadcrumbProductName) {
                         breadcrumbProductName.textContent = product.name;
+                    }
+                    
+                    // 更新封面标题
+                    const heroProductName = document.getElementById('heroProductName');
+                    if (heroProductName) {
+                        heroProductName.textContent = product.name;
                     }
                     
                     // 渲染商品详情
