@@ -5,546 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">商品詳情 - 柑心果園</title>
     <meta name="description" id="pageDescription" content="柑心果園優質農產品，產地直送，新鮮安心。">
+    
+    <!-- 只載入必要的樣式 -->
     <link rel="stylesheet" href="./css/main.css?v=20251103181">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     
-    <style>
-        /* ========================================
-           商品詳情頁 - 全新獨立設計
-           ======================================== */
-        
-        body {
-            background: #f5f5f5;
-            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-        
-        /* 麵包屑 */
-        .breadcrumb-section {
-            background: white;
-            padding: 20px 0;
-            border-bottom: 1px solid #e0e0e0;
-            margin-top: 80px;
-        }
-        
-        .breadcrumb {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-        }
-        
-        .breadcrumb a {
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .breadcrumb a:hover {
-            color: #ff6b35;
-        }
-        
-        .breadcrumb .separator {
-            color: #999;
-        }
-        
-        .breadcrumb .current {
-            color: #ff6b35;
-            font-weight: 600;
-        }
-        
-        /* 主要商品展示區 */
-        .product-main-section {
-            background: white;
-            padding: 60px 0;
-        }
-        
-        .product-main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .product-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-        
-        /* 左側：圖片展示區 */
-        .product-gallery {
-            position: sticky;
-            top: 100px;
-        }
-        
-        .main-image-container {
-            background: #f8f8f8;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-        
-        .main-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-        
-        .main-image-container:hover .main-image {
-            transform: scale(1.05);
-        }
-        
-        .thumbnail-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-        
-        .thumbnail {
-            aspect-ratio: 1;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.3s;
-            background: #f8f8f8;
-        }
-        
-        .thumbnail:hover {
-            border-color: #ff6b35;
-            transform: translateY(-5px);
-        }
-        
-        .thumbnail.active {
-            border-color: #ff6b35;
-            box-shadow: 0 5px 20px rgba(255,107,53,0.3);
-        }
-        
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* 右側：商品資訊區 */
-        .product-info {
-            padding: 20px 0;
-        }
-        
-        .product-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .product-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #333;
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-        
-        .product-subtitle {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-        
-        .rating-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .stars {
-            color: #FFD700;
-            font-size: 1.3rem;
-            letter-spacing: 3px;
-        }
-        
-        .rating-count {
-            color: #666;
-            font-size: 0.95rem;
-        }
-        
-        .product-price-section {
-            background: #fff5f0;
-            padding: 30px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-        }
-        
-        .price-label {
-            font-size: 0.9rem;
-            color: #999;
-            margin-bottom: 10px;
-        }
-        
-        .product-price {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #ff6b35;
-            margin-bottom: 10px;
-        }
-        
-        .price-unit {
-            font-size: 1.1rem;
-            color: #666;
-        }
-        
-        .stock-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-            padding: 12px;
-            background: white;
-            border-radius: 10px;
-        }
-        
-        .stock-icon {
-            color: #4CAF50;
-            font-size: 1.2rem;
-        }
-        
-        .stock-text {
-            color: #4CAF50;
-            font-weight: 600;
-        }
-        
-        /* 規格選擇 */
-        .product-options {
-            margin-bottom: 30px;
-        }
-        
-        .option-group {
-            margin-bottom: 25px;
-        }
-        
-        .option-label {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .option-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .option-btn {
-            padding: 12px 24px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #666;
-        }
-        
-        .option-btn:hover {
-            border-color: #ff6b35;
-            background: #fff5f0;
-            color: #ff6b35;
-            transform: translateY(-2px);
-        }
-        
-        .option-btn.active {
-            border-color: #ff6b35;
-            background: #ff6b35;
-            color: white;
-            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
-        }
-        
-        /* 數量選擇 */
-        .quantity-section {
-            margin-bottom: 30px;
-        }
-        
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            border: 2px solid #e0e0e0;
-            width: fit-content;
-        }
-        
-        .quantity-btn {
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: #ff6b35;
-            color: white;
-            font-size: 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .quantity-btn:hover {
-            background: #e55a2b;
-            transform: scale(1.1);
-        }
-        
-        .quantity-input {
-            width: 60px;
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 700;
-            border: none;
-            background: transparent;
-            color: #333;
-        }
-        
-        /* 購買按鈕 */
-        .purchase-buttons {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .btn-add-cart {
-            flex: 1;
-            padding: 20px;
-            background: white;
-            border: 3px solid #ff6b35;
-            color: #ff6b35;
-            font-size: 1.2rem;
-            font-weight: 900;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .btn-add-cart:hover {
-            background: #fff5f0;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
-        }
-        
-        .btn-buy-now {
-            flex: 1;
-            padding: 20px;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 900;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .btn-buy-now:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255,107,53,0.5);
-        }
-        
-        /* 商品特點 */
-        .product-highlights {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .highlight-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px;
-            background: #f8f8f8;
-            border-radius: 10px;
-        }
-        
-        .highlight-icon {
-            font-size: 1.5rem;
-            color: #ff6b35;
-        }
-        
-        .highlight-text {
-            font-size: 0.95rem;
-            color: #555;
-            font-weight: 600;
-        }
-        
-        /* 商品詳細說明 */
-        .product-details-section {
-            background: white;
-            padding: 80px 0;
-        }
-        
-        .details-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #333;
-            margin-bottom: 50px;
-        }
-        
-        .details-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 40px;
-            border-bottom: 3px solid #f0f0f0;
-            overflow-x: auto;
-        }
-        
-        .tab-btn {
-            padding: 15px 30px;
-            background: transparent;
-            border: none;
-            border-bottom: 3px solid transparent;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #999;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-        
-        .tab-btn:hover {
-            color: #ff6b35;
-        }
-        
-        .tab-btn.active {
-            color: #ff6b35;
-            border-bottom-color: #ff6b35;
-        }
-        
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .content-block {
-            background: #f8f8f8;
-            padding: 40px;
-            border-radius: 16px;
-            line-height: 1.8;
-            color: #555;
-            font-size: 1.05rem;
-        }
-        
-        .content-block h3 {
-            color: #333;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-        
-        .content-block ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .content-block li {
-            padding: 12px 0;
-            padding-left: 30px;
-            position: relative;
-        }
-        
-        .content-block li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #ff6b35;
-            font-weight: 900;
-            font-size: 1.2rem;
-        }
-        
-        /* 響應式設計 */
-        @media (max-width: 1024px) {
-            .product-layout {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .product-gallery {
-                position: static;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .breadcrumb-section {
-                margin-top: 130px;
-            }
-            
-            .product-title {
-                font-size: 2rem;
-            }
-            
-            .product-price {
-                font-size: 2.5rem;
-            }
-            
-            .purchase-buttons {
-                flex-direction: column;
-            }
-            
-            .product-highlights {
-                grid-template-columns: 1fr;
-            }
-            
-            .thumbnail-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-    </style>
+    <!-- 商品詳情頁獨立樣式 -->
+    <link rel="stylesheet" href="./css/pages/product-detail-独立.css?v=20251103">
 </head>
 <body>
     <div id="header-container"></div>
@@ -558,187 +25,154 @@
                 <span class="separator">/</span>
                 <a href="products.html">全部商品</a>
                 <span class="separator">/</span>
-                <span class="current" id="breadcrumbProductName">商品詳情</span>
+                <span class="current" id="breadcrumbProductName">載入中...</span>
             </nav>
         </section>
 
-        <!-- 商品主要展示區 -->
-        <section class="product-main-section">
-            <div class="product-main-container">
+        <!-- 商品詳情內容 -->
+        <section class="product-section">
+            <div class="product-container">
                 <div class="product-layout">
-                    <!-- 左側：圖片展示 -->
-                    <div class="product-gallery" data-aos="fade-right">
-                        <div class="main-image-container">
-                            <img src="./images/products/ponkan/gallery/椪柑3.png" alt="商品圖片" class="main-image" id="mainProductImage">
+                    <!-- 左側圖片 -->
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="" alt="" id="mainImage">
                         </div>
-                        <div class="thumbnail-grid">
-                            <div class="thumbnail active" onclick="changeMainImage(this, './images/products/ponkan/gallery/椪柑3.png')">
-                                <img src="./images/products/ponkan/gallery/椪柑3.png" alt="縮圖1">
-                            </div>
-                            <div class="thumbnail" onclick="changeMainImage(this, './images/products/ponkan/gallery/椪柑4.png')">
-                                <img src="./images/products/ponkan/gallery/椪柑4.png" alt="縮圖2">
-                            </div>
-                            <div class="thumbnail" onclick="changeMainImage(this, './images/products/ponkan/gallery/椪柑5.png')">
-                                <img src="./images/products/ponkan/gallery/椪柑5.png" alt="縮圖3">
-                            </div>
-                            <div class="thumbnail" onclick="changeMainImage(this, './images/products/store/gallery/柑心果園販賣所-1.png')">
-                                <img src="./images/products/store/gallery/柑心果園販賣所-1.png" alt="縮圖4">
-                            </div>
+                        <div class="thumbnail-list" id="thumbnailList">
+                            <!-- 縮圖由JS生成 -->
                         </div>
                     </div>
 
-                    <!-- 右側：商品資訊 -->
-                    <div class="product-info" data-aos="fade-left">
-                        <span class="product-badge" id="productBadge">🍊 季節限定</span>
-                        <h1 class="product-title" id="productTitle">公老坪椪柑禮盒</h1>
-                        <p class="product-subtitle" id="productSubtitle">來自台中公老坪的優質椪柑，果肉飽滿多汁，甜度穩定，風味正宗。</p>
+                    <!-- 右側商品資訊 -->
+                    <div class="product-info">
+                        <span class="product-badge" id="productBadge">預購</span>
+                        <h1 class="product-name" id="productName">載入中...</h1>
+                        <p class="product-desc" id="productDesc"></p>
                         
-                        <div class="rating-section">
-                            <div class="stars">★★★★★</div>
-                            <span class="rating-count">(128 則評價)</span>
-                        </div>
-
-                        <div class="product-price-section">
-                            <div class="price-label">優惠價格</div>
-                            <div class="product-price" id="productPrice">NT$ 680</div>
-                            <div class="price-unit">/ 5台斤裝</div>
-                            <div class="stock-status">
-                                <i class="fas fa-check-circle stock-icon"></i>
-                                <span class="stock-text">現貨供應中</span>
+                        <div class="product-meta">
+                            <div class="sales-count">
+                                <i class="fas fa-fire"></i>
+                                <span>已售 <strong id="salesCount">0</strong> 件</span>
+                            </div>
+                            <div class="shipping-method">
+                                <i class="fas fa-truck"></i>
+                                <span id="shippingMethod">常溫宅配</span>
                             </div>
                         </div>
 
-                        <div class="product-options">
-                            <div class="option-group">
-                                <label class="option-label">選擇規格</label>
-                                <div class="option-buttons">
-                                    <button class="option-btn active">5台斤 - NT$ 680</button>
-                                    <button class="option-btn">10台斤 - NT$ 1,280</button>
-                                    <button class="option-btn">15台斤 - NT$ 1,850</button>
-                                </div>
-                            </div>
-
-                            <div class="option-group">
-                                <label class="option-label">選擇等級</label>
-                                <div class="option-buttons">
-                                    <button class="option-btn active">特級</button>
-                                    <button class="option-btn">優級</button>
-                                    <button class="option-btn">良級</button>
-                                </div>
+                        <div class="price-section">
+                            <div class="price-label">售價</div>
+                            <div class="price-value">
+                                <span class="price-currency">NT$</span>
+                                <span class="price-amount" id="displayPrice">0</span>
                             </div>
                         </div>
 
+                        <!-- 規格選擇 -->
+                        <div class="spec-section">
+                            <div class="spec-label">選擇規格</div>
+                            <div class="spec-options" id="specOptions">
+                                <!-- 規格按鈕由JS生成 -->
+                            </div>
+                            <div class="spec-info" id="specInfo">
+                                <!-- 規格說明由JS生成 -->
+                            </div>
+                        </div>
+
+                        <!-- 數量選擇 -->
                         <div class="quantity-section">
-                            <label class="option-label">選擇數量</label>
-                            <div class="quantity-selector">
-                                <button class="quantity-btn" onclick="decreaseQuantity()">
+                            <div class="quantity-label">數量</div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQuantity(-1)">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <input type="number" class="quantity-input" id="productQuantity" value="1" min="1" readonly>
-                                <button class="quantity-btn" onclick="increaseQuantity()">
+                                <input type="number" class="qty-input" id="quantity" value="1" min="1" readonly>
+                                <button class="qty-btn" onclick="changeQuantity(1)">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="purchase-buttons">
-                            <button class="btn-add-cart" onclick="addToCart()">
+                        <!-- 購買按鈕 -->
+                        <div class="action-buttons">
+                            <button class="btn btn-cart" onclick="addToCart()">
                                 <i class="fas fa-shopping-cart"></i>
                                 加入購物車
                             </button>
-                            <button class="btn-buy-now" onclick="buyNow()">
+                            <button class="btn btn-buy" onclick="buyNow()">
                                 <i class="fas fa-bolt"></i>
                                 立即購買
                             </button>
                         </div>
 
-                        <div class="product-highlights">
-                            <div class="highlight-item">
-                                <i class="fas fa-truck highlight-icon"></i>
-                                <span class="highlight-text">全台宅配到府</span>
+                        <!-- 商品特點 -->
+                        <div class="features">
+                            <div class="feature-item">
+                                <i class="fas fa-truck"></i>
+                                <span>全台配送</span>
                             </div>
-                            <div class="highlight-item">
-                                <i class="fas fa-leaf highlight-icon"></i>
-                                <span class="highlight-text">產地直送新鮮</span>
+                            <div class="feature-item">
+                                <i class="fas fa-leaf"></i>
+                                <span>產地直送</span>
                             </div>
-                            <div class="highlight-item">
-                                <i class="fas fa-shield-alt highlight-icon"></i>
-                                <span class="highlight-text">品質保證退換</span>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>品質保證</span>
                             </div>
-                            <div class="highlight-item">
-                                <i class="fas fa-certificate highlight-icon"></i>
-                                <span class="highlight-text">嚴格品質把關</span>
+                            <div class="feature-item">
+                                <i class="fas fa-undo"></i>
+                                <span>7天鑑賞</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- 商品詳細說明 -->
-        <section class="product-details-section">
-            <div class="details-container">
-                <h2 class="section-title">商品詳細資訊</h2>
-                
-                <div class="details-tabs">
-                    <button class="tab-btn active" onclick="switchTab(0)">商品介紹</button>
-                    <button class="tab-btn" onclick="switchTab(1)">規格說明</button>
-                    <button class="tab-btn" onclick="switchTab(2)">保存方法</button>
-                    <button class="tab-btn" onclick="switchTab(3)">配送資訊</button>
-                </div>
+                <!-- 商品詳細說明 -->
+                <div class="product-details">
+                    <div class="detail-tabs">
+                        <button class="tab-btn active" onclick="switchTab(0)">商品說明</button>
+                        <button class="tab-btn" onclick="switchTab(1)">配送方式</button>
+                        <button class="tab-btn" onclick="switchTab(2)">退換貨政策</button>
+                    </div>
 
-                <div class="tab-content active">
-                    <div class="content-block">
-                        <h3>🍊 關於公老坪椪柑</h3>
-                        <p>公老坪位於台中豐原，是台灣著名的椪柑產地。這裡的氣候條件得天獨厚，日夜溫差大，造就了椪柑獨特的風味。我們的椪柑採用友善栽培方式，不使用化學肥料，讓果實自然成長，保留最純正的風味。</p>
-                        <ul>
-                            <li>產地：台中公老坪</li>
-                            <li>品種：椪柑（Ponkan）</li>
-                            <li>甜度：13-15度</li>
-                            <li>採收期：每年11月至隔年2月</li>
-                            <li>特色：果肉飽滿、汁多味甜、易剝皮</li>
-                        </ul>
+                    <div class="tab-content active" id="tab0">
+                        <div class="detail-images" id="detailImages">
+                            <!-- 商品詳細圖片由JS生成 -->
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab1">
+                        <div class="shipping-info">
+                            <h3>配送說明</h3>
+                            <ul>
+                                <li><strong>常溫宅配</strong>：適用於椪柑、茂谷柑等常溫水果</li>
+                                <li><strong>冷藏宅配</strong>：適用於需要冷藏保鮮的商品</li>
+                                <li><strong>冷凍宅配</strong>：適用於冷凍菱角仁、芋角等冷凍商品</li>
+                                <li><strong>配送時間</strong>：訂單確認後 3-5 個工作天送達</li>
+                                <li><strong>運費</strong>：NT$ 100（滿 $1000 免運費）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab2">
+                        <div class="return-policy">
+                            <h3>退換貨政策</h3>
+                            <ul>
+                                <li>本商品享有 <strong>7天鑑賞期</strong>（非試用期）</li>
+                                <li>收到商品後如有問題，請立即拍照並聯繫客服</li>
+                                <li>退換貨商品須保持完整包裝，不影響二次銷售</li>
+                                <li>生鮮食品如有瑕疵或變質，提供全額退款或補寄</li>
+                                <li>客服 LINE ID：@ganxinorchard</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="tab-content">
-                    <div class="content-block">
-                        <h3>📦 規格說明</h3>
-                        <ul>
-                            <li>5台斤裝：約15-18顆，適合小家庭</li>
-                            <li>10台斤裝：約30-36顆，適合一般家庭</li>
-                            <li>15台斤裝：約45-54顆，適合大家庭或團購</li>
-                            <li>特級：果粒大、外觀漂亮、甜度最高</li>
-                            <li>優級：果粒中等、品質優良、CP值高</li>
-                            <li>良級：果粒較小、品質良好、經濟實惠</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="tab-content">
-                    <div class="content-block">
-                        <h3>❄️ 保存方法</h3>
-                        <ul>
-                            <li>室溫保存：放置陰涼通風處，可保存5-7天</li>
-                            <li>冷藏保存：放入冰箱冷藏，可延長至2週</li>
-                            <li>避免陽光直射和高溫潮濕環境</li>
-                            <li>建議收到後盡快食用，以享受最佳風味</li>
-                            <li>如有果實開始變軟，請優先食用</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="tab-content">
-                    <div class="content-block">
-                        <h3>🚚 配送資訊</h3>
-                        <ul>
-                            <li>配送方式：宅配到府（常溫配送）</li>
-                            <li>配送時間：訂單確認後3-5個工作天</li>
-                            <li>運費：NT$ 100（滿$1000免運）</li>
-                            <li>配送範圍：台灣本島（離島另計）</li>
-                            <li>可指定配送日期（請於備註欄註明）</li>
-                            <li>包裝保證：專業包裝，確保新鮮送達</li>
-                        </ul>
+                <!-- 推薦商品 -->
+                <div class="recommend-section">
+                    <h2 class="section-title">您可能也喜歡</h2>
+                    <div class="recommend-grid" id="recommendProducts">
+                        <!-- 推薦商品由JS生成 -->
                     </div>
                 </div>
             </div>
@@ -747,65 +181,15 @@
 
     <div id="footer-container"></div>
 
-    <!-- AOS 動畫 -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-    </script>
-    
     <!-- 核心 JS -->
     <script src="./js/template-loader.js"></script>
-    <script src="./js/mobile-menu-simple.js" defer></script>
-    <script src="./js/dropdown-menu.js" defer></script>
-    <script src="./js/cart.js?v=20251103181"></script>
-    <script src="./js/main.js" defer></script>
+    <script src="./js/mobile-menu-simple.js"></script>
+    <script src="./js/dropdown-menu.js"></script>
     
-    <script>
-        // 切換主圖
-        function changeMainImage(thumbnail, imageSrc) {
-            document.getElementById('mainProductImage').src = imageSrc;
-            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-            thumbnail.classList.add('active');
-        }
-        
-        // 數量控制
-        function increaseQuantity() {
-            const input = document.getElementById('productQuantity');
-            input.value = parseInt(input.value) + 1;
-        }
-        
-        function decreaseQuantity() {
-            const input = document.getElementById('productQuantity');
-            if (parseInt(input.value) > 1) {
-                input.value = parseInt(input.value) - 1;
-            }
-        }
-        
-        // 切換Tab
-        function switchTab(index) {
-            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
-            document.querySelectorAll('.tab-content').forEach((content, i) => {
-                content.classList.toggle('active', i === index);
-            });
-        }
-        
-        // 加入購物車
-        function addToCart() {
-            alert('商品已加入購物車！');
-            // 這裡可以整合實際的購物車功能
-        }
-        
-        // 立即購買
-        function buyNow() {
-            alert('即將前往結帳頁面！');
-            // window.location.href = 'checkout.html';
-        }
-    </script>
+    <!-- 商品數據 -->
+    <script src="./js/products.js?v=20251103"></script>
+    
+    <!-- 商品詳情頁獨立JS -->
+    <script src="./js/pages/product-detail-独立.js?v=20251103"></script>
 </body>
 </html>

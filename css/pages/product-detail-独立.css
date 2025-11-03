@@ -1,0 +1,611 @@
+/* ========================================
+   商品詳情頁 - 獨立樣式
+   不影響其他頁面
+   ======================================== */
+
+/* 麵包屑 */
+.breadcrumb-section {
+    background: white;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-top: 80px;
+}
+
+.breadcrumb {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.breadcrumb a:hover {
+    color: #ff6b35;
+}
+
+.breadcrumb .separator {
+    color: #999;
+}
+
+.breadcrumb .current {
+    color: #333;
+    font-weight: 600;
+}
+
+/* 商品區域 */
+.product-section {
+    background: #f5f5f5;
+    padding: 40px 0;
+}
+
+.product-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+}
+
+/* 左側圖片區 */
+.product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 12px;
+}
+
+.thumbnail {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #f8f8f8;
+}
+
+.thumbnail:hover {
+    border-color: #ff6b35;
+}
+
+.thumbnail.active {
+    border-color: #ff6b35;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 右側商品資訊 */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.product-badge {
+    display: inline-block;
+    width: fit-content;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.product-name {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #333;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.product-desc {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.product-meta {
+    display: flex;
+    gap: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sales-count,
+.shipping-method {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.sales-count i,
+.shipping-method i {
+    color: #ff6b35;
+    font-size: 1.1rem;
+}
+
+.sales-count strong {
+    color: #ff6b35;
+}
+
+/* 價格區 */
+.price-section {
+    background: #fff5f0;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.price-label {
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: 8px;
+}
+
+.price-value {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.price-currency {
+    font-size: 1.5rem;
+    color: #ff6b35;
+    font-weight: 700;
+}
+
+.price-amount {
+    font-size: 3rem;
+    color: #ff6b35;
+    font-weight: 900;
+    line-height: 1;
+}
+
+/* 規格選擇 */
+.spec-section {
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.spec-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.spec-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.spec-btn {
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+}
+
+.spec-btn:hover {
+    border-color: #ff6b35;
+    background: #fff5f0;
+}
+
+.spec-btn.active {
+    border-color: #ff6b35;
+    background: #ff6b35;
+    color: white;
+}
+
+.spec-btn-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.spec-btn-info {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.spec-btn.active .spec-btn-info {
+    opacity: 1;
+}
+
+.spec-info {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 數量選擇 */
+.quantity-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.quantity-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f8f8f8;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #ff6b35;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.qty-btn:hover {
+    background: #e55a2b;
+    transform: scale(1.1);
+}
+
+.qty-input {
+    width: 60px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    background: transparent;
+    color: #333;
+}
+
+/* 購買按鈕 */
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.btn {
+    padding: 18px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+}
+
+.btn-cart {
+    background: white;
+    border: 2px solid #ff6b35;
+    color: #ff6b35;
+}
+
+.btn-cart:hover {
+    background: #fff5f0;
+}
+
+.btn-buy {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+}
+
+.btn-buy:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+}
+
+/* 商品特點 */
+.features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.feature-item i {
+    font-size: 1.5rem;
+    color: #ff6b35;
+}
+
+.feature-item span {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+}
+
+/* 商品詳細說明 */
+.product-details {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+}
+
+.detail-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    padding: 15px 30px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tab-btn:hover {
+    color: #ff6b35;
+}
+
+.tab-btn.active {
+    color: #ff6b35;
+    border-bottom-color: #ff6b35;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.detail-images {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.detail-images img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.shipping-info,
+.return-policy {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #666;
+}
+
+.shipping-info h3,
+.return-policy h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.shipping-info ul,
+.return-policy ul {
+    list-style: none;
+    padding: 0;
+}
+
+.shipping-info li,
+.return-policy li {
+    padding: 12px 0;
+    padding-left: 30px;
+    position: relative;
+}
+
+.shipping-info li::before,
+.return-policy li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #ff6b35;
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+/* 推薦商品 */
+.recommend-section {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.recommend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.recommend-card {
+    background: #f8f8f8;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.recommend-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.recommend-card-image {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.recommend-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.recommend-card:hover .recommend-card-image img {
+    transform: scale(1.1);
+}
+
+.recommend-card-info {
+    padding: 20px;
+}
+
+.recommend-card-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.recommend-card-price {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #ff6b35;
+}
+
+/* 響應式設計 */
+@media (max-width: 1024px) {
+    .product-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumb-section {
+        margin-top: 130px;
+    }
+    
+    .product-layout {
+        padding: 20px;
+    }
+    
+    .product-name {
+        font-size: 1.8rem;
+    }
+    
+    .price-amount {
+        font-size: 2.5rem;
+    }
+    
+    .spec-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+    }
+    
+    .recommend-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .product-details {
+        padding: 20px;
+    }
+    
+    .detail-tabs {
+        overflow-x: auto;
+    }
+    
+    .tab-btn {
+        white-space: nowrap;
+    }
+}
