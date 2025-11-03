@@ -74,36 +74,53 @@
     <!-- 主要内容 -->
     <main id="main-content" style="padding: 40px 0;">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-            
-            <!-- 商品页面标题 -->
-            <div class="products-header" style="text-align: center; margin-bottom: 40px;">
-                <h1 style="font-size: 36px; color: #2c3e50; margin-bottom: 10px;">全部商品</h1>
-                <p style="color: #666; font-size: 16px;">精選優質農產品，產地直送，新鮮安心</p>
-            </div>
 
             <!-- 筛选和排序 -->
-            <div class="products-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
-                <div class="filter-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="filter-btn active" data-category="all" style="padding: 10px 20px; border: 2px solid #ff6b35; background: #ff6b35; color: white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                        全部商品
-                    </button>
-                    <button class="filter-btn" data-category="常溫" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                        常溫
-                    </button>
-                    <button class="filter-btn" data-category="冷藏" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                        冷藏
-                    </button>
-                    <button class="filter-btn" data-category="冷凍" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                        冷凍
-                    </button>
+            <div class="products-controls" style="margin-bottom: 30px;">
+                <!-- 品種分類 -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 16px; color: #666; margin-bottom: 12px; font-weight: 600;">品種分類</h3>
+                    <div class="filter-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="filter-btn category-filter active" data-category="all" style="padding: 10px 20px; border: 2px solid #ff6b35; background: #ff6b35; color: white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            全部商品
+                        </button>
+                        <button class="filter-btn category-filter" data-category="保存水果" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            保存水果
+                        </button>
+                        <button class="filter-btn category-filter" data-category="新鮮蔖果" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            新鮮蔖果
+                        </button>
+                        <button class="filter-btn category-filter" data-category="冷凍食品" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            冷凍食品
+                        </button>
+                    </div>
                 </div>
                 
-                <select id="sortSelect" style="padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; cursor: pointer;">
-                    <option value="default">排序方式</option>
-                    <option value="price-low">價格：低到高</option>
-                    <option value="price-high">價格：高到低</option>
-                    <option value="name">名稱：A-Z</option>
-                </select>
+                <!-- 商品狀態 -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 16px; color: #666; margin-bottom: 12px; font-weight: 600;">商品狀態</h3>
+                    <div class="status-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="filter-btn status-filter active" data-status="all" style="padding: 10px 20px; border: 2px solid #27ae60; background: #27ae60; color: white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            全部狀態
+                        </button>
+                        <button class="filter-btn status-filter" data-status="現貨供應" style="padding: 10px 20px; border: 2px solid #27ae60; background: white; color: #27ae60; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            現貨供應
+                        </button>
+                        <button class="filter-btn status-filter" data-status="預購商品" style="padding: 10px 20px; border: 2px solid #27ae60; background: white; color: #27ae60; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            預購商品
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 排序 -->
+                <div style="display: flex; justify-content: flex-end;">
+                    <select id="sortSelect" style="padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; cursor: pointer;">
+                        <option value="default">排序方式</option>
+                        <option value="price-low">價格：低到高</option>
+                        <option value="price-high">價格：高到低</option>
+                        <option value="name">名稱：A-Z</option>
+                    </select>
+                </div>
             </div>
 
             <!-- 商品网格 -->

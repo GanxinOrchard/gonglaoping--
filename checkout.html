@@ -54,7 +54,7 @@
     <div id="mobile-menu-container"></div>
 
     <!-- 封面圖片 -->
-    <section class="page-hero" style="position: relative; height: 300px; overflow: hidden; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin-top: 0;">
+    <section class="page-hero" style="position: relative; height: 300px; overflow: hidden; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); margin-top: 0;">
         <img src="images/pages/cart-checkout/covers/購物車封面.png" alt="結帳" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5)); display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; text-align: center;">
             <i class="fas fa-credit-card" style="font-size: 48px; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"></i>
@@ -77,17 +77,125 @@
     <!-- 主要内容 -->
     <main id="main-content" style="padding: 40px 0; min-height: 600px;">
         <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-            
-            <!-- 页面标题 -->
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h1 style="font-size: 36px; color: #2c3e50; margin-bottom: 10px;">結帳</h1>
-                <p style="color: #666; font-size: 16px;">請填寫收件資訊</p>
-            </div>
 
-            <!-- 结帐表单（由checkout-new.js渲染） -->
-            <div id="checkoutContainer">
-                <!-- 由checkout-new.js动态填充 -->
-            </div>
+            <!-- 结帐表单 -->
+            <form id="checkoutForm" style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                
+                <!-- 购买人资讯 -->
+                <section style="margin-bottom: 30px;">
+                    <h2 style="font-size: 20px; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ff6b35;">購買人資訊</h2>
+                    <div style="display: grid; gap: 15px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">姓名 *</label>
+                            <input type="text" name="buyer_name" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">電話 *</label>
+                            <input type="tel" name="buyer_phone" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">Email</label>
+                            <input type="email" name="buyer_email" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">地址 *</label>
+                            <textarea name="buyer_addr" required rows="2" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 收件人资讯 -->
+                <section style="margin-bottom: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ff6b35;">
+                        <h2 style="font-size: 20px; color: #2c3e50; margin: 0;">收件人資訊</h2>
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" id="sameAsBuyer" style="width: 18px; height: 18px;">
+                            <span style="color: #666;">同購買人</span>
+                        </label>
+                    </div>
+                    <div style="display: grid; gap: 15px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">姓名 *</label>
+                            <input type="text" name="recv_name" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">電話 *</label>
+                            <input type="tel" name="recv_phone" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">Email</label>
+                            <input type="email" name="recv_email" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; color: #666; font-weight: 600;">地址 *</label>
+                            <textarea name="recv_addr" required rows="2" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 配送方式 -->
+                <section style="margin-bottom: 30px;">
+                    <h2 style="font-size: 20px; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ff6b35;">配送方式</h2>
+                    <div style="display: grid; gap: 12px;">
+                        <label style="display: flex; align-items: center; gap: 12px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+                            <input type="radio" name="shipping" value="home" checked style="width: 20px; height: 20px;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: #2c3e50;">宅配到府</div>
+                                <div style="font-size: 14px; color: #666;">運費 NT$ 180（滿 NT$ 1800 免運）</div>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+                            <input type="radio" name="shipping" value="pickup" style="width: 20px; height: 20px;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: #2c3e50;">現場自取</div>
+                                <div style="font-size: 14px; color: #666;">免運費</div>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- 付款方式 -->
+                <section style="margin-bottom: 30px;">
+                    <h2 style="font-size: 20px; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ff6b35;">付款方式</h2>
+                    <div style="display: grid; gap: 12px;">
+                        <label style="display: flex; align-items: center; gap: 12px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+                            <input type="radio" name="payment" value="linepay" checked style="width: 20px; height: 20px;">
+                            <div style="font-weight: 600; color: #2c3e50;">LINE Pay</div>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+                            <input type="radio" name="payment" value="transfer" style="width: 20px; height: 20px;">
+                            <div style="font-weight: 600; color: #2c3e50;">銀行轉帳</div>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+                            <input type="radio" name="payment" value="cod" style="width: 20px; height: 20px;">
+                            <div style="font-weight: 600; color: #2c3e50;">貨到付款</div>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- 订单备注 -->
+                <section style="margin-bottom: 30px;">
+                    <h2 style="font-size: 20px; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ff6b35;">訂單備註</h2>
+                    <textarea data-note rows="4" placeholder="有任何特殊需求請在此註明..." style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
+                </section>
+
+                <!-- 订单摘要 -->
+                <section style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h2 style="font-size: 20px; color: #2c3e50; margin-bottom: 15px;">訂單摘要</h2>
+                    <div id="orderSummary" style="margin-bottom: 15px;">
+                        <!-- 由JS填充 -->
+                    </div>
+                    <div style="border-top: 2px solid #dee2e6; padding-top: 15px; display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; color: #2c3e50;">
+                        <span>總計</span>
+                        <span id="finalTotal" style="color: #ff6b35;">NT$ 0</span>
+                    </div>
+                </section>
+
+                <!-- 提交按钮 -->
+                <button type="submit" style="width: 100%; padding: 18px; background: #ff6b35; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='#e65a2b'" onmouseout="this.style.background='#ff6b35'">
+                    確認訂單
+                </button>
+            </form>
 
         </div>
     </main>
