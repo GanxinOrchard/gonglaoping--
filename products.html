@@ -2654,10 +2654,23 @@
         </div>
     </footer>
 
-    <!-- 載入必要的 JavaScript（與首頁一致） -->
-    <script src="./js/mobile-menu-simple.js?v=20250115" defer></script>
-    <script src="./js/dropdown-menu.js?v=20250115" defer></script>
-    <script src="./js/main.js?v=20250115" defer></script>
+    <!-- JavaScript -->
+    <script src="./js/products.js"></script>
+    <script src="./js/cart.js?v=20250115"></script>
+    <script>
+        // 更新购物车数量显示
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新header购物车数量
+            if (typeof updateCartCount === 'function') {
+                updateCartCount();
+            }
+            
+            // 渲染商品
+            if (typeof renderProducts === 'function') {
+                renderProducts();
+            }
+        });
+    </script>
 </body>
 </html>
 
