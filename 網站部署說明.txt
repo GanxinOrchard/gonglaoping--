@@ -1,0 +1,261 @@
+# 柑心果園網站部署說明
+
+## 🚀 快速部署（推薦）
+
+### 方法 1：使用批次檔（最簡單）⭐
+
+1. 雙擊執行：
+   📂 部署到Netlify.bat
+
+2. 首次使用會：
+   ✓ 自動檢查 Node.js
+   ✓ 自動安裝 Netlify CLI
+   ✓ 開啟瀏覽器登入 Netlify
+
+3. 在瀏覽器中：
+   - 使用 Email 或 GitHub 登入
+   - 授權 Netlify CLI
+   - 返回命令視窗
+
+4. 等待上傳完成
+   - 會顯示上傳進度
+   - 完成後顯示網址
+
+5. 網站上線！🎉
+
+---
+
+## 📋 部署步驟詳解
+
+### 首次部署
+
+#### Step 1：安裝 Netlify CLI（自動）
+批次檔會自動執行：
+```
+npm install -g netlify-cli
+```
+
+#### Step 2：登入 Netlify
+- 瀏覽器自動開啟
+- 選擇登入方式（Email/GitHub/GitLab）
+- 點擊「Authorize」授權
+
+#### Step 3：部署網站
+- 自動上傳所有檔案
+- 建立網站
+- 取得網址
+
+---
+
+### 後續更新（超簡單）
+
+1. 雙擊執行：部署到Netlify.bat
+2. 等待上傳
+3. 完成！
+
+不需要再次登入，直接部署。
+
+---
+
+## 🌐 部署後的網址
+
+### 自動網址格式
+```
+https://ganxin-orchard.netlify.app
+```
+
+或系統自動生成：
+```
+https://amazing-name-123456.netlify.app
+```
+
+### 自訂網址（進階）
+登入 Netlify 後台可：
+- 修改子網域名稱
+- 綁定自己的網域
+- 設定 HTTPS（自動）
+
+---
+
+## 📁 部署內容
+
+### 會上傳的檔案
+✓ index.html 及所有 HTML 檔案
+✓ css/ 資料夾
+✓ js/ 資料夾  
+✓ images/ 資料夾
+✓ templates/ 資料夾
+✓ products/ 資料夾
+
+### 不會上傳（已排除）
+✗ node_modules/
+✗ .git/
+✗ 備份檔案
+✗ .md 文件（除 README.md）
+✗ 開發腳本
+
+---
+
+## ⚙️ 配置檔案說明
+
+### netlify.toml
+```toml
+[build]
+  publish = "."              # 發布整個目錄
+  
+[[redirects]]
+  from = "/*"
+  to = "/index.html"        # SPA 路由支援
+```
+
+### .gitignore
+排除不需要部署的檔案
+
+---
+
+## 🔧 進階操作
+
+### 手動部署（命令列）
+
+#### 預覽部署（測試）
+```bash
+netlify deploy --dir=.
+```
+會得到一個預覽網址
+
+#### 正式部署
+```bash
+netlify deploy --prod --dir=.
+```
+直接發布到正式環境
+
+---
+
+### 查看網站資訊
+```bash
+netlify status          # 查看狀態
+netlify open:site       # 在瀏覽器開啟
+netlify open:admin      # 開啟後台
+```
+
+---
+
+### 查看部署歷史
+```bash
+netlify list            # 列出所有網站
+netlify history         # 查看部署記錄
+```
+
+---
+
+## 🛠️ 常見問題
+
+### Q: 網站名稱已被使用？
+**A:** 批次檔會自動嘗試生成新名稱
+或手動指定：
+```bash
+netlify deploy --prod --dir=. --site-name=你的名稱
+```
+
+### Q: 圖片載入失敗？
+**A:** 檢查圖片路徑：
+- 使用相對路徑（./images/...）
+- 檢查大小寫（Linux 區分大小寫）
+
+### Q: CSS 沒有生效？
+**A:** 
+1. 清除瀏覽器快取（Ctrl+F5）
+2. 檢查 HTML 中的 CSS 路徑
+3. 確認檔案有上傳
+
+### Q: 如何回復舊版本？
+**A:** 
+1. 登入 Netlify 後台
+2. 進入 Deploys 頁面
+3. 點擊要回復的版本
+4. 點擊 "Publish deploy"
+
+### Q: 部署失敗？
+**A:** 檢查：
+1. 網路連線
+2. Netlify CLI 版本：`netlify --version`
+3. 重新登入：`netlify logout` → `netlify login`
+
+---
+
+## 📊 部署後檢查清單
+
+部署完成後，請測試：
+
+### 桌面版
+□ 首頁正常顯示
+□ 所有圖片載入
+□ 選單可點擊
+□ CSS 樣式正確
+□ JavaScript 功能正常
+□ 連結都有效
+
+### 手機版
+□ RWD 正常運作
+□ 圖片自適應
+□ 選單可操作
+□ 文字大小適當
+□ 觸控操作順暢
+
+---
+
+## 🎯 效能優化建議
+
+### 部署前建議
+1. ✓ 壓縮圖片（執行：壓縮圖片.bat）
+2. ✓ 檢查檔案大小
+3. ✓ 移除未使用的檔案
+
+### Netlify 自動優化
+- ✓ 全球 CDN 加速
+- ✓ 自動 HTTPS
+- ✓ 圖片壓縮（已啟用）
+- ✓ Gzip 壓縮
+
+---
+
+## 📞 需要協助？
+
+### Netlify 文件
+https://docs.netlify.com/
+
+### Netlify CLI 文件  
+https://cli.netlify.com/
+
+### 常見錯誤
+https://answers.netlify.com/
+
+---
+
+## 🔄 更新網站流程
+
+```
+1. 修改檔案
+   ↓
+2. 本地測試
+   ↓
+3. 雙擊「部署到Netlify.bat」
+   ↓
+4. 等待上傳
+   ↓
+5. 完成！新版本自動上線
+```
+
+**更新時間：通常 1-2 分鐘**
+
+---
+
+## 🎉 恭喜！
+
+您的網站現在已經：
+✓ 部署到全球 CDN
+✓ 擁有 HTTPS 加密
+✓ 可以從任何地方訪問
+✓ 自動備份每個版本
+
+**立即開始部署您的網站吧！** 🚀
