@@ -6,185 +6,25 @@
     <title>商品詳情 - 柑心果園</title>
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Header固定黑色背景 */
-        .main-header {
-            background: rgba(0, 0, 0, 0.95) !important;
-            backdrop-filter: blur(10px) !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
-        }
-        
-        /* 麵包屑 */
-        .breadcrumb {
-            background: white;
-            padding: 15px 0;
-            margin-top: 80px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .breadcrumb-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-        .breadcrumb a {
-            color: #666;
-            text-decoration: none;
-        }
-        .breadcrumb a:hover {
-            color: #ff6b35;
-        }
-        .breadcrumb-current {
-            color: #ff6b35;
-            font-weight: 600;
-        }
-        
-        /* 主要內容 */
-        main {
-            background: #f5f5f5;
-            min-height: 100vh;
-            padding: 40px 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .product-detail {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        .product-image img {
-            width: 100%;
-            border-radius: 12px;
-        }
-        .product-info h1 {
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-        }
-        .product-desc {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .price-box {
-            background: #fff5f0;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-        }
-        .price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #ff6b35;
-        }
-        .spec-section {
-            margin-bottom: 25px;
-        }
-        .spec-label {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-        }
-        .spec-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .spec-btn {
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.3s;
-        }
-        .spec-btn:hover, .spec-btn.active {
-            border-color: #ff6b35;
-            background: #fff5f0;
-        }
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-        .qty-btn {
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: #ff6b35;
-            color: white;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-        .qty-input {
-            width: 60px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 8px;
-        }
-        .add-cart-btn {
-            width: 100%;
-            padding: 18px;
-            background: #ff6b35;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .add-cart-btn:hover {
-            background: #e55a2b;
-            transform: translateY(-2px);
-        }
-        
-        @media (max-width: 768px) {
-            .breadcrumb { margin-top: 130px; }
-            .product-detail {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                padding: 20px;
-            }
-            .product-info h1 { font-size: 1.6rem; }
-            .price { font-size: 2rem; }
-            .spec-options { grid-template-columns: 1fr; }
-        }
-    </style>
 </head>
 <body>
     <div id="header-container"></div>
     <div id="mobile-menu-container"></div>
 
     <!-- 麵包屑 -->
-    <nav class="breadcrumb">
-        <div class="breadcrumb-inner">
-            <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+    <nav style="background: white; padding: 15px 0; margin-top: 80px; border-bottom: 1px solid #e0e0e0;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+            <a href="index.html" style="color: #666; text-decoration: none;"><i class="fas fa-home"></i> 首頁</a>
             <span>/</span>
-            <a href="products.html">全部商品</a>
+            <a href="products.html" style="color: #666; text-decoration: none;">全部商品</a>
             <span>/</span>
-            <span class="breadcrumb-current" id="breadcrumbName">商品詳情</span>
+            <span id="breadcrumbName" style="color: #ff6b35; font-weight: 600;">商品詳情</span>
         </div>
     </nav>
 
-    <main>
-        <div class="container">
-            <div class="product-detail" id="productDetail"></div>
+    <main style="background: #f5f5f5; min-height: 100vh; padding: 40px 0;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div id="productDetail"></div>
         </div>
     </main>
 
@@ -198,6 +38,27 @@
         let selectedSpec = null;
         let quantity = 1;
         
+        // 強制設定Header為黑色
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const header = document.querySelector('.main-header');
+                if (header) {
+                    header.style.setProperty('background', 'rgba(0, 0, 0, 0.95)', 'important');
+                    header.style.setProperty('backdrop-filter', 'blur(10px)', 'important');
+                    header.style.setProperty('box-shadow', '0 4px 20px rgba(0, 0, 0, 0.15)', 'important');
+                }
+            }, 100);
+            
+            // 修復LOGO連結
+            setTimeout(function() {
+                const logoLinks = document.querySelectorAll('.logo, .mobile-logo');
+                logoLinks.forEach(link => {
+                    link.href = 'index.html';
+                    link.onclick = null;
+                });
+            }, 200);
+        });
+        
         document.addEventListener('DOMContentLoaded', function() {
             const id = new URLSearchParams(window.location.search).get('id');
             const product = products.find(p => p.id == id);
@@ -206,38 +67,38 @@
             document.getElementById('breadcrumbName').textContent = product.name;
             
             document.getElementById('productDetail').innerHTML = `
-                <div class="product-image">
-                    <img src="${product.images?.[0] || product.image}" alt="${product.name}">
-                </div>
-                <div class="product-info">
-                    <h1>${product.name}</h1>
-                    <p class="product-desc">${product.description}</p>
-                    <div class="price-box">
-                        <div class="price" id="price">NT$ ${product.price.toLocaleString()}</div>
+                <div style="background: white; border-radius: 12px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+                    <div>
+                        <img src="${product.images?.[0] || product.image}" style="width: 100%; border-radius: 12px;">
                     </div>
-                    ${product.hasSpecs ? `
-                        <div class="spec-section">
-                            <div class="spec-label">選擇規格</div>
-                            <div class="spec-options" id="specs"></div>
+                    <div>
+                        <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 15px;">${product.name}</h1>
+                        <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">${product.description}</p>
+                        <div style="background: #fff5f0; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                            <div style="font-size: 2.5rem; font-weight: 900; color: #ff6b35;" id="price">NT$ ${product.price.toLocaleString()}</div>
                         </div>
-                    ` : ''}
-                    <div class="spec-section">
-                        <div class="spec-label">數量</div>
-                        <div class="qty-controls">
-                            <button class="qty-btn" onclick="changeQty(-1)">−</button>
-                            <input class="qty-input" id="qty" type="number" value="1" readonly>
-                            <button class="qty-btn" onclick="changeQty(1)">+</button>
+                        ${product.hasSpecs ? `
+                            <div style="margin-bottom: 25px;">
+                                <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 12px;">選擇規格</div>
+                                <div id="specs" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;"></div>
+                            </div>
+                        ` : ''}
+                        <div style="margin-bottom: 25px;">
+                            <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 12px;">數量</div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <button onclick="changeQty(-1)" style="width: 40px; height: 40px; border: none; background: #ff6b35; color: white; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">−</button>
+                                <input id="qty" type="number" value="1" readonly style="width: 60px; text-align: center; font-size: 1.2rem; font-weight: 700; border: 2px solid #e0e0e0; border-radius: 8px; padding: 8px;">
+                                <button onclick="changeQty(1)" style="width: 40px; height: 40px; border: none; background: #ff6b35; color: white; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">+</button>
+                            </div>
                         </div>
+                        <button onclick="addCart()" style="width: 100%; padding: 18px; background: #ff6b35; color: white; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 700; cursor: pointer;"><i class="fas fa-shopping-cart"></i> 加入購物車</button>
                     </div>
-                    <button class="add-cart-btn" onclick="addCart()">
-                        <i class="fas fa-shopping-cart"></i> 加入購物車
-                    </button>
                 </div>
             `;
             
             if (product.hasSpecs && product.specs) {
                 document.getElementById('specs').innerHTML = product.specs.map((s, i) => `
-                    <button class="spec-btn" onclick="selectSpec(${i})">
+                    <button onclick="selectSpec(${i})" class="spec-btn-${i}" style="padding: 12px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; cursor: pointer; text-align: left; transition: all 0.3s;">
                         <div style="font-weight: 700;">${s.name}</div>
                         <div style="font-size: 0.85rem; color: #666;">${s.diameter || s.weight}</div>
                         <div style="color: #ff6b35;">NT$ ${s.price.toLocaleString()}</div>
@@ -252,8 +113,12 @@
             const product = products.find(p => p.id == id);
             selectedSpec = product.specs[i];
             document.getElementById('price').textContent = 'NT$ ' + selectedSpec.price.toLocaleString();
-            document.querySelectorAll('.spec-btn').forEach((btn, idx) => {
-                btn.classList.toggle('active', idx === i);
+            product.specs.forEach((s, idx) => {
+                const btn = document.querySelector(`.spec-btn-${idx}`);
+                if (btn) {
+                    btn.style.borderColor = idx === i ? '#ff6b35' : '#e0e0e0';
+                    btn.style.background = idx === i ? '#fff5f0' : 'white';
+                }
             });
         }
         
@@ -278,5 +143,12 @@
             alert('✓ 已加入購物車');
         }
     </script>
+    <style>
+        @media (max-width: 768px) {
+            nav { margin-top: 130px !important; }
+            #productDetail > div { grid-template-columns: 1fr !important; gap: 30px !important; padding: 20px !important; }
+            #specs { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </body>
 </html>
