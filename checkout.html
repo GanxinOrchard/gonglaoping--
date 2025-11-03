@@ -2,62 +2,20 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>結帳 - 柑心果園</title>
-    <link rel="stylesheet" href="./css/main.css?v=20251103181">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 結帳頁專用樣式 -->
-    <link rel="stylesheet" href="./css/checkout-page.css?v=20251103181">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/checkout-page.css">
+    
     <style>
-        /* 簡化頁首樣式 */
-        .simple-header {
-            background: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-        
-        .simple-header .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .simple-header .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: #2c3e50;
-            transition: transform 0.3s ease;
-        }
-        
-        .simple-header .logo-link:hover {
-            transform: scale(1.05);
-        }
-        
-        .simple-header .header-logo {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-        }
-        
-        .simple-header .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ff6b35;
-        }
-        
-        /* 面包屑樣式 */
+        /* 面包屑样式 */
         .breadcrumb-nav {
             background: #f8f9fa;
             padding: 15px 0;
-            margin-top: 90px;
+            margin-top: 120px;
             border-bottom: 1px solid #e0e0e0;
         }
         
@@ -67,14 +25,13 @@
             padding: 0 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-size: 14px;
         }
         
         .breadcrumb-nav a {
             color: #666;
             text-decoration: none;
-            transition: color 0.3s ease;
         }
         
         .breadcrumb-nav a:hover {
@@ -89,73 +46,14 @@
             color: #ff6b35;
             font-weight: 600;
         }
-        
-        /* 隱藏原有的選單和頁腳（僅隱藏body > 的直接子元素） */
-        body > .main-header,
-        body > header.main-header,
-        body > .footer,
-        body > footer.footer,
-        body > footer.footer-modern,
-        #header-container,
-        #mobile-menu-container,
-        #footer-container {
-            display: none !important;
-        }
-        
-        /* 確保主要內容不被遮擋 */
-        #main-content {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-        }
-        
-        .checkout-page {
-            margin-top: 20px !important;
-        }
-        
-        /* 確保checkout內容區域正常顯示 */
-        .checkout-container,
-        .checkout-form-section,
-        .order-summary-section {
-            display: block !important;
-        }
-        
-        @media (max-width: 768px) {
-            .simple-header {
-                padding: 15px 0;
-            }
-            
-            .simple-header .header-logo {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .simple-header .logo-text {
-                font-size: 20px;
-            }
-            
-            .breadcrumb-nav {
-                margin-top: 80px;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- 簡化頁首 - LOGO + 購物車 -->
-    <header class="simple-header" style="background: white; padding: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
-        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="./index.html" class="logo-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #2c3e50;">
-                <img src="images/shared/logo/柑心商標.png" alt="柑心果園" class="header-logo" style="width: 50px; height: 50px; object-fit: contain;">
-                <span class="logo-text" style="font-size: 24px; font-weight: 700; color: #ff6b35;">柑心果園</span>
-            </a>
-            <a href="cart.html" class="cart-link" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #2c3e50; padding: 10px 20px; border: 2px solid #ff6b35; border-radius: 25px;">
-                <i class="fas fa-shopping-cart" style="font-size: 20px; color: #ff6b35;"></i>
-                <span style="font-weight: 600;">購物車</span>
-                <span class="cart-count" id="headerCartCount" style="position: absolute; top: -8px; right: -8px; background: #ff6b35; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; display: none;">0</span>
-            </a>
-        </div>
-    </header>
+    <!-- 统一模板Header -->
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
 
-    <!-- 面包屑導航 -->
+    <!-- 面包屑导航 -->
     <nav class="breadcrumb-nav">
         <div class="container">
             <a href="./index.html"><i class="fas fa-home"></i> 首頁</a>
@@ -166,222 +64,34 @@
         </div>
     </nav>
 
-    <div id="header-container"></div>
-    <div id="mobile-menu-container"></div>
-
-    <main id="main-content">
-        <div class="checkout-page">
-            <!-- 步驟指示器 -->
-            <div class="steps-indicator">
-                <div class="step completed">
-                    <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
-                    <div class="step-text">購物車</div>
-                </div>
-                <div class="step-line"></div>
-                <div class="step active">
-                    <div class="step-icon"><i class="fas fa-file-invoice"></i></div>
-                    <div class="step-text">填寫資料</div>
-                </div>
-                <div class="step-line"></div>
-                <div class="step">
-                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="step-text">完成訂單</div>
-                </div>
+    <!-- 主要内容 -->
+    <main id="main-content" style="padding: 40px 0; min-height: 600px;">
+        <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <!-- 页面标题 -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 36px; color: #2c3e50; margin-bottom: 10px;">結帳</h1>
+                <p style="color: #666; font-size: 16px;">請填寫收件資訊</p>
             </div>
 
-            <div class="checkout-container">
-                <!-- 左側：表單區 -->
-                <div class="checkout-form-section">
-                    <form id="checkoutForm">
-                        <!-- 買家資訊 -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-user"></i> 買家資訊</h2>
-                            </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="buyer_name">姓名 <span class="required">*</span></label>
-                                    <input type="text" id="buyer_name" name="buyer_name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="buyer_phone">電話 <span class="required">*</span></label>
-                                    <input type="tel" id="buyer_phone" name="buyer_phone" required>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="buyer_email">Email</label>
-                                    <input type="email" id="buyer_email" name="buyer_email">
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="buyer_addr">地址</label>
-                                    <input type="text" id="buyer_addr" name="buyer_addr">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 收件人資訊 -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-truck"></i> 收件人資訊</h2>
-                                <label class="same-as-buyer">
-                                    <input type="checkbox" id="sameAsBuyer">
-                                    <span>同買家資訊</span>
-                                </label>
-                            </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="recv_name">姓名 <span class="required">*</span></label>
-                                    <input type="text" id="recv_name" name="recv_name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="recv_phone">電話 <span class="required">*</span></label>
-                                    <input type="tel" id="recv_phone" name="recv_phone" required>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="recv_email">Email</label>
-                                    <input type="email" id="recv_email" name="recv_email">
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="recv_addr">收件地址 <span class="required">*</span></label>
-                                    <input type="text" id="recv_addr" name="recv_addr" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 配送方式 -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-box"></i> 配送方式</h2>
-                            </div>
-                            <div class="shipping-options">
-                                <label class="shipping-option">
-                                    <input type="radio" name="ship_mode" value="宅配" checked>
-                                    <div class="option-content">
-                                        <div class="option-title">
-                                            <i class="fas fa-shipping-fast"></i> 宅配到府
-                                        </div>
-                                        <div class="option-desc">3-5 個工作天送達</div>
-                                        <div class="option-price">運費: NT$ 100</div>
-                                    </div>
-                                </label>
-                                <label class="shipping-option">
-                                    <input type="radio" name="ship_mode" value="自取">
-                                    <div class="option-content">
-                                        <div class="option-title">
-                                            <i class="fas fa-hand-holding"></i> 到店自取
-                                        </div>
-                                        <div class="option-desc">預約後到店取貨</div>
-                                        <div class="option-price">運費: 免費</div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- 付款方式 -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-credit-card"></i> 付款方式</h2>
-                            </div>
-                            <div class="payment-options">
-                                <label class="payment-option">
-                                    <input type="radio" name="pay_method" value="銀行轉帳" checked>
-                                    <div class="option-content">
-                                        <div class="option-title">
-                                            <i class="fas fa-university"></i> 銀行轉帳
-                                        </div>
-                                        <div class="option-desc">下單後3天內完成轉帳</div>
-                                    </div>
-                                </label>
-                                <label class="payment-option">
-                                    <input type="radio" name="pay_method" value="LinePay">
-                                    <div class="option-content">
-                                        <div class="option-title">
-                                            <i class="fab fa-line"></i> Line Pay
-                                        </div>
-                                        <div class="option-desc">線上即時付款</div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- 備註 -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-comment"></i> 訂單備註</h2>
-                            </div>
-                            <div class="form-group full-width">
-                                <textarea id="order_note" name="order_note" rows="4" placeholder="有什麼需要我們注意的嗎？" data-note></textarea>
-                            </div>
-                        </div>
-
-                        <!-- 清除記憶按鈕 -->
-                        <div class="form-actions">
-                            <button type="button" class="btn-clear-memory" onclick="clearSavedFormData()">
-                                <i class="fas fa-eraser"></i> 清除記憶資料
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- 右側：訂單摘要 -->
-                <div class="order-summary-section">
-                    <div class="summary-card">
-                        <h3>訂單摘要</h3>
-                        
-                        <!-- 商品列表 -->
-                        <div class="summary-items" id="summaryItems">
-                            <!-- 由 JS 動態產生 -->
-                        </div>
-
-                        <!-- 優惠券 -->
-                        <div class="coupon-section">
-                            <input type="text" id="couponInput" placeholder="輸入優惠碼">
-                            <button type="button" class="btn-apply-coupon" onclick="applyCoupon()">
-                                套用
-                            </button>
-                        </div>
-
-                        <!-- 價格明細 -->
-                        <div class="price-breakdown">
-                            <div class="price-row">
-                                <span>商品小計</span>
-                                <span id="subtotal">NT$ 0</span>
-                            </div>
-                            <div class="price-row">
-                                <span>運費</span>
-                                <span id="shippingFee">NT$ 100</span>
-                            </div>
-                            <div class="price-row discount" id="discountRow" style="display: none;">
-                                <span>折扣</span>
-                                <span id="discount">-NT$ 0</span>
-                            </div>
-                            <div class="price-row total">
-                                <span>總計</span>
-                                <span id="totalPrice">NT$ 0</span>
-                            </div>
-                        </div>
-
-                        <!-- 提交按鈕 -->
-                        <button type="submit" class="btn-submit-order" form="checkoutForm">
-                            <i class="fas fa-check"></i> 確認訂單
-                        </button>
-
-                        <div class="security-notice">
-                            <i class="fas fa-lock"></i> 您的資料受到SSL加密保護
-                        </div>
-                    </div>
-                </div>
+            <!-- 结帐表单（由checkout-new.js渲染） -->
+            <div id="checkoutContainer">
+                <!-- 由checkout-new.js动态填充 -->
             </div>
+
         </div>
     </main>
 
+    <!-- Footer -->
     <div id="footer-container"></div>
 
+    <!-- JavaScript -->
     <script src="./js/template-loader.js"></script>
     <script src="./js/mobile-menu-simple.js" defer></script>
     <script src="./js/dropdown-menu.js" defer></script>
-    <script src="./js/cart.js?v=20251103181"></script>
-    <script src="./js/products.js?v=20251103181"></script>
-    <script src="./js/checkout-new.js?v=20251103181"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/products.js"></script>
+    <script src="./js/checkout-new.js"></script>
     <script src="./js/main.js" defer></script>
 </body>
 </html>
