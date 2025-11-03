@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全部商品 - 柑心果園</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* 面包屑样式 */
+        .breadcrumb-nav {
+            background: #f8f9fa;
+            padding: 15px 0;
+            margin-top: 120px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-nav a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: #ff6b35;
+        }
+        
+        .breadcrumb-nav .separator {
+            color: #999;
+        }
+        
+        .breadcrumb-nav .current {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一模板Header -->
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
+
+    <!-- 面包屑导航 -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <a href="./index.html"><i class="fas fa-home"></i> 首頁</a>
+            <span class="separator">/</span>
+            <span class="current">全部商品</span>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main id="main-content" style="padding: 40px 0;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            
+            <!-- 商品页面标题 -->
+            <div class="products-header" style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 36px; color: #2c3e50; margin-bottom: 10px;">全部商品</h1>
+                <p style="color: #666; font-size: 16px;">精選優質農產品，產地直送，新鮮安心</p>
+            </div>
+
+            <!-- 筛选和排序 -->
+            <div class="products-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                <div class="filter-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="filter-btn active" data-category="all" style="padding: 10px 20px; border: 2px solid #ff6b35; background: #ff6b35; color: white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        全部商品
+                    </button>
+                    <button class="filter-btn" data-category="常溫" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        常溫
+                    </button>
+                    <button class="filter-btn" data-category="冷藏" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        冷藏
+                    </button>
+                    <button class="filter-btn" data-category="冷凍" style="padding: 10px 20px; border: 2px solid #ff6b35; background: white; color: #ff6b35; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        冷凍
+                    </button>
+                </div>
+                
+                <select id="sortSelect" style="padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; cursor: pointer;">
+                    <option value="default">排序方式</option>
+                    <option value="price-low">價格：低到高</option>
+                    <option value="price-high">價格：高到低</option>
+                    <option value="name">名稱：A-Z</option>
+                </select>
+            </div>
+
+            <!-- 商品网格 -->
+            <div id="productsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                <!-- 商品由JavaScript动态加载 -->
+            </div>
+
+            <!-- 空状态 -->
+            <div id="emptyState" style="display: none; text-align: center; padding: 60px 20px;">
+                <i class="fas fa-search" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                <h3 style="color: #666; margin-bottom: 10px;">找不到商品</h3>
+                <p style="color: #999;">請嘗試調整篩選條件</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- JavaScript -->
+    <script src="./js/template-loader.js"></script>
+    <script src="./js/mobile-menu-simple.js" defer></script>
+    <script src="./js/dropdown-menu.js" defer></script>
+    <script src="./js/products.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/main.js" defer></script>
+    
+    <script>
+        // 等待DOM加载完成后渲染商品
+        document.addEventListener('DOMContentLoaded', function() {
+            // 确保products数据已加载
+            if (typeof products !== 'undefined' && typeof renderProducts === 'function') {
+                renderProducts();
+            }
+            
+            // 筛选按钮功能
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.style.background = 'white';
+                        b.style.color = '#ff6b35';
+                    });
+                    this.classList.add('active');
+                    this.style.background = '#ff6b35';
+                    this.style.color = 'white';
+                    
+                    const category = this.dataset.category;
+                    filterProducts(category);
+                });
+            });
+            
+            // 排序功能
+            const sortSelect = document.getElementById('sortSelect');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', function() {
+                    sortProducts(this.value);
+                });
+            }
+        });
+        
+        // 筛选商品
+        function filterProducts(category) {
+            const grid = document.getElementById('productsGrid');
+            const cards = grid.querySelectorAll('.product-card');
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('emptyState').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+        
+        // 排序商品
+        function sortProducts(sortType) {
+            const grid = document.getElementById('productsGrid');
+            const cards = Array.from(grid.querySelectorAll('.product-card'));
+            
+            cards.sort((a, b) => {
+                switch(sortType) {
+                    case 'price-low':
+                        return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                    case 'price-high':
+                        return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                    case 'name':
+                        return a.dataset.name.localeCompare(b.dataset.name);
+                    default:
+                        return 0;
+                }
+            });
+            
+            cards.forEach(card => grid.appendChild(card));
+        }
+    </script>
+</body>
+</html>
