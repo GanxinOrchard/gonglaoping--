@@ -75,7 +75,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <!-- 統一 CSS 架構 -->
-    <link rel="stylesheet" href="./css/main.css?v=20251023">
+    <link rel="stylesheet" href="./css/main.css?v=20251103181">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     
@@ -83,7 +83,7 @@
         /* 關於我們頁面專用樣式 */
         .about-hero {
             background: url('images/pages/about/covers/關於我們的封面首頁.png') center/cover no-repeat !important;
-            min-height: 60vh !important;
+            min-height: 70vh !important;
             display: flex !important;
             align-items: center !important;
             position: relative !important;
@@ -98,8 +98,43 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             z-index: 1;
+        }
+        
+        /* 背景動畫粒子 */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         .about-hero .container {
@@ -113,20 +148,69 @@
             font-size: 3.5rem;
             font-weight: 900;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            letter-spacing: 2px;
         }
         
         .about-hero .hero-content .subtitle {
             font-size: 1.5rem;
             font-weight: 500;
             opacity: 0.95;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            letter-spacing: 1px;
+        }
+        
+        /* 滾動指示器 */
+        .scroll-indicator {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.8;
+        }
+        
+        .scroll-indicator span {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        .mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 15px;
+            position: relative;
+            animation: mouseFloat 2s infinite;
+        }
+        
+        .mouse::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            animation: mouseScroll 2s infinite;
+        }
+        
+        @keyframes mouseFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes mouseScroll {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
         }
         
         /* 關於我們內容區 */
         .about-content {
             padding: 80px 0;
-            background: #f8f9fa;
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
         }
         
         .about-section {
@@ -135,81 +219,383 @@
             padding: 0 20px;
         }
         
-        /* 品牌故事 */
-        .story-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-            align-items: center;
+        /* CTA 區域樣式 */
+        .cta-section {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+            margin-top: 60px;
         }
         
-        .story-content h3 {
+        .cta-section h3 {
             font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
             margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1.1rem;
+        }
+        
+        .cta-btn:not(.secondary) {
+            background: white;
             color: #ff6b35;
         }
         
-        .story-quote {
-            background: linear-gradient(135deg, #fff5f0 0%, #ffe8db 100%);
-            padding: 30px;
-            border-left: 5px solid #ff6b35;
-            margin: 30px 0;
-            border-radius: 10px;
+        .cta-btn:not(.secondary):hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* 果園的一天 */
+        .day-in-orchard {
+            margin-bottom: 100px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+        
+        .timeline-slider {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+        
+        .timeline-slider::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            z-index: 0;
+        }
+        
+        .time-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .time-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.2);
+        }
+        
+        .time-badge {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .time-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .time-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .time-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        /* 老農的智慧 */
+        .wisdom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 100px;
+            align-items: center;
+        }
+        
+        .wisdom-quote {
+            background: linear-gradient(135deg, #fff5f0, #ffe8db);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.15);
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .quote-mark {
+            font-size: 6rem;
+            color: #ff6b35;
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: serif;
         }
         
         .quote-text {
             font-size: 1.3rem;
-            font-style: italic;
+            line-height: 2;
             color: #333;
-            margin-bottom: 15px;
-            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
         
         .quote-author {
-            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            font-size: 3rem;
+            animation: wave 3s infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        .author-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ff6b35;
+        }
+        
+        .author-title {
+            font-size: 0.9rem;
             color: #666;
-            font-weight: 600;
         }
         
-        .story-content p {
-            line-height: 2;
-            color: #555;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+        .wisdom-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
         
-        .story-highlight {
+        .wisdom-item {
             display: flex;
             gap: 20px;
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
         }
         
-        .highlight-icon {
-            font-size: 3rem;
+        .wisdom-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.15);
+        }
+        
+        .wisdom-icon {
+            font-size: 2.5rem;
             flex-shrink: 0;
         }
         
-        .highlight-text h4 {
+        .wisdom-item h4 {
             color: #ff6b35;
             margin-bottom: 10px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
         
-        .highlight-text p {
+        .wisdom-item p {
             color: #666;
             line-height: 1.8;
+            font-size: 0.95rem;
         }
         
-        .story-image {
+        .wisdom-image {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .wisdom-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .image-float-badge {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .badge-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .badge-label {
+            display: block;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.2);
+        }
+        
+        .value-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .value-card h3 {
+            font-size: 1.5rem;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        .value-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        
+        /* 品牌故事 */
+        .story-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+        
+        .story-content h2 {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            margin-bottom: 40px;
+        }
+        
+        .story-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .story-point {
+            display: flex;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .point-year {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .point-content h4 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .point-content p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        
+        .story-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 100px;
         }
         
         .story-image img {
@@ -223,194 +609,602 @@
             transform: scale(1.05);
         }
         
-        .image-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            padding: 30px;
-            color: white;
-        }
-        
-        .overlay-content h4 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-        
-        /* 農場日常 */
-        .farm-story-section {
+        /* 友善栽培 */
+        .farming-section {
             margin-bottom: 80px;
         }
         
-        .farm-story-content h3 {
-            font-size: 2rem;
-            margin-bottom: 50px;
-            color: #ff6b35;
-            text-align: center;
-        }
-        
-        .daily-routine {
+        .farming-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
         }
         
-        .routine-item {
+        .farming-card {
             background: white;
-            padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
         
-        .routine-item:hover {
-            transform: translateY(-10px);
+        .farming-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(255, 107, 53, 0.2);
         }
         
-        .routine-time {
-            color: #ff6b35;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+        .card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
         }
         
-        .routine-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
         
-        .routine-text h4 {
+        .farming-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 30px;
+        }
+        
+        .card-content h3 {
             font-size: 1.3rem;
+            color: #ff6b35;
             margin-bottom: 15px;
-            color: #333;
         }
         
-        .routine-text p {
+        .card-content p {
             color: #666;
             line-height: 1.8;
+            font-size: 0.95rem;
         }
         
-        /* 時間軸 */
-        .section-header {
+        /* 數據統計 */
+        .stats-section {
+            background: linear-gradient(135deg, #fff5f0 0%, #ffe8db 100%);
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin-bottom: 80px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
             text-align: center;
-            margin-bottom: 60px;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff6b35;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 顧客見證 */
+        .testimonials-section {
+            margin-bottom: 80px;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-stars {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-text {
+            color: #555;
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .testimonial-author {
+            color: #ff6b35;
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        /* 四季的果園 */
+        .seasons-section {
+            margin-bottom: 100px;
+        }
+        
+        .seasons-carousel {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .season-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 40px 30px;
+            min-height: 350px;
+            display: flex;
+            align-items: flex-end;
+            transition: all 0.5s ease;
+        }
+        
+        .season-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .season-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .season-card:hover .season-bg {
+            transform: scale(1.1);
+        }
+        
+        .season-card.spring .season-bg {
+            background: linear-gradient(135deg, #ffeef8 0%, #ffc8dd 100%);
+        }
+        
+        .season-card.summer .season-bg {
+            background: linear-gradient(135deg, #fff7e6 0%, #ffd93d 100%);
+        }
+        
+        .season-card.autumn .season-bg {
+            background: linear-gradient(135deg, #ffe8d6 0%, #ffb347 100%);
+        }
+        
+        .season-card.winter .season-bg {
+            background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%);
+        }
+        
+        .season-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .season-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: rotate 10s infinite linear;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .season-card h3 {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        
+        .season-card p {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .season-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff6b35;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* 友善實踐 */
+        .practice-section {
+            margin-bottom: 100px;
+        }
+        
+        .practice-header {
+            margin-bottom: 50px;
+        }
+        
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .practice-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(255, 107, 53, 0.2);
+        }
+        
+        .practice-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .practice-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .practice-card:hover .practice-image img {
+            transform: scale(1.1);
+        }
+        
+        .practice-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(255, 107, 53, 0.4);
+        }
+        
+        .practice-content {
+            padding: 30px;
+        }
+        
+        .practice-content h3 {
+            font-size: 1.3rem;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        .practice-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .practice-result {
+            background: linear-gradient(135deg, #fff5f0, #ffe8db);
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: #ff6b35;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-left: 3px solid #ff6b35;
         }
         
         .section-title {
             font-size: 2.5rem;
             color: #ff6b35;
             margin-bottom: 20px;
-        }
-        
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #666;
-        }
-        
-        .timeline-section {
-            position: relative;
-            padding: 60px 0;
-        }
-        
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, #ff6b35, #f7931e);
-            transform: translateX(-50%);
-        }
-        
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-            position: relative;
-        }
-        
-        .timeline-item:nth-child(even) .timeline-year {
-            order: 2;
-        }
-        
-        .timeline-item:nth-child(even) .timeline-content {
-            order: 1;
-            text-align: right;
-        }
-        
-        .timeline-year {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #ff6b35;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .timeline-content {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .timeline-content h4 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        
-        .timeline-content p {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        
-        .timeline-highlight {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            text-align: center;
         }
         
         /* 響應式設計 */
         @media (max-width: 768px) {
+            .about-hero {
+                min-height: 50vh !important;
+            }
+            
             .about-hero .hero-content h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                margin-bottom: 15px;
             }
             
             .about-hero .hero-content .subtitle {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
-            .story-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .about-content {
+                padding: 40px 0;
             }
             
-            .timeline-item {
+            .about-section {
+                padding: 0 15px;
+            }
+            
+            .scroll-indicator {
+                margin-top: 30px;
+            }
+            
+            .scroll-indicator span {
+                font-size: 0.85rem;
+            }
+            
+            /* 果園的一天 */
+            .day-in-orchard {
+                margin-bottom: 60px;
+            }
+            
+            .timeline-slider {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
             
-            .timeline-item:nth-child(even) .timeline-year,
-            .timeline-item:nth-child(even) .timeline-content {
-                order: 0;
-                text-align: left;
+            .timeline-slider::before {
+                display: none;
             }
             
-            .timeline-line {
-                left: 20px;
+            .time-card {
+                padding: 25px 20px;
+            }
+            
+            .time-icon {
+                font-size: 2.5rem;
+            }
+            
+            /* 老農智慧 */
+            .wisdom-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+            
+            .wisdom-quote {
+                padding: 30px 25px;
+            }
+            
+            .quote-text {
+                font-size: 1.1rem;
+            }
+            
+            .author-avatar {
+                font-size: 2.5rem;
+            }
+            
+            .wisdom-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .wisdom-icon {
+                font-size: 2rem;
+            }
+            
+            .image-float-badge {
+                bottom: 15px;
+                right: 15px;
+                padding: 15px 20px;
+            }
+            
+            .badge-number {
+                font-size: 1.5rem;
+            }
+            
+            /* 四季 */
+            .seasons-carousel {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .season-card {
+                min-height: 300px;
+                padding: 30px 25px;
+            }
+            
+            .season-icon {
+                font-size: 3rem;
+            }
+            
+            .season-card h3 {
+                font-size: 1.5rem;
+            }
+            
+            /* 友善實踐 */
+            .practice-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .practice-image {
+                height: 180px;
+            }
+            
+            /* 核心價值 */
+            .values-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-bottom: 60px;
+            }
+            
+            .value-card {
+                padding: 30px 20px;
+            }
+            
+            .value-icon {
+                font-size: 3rem;
+            }
+            
+            .value-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            /* 品牌故事 */
+            .story-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .story-content h2 {
+                font-size: 2rem;
+            }
+            
+            .story-point {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .point-year {
+                align-self: flex-start;
+            }
+            
+            .story-image {
+                position: static;
+            }
+            
+            /* 友善栽培 */
+            .farming-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card-content {
+                padding: 25px 20px;
+            }
+            
+            /* 數據統計 */
+            .stats-section {
+                padding: 40px 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .stat-label {
+                font-size: 1rem;
+            }
+            
+            /* 顧客見證 */
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .testimonial-card {
+                padding: 25px 20px;
+            }
+            
+            .testimonial-text {
+                font-size: 0.95rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            /* CTA 區域 */
+            .cta-section {
+                padding: 40px 20px;
+                border-radius: 15px;
+                margin-top: 40px;
+            }
+            
+            .cta-section h3 {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .cta-section p {
+                font-size: 1rem;
+                margin-bottom: 25px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* 極小螢幕優化 */
+        @media (max-width: 480px) {
+            .about-hero .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .about-hero .hero-content .subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .story-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
             }
             
             .timeline-year {
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -426,10 +1220,15 @@
     <main id="main-content">
         <!-- 關於我們英雄區域 -->
         <section class="about-hero">
+            <div class="floating-particles" id="particles"></div>
             <div class="container">
                 <div class="hero-content">
-                    <h1>關於我們</h1>
-                    <p class="subtitle">百年傳承・友善栽培・產地直送</p>
+                    <h1 data-aos="fade-down">柑心果園</h1>
+                    <p class="subtitle" data-aos="fade-up" data-aos-delay="200">三代傳承的堅持 | 用心栽培的甜美</p>
+                    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="400">
+                        <span>向下探索我們的故事</span>
+                        <div class="mouse"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -437,115 +1236,223 @@
         <!-- 關於我們內容 -->
         <section class="about-content">
             <div class="about-section">
-                <!-- 品牌故事 -->
-                <div class="story-grid" data-aos="fade-up">
-                    <div class="story-content">
-                        <h3>🌱 我們的品牌故事</h3>
-                        <div class="story-quote">
-                            <p class="quote-text">"每一顆果實，都承載著三代人的夢想與堅持"</p>
-                            <p class="quote-author">— 柑心果園創辦人</p>
+                <!-- 果園的一天 -->
+                <div class="day-in-orchard" data-aos="fade-up">
+                    <h2 class="section-title">🌄 果園的一天</h2>
+                    <p class="section-subtitle">跟著我們的腳步，體驗果園從日出到日落的美好時光</p>
+                    
+                    <div class="timeline-slider">
+                        <div class="time-card" data-aos="fade-right" data-aos-delay="100">
+                            <div class="time-badge">清晨 5:30</div>
+                            <div class="time-icon">🌅</div>
+                            <h3>第一道曙光</h3>
+                            <p>當第一縷陽光灑落在公老坪的山坡上，果園已經甦醒。農夫踏著露水，開始巡視每一棵果樹，就像醫生查房一樣仔細。</p>
                         </div>
-                        <p>在台中豐原公老坪這片肥沃的土地上，柑心果園的故事已經延續了百年。從1920年祖輩第一次在公老坪種下椪柑樹苗開始，我們就與這片土地結下了不解之緣。每一棵果樹，都見證著我們家族對農業的熱愛與堅持。</p>
-                        <p>我們相信，真正的美味來自於對土地的尊重。因此，我們採用友善栽培的方式，不使用化學農藥，讓果樹在自然的環境中成長。每一顆椪柑、每一顆茂谷柑，都蘊含著陽光的溫暖、雨露的滋潤，以及我們對品質的堅持。</p>
-                        <div class="story-highlight">
-                            <div class="highlight-icon">💝</div>
-                            <div class="highlight-text">
-                                <h4>三代傳承的承諾</h4>
-                                <p>從爺爺的雙手到孫子的笑容，我們將最純正的台灣水果風味，一代一代傳承下去。</p>
-                            </div>
+                        
+                        <div class="time-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="time-badge">上午 8:00</div>
+                            <div class="time-icon">💧</div>
+                            <h3>晨露澆灌</h3>
+                            <p>用山泉水一株株澆灌，每一滴水都帶著山的清涼。果樹在這時候最愛喝水，葉片在陽光下閃閃發亮。</p>
                         </div>
-                    </div>
-                    <div class="story-image">
-                        <img src="images/關於我們圖片/百年果園傳承.png" alt="百年果園傳承">
-                        <div class="image-overlay">
-                            <div class="overlay-content">
-                                <h4>百年傳承</h4>
-                                <p>1920年至今</p>
-                            </div>
+                        
+                        <div class="time-card" data-aos="fade-left" data-aos-delay="300">
+                            <div class="time-badge">中午 12:00</div>
+                            <div class="time-icon">☀️</div>
+                            <h3>陽光浴</h3>
+                            <p>果實在正午的陽光下累積甜度，我們會巡視果園，確保每一顆果實都能均勻受到日照，這是甜美的秘密。</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- 農場日常故事 -->
-                <div class="farm-story-section" data-aos="fade-up">
-                    <div class="farm-story-content">
-                        <h3>🌅 農場的日常</h3>
-                        <div class="daily-routine">
-                            <div class="routine-item" data-aos="fade-right" data-aos-delay="100">
-                                <div class="routine-time">清晨 5:00</div>
-                                <div class="routine-icon">🌅</div>
-                                <div class="routine-text">
-                                    <h4>迎接第一道陽光</h4>
-                                    <p>農夫們踏著晨露，開始一天的農作。檢查果樹的健康狀況，為它們澆水、施肥，就像照顧自己的孩子一樣用心。</p>
-                                </div>
-                            </div>
-                            <div class="routine-item" data-aos="fade-left" data-aos-delay="200">
-                                <div class="routine-time">上午 9:00</div>
-                                <div class="routine-icon">✂️</div>
-                                <div class="routine-text">
-                                    <h4>細心修剪與照料</h4>
-                                    <p>用最溫柔的手法修剪枝葉，讓每一棵果樹都能得到充足的陽光和空氣，為結出甜美的果實做準備。</p>
-                                </div>
-                            </div>
-                            <div class="routine-item" data-aos="fade-right" data-aos-delay="300">
-                                <div class="routine-time">下午 2:00</div>
-                                <div class="routine-icon">🍊</div>
-                                <div class="routine-text">
-                                    <h4>品嚐與檢驗</h4>
-                                    <p>親自品嚐每一顆果實的甜度，確保只有最優質的水果才能送到您的手中。這是我們對品質的堅持。</p>
-                                </div>
-                            </div>
+                        
+                        <div class="time-card" data-aos="fade-right" data-aos-delay="400">
+                            <div class="time-badge">下午 3:00</div>
+                            <div class="time-icon">🍊</div>
+                            <h3>品質檢查</h3>
+                            <p>每天下午，我們會親自品嚐果實，記錄甜度、觀察成長。只有達到標準的，才能送到您手中。</p>
+                        </div>
+                        
+                        <div class="time-card" data-aos="fade-up" data-aos-delay="500">
+                            <div class="time-badge">傍晚 6:00</div>
+                            <div class="time-icon">🌇</div>
+                            <h3>夕陽餘暉</h3>
+                            <p>夕陽西下，果園沐浴在金黃色的光暈中。農夫整理工具，果樹們也準備在星空下休息，儲存明天的能量。</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- 老農的智慧 -->
+                <div class="wisdom-section" data-aos="fade-up">
+                    <div class="wisdom-content">
+                        <div class="wisdom-quote" data-aos="zoom-in">
+                            <div class="quote-mark">"</div>
+                            <p class="quote-text">種樹如養兒，要有耐心、要用心聽它說話。每一棵樹都有自己的脾氣，你要懂它、愛它，它才會回報你甜美的果實。</p>
+                            <div class="quote-author">
+                                <div class="author-avatar">👴</div>
+                                <div class="author-info">
+                                    <div class="author-name">張老伯</div>
+                                    <div class="author-title">第二代果園主人，67歲</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="wisdom-list">
+                            <div class="wisdom-item" data-aos="fade-right" data-aos-delay="100">
+                                <div class="wisdom-icon">🌙</div>
+                                <h4>看月亮施肥</h4>
+                                <p>老一輩說，月圓時施肥最好，果樹吸收特別快。雖然聽起來像迷信，但確實有它的道理——月圓時潮汐影響，植物的吸收力最強。</p>
+                            </div>
+                            <div class="wisdom-item" data-aos="fade-left" data-aos-delay="200">
+                                <div class="wisdom-icon">🐛</div>
+                                <h4>蟲鳥是朋友</h4>
+                                <p>不用農藥後，果園裡的鳥兒多了。牠們會幫我們抓蟲，雖然偶爾也會偷吃幾顆果實，但這是大自然的平衡，我們都懂。</p>
+                            </div>
+                            <div class="wisdom-item" data-aos="fade-right" data-aos-delay="300">
+                                <div class="wisdom-icon">🍂</div>
+                                <h4>落葉還田</h4>
+                                <p>每年冬天，我們會把落葉鋪回樹下。它們會慢慢分解，變成最好的肥料。大自然的循環，就是這麼美妙。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wisdom-image" data-aos="fade-left">
+                        <img src="images/pages/about/content/百年果園傳承.png" alt="老農的智慧">
+                        <div class="image-float-badge" data-aos="zoom-in" data-aos-delay="500">
+                            <span class="badge-number">100+</span>
+                            <span class="badge-label">年智慧傳承</span>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- 發展歷程 -->
-                <div class="section-header" data-aos="fade-up">
-                    <h2 class="section-title">📈 發展歷程</h2>
-                    <p class="section-subtitle">從1920年至今，見證柑心果園的百年傳承與現代化發展</p>
+                <!-- 四季的果園 -->
+                <div class="seasons-section" data-aos="fade-up">
+                    <h2 class="section-title">🌸 四季更迭的果園風情</h2>
+                    <p class="section-subtitle">每個季節，果園都有不同的面貌和故事</p>
+                    
+                    <div class="seasons-carousel">
+                        <div class="season-card spring" data-aos="fade-up" data-aos-delay="100">
+                            <div class="season-bg"></div>
+                            <div class="season-content">
+                                <div class="season-icon">🌸</div>
+                                <h3>春｜花開的約定</h3>
+                                <p>三月的公老坪，滿山遍野都是柑橘花。雪白的花朵鋪滿山坡，蜜蜂忙碌穿梭其間。花香隨風飄散，這是果園一年中最浪漫的時節。</p>
+                                <div class="season-tag">賞花期：3-4月</div>
+                            </div>
+                        </div>
+                        
+                        <div class="season-card summer" data-aos="fade-up" data-aos-delay="200">
+                            <div class="season-bg"></div>
+                            <div class="season-content">
+                                <div class="season-icon">☀️</div>
+                                <h3>夏｜陽光的饋贈</h3>
+                                <p>六月開始，小果實在陽光下慢慢長大。每天的日照，都在為果實累積甜度。農夫最忙碌的季節，但看著果實一天天長大，再累都值得。</p>
+                                <div class="season-tag">成長期：6-8月</div>
+                            </div>
+                        </div>
+                        
+                        <div class="season-card autumn" data-aos="fade-up" data-aos-delay="300">
+                            <div class="season-bg"></div>
+                            <div class="season-content">
+                                <div class="season-icon">🍊</div>
+                                <h3>秋｜豐收的喜悅</h3>
+                                <p>十月起，椪柑開始轉黃。這是果園最美的時刻，金黃色的果實掛滿枝頭，像一顆顆小太陽。採收時，全家人一起上山，笑聲回盪山谷。</p>
+                                <div class="season-tag">採收期：10-12月</div>
+                            </div>
+                        </div>
+                        
+                        <div class="season-card winter" data-aos="fade-up" data-aos-delay="400">
+                            <div class="season-bg"></div>
+                            <div class="season-content">
+                                <div class="season-icon">❄️</div>
+                                <h3>冬｜休養生息</h3>
+                                <p>一月的果園，進入休養期。我們會幫果樹修剪、施肥，為來年做準備。雖然看似寧靜，但這是在積蓄力量，等待下一個春天的到來。</p>
+                                <div class="season-tag">整理期：1-2月</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="timeline-section" data-aos="fade-up">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="timeline-year">1920</div>
-                        <div class="timeline-content">
-                            <h4>🌱 果園創立</h4>
-                            <p>祖輩在公老坪開始種植椪柑，建立柑心果園的基礎，傳承百年的果園經驗與技術。那時，每一顆果實都承載著對未來的希望。</p>
-                            <div class="timeline-highlight">第一棵椪柑樹苗種下</div>
+                <!-- 友善栽培的實踐 -->
+                <div class="practice-section" data-aos="fade-up">
+                    <div class="practice-header">
+                        <h2 class="section-title">🌱 我們的友善實踐</h2>
+                        <p class="section-subtitle">不是標語，而是每天的堅持</p>
+                    </div>
+                    
+                    <div class="practice-grid">
+                        <div class="practice-card" data-aos="flip-up" data-aos-delay="100">
+                            <div class="practice-image">
+                                <img src="images/pages/about/content/友善栽培.png" alt="友善栽培">
+                                <div class="practice-badge">核心理念</div>
+                            </div>
+                            <div class="practice-content">
+                                <h3>🚫 零農藥承諾</h3>
+                                <p>十年前，我們做了一個決定：完全不用化學農藥。剛開始很困難，蟲害讓我們損失慘重。但我們沒有放棄，學習生物防治，種植誘蟲植物，慢慢建立平衡的生態。</p>
+                                <div class="practice-result">結果：土壤重獲生機，果實更健康</div>
+                            </div>
+                        </div>
+                        
+                        <div class="practice-card" data-aos="flip-up" data-aos-delay="200">
+                            <div class="practice-content">
+                                <h3>🌊 山泉水灌溉</h3>
+                                <p>公老坪有豐沛的山泉水，清澈甘甜。我們用水管引下來灌溉果樹，不用抽地下水。雖然成本高，但這是我們對環境的承諾。</p>
+                                <div class="practice-result">結果：果實更香甜，水源永續</div>
+                            </div>
+                        </div>
+                        
+                        <div class="practice-card" data-aos="flip-up" data-aos-delay="300">
+                            <div class="practice-content">
+                                <h3>🐝 友善昆蟲</h3>
+                                <p>我們在果園周圍種植各種花草，吸引蜜蜂和瓢蟲。牠們是最好的夥伴，幫我們授粉、除蟲。果園變成了小小的生態樂園。</p>
+                                <div class="practice-result">結果：授粉率提升，生態更豐富</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="timeline-year">1980</div>
-                        <div class="timeline-content">
-                            <h4>🔧 技術革新</h4>
-                            <p>引進現代化栽培技術，提升果實品質與產量，同時保持傳統的農作智慧。新舊技術的完美結合，讓我們的果實更加甜美。</p>
-                            <div class="timeline-highlight">引進現代化設備</div>
+                </div>
+
+
+                <!-- 數據說話 -->
+                <div class="stats-section" data-aos="fade-up">
+                    <h2 class="section-title">📊 用數字說話</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">年傳承</div>
+                            <p>三代人的堅持與熱愛</p>
+                        </div>
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="stat-number">20</div>
+                            <div class="stat-label">公頃果園</div>
+                            <p>精心照料的每一寸土地</p>
+                        </div>
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="stat-number">10000+</div>
+                            <div class="stat-label">滿意顧客</div>
+                            <p>感謝您的信任與支持</p>
+                        </div>
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">用心栽培</div>
+                            <p>每一顆都是精心之作</p>
                         </div>
                     </div>
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="timeline-year">2000</div>
-                        <div class="timeline-content">
-                            <h4>🌿 友善栽培</h4>
-                            <p>全面轉向有機栽培，堅持不使用化學農藥的種植方式，保護環境與消費者健康。這是我們對地球的承諾。</p>
-                            <div class="timeline-highlight">獲得有機認證</div>
+                </div>
+
+                <!-- 顧客見證 -->
+                <div class="testimonials-section" data-aos="fade-up">
+                    <h2 class="section-title">💬 顧客的真實回饋</h2>
+                    <div class="testimonials-grid">
+                        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p class="testimonial-text">"柑心果園的椪柑真的超甜！而且很新鮮，收到後立刻就吃了好幾顆。第一次吃到這麼好吃的椪柑！"</p>
+                            <div class="testimonial-author">— 台北 陳小姐</div>
                         </div>
-                    </div>
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
-                        <div class="timeline-year">2020</div>
-                        <div class="timeline-content">
-                            <h4>💻 數位轉型</h4>
-                            <p>建立線上銷售平台，讓更多消費者能品嚐到我們的優質水果，推廣台灣優質農產品。傳統與現代的完美融合。</p>
-                            <div class="timeline-highlight">線上平台正式上線</div>
+                        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p class="testimonial-text">"友善栽培真的有差！果肉飽滿多汁，而且完全沒有農藥味。小孩也吃得很開心，會繼續回購！"</p>
+                            <div class="testimonial-author">— 台中 林先生</div>
                         </div>
-                    </div>
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
-                        <div class="timeline-year">2025</div>
-                        <div class="timeline-content">
-                            <h4>🚀 未來展望</h4>
-                            <p>持續創新，引進更多環保技術，擴大友善栽培面積，讓更多消費者品嚐到最優質的台灣水果。</p>
-                            <div class="timeline-highlight">持續創新發展</div>
+                        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p class="testimonial-text">"茂谷柑超級好吃！皮薄肉厚，甜度剛剛好。包裝也很用心，送禮很體面。已經推薦給朋友了！"</p>
+                            <div class="testimonial-author">— 高雄 王太太</div>
                         </div>
                     </div>
                 </div>
@@ -572,8 +1479,40 @@
     <script>
         AOS.init({
             duration: 1000,
-            once: true
+            once: true,
+            offset: 100
         });
+        
+        // 創建浮動粒子動畫
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 隨機大小
+                const size = Math.random() * 10 + 5;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // 隨機起始位置
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.bottom = '-20px';
+                
+                // 隨機動畫延遲
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // 頁面載入時創建粒子
+        window.addEventListener('load', createParticles);
     </script>
     <script src="./js/template-loader.js"></script>
     <script src="./js/mobile-menu-simple.js" defer></script>
