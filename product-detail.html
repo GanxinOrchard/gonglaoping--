@@ -1924,20 +1924,40 @@
     
     <script src="./js/template-loader.js"></script>
     <script src="./js/dropdown-menu.js?v=20250120"></script>
-    <script src="./js/main.js?v=20250115" defer></script>
-    <script src="./js/mobile-menu-simple.js?v=20250115" defer></script>
-    <script src="./js/cart.js?v=20250115" defer></script>
     <script src="./js/products.js"></script>
+    <script src="./js/product-detail.js"></script>
+    <script src="./js/cart.js?v=20250115"></script>
+    <script src="./js/mobile-menu-simple.js?v=20250115" defer></script>
+    <script src="./js/main.js?v=20250115" defer></script>
     <script>
-        // 更新麵包屑商品名稱
+        // 初始化商品詳情頁
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get('id'));
+            
+            console.log('商品ID:', productId);
+            console.log('商品數據:', typeof products !== 'undefined' ? products.length : '未載入');
+            
             if (productId && typeof products !== 'undefined') {
                 const product = products.find(p => p.id === productId);
+                console.log('找到商品:', product);
+                
                 if (product) {
-                    document.getElementById('breadcrumbProductName').textContent = product.name;
+                    // 更新面包屑
+                    const breadcrumbProductName = document.getElementById('breadcrumbProductName');
+                    if (breadcrumbProductName) {
+                        breadcrumbProductName.textContent = product.name;
+                    }
+                    
+                    // 渲染商品詳情（如果有renderProductDetail函數）
+                    if (typeof renderProductDetail === 'function') {
+                        renderProductDetail(product);
+                    }
+                } else {
+                    console.error('找不到商品ID:', productId);
                 }
+            } else {
+                console.error('商品數據未載入或缺少ID參數');
             }
         });
     </script>
