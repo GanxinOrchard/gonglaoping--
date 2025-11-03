@@ -56,6 +56,9 @@ class TemplateLoader {
             const template = await this.fetchTemplate('header.html');
             container.innerHTML = template;
             
+            // 🔧 修復LOGO連結 - 確保指向./index.html
+            this.fixLogoLinks();
+            
             // 更新購物車數量
             this.updateCartCount();
             
@@ -63,6 +66,20 @@ class TemplateLoader {
         } catch (error) {
             console.error('頁頭載入錯誤:', error);
         }
+    }
+
+    /**
+     * 修復LOGO連結 - 確保在GitHub Pages正確工作
+     */
+    fixLogoLinks() {
+        const logoLinks = document.querySelectorAll('.logo, .mobile-logo, .logo-link');
+        logoLinks.forEach(link => {
+            const currentHref = link.getAttribute('href');
+            if (currentHref === 'index.html' || currentHref === '/index.html') {
+                link.setAttribute('href', './index.html');
+                console.log('✓ 已修復LOGO連結:', currentHref, '→ ./index.html');
+            }
+        });
     }
 
     /**

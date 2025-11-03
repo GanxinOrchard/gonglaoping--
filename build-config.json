@@ -1,0 +1,5 @@
+{
+  "baseUrl": "https://ganxinorchard.github.io/gonglaoping--/",
+  "localBaseUrl": "./",
+  "note": "使用build-config.json来区分开发和生产环境"
+}
