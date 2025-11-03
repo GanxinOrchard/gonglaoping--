@@ -90,7 +90,12 @@
             font-weight: 600;
         }
         
-        /* 隱藏原有的選單和頁腳 */
+        /* 隱藏原有的選單和頁腳（僅隱藏body > 的直接子元素） */
+        body > .main-header,
+        body > header.main-header,
+        body > .footer,
+        body > footer.footer,
+        body > footer.footer-modern,
         #header-container,
         #mobile-menu-container,
         #footer-container {
@@ -105,6 +110,13 @@
         
         .checkout-page {
             margin-top: 20px !important;
+        }
+        
+        /* 確保checkout內容區域正常顯示 */
+        .checkout-container,
+        .checkout-form-section,
+        .order-summary-section {
+            display: block !important;
         }
         
         @media (max-width: 768px) {

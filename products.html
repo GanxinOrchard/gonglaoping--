@@ -1966,13 +1966,15 @@
             font-weight: 600;
         }
         
-        /* 隱藏原有的選單和頁腳 */
+        /* 隱藏原有的選單和頁腳（僅隱藏body > 的直接子元素） */
+        body > .main-header,
+        body > header.main-header,
+        body > .footer,
+        body > footer.footer,
+        body > footer.footer-modern,
         #header-container,
         #mobile-menu-container,
-        #footer-container,
-        .main-header,
-        .footer,
-        .footer-modern {
+        #footer-container {
             display: none !important;
         }
         
@@ -1984,6 +1986,17 @@
         
         .hero-section {
             margin-top: 0 !important;
+        }
+        
+        /* 確保商品頁面內容區域正常顯示 */
+        .products-page,
+        .products-grid,
+        .filter-section {
+            display: block !important;
+        }
+        
+        .products-grid {
+            display: grid !important;
         }
         
         @media (max-width: 768px) {

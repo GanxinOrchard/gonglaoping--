@@ -1552,10 +1552,15 @@
             }
         }
         
-        /* 隱藏原有的選單和頁腳 */
-        .main-header,
-        .footer,
-        .footer-modern {
+        /* 隱藏原有的選單和頁腳（僅隱藏body > 的直接子元素） */
+        body > .main-header,
+        body > header.main-header,
+        body > .footer,
+        body > footer.footer,
+        body > footer.footer-modern,
+        #header-container,
+        #mobile-menu-container,
+        #footer-container {
             display: none !important;
         }
         
@@ -1567,6 +1572,13 @@
         
         .hero-section {
             margin-top: 0 !important;
+        }
+        
+        /* 確保cart內容區域正常顯示 */
+        .cart-content,
+        .cart-page,
+        .cart-section {
+            display: block !important;
         }
     </style>
 </head>
