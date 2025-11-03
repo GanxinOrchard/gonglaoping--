@@ -1884,21 +1884,150 @@
                 font-size: 16px;
             }
         }
+        
+        /* 簡化頁首樣式 */
+        .simple-header {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .simple-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .simple-header .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: transform 0.3s ease;
+        }
+        
+        .simple-header .logo-link:hover {
+            transform: scale(1.05);
+        }
+        
+        .simple-header .header-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        
+        .simple-header .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b35;
+        }
+        
+        /* 面包屑樣式 - 統一 */
+        .breadcrumb-nav {
+            background: #f8f9fa;
+            padding: 15px 0;
+            margin-top: 90px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-nav a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: #ff6b35;
+        }
+        
+        .breadcrumb-nav .separator {
+            color: #999;
+        }
+        
+        .breadcrumb-nav .current {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+        
+        /* 隱藏原有的選單和頁腳 */
+        #header-container,
+        #mobile-menu-container,
+        #footer-container,
+        .main-header,
+        .footer,
+        .footer-modern {
+            display: none !important;
+        }
+        
+        /* 確保主要內容不被遮擋 */
+        #main-content {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+        
+        .hero-section {
+            margin-top: 0 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .simple-header {
+                padding: 15px 0;
+            }
+            
+            .simple-header .header-logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .simple-header .logo-text {
+                font-size: 20px;
+            }
+            
+            .breadcrumb-nav {
+                margin-top: 80px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="./css/navigation-clean.css">
 </head>
 <body class="dark-header">
-    <div id="header-container"></div>
-    <div id="mobile-menu-container"></div>
-    
-    <!-- 麵包屑導航 -->
-    <nav style="background: white; padding: 15px 0; margin-top: 80px; border-bottom: 1px solid #e0e0e0;">
-        <div class="container" style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
-            <a href="index.html" style="color: #666; text-decoration: none;"><i class="fas fa-home"></i> 首頁</a>
-            <span style="color: #999;">/</span>
-            <span style="color: #ff6b35; font-weight: 600;">全部商品</span>
+    <!-- 簡化頁首 - 只有LOGO -->
+    <header class="simple-header">
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <img src="images/logo.png" alt="柑心果園" class="header-logo">
+                <span class="logo-text">柑心果園</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- 面包屑導航 -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+            <span class="separator">/</span>
+            <span class="current">全部商品</span>
         </div>
     </nav>
+
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
     
     <!-- 主要導覽列 - 開南風格 -->
     <header class="main-header" style="display: none;">
@@ -2204,22 +2333,67 @@
     </div>
     </main>
 
-    
-
-    <!-- 商品頁腳本 -->
-    <script src="./js/products.js?v=20250110"></script>
     <script>
-        // 篩選功能
+        // 完整商品資料（包含所有商品）
+        const products = [
+            {
+                id: 1,
+                name: '公老坪椪柑',
+                category: '優質水果',
+                price: 699,
+                image: 'images/products/ponkan/gallery/椪柑1.jpg',
+                description: '皮薄好剝、酸甜平衡、果香乾淨｜冷藏後更清爽｜產地直送',
+                badge: '預購',
+                isPreorder: true
+            },
+            {
+                id: 2,
+                name: '東勢茂谷柑',
+                category: '優質水果',
+                price: 880,
+                image: 'images/products/murcott/gallery/茂谷柑1.png',
+                description: '果肉飽滿、香氣濃郁、甜度高｜送禮自用兩相宜｜產地直送',
+                badge: '預購',
+                isPreorder: true
+            },
+            {
+                id: 3,
+                name: '冷凍菱角仁',
+                category: '新鮮蔬果',
+                price: 240,
+                image: 'images/products/water-chestnut/gallery/新鮮蔬果菱角仁1.jpg',
+                description: '新鮮冷凍菱角仁｜每袋約600g｜效期：冷凍12個月｜保存：-18°C 冷凍',
+                badge: '熱銷',
+                isPreorder: false
+            },
+            {
+                id: 6,
+                name: '冷凍大甲芋角',
+                category: '新鮮蔬果',
+                price: 280,
+                image: 'images/products/taro/content/新鮮蔬果芋角2CM.jpg',
+                description: '新鮮大甲芋角｜每袋約600g｜效期：冷凍12個月｜保存：-18°C 冷凍',
+                badge: '新品',
+                isPreorder: false
+            }
+        ];
+
+        // 當前篩選條件
         let currentFilters = {
             category: '全部',
             status: '全部'
         };
 
-        // 渲染商品
+        // 渲染商品函數
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             const noProducts = document.getElementById('noProducts');
             const productCount = document.getElementById('productCount');
+            
+            if (!grid || !noProducts || !productCount) {
+                console.error('找不到必要的DOM元素');
+                return;
+            }
             
             // 篩選商品
             let filteredProducts = products.filter(product => {
@@ -2234,74 +2408,47 @@
             // 更新商品數量
             productCount.textContent = filteredProducts.length;
             
-            // 顯示商品或無商品提示
+            // 無商品情況
             if (filteredProducts.length === 0) {
                 grid.style.display = 'none';
-                noProducts.style.display = 'block';
+                noProducts.style.display = 'flex';
                 return;
             }
             
+            // 顯示商品網格
             grid.style.display = 'grid';
             noProducts.style.display = 'none';
             
             // 渲染商品卡片
-            // 檢查是否有商品數據
-            if (!filteredProducts || filteredProducts.length === 0) {
-                console.error('沒有商品數據！');
-                grid.style.display = 'none';
-                noProducts.style.display = 'block';
-                return;
-            }
-            
-            grid.innerHTML = filteredProducts.map(product => {
-                // 確保必要欄位存在
-                const productId = product.id || 0;
-                const productName = product.name || '未命名商品';
-                const productPrice = product.price || 0;
-                const productImage = product.image || 'images/placeholder.jpg';
-                const productDesc = product.description || '新鮮美味，產地直送，品質保證';
-                const productBadge = product.badge || '';
-                const productCategory = product.category || '';
-                
-                return `
-                <a href="product-detail.html?id=${productId}" class="product-card" data-product-id="${productId}">
-                    ${productBadge ? `<span class="product-badge">${productBadge}</span>` : ''}
-                    ${productCategory ? `<span class="product-category">${productCategory}</span>` : ''}
+            grid.innerHTML = filteredProducts.map(product => `
+                <a href="product-detail.html?id=${product.id}" class="product-card">
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    ${product.category ? `<span class="product-category">${product.category}</span>` : ''}
                     <div class="product-image">
-                        <img src="${productImage}" 
-                             alt="${productName}" 
-                             loading="lazy" 
-                             onerror="console.error('圖片載入失敗:', this.src); this.src='images/placeholder.jpg'; this.onerror=null;">
+                        <img src="${product.image}" 
+                             alt="${product.name}" 
+                             loading="lazy"
+                             onerror="this.src='images/placeholder.jpg'">
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">${productName}</h3>
-                        <p class="product-description">${productDesc}</p>
-                        <div class="product-price">${productPrice.toLocaleString()}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${product.price.toLocaleString()}</div>
                     </div>
                 </a>
-                `;
-            }).join('');
+            `).join('');
             
-            // 確認渲染完成
-            console.log('商品渲染完成，共', filteredProducts.length, '個商品');
+            console.log('✅ 商品渲染完成，共', filteredProducts.length, '個商品');
         }
         
-        // 檢查商品數據是否載入
-        console.log('檢查商品數據:', typeof products !== 'undefined' ? products.length + '個商品' : '商品數據未載入！');
-        
-        // 篩選按鈕事件
+        // 頁面載入後初始化
         document.addEventListener('DOMContentLoaded', () => {
-            // 二次檢查
-            if (typeof products === 'undefined') {
-                console.error('products.js 未正確載入！');
-                document.getElementById('noProducts').style.display = 'block';
-                document.getElementById('noProducts').innerHTML = `
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>商品數據載入失敗</h3>
-                    <p>請檢查 js/products.js 檔案是否存在</p>
-                `;
-                return;
-            }
+            console.log('📦 商品數據載入:', products.length, '個商品');
+            
+            // 渲染商品
+            renderProducts();
+            
+            // 篩選按鈕事件
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const filterType = this.dataset.filter;

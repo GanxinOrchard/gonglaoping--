@@ -1388,22 +1388,147 @@
                 margin-bottom: 8px !important;
             }
         }
+        
+        /* 簡化頁首樣式 */
+        .simple-header {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .simple-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .simple-header .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: transform 0.3s ease;
+        }
+        
+        .simple-header .logo-link:hover {
+            transform: scale(1.05);
+        }
+        
+        .simple-header .header-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        
+        .simple-header .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b35;
+        }
+        
+        /* 面包屑樣式統一 */
+        .breadcrumb-nav {
+            background: #f8f9fa;
+            padding: 15px 0;
+            margin-top: 90px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-nav a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: #ff6b35;
+        }
+        
+        .breadcrumb-nav .separator {
+            color: #999;
+        }
+        
+        .breadcrumb-nav .current {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+        
+        /* 隱藏原有的選單和頁腳 */
+        #header-container,
+        #mobile-menu-container,
+        #footer-container,
+        .main-header,
+        .footer,
+        .footer-modern {
+            display: none !important;
+        }
+        
+        /* 確保主要內容不被遮擋 */
+        #main-content {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .simple-header {
+                padding: 15px 0;
+            }
+            
+            .simple-header .header-logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .simple-header .logo-text {
+                font-size: 20px;
+            }
+            
+            .breadcrumb-nav {
+                margin-top: 80px;
+            }
+        }
     </style>
 </head>
 <body class="dark-header">
-    <div id="header-container"></div>
-    <div id="mobile-menu-container"></div>
-    
-    <!-- 麵包屑導航 -->
+    <!-- 簡化頁首 - 只有LOGO -->
+    <header class="simple-header">
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <img src="images/logo.png" alt="柑心果園" class="header-logo">
+                <span class="logo-text">柑心果園</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- 面包屑導航 -->
     <nav class="breadcrumb-nav">
         <div class="container">
             <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
-            <span style="color: #999;">/</span>
+            <span class="separator">/</span>
             <a href="products.html">全部商品</a>
-            <span style="color: #999;">/</span>
-            <span id="breadcrumbProductName" style="color: #ff6b35; font-weight: 600;">商品詳情</span>
+            <span class="separator">/</span>
+            <span id="breadcrumbProductName" class="current">商品詳情</span>
         </div>
     </nav>
+
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
     
     <!-- 主要導覽列 - 開南風格 -->
     <header class="main-header" style="display: none;">
