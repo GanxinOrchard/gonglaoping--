@@ -1583,18 +1583,12 @@
     </style>
 </head>
 <body>
-    <!-- 簡化頁首 - 只有LOGO -->
-    <header class="simple-header">
-        <div class="container">
-            <a href="./index.html" class="logo-link">
-                <img src="images/logo.png" alt="柑心果園" class="header-logo">
-                <span class="logo-text">柑心果園</span>
-            </a>
-        </div>
-    </header>
+    <!-- 統一模板頁首 -->
+    <div id="header-container"></div>
+    <div id="mobile-menu-container"></div>
 
     <!-- 面包屑導航 -->
-    <nav class="breadcrumb-nav">
+    <nav class="breadcrumb-nav" style="margin-top: 120px;">
         <div class="container">
             <a href="./index.html"><i class="fas fa-home"></i> 首頁</a>
             <span class="separator">/</span>
@@ -1602,8 +1596,8 @@
         </div>
     </nav>
 
-    <!-- 主要導覽列 - 開南風格 -->
-    <header class="main-header">
+    <!-- 隱藏的主要導覽列（模板會載入） -->
+    <header class="main-header" style="display: none;">
         <div class="container">
             <!-- 桌面版導覽列 -->
             <div class="header-content desktop-header">
