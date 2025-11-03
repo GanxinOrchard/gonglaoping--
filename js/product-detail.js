@@ -28,15 +28,19 @@ function renderProductDetail(product) {
         return;
     }
     
-    // 更新頁面標題和 meta
+    // 更新頁面標題
     document.title = `${product.name} - 柑心果園`;
-    document.getElementById('pageTitle').textContent = `${product.name} - 柑心果園`;
-    document.getElementById('pageDescription').content = product.description;
     
     // 更新麵包屑
     const breadcrumbProductName = document.getElementById('breadcrumbProductName');
     if (breadcrumbProductName) {
         breadcrumbProductName.textContent = product.name;
+    }
+    
+    // 更新封面标题
+    const heroProductName = document.getElementById('heroProductName');
+    if (heroProductName) {
+        heroProductName.textContent = product.name;
     }
     
     // 建立規格選項 HTML
