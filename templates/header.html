@@ -3,8 +3,8 @@
         <!-- 桌面版導覽列 -->
         <div class="header-content desktop-header">
             <div class="logo-section">
-                <a href="./index.html" class="logo">
-                    <img src="/images/shared/logo/柑心商標.png" alt="柑心果園" class="logo-image" onerror="this.src='./images/shared/logo/柑心商標.png'">
+                <a href="javascript:void(0);" class="logo" onclick="goToHome()">
+                    <img src="./images/shared/logo/柑心商標.png" alt="柑心果園" class="logo-image">
                     <div class="logo-text-container">
                         <span class="logo-main">柑心果園 GANXIN ORCHARD</span>
                     </div>
@@ -95,8 +95,8 @@
             <!-- 手機版底部標誌和漢堡選單 -->
             <div class="mobile-bottom-row">
                 <div class="mobile-logo-section">
-                    <a href="./index.html" class="mobile-logo">
-                        <img src="/images/shared/logo/柑心商標.png" alt="柑心果園" class="mobile-logo-image" onerror="this.src='./images/shared/logo/柑心商標.png'">
+                    <a href="javascript:void(0);" class="mobile-logo" onclick="goToHome()">
+                        <img src="./images/shared/logo/柑心商標.png" alt="柑心果園" class="mobile-logo-image">
                         <div class="mobile-logo-text">
                             <span class="mobile-logo-main">柑心果園</span>
                             <span class="mobile-logo-sub">GANXIN ORCHARD</span>
@@ -112,3 +112,13 @@
         </div>
     </div>
 </header>
+<script>
+function goToHome() {
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/gonglaoping--/')) {
+        window.location.href = '/gonglaoping--/index.html';
+    } else {
+        window.location.href = './index.html';
+    }
+}
+</script>

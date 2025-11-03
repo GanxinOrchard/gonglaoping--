@@ -3,520 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">商品詳情 - 柑心果園</title>
-    <meta name="description" id="pageDescription" content="柑心果園優質農產品，產地直送，新鮮安心。">
-    
-    <!-- 使用統一模板樣式 -->
-    <link rel="stylesheet" href="./css/main.css?v=20251103">
+    <title>商品詳情 - 柑心果園</title>
+    <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- 商品詳情頁獨立樣式（不影響統一模板） -->
-    <style>
-        /* 商品詳情頁獨立樣式 - 不影響其他頁面 */
-        #main-content {
-            padding-top: 80px;
-            background: #f5f5f5;
-            min-height: 100vh;
-        }
-        
-        .product-detail-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        /* 商品主要區域 */
-        .product-main {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        /* 左側圖片 */
-        .product-gallery {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .main-image {
-            width: 100%;
-            aspect-ratio: 1;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #f8f8f8;
-        }
-        
-        .main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .thumbnail-list {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        
-        .thumbnail {
-            aspect-ratio: 1;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .thumbnail:hover,
-        .thumbnail.active {
-            border-color: #ff6b35;
-        }
-        
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* 右側資訊 */
-        .product-info {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .product-badge {
-            display: inline-block;
-            width: fit-content;
-            background: #ff6b35;
-            color: white;
-            padding: 6px 15px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-        
-        .product-name {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #333;
-            margin: 0;
-        }
-        
-        .product-desc {
-            font-size: 1rem;
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .product-price-box {
-            background: #fff5f0;
-            padding: 20px;
-            border-radius: 12px;
-        }
-        
-        .price-label {
-            font-size: 0.9rem;
-            color: #999;
-            margin-bottom: 8px;
-        }
-        
-        .product-price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #ff6b35;
-        }
-        
-        /* 規格選擇 */
-        .spec-section {
-            border-top: 1px solid #f0f0f0;
-            padding-top: 20px;
-        }
-        
-        .spec-label {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 12px;
-        }
-        
-        .spec-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        
-        .spec-btn {
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: left;
-        }
-        
-        .spec-btn:hover,
-        .spec-btn.active {
-            border-color: #ff6b35;
-            background: #fff5f0;
-        }
-        
-        .spec-name {
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        
-        .spec-info {
-            font-size: 0.85rem;
-            color: #666;
-        }
-        
-        /* 數量選擇 */
-        .quantity-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #f8f8f8;
-            padding: 8px 15px;
-            border-radius: 50px;
-        }
-        
-        .qty-btn {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: #ff6b35;
-            color: white;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .qty-btn:hover {
-            background: #e55a2b;
-        }
-        
-        .qty-input {
-            width: 50px;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border: none;
-            background: transparent;
-        }
-        
-        /* 按鈕 */
-        .action-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        
-        .btn {
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .btn-cart {
-            background: white;
-            border: 2px solid #ff6b35;
-            color: #ff6b35;
-        }
-        
-        .btn-cart:hover {
-            background: #fff5f0;
-        }
-        
-        .btn-buy {
-            background: #ff6b35;
-            color: white;
-        }
-        
-        .btn-buy:hover {
-            background: #e55a2b;
-        }
-        
-        /* 商品詳細說明 */
-        .product-details {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-        }
-        
-        .detail-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #333;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .detail-images img {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        
-        /* 響應式 */
-        @media (max-width: 768px) {
-            #main-content {
-                padding-top: 130px;
-            }
-            
-            .product-detail-container {
-                padding: 20px 10px;
-            }
-            
-            .product-main {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                padding: 20px;
-            }
-            
-            .product-name {
-                font-size: 1.5rem;
-            }
-            
-            .product-price {
-                font-size: 2rem;
-            }
-            
-            .spec-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-details {
-                padding: 20px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- 使用統一模板的header（包含漢堡選單和黑色背景） -->
     <div id="header-container"></div>
     <div id="mobile-menu-container"></div>
 
-    <main id="main-content">
-        <div class="product-detail-container">
-            <!-- 商品主要內容 -->
-            <div class="product-main">
-                <!-- 左側圖片 -->
-                <div class="product-gallery">
-                    <div class="main-image">
-                        <img src="" alt="" id="mainImage">
-                    </div>
-                    <div class="thumbnail-list" id="thumbnailList">
-                        <!-- 由JS生成 -->
-                    </div>
-                </div>
-
-                <!-- 右側資訊 -->
-                <div class="product-info">
-                    <span class="product-badge" id="productBadge">預購</span>
-                    <h1 class="product-name" id="productName">載入中...</h1>
-                    <p class="product-desc" id="productDesc"></p>
-                    
-                    <div class="product-price-box">
-                        <div class="price-label">售價</div>
-                        <div class="product-price" id="displayPrice">NT$ 0</div>
-                    </div>
-
-                    <div class="spec-section">
-                        <div class="spec-label">選擇規格</div>
-                        <div class="spec-options" id="specOptions">
-                            <!-- 由JS生成 -->
-                        </div>
-                    </div>
-
-                    <div class="quantity-section">
-                        <div class="spec-label">數量</div>
-                        <div class="quantity-controls">
-                            <button class="qty-btn" onclick="changeQuantity(-1)">−</button>
-                            <input type="number" class="qty-input" id="quantity" value="1" readonly>
-                            <button class="qty-btn" onclick="changeQuantity(1)">+</button>
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-cart" onclick="addToCart()">
-                            <i class="fas fa-shopping-cart"></i>
-                            加入購物車
-                        </button>
-                        <button class="btn btn-buy" onclick="buyNow()">
-                            <i class="fas fa-bolt"></i>
-                            立即購買
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 商品詳細說明 -->
-            <div class="product-details">
-                <h2 class="detail-title">商品詳細說明</h2>
-                <div class="detail-images" id="detailImages">
-                    <!-- 由JS生成 -->
-                </div>
-            </div>
+    <main style="padding-top: 80px; background: #f5f5f5; min-height: 100vh;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+            <div id="productDetail"></div>
         </div>
     </main>
 
-    <!-- 使用統一模板的footer -->
     <div id="footer-container"></div>
 
-    <!-- 統一模板JS -->
     <script src="./js/template-loader.js"></script>
     <script src="./js/mobile-menu-simple.js"></script>
     <script src="./js/dropdown-menu.js"></script>
-    <script src="./js/products.js?v=20251103"></script>
-    
-    <!-- 商品詳情頁獨立邏輯 -->
+    <script src="./js/products.js"></script>
     <script>
-        let currentProduct = null;
         let selectedSpec = null;
-        let currentQuantity = 1;
-
+        let quantity = 1;
+        
         document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = parseInt(urlParams.get('id'));
+            const id = new URLSearchParams(window.location.search).get('id');
+            const product = products.find(p => p.id == id);
+            if (!product) return;
             
-            if (productId && typeof products !== 'undefined') {
-                currentProduct = products.find(p => p.id === productId);
-                if (currentProduct) {
-                    renderProduct();
-                }
-            }
-        });
-
-        function renderProduct() {
-            document.title = `${currentProduct.name} - 柑心果園`;
-            document.getElementById('productName').textContent = currentProduct.name;
-            document.getElementById('productDesc').textContent = currentProduct.description;
-            document.getElementById('productBadge').textContent = currentProduct.badge || '優質商品';
-            
-            // 圖片
-            const images = currentProduct.images || [currentProduct.image];
-            document.getElementById('mainImage').src = images[0];
-            document.getElementById('thumbnailList').innerHTML = images.map((img, i) => `
-                <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="changeMainImage(${i})">
-                    <img src="${img}" alt="${currentProduct.name}">
+            document.getElementById('productDetail').innerHTML = `
+                <div style="background: white; border-radius: 12px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+                    <div>
+                        <img id="mainImg" src="${product.images?.[0] || product.image}" style="width: 100%; border-radius: 12px;">
+                    </div>
+                    <div>
+                        <h1 style="font-size: 2rem; margin-bottom: 20px;">${product.name}</h1>
+                        <p style="color: #666; margin-bottom: 20px;">${product.description}</p>
+                        <div style="background: #fff5f0; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                            <div style="font-size: 2.5rem; font-weight: 900; color: #ff6b35;" id="price">NT$ ${product.price.toLocaleString()}</div>
+                        </div>
+                        ${product.hasSpecs ? `
+                            <div style="margin-bottom: 20px;">
+                                <div style="font-weight: 700; margin-bottom: 10px;">選擇規格</div>
+                                <div id="specs" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;"></div>
+                            </div>
+                        ` : ''}
+                        <div style="margin-bottom: 20px;">
+                            <div style="font-weight: 700; margin-bottom: 10px;">數量</div>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <button onclick="changeQty(-1)" style="width: 40px; height: 40px; border: none; background: #ff6b35; color: white; border-radius: 50%; cursor: pointer;">-</button>
+                                <input id="qty" type="number" value="1" readonly style="width: 60px; text-align: center; font-size: 1.2rem; border: 1px solid #e0e0e0; border-radius: 8px;">
+                                <button onclick="changeQty(1)" style="width: 40px; height: 40px; border: none; background: #ff6b35; color: white; border-radius: 50%; cursor: pointer;">+</button>
+                            </div>
+                        </div>
+                        <button onclick="addCart()" style="width: 100%; padding: 18px; background: #ff6b35; color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer;">加入購物車</button>
+                    </div>
                 </div>
-            `).join('');
+            `;
             
-            // 規格
-            if (currentProduct.hasSpecs && currentProduct.specs) {
-                document.getElementById('specOptions').innerHTML = currentProduct.specs.map((spec, i) => `
-                    <button class="spec-btn" onclick="selectSpec(${i})">
-                        <div class="spec-name">${spec.name}</div>
-                        <div class="spec-info">${spec.diameter || spec.weight} - NT$ ${spec.price.toLocaleString()}</div>
+            if (product.hasSpecs && product.specs) {
+                const specsDiv = document.getElementById('specs');
+                specsDiv.innerHTML = product.specs.map((s, i) => `
+                    <button onclick="selectSpec(${i})" class="spec-btn" style="padding: 12px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; cursor: pointer; text-align: left;">
+                        <div style="font-weight: 700;">${s.name}</div>
+                        <div style="font-size: 0.85rem; color: #666;">${s.diameter || s.weight}</div>
+                        <div style="color: #ff6b35;">NT$ ${s.price.toLocaleString()}</div>
                     </button>
                 `).join('');
                 selectSpec(0);
-            } else {
-                document.getElementById('displayPrice').textContent = `NT$ ${currentProduct.price.toLocaleString()}`;
             }
-            
-            // 詳細圖片
-            if (currentProduct.detailImages) {
-                document.getElementById('detailImages').innerHTML = currentProduct.detailImages.map(img => 
-                    `<img src="${img}" alt="${currentProduct.name} 詳細說明">`
-                ).join('');
-            }
-        }
-
-        function changeMainImage(index) {
-            const images = currentProduct.images || [currentProduct.image];
-            document.getElementById('mainImage').src = images[index];
-            document.querySelectorAll('.thumbnail').forEach((t, i) => {
-                t.classList.toggle('active', i === index);
+        });
+        
+        function selectSpec(i) {
+            const id = new URLSearchParams(window.location.search).get('id');
+            const product = products.find(p => p.id == id);
+            selectedSpec = product.specs[i];
+            document.getElementById('price').textContent = 'NT$ ' + selectedSpec.price.toLocaleString();
+            document.querySelectorAll('.spec-btn').forEach((btn, idx) => {
+                btn.style.borderColor = idx === i ? '#ff6b35' : '#e0e0e0';
+                btn.style.background = idx === i ? '#fff5f0' : 'white';
             });
         }
-
-        function selectSpec(index) {
-            selectedSpec = currentProduct.specs[index];
-            document.querySelectorAll('.spec-btn').forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
-            document.getElementById('displayPrice').textContent = `NT$ ${selectedSpec.price.toLocaleString()}`;
+        
+        function changeQty(d) {
+            quantity = Math.max(1, quantity + d);
+            document.getElementById('qty').value = quantity;
         }
-
-        function changeQuantity(delta) {
-            currentQuantity = Math.max(1, currentQuantity + delta);
-            document.getElementById('quantity').value = currentQuantity;
-        }
-
-        function addToCart() {
-            if (!selectedSpec && currentProduct.hasSpecs) {
-                alert('請選擇規格');
-                return;
-            }
-            
-            const cartItem = {
-                productId: currentProduct.id,
-                productName: currentProduct.name,
-                specName: selectedSpec ? selectedSpec.name : '',
-                specInfo: selectedSpec ? (selectedSpec.diameter || selectedSpec.weight) : '',
-                price: selectedSpec ? selectedSpec.price : currentProduct.price,
-                quantity: currentQuantity,
-                image: currentProduct.image
-            };
-            
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const existingIndex = cart.findIndex(item => 
-                item.productId === cartItem.productId && item.specName === cartItem.specName
-            );
-            
-            if (existingIndex >= 0) {
-                cart[existingIndex].quantity += cartItem.quantity;
-            } else {
-                cart.push(cartItem);
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert('✓ 已加入購物車');
-            updateCartCount();
-        }
-
-        function buyNow() {
-            addToCart();
-            window.location.href = 'cart.html';
-        }
-
-        function updateCartCount() {
+        
+        function addCart() {
+            const id = new URLSearchParams(window.location.search).get('id');
+            const product = products.find(p => p.id == id);
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.querySelectorAll('.cart-count').forEach(el => {
-                el.textContent = totalCount;
-                el.style.display = totalCount > 0 ? 'flex' : 'none';
+            cart.push({
+                productId: product.id,
+                productName: product.name,
+                specName: selectedSpec?.name || '',
+                price: selectedSpec?.price || product.price,
+                quantity: quantity,
+                image: product.image
             });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('已加入購物車');
         }
-
-        updateCartCount();
     </script>
+    <style>
+        @media (max-width: 768px) {
+            main { padding-top: 130px !important; }
+            #productDetail > div { grid-template-columns: 1fr !important; gap: 30px !important; padding: 20px !important; }
+            #specs { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </body>
 </html>
