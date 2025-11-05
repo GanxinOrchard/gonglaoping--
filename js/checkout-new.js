@@ -39,6 +39,69 @@ function clearSavedFormData() {
     }
 }
 
+// 折扣碼設定
+const DISCOUNT_CODES = {
+    'PONKAN100': { type: 'fixed', value: 100, minAmount: 1000, validFrom: '2025-10', validTo: '2026-02' },
+    'PONKAN15': { type: 'percentage', value: 15, minAmount: 800, validFrom: '2025-10', validTo: '2026-02' },
+    'MURCOTT200': { type: 'fixed', value: 200, minAmount: 1500, validFrom: '2025-12', validTo: '2026-03' },
+    'MURCOTT20': { type: 'percentage', value: 20, minAmount: 1000, validFrom: '2025-12', validTo: '2026-03' },
+    'FRUIT150': { type: 'fixed', value: 150, minAmount: 1200, validFrom: '2025-10', validTo: '2026-03' },
+    'EARLYBIRD': { type: 'percentage', value: 10, minAmount: 500, validFrom: '2025-10', validTo: '2025-12' }
+};
+
+// 計算價格
+function calculateOrderTotal() {
+    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || '[]');
+    const couponCode = localStorage.getItem(STORAGE_KEYS.COUPON) || '';
+    const shipMode = document.querySelector('input[name="shipping"]:checked')?.value || 'home';
+    
+    let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    let discount = 0;
+    let shipping = 0;
+    
+    // 計算運費
+    if (shipMode === 'home') {
+        shipping = subtotal >= 1800 ? 0 : 180;
+    }
+    
+    // 折扣計算
+    if (couponCode && DISCOUNT_CODES[couponCode]) {
+        const code = DISCOUNT_CODES[couponCode];
+        const now = new Date();
+        const yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+        
+        if (yearMonth >= code.validFrom && yearMonth <= code.validTo && subtotal >= code.minAmount) {
+            if (code.type === 'fixed') {
+                discount = code.value;
+            } else if (code.type === 'percentage') {
+                discount = Math.floor(subtotal * code.value / 100);
+            }
+        }
+    }
+    
+    const total = subtotal + shipping - discount;
+    
+    return { subtotal, shipping, discount, total, couponCode };
+}
+
+// 更新訂單摘要
+function updateOrderSummary() {
+    const { subtotal, shipping, discount, total, couponCode } = calculateOrderTotal();
+    
+    document.getElementById('summarySubtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
+    document.getElementById('summaryShipping').textContent = `NT$ ${shipping.toLocaleString()}`;
+    document.getElementById('finalTotal').textContent = `NT$ ${total.toLocaleString()}`;
+    
+    const discountRow = document.getElementById('summaryDiscountRow');
+    if (discount > 0) {
+        discountRow.style.display = 'flex';
+        document.getElementById('summaryDiscountCode').textContent = couponCode;
+        document.getElementById('summaryDiscount').textContent = `-NT$ ${discount.toLocaleString()}`;
+    } else {
+        discountRow.style.display = 'none';
+    }
+}
+
 // ========================================
 // 頁面初始化
 // ========================================
@@ -49,6 +112,59 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('購物車是空的');
         window.location.href = 'cart.html';
         return;
+    }
+    
+    // 初始化訂單摘要
+    updateOrderSummary();
+    
+    // 監聽配送方式變更
+    document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+        radio.addEventListener('change', updateOrderSummary);
+    });
+    
+    // 折扣碼套用
+    const applyCouponBtn = document.getElementById('applyCoupon');
+    const couponInput = document.getElementById('couponInput');
+    const couponMessage = document.getElementById('couponMessage');
+    
+    if (applyCouponBtn && couponInput) {
+        applyCouponBtn.addEventListener('click', () => {
+            const code = couponInput.value.trim().toUpperCase();
+            
+            if (!code) {
+                couponMessage.innerHTML = '<span style="color: #e74c3c;">請輸入折扣碼</span>';
+                return;
+            }
+            
+            if (!DISCOUNT_CODES[code]) {
+                couponMessage.innerHTML = '<span style="color: #e74c3c;">無效的折扣碼</span>';
+                return;
+            }
+            
+            const { subtotal } = calculateOrderTotal();
+            const discountInfo = DISCOUNT_CODES[code];
+            const now = new Date();
+            const yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            
+            if (yearMonth < discountInfo.validFrom || yearMonth > discountInfo.validTo) {
+                couponMessage.innerHTML = '<span style="color: #e74c3c;">折扣碼已過期或尚未生效</span>';
+                return;
+            }
+            
+            if (subtotal < discountInfo.minAmount) {
+                couponMessage.innerHTML = `<span style="color: #e74c3c;">需滿 NT$ ${discountInfo.minAmount} 才可使用此折扣碼</span>`;
+                return;
+            }
+            
+            // 套用折扣碼
+            localStorage.setItem(STORAGE_KEYS.COUPON, code);
+            updateOrderSummary();
+            
+            const discountValue = discountInfo.type === 'fixed' 
+                ? `NT$ ${discountInfo.value}` 
+                : `${discountInfo.value}%`;
+            couponMessage.innerHTML = `<span style="color: #27ae60;">✓ 折扣碼已套用！折扣 ${discountValue}</span>`;
+        });
     }
     
     // 同購買人資料

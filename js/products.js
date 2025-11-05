@@ -70,7 +70,7 @@ const products = [
     {
         id: 3,
         name: '冷凍菱角仁',
-        category: '新鮮蔬果',
+        category: '冷凍食品',
         price: 240,
         image: 'images/products/water-chestnut/gallery/新鮮蔬果菱角仁1.jpg',
         alt: '新鮮冷凍菱角仁，顆粒飽滿，適合煮湯、炒菜',
@@ -100,7 +100,7 @@ const products = [
     {
         id: 6,
         name: '冷凍大甲芋角',
-        category: '新鮮蔬果',
+        category: '冷凍食品',
         price: 280,
         image: 'images/products/taro/content/新鮮蔬果芋角2CM.jpg',
         alt: '大甲芋角，2CM切塊，適合煮糖水、做甜點',

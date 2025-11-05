@@ -127,66 +127,50 @@ function renderProductDetail(product) {
     
     // 渲染完整內容
     container.innerHTML = `
-        <div class="product-detail-content">
-            <div class="product-main">
-                ${imagesHtml}
+        <div class="product-detail-layout">
+            ${imagesHtml}
+            
+            <div class="product-info-section">
+                <span class="product-category-tag">${product.category}</span>
+                <h1>${product.name}</h1>
+                <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">${product.description}</p>
                 
-                <div class="product-info">
-                    <div class="product-header">
-                        <span class="product-category">${product.category}</span>
-                        <h1 class="product-name">${product.name}</h1>
-                        <p class="product-description">${product.description}</p>
+                <div class="product-price-section">
+                    <div class="product-price" id="currentPrice">
+                        <span class="currency">NT$ </span>${initialPrice.toLocaleString()}${product.hasSpecs ? ' 起' : ''}
                     </div>
-                    
-                    <div class="product-price-section">
-                        <div class="current-price">
-                            <span class="currency">NT$</span>
-                            <span class="amount" id="currentPrice">${initialPrice.toLocaleString()}</span>
-                            ${product.hasSpecs ? '<span class="price-suffix">起</span>' : ''}
-                        </div>
-                        ${product.salesCount ? `<div class="sales-count"><i class="fas fa-fire"></i> 已售出 ${product.salesCount} 件</div>` : ''}
-                    </div>
-                    
-                    ${specsHtml}
-                    
-                    <div class="product-shipping-info">
-                        <div class="shipping-item">
-                            <i class="fas fa-shipping-fast"></i>
-                            <span>配送方式：${product.shippingMethod || '常溫宅配'}</span>
-                        </div>
-                        ${product.weight ? `
-                        <div class="shipping-item">
-                            <i class="fas fa-weight"></i>
-                            <span>重量：${product.weight}</span>
-                        </div>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="quantity-selector">
-                        <label>數量：</label>
-                        <div class="quantity-controls">
-                            <button class="qty-btn minus" id="qtyMinus">-</button>
-                            <input type="number" id="quantity" value="1" min="1" max="99">
-                            <button class="qty-btn plus" id="qtyPlus">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-actions">
-                        <button class="btn-add-to-cart" id="addToCartBtn">
-                            <i class="fas fa-shopping-cart"></i>
-                            加入購物車
-                        </button>
-                        <button class="btn-buy-now" id="buyNowBtn">
-                            <i class="fas fa-bolt"></i>
-                            立即購買
-                        </button>
+                    ${product.salesCount ? `<p style="color: #ff6b35; font-size: 0.9rem; margin-top: 10px;"><i class="fas fa-fire"></i> 已售出 ${product.salesCount} 件</p>` : ''}
+                </div>
+                
+                ${specsHtml}
+                
+                <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <p style="margin-bottom: 8px; color: #666;"><i class="fas fa-shipping-fast" style="color: #ff6b35; margin-right: 8px;"></i>配送方式：${product.shippingMethod || '常溫宅配'}</p>
+                    ${product.weight ? `<p style="margin: 0; color: #666;"><i class="fas fa-weight" style="color: #ff6b35; margin-right: 8px;"></i>重量：${product.weight}</p>` : ''}
+                </div>
+                
+                <div class="quantity-selector">
+                    <h3>數量</h3>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" id="qtyMinus">-</button>
+                        <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="99">
+                        <button class="quantity-btn" id="qtyPlus">+</button>
                     </div>
                 </div>
+                
+                <div class="buy-actions">
+                    <button class="btn-add-cart" id="addToCartBtn">
+                        <i class="fas fa-shopping-cart"></i> 加入購物車
+                    </button>
+                    <button class="btn-buy-now" id="buyNowBtn">
+                        <i class="fas fa-bolt"></i> 立即購買
+                    </button>
+                </div>
             </div>
-            
-            ${detailImagesHtml}
-            ${cookingImagesHtml}
         </div>
+        
+        ${detailImagesHtml}
+        ${cookingImagesHtml}
     `;
     
     // 初始化事件監聽器
