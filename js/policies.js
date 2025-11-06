@@ -749,6 +749,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const policyTitle = document.getElementById('policyTitle');
     const policyContent = document.getElementById('policyContent');
     
+    // 只在独立政策页面（policy.html）执行，产品详情页会通过renderPolicy()函数处理
+    if (!policyTitle || !policyContent) {
+        console.log('ℹ️ 非政策页面，跳过政策内容加载');
+        return;
+    }
+    
     if (policiesData[policyType]) {
         policyTitle.textContent = policiesData[policyType].title;
         policyContent.innerHTML = policiesData[policyType].content;

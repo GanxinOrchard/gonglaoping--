@@ -247,23 +247,36 @@ function getReviewCount(productId = null) {
 
 // ========== 評論渲染 ==========
 
+// 評論分頁變數
+let currentReviewPage = 1;
+const REVIEWS_PER_PAGE = 5; // 每頁顯示5則評論
+
 /**
- * 渲染評論列表
+ * 渲染評論列表（帶分頁）
  * @param {string} productId - 產品ID
  * @param {number} limit - 顯示數量
  */
-function renderReviews(productId = null, limit = 10) {
+function renderReviews(productId = null, limit = null) {
     const container = document.getElementById('reviewsList');
     if (!container) return;
     
-    const reviews = productId ? getProductReviews(productId, limit) : getAllReviews(limit);
+    const allReviewsForProduct = productId ? getProductReviews(productId) : getAllReviews();
     
-    if (reviews.length === 0) {
+    if (allReviewsForProduct.length === 0) {
         container.innerHTML = '<p class="no-reviews">暫無評論</p>';
         return;
     }
     
-    container.innerHTML = reviews.map(review => `
+    // 計算總頁數
+    const totalPages = Math.ceil(allReviewsForProduct.length / REVIEWS_PER_PAGE);
+    
+    // 獲取當前頁的評論
+    const startIndex = (currentReviewPage - 1) * REVIEWS_PER_PAGE;
+    const endIndex = startIndex + REVIEWS_PER_PAGE;
+    const reviews = allReviewsForProduct.slice(startIndex, endIndex);
+    
+    // 渲染評論
+    let html = reviews.map(review => `
         <div class="review-item" data-product="${review.productId}">
             <div class="review-header">
                 <div class="review-user">
@@ -279,6 +292,50 @@ function renderReviews(productId = null, limit = 10) {
             ${!productId ? `<div class="review-product-tag">${review.productName}</div>` : ''}
         </div>
     `).join('');
+    
+    // 添加分頁按鈕（只在超過1頁時顯示）
+    if (totalPages > 1) {
+        html += `
+            <div class="review-pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 30px; padding: 20px 0;">
+                <button 
+                    onclick="changeReviewPage(-1, '${productId}')" 
+                    ${currentReviewPage === 1 ? 'disabled' : ''}
+                    style="padding: 8px 16px; border: 1px solid #ff6b35; background: ${currentReviewPage === 1 ? '#f5f5f5' : 'white'}; color: ${currentReviewPage === 1 ? '#999' : '#ff6b35'}; border-radius: 6px; cursor: ${currentReviewPage === 1 ? 'not-allowed' : 'pointer'}; transition: all 0.2s;">
+                    <i class="fas fa-chevron-left"></i> 上一頁
+                </button>
+                <span style="color: #666; font-size: 0.95rem;">
+                    第 <strong style="color: #ff6b35;">${currentReviewPage}</strong> / ${totalPages} 頁 
+                    <span style="color: #999;">(共 ${allReviewsForProduct.length} 則評論)</span>
+                </span>
+                <button 
+                    onclick="changeReviewPage(1, '${productId}')" 
+                    ${currentReviewPage === totalPages ? 'disabled' : ''}
+                    style="padding: 8px 16px; border: 1px solid #ff6b35; background: ${currentReviewPage === totalPages ? '#f5f5f5' : 'white'}; color: ${currentReviewPage === totalPages ? '#999' : '#ff6b35'}; border-radius: 6px; cursor: ${currentReviewPage === totalPages ? 'not-allowed' : 'pointer'}; transition: all 0.2s;">
+                    下一頁 <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+    
+    console.log(`✅ 評論渲染完成：第${currentReviewPage}/${totalPages}頁，顯示 ${reviews.length} 則`);
+}
+
+/**
+ * 切換評論頁面
+ * @param {number} direction - 方向 (-1: 上一頁, 1: 下一頁)
+ * @param {string} productId - 產品ID
+ */
+function changeReviewPage(direction, productId) {
+    currentReviewPage += direction;
+    renderReviews(productId);
+    
+    // 滾動到評論區域
+    const reviewsList = document.getElementById('reviewsList');
+    if (reviewsList) {
+        reviewsList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 /**
