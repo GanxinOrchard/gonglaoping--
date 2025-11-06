@@ -212,7 +212,7 @@ function renderProductDetail(product) {
                     <h3 style="color: #333; margin-bottom: 15px; font-size: 1.5rem;">商品特色</h3>
                     <div style="background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%); padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #ff6b35;">
                         <p style="font-size: 1rem; color: #666; line-height: 1.8;">
-                            ${product.name === '公老坡椪柑' ? `
+                            ${product.name === '公老坡椪柑' || product.name === '公老坪椪柑' ? `
                                 <strong style="font-size: 1.15rem; color: #333; display: block; margin-bottom: 15px;">${product.description}</strong>
                                 公老坡椪柑產自台中東勢高海拔山區，得天獨厚的地理環境與氣候條件，孕育出品質優異的椪柑。果實飽滿、果皮薄而易剥，果肉多汁，酸甜平衡的口感令人難忘。<br><br>
                                 我們堅持產地直送，從果園到您家，確保每一顆椪柑都保持最佳新鮮度。冷藏後風味更佳，清爽不膜口，是冬季最佳的水果選擇。

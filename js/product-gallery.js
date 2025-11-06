@@ -23,19 +23,19 @@ class ProductGallery {
         
         // 主圖區
         html += '<div class="main-image-container">';
-        html += '<button class="gallery-nav prev" onclick="productGallery.prev()"><i class="fas fa-chevron-left"></i></button>';
-        html += '<div class="main-image" onclick="productGallery.openLightbox()">';
+        html += '<button class="gallery-nav prev" onclick="window.productGallery.prev()"><i class="fas fa-chevron-left"></i></button>';
+        html += '<div class="main-image" onclick="window.productGallery.openLightbox()">';
         html += '<img src="' + this.images[this.currentIndex] + '" alt="商品圖片" id="mainProductImage" style="cursor: zoom-in;">';
         html += '<div class="zoom-hint"><i class="fas fa-search-plus"></i> 點擊放大</div>';
         html += '</div>';
-        html += '<button class="gallery-nav next" onclick="productGallery.next()"><i class="fas fa-chevron-right"></i></button>';
+        html += '<button class="gallery-nav next" onclick="window.productGallery.next()"><i class="fas fa-chevron-right"></i></button>';
         html += '</div>';
         
         // 縮圖區
         html += '<div class="thumbnail-container">';
         this.images.forEach((img, index) => {
             const activeClass = index === this.currentIndex ? ' active' : '';
-            html += '<div class="thumbnail' + activeClass + '" onclick="productGallery.goTo(' + index + ')">';
+            html += '<div class="thumbnail' + activeClass + '" onclick="window.productGallery.goTo(' + index + ')" style="cursor: pointer;">';
             html += '<img src="' + img + '" alt="縮圖 ' + (index + 1) + '">';
             html += '</div>';
         });

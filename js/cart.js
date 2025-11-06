@@ -144,6 +144,47 @@ function renderCartItems() {
     
     // 更新金額顯示
     updateCartCount();
+    updateAmounts();
+}
+
+// 更新購物車金額統計（合併所有ID查詢邏輯）
+function updateAmounts() {
+    const { subtotal, discount, shipping, total } = calculatePrice();
+    
+    // cart.html主要使用的ID
+    const subtotalEl = document.getElementById('subtotalAmount');
+    const discountEl = document.getElementById('discountAmount');
+    const shippingEl = document.getElementById('shippingAmount');
+    const totalEl = document.getElementById('totalAmount');
+    
+    // 其他頁面ID(向後相容)
+    const subtotalEl2 = document.getElementById('subtotal');
+    const shippingEl2 = document.getElementById('shippingFee');
+    const discountEl2 = document.getElementById('discountValue');
+    const totalEl2 = document.getElementById('total');
+    
+    // data屬性選擇器
+    const subtotalEl3 = document.querySelector('[data-subtotal]');
+    const shippingEl3 = document.querySelector('[data-shipping]');
+    const discountEl3 = document.querySelector('[data-discount]');
+    const totalEl3 = document.querySelector('[data-total]');
+    
+    // 更新所有找到的元素
+    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    if (subtotalEl2) subtotalEl2.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    if (subtotalEl3) subtotalEl3.textContent = `NT$ ${subtotal.toLocaleString()}`;
+    
+    if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
+    if (discountEl2) discountEl2.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
+    if (discountEl3) discountEl3.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
+    
+    if (shippingEl) shippingEl.textContent = shipping > 0 ? `NT$ ${shipping.toLocaleString()}` : '免運費';
+    if (shippingEl2) shippingEl2.textContent = shipping > 0 ? `NT$ ${shipping.toLocaleString()}` : '免運費';
+    if (shippingEl3) shippingEl3.textContent = shipping > 0 ? `NT$ ${shipping.toLocaleString()}` : '免運費';
+    
+    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
+    if (totalEl2) totalEl2.textContent = `NT$ ${total.toLocaleString()}`;
+    if (totalEl3) totalEl3.textContent = `NT$ ${total.toLocaleString()}`;
 }
 
 // 更新購物車數量
@@ -331,50 +372,6 @@ function generateOrderNumber() {
     return `${year}${month}${day}${random}`;
 }
 
-// 更新金額顯示（全域函數）
-function updateAmounts() {
-    const { subtotal, discount, shipping, total } = calculatePrice();
-    
-    // cart.html 使用的 ID
-    const subtotalEl = document.getElementById('subtotalAmount');
-    const shippingEl = document.getElementById('shippingAmount');
-    const discountEl = document.getElementById('discountAmount');
-    const totalEl = document.getElementById('totalAmount');
-    
-    // 其他頁面可能使用的 ID（向後相容）
-    const subtotalEl2 = document.getElementById('subtotal');
-    const shippingEl2 = document.getElementById('shippingFee');
-    const discountEl2 = document.getElementById('discountValue');
-    const totalEl2 = document.getElementById('total');
-    const discountRow = document.getElementById('discountAmount');
-    
-    // 更新 cart.html 的元素
-    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
-    if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
-    if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
-    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
-    
-    // 更新其他頁面的元素（向後相容）
-    if (subtotalEl2) subtotalEl2.textContent = `NT$ ${subtotal.toLocaleString()}`;
-    if (shippingEl2) shippingEl2.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
-    if (discountEl2) discountEl2.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
-    if (totalEl2) totalEl2.textContent = `NT$ ${total.toLocaleString()}`;
-    
-    // 顯示/隱藏折扣行
-    if (discountRow) {
-        discountRow.style.display = discount > 0 ? 'flex' : 'none';
-    }
-}
-
-// ========================================
-// 更新金額顯示（全域函數）
-// ========================================
-function updateAmounts() {
-    const { subtotal, discount, shipping, total } = calculatePrice();
-    
-    const subtotalEl = document.querySelector('[data-subtotal]');
-    const shippingEl = document.querySelector('[data-shipping]');
-    const discountEl = document.querySelector('[data-discount]');
     const totalEl = document.querySelector('[data-total]');
     
     if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
