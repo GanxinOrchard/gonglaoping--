@@ -12,9 +12,19 @@ function getProductById(id) {
     return products.find(p => p.id === id);
 }
 
+// 产品ID到评论类型的映射
+const PRODUCT_REVIEW_MAP = {
+    1: 'ponkan',      // 椪柑
+    2: 'murcott',     // 茂谷柑
+    3: 'water-chestnut', // 菱角
+    6: 'water-chestnut'  // 芋角也用菱角评论
+};
+
 // 渲染商品詳情
 function renderProductDetail(product) {
     const container = document.getElementById('productDetailContainer');
+    
+    console.log('🔍 渲染商品:', product.id, product.name);
     
     if (!product) {
         container.innerHTML = `
@@ -139,8 +149,8 @@ function renderProductDetail(product) {
                 <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">${product.description}</p>
                 
                 <div style="background: #fff5f0; border: 2px solid #ff6b35; border-radius: 12px; padding: 15px; margin-bottom: 25px; display: inline-block;">
-                    <div class="product-price" id="currentPrice" style="font-size: 2rem; color: #ff3b3b; font-weight: 700; margin: 0;">
-                        <span class="currency" style="font-size: 1rem;">NT$ </span>${initialPrice.toLocaleString()}${product.hasSpecs ? '<span style="font-size: 1rem; color: #666; font-weight: 400;"> 起</span>' : ''}
+                    <div id="currentPrice" style="font-size: 2rem; color: #ff3b3b; font-weight: 700; margin: 0;">
+                        <span style="font-size: 1rem;">NT$ </span>${initialPrice.toLocaleString()}${product.hasSpecs ? '<span style="font-size: 1rem; color: #666; font-weight: 400;"> 起</span>' : ''}
                     </div>
                 </div>
                 
@@ -191,9 +201,28 @@ function renderProductDetail(product) {
             <div class="tab-content active" id="descriptionTab">
                 <div class="product-description" style="line-height: 1.8; color: #666;">
                     <h3 style="color: #333; margin-bottom: 15px;">商品特色</h3>
-                    <p>${product.description}</p>
-                    ${product.shippingMethod ? `<p><strong>配送方式：</strong>${product.shippingMethod}</p>` : ''}
-                    ${product.weight ? `<p><strong>包裝規格：</strong>${product.weight}</p>` : ''}
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;">${product.description}</p>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h4 style="color: #ff6b35; margin-bottom: 15px;"><i class="fas fa-info-circle"></i> 商品資訊</h4>
+                        ${product.shippingMethod ? `<p style="margin-bottom: 10px;"><strong>🚚 配送方式：</strong>${product.shippingMethod}</p>` : ''}
+                        ${product.weight ? `<p style="margin-bottom: 10px;"><strong>📦 包裝規格：</strong>${product.weight}</p>` : ''}
+                        ${product.shippingType ? `<p style="margin-bottom: 10px;"><strong>❄️ 配送溫層：</strong>${product.shippingType === 'frozen' ? '冷凍宅配' : '常溫宅配'}</p>` : ''}
+                        <p style="margin-bottom: 10px;"><strong>📍 產地：</strong>台灣</p>
+                        <p style="margin: 0;"><strong>✅ 品質保證：</strong>產地直送，新鮮安心</p>
+                    </div>
+                    
+                    ${product.hasSpecs && product.specs ? `
+                    <div style="margin-top: 20px;">
+                        <h4 style="color: #ff6b35; margin-bottom: 15px;"><i class="fas fa-ruler"></i> 規格說明</h4>
+                        ${product.specs.map(spec => `
+                            <div style="background: white; border: 1px solid #e5e5e5; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                                <strong>${spec.name}</strong> - ${spec.diameter ? spec.diameter + ' | ' : ''}${spec.weight} - NT$ ${spec.price.toLocaleString()}
+                                ${spec.description ? `<br><span style="color: #999; font-size: 0.9rem;">${spec.description}</span>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
                 </div>
             </div>
             
@@ -229,16 +258,31 @@ function initEventListeners(product) {
     const thumbnails = document.querySelectorAll('.thumbnail');
     const mainImage = document.getElementById('mainImage');
     
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', function() {
-            const index = parseInt(this.dataset.index);
-            mainImage.src = product.images[index];
-            
-            // 更新活動狀態
-            thumbnails.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
+    console.log('🖼️ 找到缩略图数量:', thumbnails.length);
+    console.log('🖼️ 主图元素:', mainImage);
+    
+    if (thumbnails.length > 0 && mainImage) {
+        thumbnails.forEach((thumb, idx) => {
+            thumb.addEventListener('click', function(e) {
+                e.preventDefault();
+                const index = parseInt(this.dataset.index);
+                console.log('📸 点击缩略图 index:', index);
+                
+                if (product.images && product.images[index]) {
+                    mainImage.src = product.images[index];
+                    console.log('✅ 切换到:', product.images[index]);
+                    
+                    // 更新活動狀態
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                } else {
+                    console.error('❌ 图片不存在:', index);
+                }
+            });
         });
-    });
+    } else {
+        console.warn('⚠️ 缩略图或主图元素未找到');
+    }
     
     // 規格選擇
     const specOptions = document.querySelectorAll('.spec-option');
@@ -385,10 +429,22 @@ function initEventListeners(product) {
         });
     });
     
-    // 初始化評論系統（reviews.js 会自动处理）
-    // reviews.js 会根据 URL 参数自动渲染评论
-    
-    // 图片轮播已在缩略图点击事件中处理
+    // 手动触发评论渲染（因为reviews.js自动执行可能在DOM准备好之前）
+    setTimeout(() => {
+        const reviewType = PRODUCT_REVIEW_MAP[product.id] || 'ponkan';
+        console.log('💬 渲染评论类型:', reviewType, '(产品ID:', product.id + ')');
+        
+        if (typeof renderReviews === 'function') {
+            try {
+                renderReviews(reviewType, 10);
+                console.log('✅ 评论渲染成功');
+            } catch (err) {
+                console.error('❌ 评论渲染失败:', err);
+            }
+        } else {
+            console.warn('⚠️ renderReviews 函数未找到');
+        }
+    }, 500);
 }
 
 // 更新購物車數量顯示
