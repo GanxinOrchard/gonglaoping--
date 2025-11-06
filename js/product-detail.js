@@ -233,16 +233,8 @@ function renderProductDetail(product) {
             </div>
             
             <div class="tab-content" id="policyTab" style="display: none;">
-                <div style="line-height: 1.8; color: #666;">
-                    <h3 style="color: #333; margin-bottom: 15px;">常見問題</h3>
-                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 如何訂購商品？</h4>
-                    <p>您可以透過網站購物車、電話 0933-721-978 或 Facebook 訊息訂購。</p>
-                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 配送需要多久？</h4>
-                    <p>一般商品 2-3 個工作天，冷凍商品 3-5 個工作天送達。</p>
-                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 有哪些付款方式？</h4>
-                    <p>支援貨到付款、銀行匯款、LINE Pay 等多種付款方式。</p>
-                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 可以退換貨嗎？</h4>
-                    <p>收到商品 24 小時內如有瑕疵可拍照聯繫客服進行退換貨。</p>
+                <div id="policyContent" style="line-height: 1.8; color: #666;">
+                    <!-- 由 renderPolicy 函数填充 -->
                 </div>
             </div>
         </div>
@@ -429,7 +421,20 @@ function initEventListeners(product) {
         });
     });
     
-    // 手动触发评论渲染（因为reviews.js自动执行可能在DOM准备好之前）
+    // 初始化完整的图片轮播（ProductGallery类）
+    if (product.images && product.images.length > 1 && typeof ProductGallery !== 'undefined') {
+        setTimeout(() => {
+            console.log('🎠 初始化ProductGallery轮播');
+            window.productGallery = new ProductGallery(product.id, product.images);
+        }, 100);
+    }
+    
+    // 渲染政策内容
+    setTimeout(() => {
+        renderPolicy('faq');
+    }, 200);
+    
+    // 手动触发评论渲染
     setTimeout(() => {
         const reviewType = PRODUCT_REVIEW_MAP[product.id] || 'ponkan';
         console.log('💬 渲染评论类型:', reviewType, '(产品ID:', product.id + ')');
@@ -444,7 +449,60 @@ function initEventListeners(product) {
         } else {
             console.warn('⚠️ renderReviews 函数未找到');
         }
-    }, 500);
+    }, 300);
+}
+
+// 渲染政策内容
+function renderPolicy(type = 'faq') {
+    const container = document.getElementById('policyContent');
+    if (!container) {
+        console.warn('⚠️ policyContent 容器未找到');
+        return;
+    }
+    
+    // 检查policies.js是否已加载
+    if (typeof policiesData === 'undefined') {
+        console.warn('⚠️ policiesData 未定义，使用默认FAQ');
+        container.innerHTML = `
+            <h2>訂購相關</h2>
+            <h3>Q: 如何訂購商品？</h3>
+            <p>您可以透過以下方式訂購：</p>
+            <ul>
+                <li>線上購物車：將商品加入購物車後，填寫收件資訊即可完成訂購</li>
+                <li>電話訂購：撥打 0933-721-978，由專人為您服務</li>
+                <li>Facebook 訊息：透過我們的粉絲專頁私訊訂購</li>
+            </ul>
+            
+            <h3>Q: 配送需要多久時間？</h3>
+            <p>一般商品：訂單確認後 2-3 個工作天送達<br>
+            冷凍商品：訂單確認後 3-5 個工作天送達（需配合冷凍車班次）</p>
+            
+            <h3>Q: 有哪些付款方式？</h3>
+            <p>我們提供以下付款方式：</p>
+            <ul>
+                <li>銀行匯款（ATM 轉帳）</li>
+                <li>LINE Pay</li>
+                <li>貨到付款（需加收手續費 NT$30）</li>
+            </ul>
+            
+            <h3>Q: 收到商品後發現有瑕疵怎麼辦？</h3>
+            <p>請於收到商品後 24 小時內拍照並聯絡我們，我們會立即為您處理退換貨事宜。</p>
+            
+            <div class="highlight-box" style="background: #fff5f0; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                <p><strong>還有其他問題？</strong><br>
+                歡迎透過電話 0933-721-978 或 Facebook 粉絲專頁與我們聯繫，我們很樂意為您服務！</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // 使用policies.js的完整内容
+    if (policiesData[type]) {
+        container.innerHTML = policiesData[type].content;
+        console.log('✅ 政策内容渲染成功:', policiesData[type].title);
+    } else {
+        console.warn('⚠️ 找不到政策类型:', type);
+    }
 }
 
 // 更新購物車數量顯示
