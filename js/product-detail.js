@@ -132,14 +132,16 @@ function renderProductDetail(product) {
             
             <div class="product-info-section">
                 <span class="product-category-tag">${product.category}</span>
-                <h1>${product.name}</h1>
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <h1 style="margin: 0;">${product.name}</h1>
+                    ${product.salesCount ? `<span style="color: #ff6b35; font-size: 0.85rem; background: #fff5f0; padding: 4px 12px; border-radius: 20px; white-space: nowrap;"><i class="fas fa-fire"></i> 已售出 ${product.salesCount} 件</span>` : ''}
+                </div>
                 <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">${product.description}</p>
                 
-                <div class="product-price-section">
-                    <div class="product-price" id="currentPrice">
-                        <span class="currency">NT$ </span>${initialPrice.toLocaleString()}${product.hasSpecs ? ' 起' : ''}
+                <div style="background: #fff5f0; border: 2px solid #ff6b35; border-radius: 12px; padding: 15px; margin-bottom: 25px; display: inline-block;">
+                    <div class="product-price" id="currentPrice" style="font-size: 2rem; color: #ff3b3b; font-weight: 700; margin: 0;">
+                        <span class="currency" style="font-size: 1rem;">NT$ </span>${initialPrice.toLocaleString()}${product.hasSpecs ? '<span style="font-size: 1rem; color: #666; font-weight: 400;"> 起</span>' : ''}
                     </div>
-                    ${product.salesCount ? `<p style="color: #ff6b35; font-size: 0.9rem; margin-top: 10px;"><i class="fas fa-fire"></i> 已售出 ${product.salesCount} 件</p>` : ''}
                 </div>
                 
                 ${specsHtml}
@@ -196,14 +198,22 @@ function renderProductDetail(product) {
             </div>
             
             <div class="tab-content" id="reviewsTab" style="display: none;">
-                <div id="reviewsContainer">
+                <div id="reviewsList" style="display: flex; flex-direction: column; gap: 20px;">
                     <!-- 由 reviews.js 填充 -->
                 </div>
             </div>
             
             <div class="tab-content" id="policyTab" style="display: none;">
-                <div id="policyContainer">
-                    <!-- 由 policies.js 填充 -->
+                <div style="line-height: 1.8; color: #666;">
+                    <h3 style="color: #333; margin-bottom: 15px;">常見問題</h3>
+                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 如何訂購商品？</h4>
+                    <p>您可以透過網站購物車、電話 0933-721-978 或 Facebook 訊息訂購。</p>
+                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 配送需要多久？</h4>
+                    <p>一般商品 2-3 個工作天，冷凍商品 3-5 個工作天送達。</p>
+                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 有哪些付款方式？</h4>
+                    <p>支援貨到付款、銀行匯款、LINE Pay 等多種付款方式。</p>
+                    <h4 style="color: #ff6b35; margin-top: 20px;">Q: 可以退換貨嗎？</h4>
+                    <p>收到商品 24 小時內如有瑕疵可拍照聯繫客服進行退換貨。</p>
                 </div>
             </div>
         </div>
@@ -375,23 +385,10 @@ function initEventListeners(product) {
         });
     });
     
-    // 初始化評論系統
-    if (typeof renderReviews === 'function') {
-        const productType = product.name.includes('椪柑') ? 'ponkan' : 
-                          product.name.includes('茂谷') ? 'murcott' : 
-                          product.name.includes('菱角') ? 'water-chestnut' : 'default';
-        renderReviews(productType, 'reviewsContainer');
-    }
+    // 初始化評論系統（reviews.js 会自动处理）
+    // reviews.js 会根据 URL 参数自动渲染评论
     
-    // 初始化政策內容
-    if (typeof renderPolicy === 'function') {
-        renderPolicy('faq', 'policyContainer');
-    }
-    
-    // 初始化圖片輪播
-    if (product.images && product.images.length > 1 && typeof ProductGallery !== 'undefined') {
-        window.productGallery = new ProductGallery(product.id, product.images);
-    }
+    // 图片轮播已在缩略图点击事件中处理
 }
 
 // 更新購物車數量顯示
