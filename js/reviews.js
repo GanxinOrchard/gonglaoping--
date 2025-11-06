@@ -148,10 +148,13 @@ function generateProductReviews(productId, reviewsPerYear = 120, years = 3) {
     const reviews = [];
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // 0-11 -> 1-12
+    const currentDay = currentDate.getDate();
     
     // 生成多年度評論
     for (let yearOffset = 0; yearOffset < years; yearOffset++) {
         const year = currentYear - yearOffset;
+        const isCurrentYear = (year === currentYear);
         
         // 每年生成指定數量的評論
         for (let i = 0; i < reviewsPerYear; i++) {
@@ -159,10 +162,27 @@ function generateProductReviews(productId, reviewsPerYear = 120, years = 3) {
             const commentIndex = Math.floor(Math.random() * template.comments.length);
             const userIndex = Math.floor(Math.random() * userNames.length);
             
-            // 生成隨機日期（該年內）
-            const month = Math.floor(Math.random() * 12) + 1;
-            const maxDay = new Date(year, month, 0).getDate();
-            const day = Math.floor(Math.random() * maxDay) + 1;
+            // 生成隨機日期（不超過當前日期）
+            let month, day;
+            
+            if (isCurrentYear) {
+                // 當年：只生成到當前月份為止
+                month = Math.floor(Math.random() * currentMonth) + 1;
+                
+                if (month === currentMonth) {
+                    // 當前月份：只生成到今天為止
+                    day = Math.floor(Math.random() * currentDay) + 1;
+                } else {
+                    // 過去月份：可以生成整個月
+                    const maxDay = new Date(year, month, 0).getDate();
+                    day = Math.floor(Math.random() * maxDay) + 1;
+                }
+            } else {
+                // 過去年份：可以生成整年
+                month = Math.floor(Math.random() * 12) + 1;
+                const maxDay = new Date(year, month, 0).getDate();
+                day = Math.floor(Math.random() * maxDay) + 1;
+            }
             
             // 隨機評分（4-5星，偏重5星）
             const rating = Math.random() > 0.25 ? 5 : 4;
