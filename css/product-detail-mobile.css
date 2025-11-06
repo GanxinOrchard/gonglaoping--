@@ -1,0 +1,35 @@
+/* 商品详情页手机版样式 */
+
+@media (max-width: 768px) {
+    /* 显示手机版规格内的购物车按钮 */
+    .mobile-spec-actions {
+        display: block !important;
+    }
+    
+    /* 隐藏桌面版的数量选择器和购物车按钮 */
+    .quantity-selector,
+    .buy-actions {
+        display: none !important;
+    }
+    
+    /* 规格卡片样式优化 */
+    .spec-option {
+        padding: 15px !important;
+    }
+    
+    .mobile-spec-actions .qty-btn-mini:active {
+        background: #e5e5e5;
+    }
+    
+    .btn-add-spec-cart:active {
+        background: #e55a25;
+        transform: scale(0.98);
+    }
+}
+
+/* 桌面版 - 隐藏手机版购物车按钮 */
+@media (min-width: 769px) {
+    .mobile-spec-actions {
+        display: none !important;
+    }
+}

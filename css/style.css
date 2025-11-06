@@ -5293,7 +5293,8 @@ ul {
 .back-to-top {
     position: fixed;
     bottom: 30px;
-    left: 50%;
+    right: 30px;  /* 只在电脑版右侧显示 */
+    left: auto;
     transform: translateX(-50%);
     width: 50px;
     height: 50px;
@@ -5323,6 +5324,7 @@ ul {
 
 @media (max-width: 768px) {
     .back-to-top {
+        display: none !important;  /* 手机版隐藏 */
         width: 45px;
         height: 45px;
         font-size: 18px;

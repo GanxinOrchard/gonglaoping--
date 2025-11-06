@@ -67,6 +67,20 @@ function renderProductDetail(product) {
                             <div class="spec-weight">${spec.weight}</div>
                             <div class="spec-price">NT$ ${spec.price.toLocaleString()}</div>
                             ${spec.description ? `<div class="spec-description">${spec.description}</div>` : ''}
+                            
+                            <!-- 手机版购物车按钮 -->
+                            <div class="mobile-spec-actions" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e5e5e5;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="quantity-controls" style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 6px; overflow: hidden;">
+                                        <button class="qty-btn-mini" onclick="changeSpecQuantity(${index}, -1)" style="width: 35px; height: 35px; border: none; background: #f5f5f5; cursor: pointer; font-size: 1.2rem;">-</button>
+                                        <input type="number" class="qty-input-mini" value="1" min="1" max="99" data-spec-index="${index}" readonly style="width: 50px; height: 35px; border: none; text-align: center; font-size: 1rem; background: white;">
+                                        <button class="qty-btn-mini" onclick="changeSpecQuantity(${index}, 1)" style="width: 35px; height: 35px; border: none; background: #f5f5f5; cursor: pointer; font-size: 1.2rem;">+</button>
+                                    </div>
+                                    <button class="btn-add-spec-cart" onclick="addSpecToCart(${index})" style="flex: 1; padding: 10px 20px; background: #ff6b35; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.2s;">
+                                        <i class="fas fa-shopping-cart"></i> 加入
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
@@ -74,11 +88,12 @@ function renderProductDetail(product) {
         `;
     }
     
-    // 建立圖片輪播 HTML
+    // 建立圖片輪播 HTML（使用 ProductGallery 容器）
     let imagesHtml = '';
     if (product.images && product.images.length > 0) {
         imagesHtml = `
-            <div class="product-image-gallery">
+            <div class="product-image-gallery" id="productGallery">
+                <!-- ProductGallery 类将在这里渲染 -->
                 <div class="main-image">
                     <img src="${product.images[0]}" alt="${product.name}" id="mainImage">
                     ${product.badge ? `<span class="product-badge ${product.badge === '預購' ? 'preorder-badge' : product.badge === '熱銷' ? 'hot-badge' : 'new-badge'}">${product.badge}</span>` : ''}
@@ -194,10 +209,7 @@ function renderProductDetail(product) {
             
             <div class="tab-content active" id="descriptionTab">
                 <div class="product-description" style="line-height: 1.8; color: #666;">
-                    <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">${product.description}</p>
-                
-                ${specsHtml}
-                
+                    <h3 style="color: #333; margin-bottom: 15px; font-size: 1.5rem;">商品特色</h3>
                     <div style="background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%); padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #ff6b35;">
                         <p style="font-size: 1.15rem; margin-bottom: 15px; color: #333; font-weight: 500;">${product.description}</p>
                         <p style="font-size: 1rem; color: #666; line-height: 1.8;">
@@ -518,6 +530,61 @@ function renderPolicy(type = 'faq') {
     } else {
         console.warn('⚠️ 找不到政策类型:', type);
     }
+}
+
+// 手机版规格数量控制
+function changeSpecQuantity(specIndex, change) {
+    const input = document.querySelector(`.qty-input-mini[data-spec-index="${specIndex}"]`);
+    if (!input) return;
+    
+    let currentValue = parseInt(input.value) || 1;
+    let newValue = currentValue + change;
+    
+    if (newValue < 1) newValue = 1;
+    if (newValue > 99) newValue = 99;
+    
+    input.value = newValue;
+}
+
+// 手机版添加规格到购物车
+function addSpecToCart(specIndex) {
+    const productId = getProductIdFromUrl();
+    const product = getProductById(productId);
+    if (!product || !product.specs || !product.specs[specIndex]) return;
+    
+    const spec = product.specs[specIndex];
+    const quantityInput = document.querySelector(`.qty-input-mini[data-spec-index="${specIndex}"]`);
+    const quantity = parseInt(quantityInput?.value) || 1;
+    
+    // 使用现有的 addToCart 逻辑
+    const cart = JSON.parse(localStorage.getItem('ganxin_cart') || localStorage.getItem('cart') || '[]');
+    
+    const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: spec.price,
+        image: product.images[0],
+        quantity: quantity,
+        specId: spec.id,
+        specName: spec.name
+    };
+    
+    const existingIndex = cart.findIndex(item => 
+        item.id === cartItem.id && item.specId === cartItem.specId
+    );
+    
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity += quantity;
+    } else {
+        cart.push(cartItem);
+    }
+    
+    localStorage.setItem('ganxin_cart', JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    
+    // 显示提示
+    alert(`已加入 ${quantity} 件 ${spec.name} 到購物車！`);
 }
 
 // 更新購物車數量顯示
