@@ -171,6 +171,42 @@ function renderProductDetail(product) {
         
         ${detailImagesHtml}
         ${cookingImagesHtml}
+        
+        <!-- 商品Tab區 -->
+        <div class="product-tabs" style="margin-top: 60px;">
+            <div class="tabs-header" style="display: flex; gap: 30px; border-bottom: 2px solid #e5e5e5; margin-bottom: 30px;">
+                <button class="tab-btn active" data-tab="description" style="padding: 15px 0; background: none; border: none; font-size: 1.1rem; font-weight: 600; color: #ff6b35; cursor: pointer; border-bottom: 3px solid #ff6b35; transition: all 0.2s;">
+                    商品說明
+                </button>
+                <button class="tab-btn" data-tab="reviews" style="padding: 15px 0; background: none; border: none; font-size: 1.1rem; font-weight: 600; color: #999; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s;">
+                    顧客評論
+                </button>
+                <button class="tab-btn" data-tab="policy" style="padding: 15px 0; background: none; border: none; font-size: 1.1rem; font-weight: 600; color: #999; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s;">
+                    常見問題
+                </button>
+            </div>
+            
+            <div class="tab-content active" id="descriptionTab">
+                <div class="product-description" style="line-height: 1.8; color: #666;">
+                    <h3 style="color: #333; margin-bottom: 15px;">商品特色</h3>
+                    <p>${product.description}</p>
+                    ${product.shippingMethod ? `<p><strong>配送方式：</strong>${product.shippingMethod}</p>` : ''}
+                    ${product.weight ? `<p><strong>包裝規格：</strong>${product.weight}</p>` : ''}
+                </div>
+            </div>
+            
+            <div class="tab-content" id="reviewsTab" style="display: none;">
+                <div id="reviewsContainer">
+                    <!-- 由 reviews.js 填充 -->
+                </div>
+            </div>
+            
+            <div class="tab-content" id="policyTab" style="display: none;">
+                <div id="policyContainer">
+                    <!-- 由 policies.js 填充 -->
+                </div>
+            </div>
+        </div>
     `;
     
     // 初始化事件監聽器
@@ -306,6 +342,56 @@ function initEventListeners(product) {
         // 跳轉到結帳頁
         window.location.href = 'checkout.html';
     });
+    
+    // Tab切換功能
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            
+            // 更新按鈕狀態
+            tabBtns.forEach(b => {
+                b.classList.remove('active');
+                b.style.color = '#999';
+                b.style.borderBottomColor = 'transparent';
+            });
+            this.classList.add('active');
+            this.style.color = '#ff6b35';
+            this.style.borderBottomColor = '#ff6b35';
+            
+            // 更新內容顯示
+            tabContents.forEach(content => {
+                content.style.display = 'none';
+                content.classList.remove('active');
+            });
+            
+            const targetContent = document.getElementById(targetTab + 'Tab');
+            if (targetContent) {
+                targetContent.style.display = 'block';
+                targetContent.classList.add('active');
+            }
+        });
+    });
+    
+    // 初始化評論系統
+    if (typeof renderReviews === 'function') {
+        const productType = product.name.includes('椪柑') ? 'ponkan' : 
+                          product.name.includes('茂谷') ? 'murcott' : 
+                          product.name.includes('菱角') ? 'water-chestnut' : 'default';
+        renderReviews(productType, 'reviewsContainer');
+    }
+    
+    // 初始化政策內容
+    if (typeof renderPolicy === 'function') {
+        renderPolicy('faq', 'policyContainer');
+    }
+    
+    // 初始化圖片輪播
+    if (product.images && product.images.length > 1 && typeof ProductGallery !== 'undefined') {
+        window.productGallery = new ProductGallery(product.id, product.images);
+    }
 }
 
 // 更新購物車數量顯示
