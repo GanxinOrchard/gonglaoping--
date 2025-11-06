@@ -32,12 +32,10 @@ const policiesData = {
             <ul>
                 <li>銀行匯款（ATM 轉帳）</li>
                 <li>LINE Pay</li>
-                <li>貨到付款（需加收手續費 NT$30）</li>
             </ul>
             
             <h3>Q: 什麼時候需要付款？</h3>
-            <p>匯款/LINE Pay：下單後 3 天內完成付款<br>
-            貨到付款：收到商品時付款給物流司機</p>
+            <p>匯款/LINE Pay：下單後 3 天內完成付款</p>
             
             <h2>商品相關</h2>
             <h3>Q: 水果的保存期限？</h3>
@@ -145,7 +143,6 @@ const policiesData = {
             <ul>
                 <li>銀行匯款：退款至您的指定帳戶</li>
                 <li>LINE Pay：退款至 LINE Pay 帳戶</li>
-                <li>貨到付款：以銀行匯款方式退款</li>
             </ul>
             
             <div class="highlight-box">
@@ -365,7 +362,6 @@ const policiesData = {
             <ul>
                 <li>銀行匯款（ATM 轉帳）</li>
                 <li>LINE Pay</li>
-                <li>貨到付款（需加收手續費 NT$30）</li>
             </ul>
             
             <h3>步驟 7：確認訂單</h3>
@@ -374,7 +370,6 @@ const policiesData = {
             <h3>步驟 8：完成付款</h3>
             <ul>
                 <li>匯款/LINE Pay：請於 3 天內完成付款</li>
-                <li>貨到付款：收到商品時付款</li>
             </ul>
             
             <h2>📞 電話訂購</h2>

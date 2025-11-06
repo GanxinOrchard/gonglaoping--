@@ -148,12 +148,6 @@ function renderProductDetail(product) {
                 </div>
                 <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">${product.description}</p>
                 
-                <div style="background: #fff5f0; border: 2px solid #ff6b35; border-radius: 12px; padding: 15px; margin-bottom: 25px; display: inline-block;">
-                    <div id="currentPrice" style="font-size: 2rem; color: #ff3b3b; font-weight: 700; margin: 0;">
-                        <span style="font-size: 1rem;">NT$ </span>${initialPrice.toLocaleString()}${product.hasSpecs ? '<span style="font-size: 1rem; color: #666; font-weight: 400;"> 起</span>' : ''}
-                    </div>
-                </div>
-                
                 ${specsHtml}
                 
                 <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
@@ -200,16 +194,37 @@ function renderProductDetail(product) {
             
             <div class="tab-content active" id="descriptionTab">
                 <div class="product-description" style="line-height: 1.8; color: #666;">
-                    <h3 style="color: #333; margin-bottom: 15px;">商品特色</h3>
-                    <p style="font-size: 1.1rem; margin-bottom: 20px;">${product.description}</p>
+                    <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">${product.description}</p>
+                
+                ${specsHtml}
+                
+                    <div style="background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%); padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #ff6b35;">
+                        <p style="font-size: 1.15rem; margin-bottom: 15px; color: #333; font-weight: 500;">${product.description}</p>
+                        <p style="font-size: 1rem; color: #666; line-height: 1.8;">
+                            ${product.name === '公老坡椪柑' ? '
+                                公老坡椪柑產自台中東勢高海拔山區，得天獨厚的地理環境與氣候條件，孕育出品質優異的椪柑。果實飽滿、果皮薄而易剥，果肉多汁，酸甜平衡的口感令人難忘。<br><br>
+                                我們堅持產地直送，從果園到您家，確保每一顆椪柑都保持最佳新鮮度。冷藏後風味更佳，清爽不膜口，是冬季最佳的水果選擇。
+                            ' : product.name === '東勢茂谷柑' ? '
+                                東勢茂谷柑是柑橘中的絕佳品種，以香氣濃郁、甜度高著稱。果肉細緻、汁多味美，每一口都是享受。果皮薄而易剥，果實飽滿，是送禮自用的絕佳選擇。<br><br>
+                                茂谷柑產季限定，每年僅有2-3月供應，错過就要再等一年。我們精選優質果園，直送到家，讓您品嚐到最道地的茂谷風味。
+                            ' : product.name === '冷凍菱角仁' ? '
+                                菱角仁是台灣傳統的優質食材，口感鬆軟香甜，營養價值高。我們的冷凍菱角仁採用新鮮菱角，經過快速冷凍處理，完整保留營養和風味。<br><br>
+                                適合用於各種料理，無論是燉湯、炒菜或甘甜黥，都能展現菱角的絕佳風味。冷凍保存12個月，隨時可用，方便又實惠。
+                            ' : product.name === '冷凍大甲芋角' ? '
+                                大甲芋頭是台灣著名的芋頭產區，以品質優良聞名。我們的芋角精選大甲芋頭，口感綿密鬆軟，芋香濃郁，是製作甘點和料理的上等食材。<br><br>
+                                已預先切好2CM大小，無需處理即可直接使用。適合燉湯、做芋圓、芋泥或各種甜黥，方便快速。
+                            ' : ''}
+                        </p>
+                    </div>
                     
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                        <h4 style="color: #ff6b35; margin-bottom: 15px;"><i class="fas fa-info-circle"></i> 商品資訊</h4>
-                        ${product.shippingMethod ? `<p style="margin-bottom: 10px;"><strong>🚚 配送方式：</strong>${product.shippingMethod}</p>` : ''}
-                        ${product.weight ? `<p style="margin-bottom: 10px;"><strong>📦 包裝規格：</strong>${product.weight}</p>` : ''}
-                        ${product.shippingType ? `<p style="margin-bottom: 10px;"><strong>❄️ 配送溫層：</strong>${product.shippingType === 'frozen' ? '冷凍宅配' : '常溫宅配'}</p>` : ''}
-                        <p style="margin-bottom: 10px;"><strong>📍 產地：</strong>台灣</p>
-                        <p style="margin: 0;"><strong>✅ 品質保證：</strong>產地直送，新鮮安心</p>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                        <h4 style="color: #ff6b35; margin-bottom: 20px; font-size: 1.2rem;"><i class="fas fa-info-circle"></i> 商品資訊</h4>
+                        ${product.shippingMethod ? `<p style="margin-bottom: 12px; font-size: 1.05rem;"><strong>🚚 配送方式：</strong>${product.shippingMethod}</p>` : ''}
+                        ${product.weight ? `<p style="margin-bottom: 12px; font-size: 1.05rem;"><strong>📦 包裝規格：</strong>${product.weight}</p>` : ''}
+                        ${product.shippingType ? `<p style="margin-bottom: 12px; font-size: 1.05rem;"><strong>❄️ 配送溫層：</strong>${product.shippingType === 'frozen' ? '冷凍宅配' : '常溫宅配'}</p>` : ''}
+                        <p style="margin-bottom: 12px; font-size: 1.05rem;"><strong>📍 產地：</strong>台灣</p>
+                        <p style="margin-bottom: 12px; font-size: 1.05rem;"><strong>✅ 品質保證：</strong>產地直送，新鮮安心</p>
+                        <p style="margin: 0; font-size: 1.05rem;"><strong>📦 付款方式：</strong>銀行匯款、LINE Pay</p>
                     </div>
                     
                     ${product.hasSpecs && product.specs ? `
