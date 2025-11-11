@@ -7,8 +7,9 @@
     
     // 配置
     const config = {
-        minLoadingTime: 500,      // 最小載入時間（毫秒）
-        maxLoadingTime: 2000,     // 最大載入時間（毫秒）
+        minLoadingTime: 800,      // 最小載入時間（毫秒）- 延長確保完整載入
+        maxLoadingTime: 3000,     // 最大載入時間（毫秒）
+        progressSpeed: 15,        // 進度條速度（數字越小越慢）
         logoPath: './images/shared/logo.png', // LOGO 路徑
         enableOnFirstLoad: true,  // 首次載入時顯示
         enableOnNavigation: true  // 導航時顯示
@@ -50,19 +51,27 @@
         
         transition.classList.add('active');
         
-        // 模擬進度條
+        // 模擬進度條 - 更慢更流暢
         const progressBar = document.getElementById('progress-bar');
         if (progressBar) {
             let progress = 0;
             const interval = setInterval(() => {
-                progress += Math.random() * 30;
-                if (progress > 100) progress = 100;
+                // 進度增量隨當前進度遞減，讓載入更自然
+                const increment = Math.random() * config.progressSpeed * (1 - progress / 150);
+                progress += increment;
+                
+                // 限制在 95% 以下，等待真正載入完成
+                if (progress > 95) progress = 95;
+                
                 progressBar.style.width = progress + '%';
                 
-                if (progress >= 100) {
+                if (progress >= 95) {
                     clearInterval(interval);
                 }
-            }, 200);
+            }, 150); // 更新頻率提高，讓動畫更流暢
+            
+            // 儲存 interval ID，以便後續清理
+            transition.dataset.progressInterval = interval;
         }
     }
     
@@ -71,23 +80,30 @@
         const transition = document.getElementById('page-transition');
         if (!transition) return;
         
-        // 確保進度條完成
+        // 清理進度條計時器
+        if (transition.dataset.progressInterval) {
+            clearInterval(parseInt(transition.dataset.progressInterval));
+        }
+        
+        // 確保進度條完成到 100%
         const progressBar = document.getElementById('progress-bar');
         if (progressBar) {
+            progressBar.style.transition = 'width 0.3s ease';
             progressBar.style.width = '100%';
         }
         
-        // 延遲後隱藏
+        // 延遲後隱藏，讓使用者看到 100% 完成
         setTimeout(() => {
             transition.classList.add('fade-out');
             setTimeout(() => {
                 transition.classList.remove('active', 'fade-out');
                 // 重置進度條
                 if (progressBar) {
+                    progressBar.style.transition = '';
                     progressBar.style.width = '0%';
                 }
             }, 500);
-        }, 300);
+        }, 400); // 稍微延長讓使用者看到完成狀態
     }
     
     // 頁面載入完成時隱藏
