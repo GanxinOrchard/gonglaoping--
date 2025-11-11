@@ -10,7 +10,8 @@
         minLoadingTime: 800,      // 最小載入時間（毫秒）- 延長確保完整載入
         maxLoadingTime: 3000,     // 最大載入時間（毫秒）
         progressSpeed: 15,        // 進度條速度（數字越小越慢）
-        logoPath: './images/shared/logo.png', // LOGO 路徑
+        logoPath: './images/shared/logo/柑心商標.png', // 橘子商標圖案
+        brandName: 'Ganxin Orchard', // 品牌英文名稱
         enableOnFirstLoad: true,  // 首次載入時顯示
         enableOnNavigation: true  // 導航時顯示
     };
@@ -33,7 +34,7 @@
                     <img src="${config.logoPath}" alt="柑心果園" onerror="this.style.display='none'">
                 </div>
                 
-                <div class="transition-text">載入中...</div>
+                <div class="transition-brand-name">${config.brandName}</div>
                 
                 <div class="transition-progress">
                     <div class="transition-progress-bar" id="progress-bar"></div>

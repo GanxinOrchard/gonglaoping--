@@ -28,67 +28,27 @@
     visibility: visible;
 }
 
-/* LOGO 容器 */
+/* LOGO 容器 - 簡潔設計 */
 .transition-logo {
-    width: 140px;
-    height: 140px;
-    margin-bottom: 30px;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
     position: relative;
-    animation: logoFloat 2s ease-in-out infinite;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 50%;
-    padding: 15px;
-    box-shadow: 
-        0 10px 40px rgba(255, 107, 53, 0.15),
-        0 0 0 1px rgba(255, 107, 53, 0.08),
-        inset 0 1px 2px rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    animation: logoFloat 2.5s ease-in-out infinite;
 }
 
-/* LOGO 光暈效果 */
-.transition-logo::before {
-    content: '';
-    position: absolute;
-    inset: -20px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(255, 107, 53, 0.08) 0%,
-        transparent 70%
-    );
-    animation: logoGlow 3s ease-in-out infinite;
-    z-index: -1;
-}
-
-@keyframes logoGlow {
-    0%, 100% {
-        opacity: 0.5;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-}
-
-/* LOGO 圖片 */
+/* LOGO 圖片 - 橘子商標 */
 .transition-logo img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    opacity: 0.95; /* 輕微半透明 */
-    filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.3)) 
-            contrast(1.1) 
-            brightness(1.05);
-    mix-blend-mode: multiply; /* 去除白色背景 */
-    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 12px rgba(255, 107, 53, 0.2));
+    transition: transform 0.3s ease;
 }
 
-/* LOGO hover 效果（可選） */
+/* LOGO hover 效果 */
 .transition-logo:hover img {
-    opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 /* LOGO 浮動動畫 */
@@ -101,12 +61,31 @@
     }
 }
 
-/* 載入文字 */
-.transition-text {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 25px;
-    font-weight: 500;
+/* 品牌英文名稱 */
+.transition-brand-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #333;
+    margin-bottom: 30px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: brandFadeIn 1s ease-out;
+}
+
+@keyframes brandFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 進度條容器 */
@@ -219,15 +198,15 @@
 /* 響應式設計 */
 @media (max-width: 768px) {
     .transition-logo {
-        width: 110px;
-        height: 110px;
-        margin-bottom: 25px;
-        padding: 12px;
-        box-shadow: 0 8px 30px rgba(255, 107, 53, 0.12);
+        width: 90px;
+        height: 90px;
+        margin-bottom: 18px;
     }
     
-    .transition-text {
-        font-size: 1rem;
+    .transition-brand-name {
+        font-size: 1.2rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 25px;
     }
     
     .transition-progress {
@@ -242,8 +221,12 @@
 /* 超小手機優化 */
 @media (max-width: 480px) {
     .transition-logo {
-        width: 100px;
-        height: 100px;
-        padding: 10px;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .transition-brand-name {
+        font-size: 1rem;
+        letter-spacing: 1px;
     }
 }
