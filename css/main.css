@@ -17,6 +17,7 @@
 
 /* 元件樣式 */
 @import url('./components/broadcast.css');
+@import url('./components/page-transition.css');
 
 /* 手機選單樣式 - 最後載入確保優先級 */
 @import url('./layout/navigation-mobile.css');

@@ -1,0 +1,190 @@
+/* ========================================
+   頁面過渡效果 - LOGO 載入動畫
+   ======================================== */
+
+/* 過渡遮罩 */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* 顯示過渡效果 */
+.page-transition.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* LOGO 容器 */
+.transition-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 30px;
+    position: relative;
+    animation: logoFloat 2s ease-in-out infinite;
+}
+
+/* LOGO 圖片 */
+.transition-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 15px rgba(255, 107, 53, 0.2));
+}
+
+/* LOGO 浮動動畫 */
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 載入文字 */
+.transition-text {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+/* 進度條容器 */
+.transition-progress {
+    width: 200px;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 進度條填充 */
+.transition-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b35, #ff8c42, #ff6b35);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.3s ease;
+    animation: progressGradient 1.5s ease-in-out infinite;
+}
+
+/* 進度條漸層動畫 */
+@keyframes progressGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 橘子裝飾（可選） */
+.transition-decoration {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.1;
+    animation: float 3s ease-in-out infinite;
+}
+
+.decoration-1 {
+    top: 10%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.decoration-2 {
+    top: 20%;
+    right: 15%;
+    animation-delay: 0.5s;
+}
+
+.decoration-3 {
+    bottom: 15%;
+    left: 20%;
+    animation-delay: 1s;
+}
+
+.decoration-4 {
+    bottom: 20%;
+    right: 20%;
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+}
+
+/* 旋轉載入動畫（備選） */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f0f0f0;
+    border-top-color: #ff6b35;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-top: 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 淡出效果 */
+.page-transition.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .transition-logo {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 25px;
+    }
+    
+    .transition-text {
+        font-size: 1rem;
+    }
+    
+    .transition-progress {
+        width: 160px;
+    }
+    
+    .transition-decoration {
+        font-size: 1.5rem;
+    }
+}
