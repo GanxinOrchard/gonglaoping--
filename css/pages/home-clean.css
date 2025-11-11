@@ -1,0 +1,684 @@
+/* ========================================
+   首頁精簡樣式 - 專業商務風格
+   參考：soonbuykey.com
+   ======================================== */
+
+/* === 全局優化 === */
+body {
+    background: #ffffff;
+}
+
+#main-content {
+    background: #ffffff;
+}
+
+/* === Hero 區保持不變 === */
+
+/* === 最新消息廣播區保持不變 === */
+
+/* === 優勢區域 - 精簡版 === */
+.cute-advantages {
+    padding: 80px 0;
+    background: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 移除浮動動畫背景 */
+.cute-advantages .cute-background {
+    display: none !important;
+}
+
+.cute-advantages .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.cute-advantages .section-title {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.cute-advantages .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* 優勢卡片 - 簡潔設計 */
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.advantage-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.advantage-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: #ff6b35;
+}
+
+.advantage-card .card-icon {
+    margin-bottom: 25px;
+}
+
+.advantage-card .icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ff6b35, #ff8c42);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.advantage-card .icon-emoji {
+    font-size: 2.5rem;
+    filter: none;
+}
+
+/* 移除發光效果 */
+.advantage-card .icon-glow {
+    display: none !important;
+}
+
+.advantage-card .card-title {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.advantage-card .card-description {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* 簡化進度條 */
+.advantage-card .progress-bar {
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+}
+
+.advantage-card .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b35, #ff8c42);
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+.advantage-card .progress-text {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #ff6b35;
+    font-weight: 600;
+}
+
+/* === 精選商品區 - 簡潔版 === */
+.featured-products {
+    padding: 80px 0;
+    background: #ffffff;
+    position: relative;
+}
+
+/* 移除浮動橘子動畫 */
+.floating-oranges {
+    display: none !important;
+}
+
+.featured-products .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.featured-products .section-title {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.featured-products .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* 商品卡片 - 簡潔設計 */
+.modern-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.modern-product-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.modern-product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border-color: #ff6b35;
+}
+
+.modern-product-card .card-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding-top: 75%;
+}
+
+.modern-product-card .card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.modern-product-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+.modern-product-card .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modern-product-card:hover .image-overlay {
+    opacity: 1;
+}
+
+.modern-product-card .product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.modern-product-card .preorder-badge {
+    background: #ff6b35;
+}
+
+.modern-product-card .hot-badge {
+    background: #e74c3c;
+}
+
+.modern-product-card .new-badge {
+    background: #3498db;
+}
+
+.modern-product-card .card-content {
+    padding: 25px;
+}
+
+.modern-product-card .product-category-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #f8f9fa;
+    color: #666;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+.modern-product-card .product-title {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.modern-product-card .rating-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.modern-product-card .stars {
+    color: #ffc107;
+    font-size: 0.9rem;
+}
+
+.modern-product-card .rating-text {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.modern-product-card .price-section {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.modern-product-card .current-price {
+    font-size: 1.5rem;
+    color: #ff6b35;
+    font-weight: 700;
+}
+
+.modern-product-card .price-suffix {
+    color: #999;
+    font-size: 1rem;
+}
+
+.modern-view-detail-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    background: #ff6b35;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.modern-view-detail-btn:hover {
+    background: #ff8c42;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+}
+
+/* === 品質保證區 - 白底簡潔版 === */
+.quality-guarantee-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+    position: relative;
+}
+
+.quality-guarantee-section .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.quality-guarantee-section .section-title {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.quality-guarantee-section .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.quality-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.quality-item {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.quality-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: #ff6b35;
+}
+
+.quality-item .quality-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: linear-gradient(135deg, #ff6b35, #ff8c42);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quality-item .quality-icon i {
+    font-size: 2.5rem;
+    color: #ffffff;
+}
+
+.quality-item h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.quality-item p {
+    color: #666;
+    line-height: 1.8;
+}
+
+/* === CTA 區 - 保持但簡化背景 === */
+.cta-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.cta-section p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 35px;
+    line-height: 1.8;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn-primary {
+    background: #ffffff;
+    color: #ff6b35;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cta-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.cta-btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: 3px solid #ffffff;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cta-btn-secondary:hover {
+    background: #ffffff;
+    color: #ff6b35;
+}
+
+/* === 響應式設計 === */
+@media (max-width: 768px) {
+    /* 標題縮小 */
+    .cute-advantages .section-title,
+    .featured-products .section-title,
+    .quality-guarantee-section .section-title,
+    .cta-section h2 {
+        font-size: 1.6rem;
+    }
+    
+    .cute-advantages .section-subtitle,
+    .featured-products .section-subtitle,
+    .quality-guarantee-section .section-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    /* 優勢區 - 手機版雙欄緊湊設計 */
+    .cute-advantages {
+        padding: 50px 0;
+    }
+    
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .advantage-card {
+        padding: 20px 15px;
+    }
+    
+    .advantage-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .advantage-card .icon-emoji {
+        font-size: 2rem;
+    }
+    
+    .advantage-card .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .advantage-card .card-description {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    
+    .advantage-card .progress-bar {
+        height: 4px;
+        margin-top: 15px;
+    }
+    
+    .advantage-card .progress-text {
+        font-size: 0.8rem;
+        margin-top: 6px;
+    }
+    
+    /* 商品區 - 手機版雙欄設計 */
+    .featured-products {
+        padding: 50px 0;
+    }
+    
+    .modern-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .modern-product-card .card-image-wrapper {
+        padding-top: 100%;
+    }
+    
+    .modern-product-card .card-content {
+        padding: 15px;
+    }
+    
+    .modern-product-card .product-category-tag {
+        font-size: 0.75rem;
+        padding: 3px 10px;
+        margin-bottom: 8px;
+    }
+    
+    .modern-product-card .product-title {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .modern-product-card .rating-section {
+        margin-bottom: 10px;
+    }
+    
+    .modern-product-card .stars {
+        font-size: 0.75rem;
+    }
+    
+    .modern-product-card .rating-text {
+        font-size: 0.7rem;
+    }
+    
+    .modern-product-card .current-price {
+        font-size: 1.2rem;
+    }
+    
+    .modern-product-card .price-suffix {
+        font-size: 0.85rem;
+    }
+    
+    .modern-view-detail-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+        gap: 5px;
+    }
+    
+    .modern-product-card .product-badge {
+        top: 10px;
+        right: 10px;
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+    
+    /* 品質保證區 - 手機版雙欄 */
+    .quality-guarantee-section {
+        padding: 50px 0;
+    }
+    
+    .quality-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .quality-item {
+        padding: 25px 15px;
+    }
+    
+    .quality-item .quality-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    
+    .quality-item .quality-icon i {
+        font-size: 2rem;
+    }
+    
+    .quality-item h3 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    .quality-item p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+    
+    /* CTA 區 */
+    .cta-section {
+        padding: 40px 0;
+    }
+    
+    .cta-section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+    
+    .cta-section p {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .cta-btn-primary,
+    .cta-btn-secondary {
+        width: 100%;
+        max-width: 280px;
+        padding: 14px 35px;
+        font-size: 1rem;
+        justify-content: center;
+    }
+}
+
+/* === 超小手機優化 === */
+@media (max-width: 480px) {
+    .cute-advantages .section-title,
+    .featured-products .section-title,
+    .quality-guarantee-section .section-title,
+    .cta-section h2 {
+        font-size: 1.4rem;
+    }
+    
+    .advantages-grid,
+    .modern-products-grid,
+    .quality-grid {
+        gap: 12px;
+    }
+    
+    .advantage-card,
+    .quality-item {
+        padding: 18px 12px;
+    }
+    
+    .modern-product-card .card-content {
+        padding: 12px;
+    }
+}
