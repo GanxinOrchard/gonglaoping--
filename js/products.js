@@ -557,15 +557,21 @@ document.addEventListener('DOMContentLoaded', () => {
 // 快速加入購物車（從商品列表直接加入）
 // ========================================
 function quickAddToCart(productId) {
+    console.log('🛒 quickAddToCart 被調用，商品ID:', productId);
+    
     const product = products.find(p => p.id === productId);
     
     if (!product) {
+        console.error('❌ 找不到商品，ID:', productId);
         alert('找不到商品');
         return;
     }
     
+    console.log('✅ 找到商品:', product.name);
+    
     // 如果商品有規格選擇，跳轉到詳情頁
     if (product.hasSpecs && product.specs && product.specs.length > 0) {
+        console.log('📋 商品有規格，跳轉到詳情頁');
         window.location.href = `product-detail.html?id=${productId}`;
         return;
     }
@@ -582,61 +588,69 @@ function quickAddToCart(productId) {
         shippingType: product.shippingType || 'normal'
     };
     
-    // 使用 cart.js 的 addToCart 函數
-    if (typeof addToCart === 'function') {
-        addToCart(cartItem);
+    console.log('📦 準備加入購物車的商品:', cartItem);
+    
+    // 直接操作 localStorage，確保商品被保存
+    let cart = JSON.parse(localStorage.getItem('ganxin_cart') || localStorage.getItem('cart') || '[]');
+    console.log('🛍️ 當前購物車:', cart);
+    
+    const existingItemIndex = cart.findIndex(item => 
+        item.id === cartItem.id && item.selectedSpecId === cartItem.selectedSpecId
+    );
+    
+    if (existingItemIndex !== -1) {
+        cart[existingItemIndex].quantity += 1;
+        console.log('✅ 商品已存在，數量+1，新數量:', cart[existingItemIndex].quantity);
     } else {
-        // 如果 cart.js 還沒載入，直接操作 localStorage
-        let cart = JSON.parse(localStorage.getItem('ganxin_cart') || localStorage.getItem('cart') || '[]');
-        
-        const existingItemIndex = cart.findIndex(item => 
-            item.id === cartItem.id && item.selectedSpecId === cartItem.selectedSpecId
-        );
-        
-        if (existingItemIndex !== -1) {
-            cart[existingItemIndex].quantity += 1;
-        } else {
-            cart.push(cartItem);
-        }
-        
-        localStorage.setItem('ganxin_cart', JSON.stringify(cart));
-        localStorage.setItem('cart', JSON.stringify(cart));
-        
-        // 更新購物車數量
-        if (typeof updateCartCount === 'function') {
-            updateCartCount();
-        }
-        
-        // 顯示通知
-        if (typeof showNotification === 'function') {
-            showNotification('✅ 已加入購物車！');
-        } else {
-            // 簡易通知
-            const notification = document.createElement('div');
-            notification.textContent = '✅ 已加入購物車！';
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, #27ae60, #2ecc71);
-                color: white;
-                padding: 16px 32px;
-                border-radius: 50px;
-                z-index: 99999;
-                box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
-                font-size: 16px;
-                font-weight: 600;
-                animation: slideDown 0.3s ease;
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translateX(-50%) translateY(-20px)';
-                notification.style.transition = 'all 0.3s';
-                setTimeout(() => notification.remove(), 300);
-            }, 2500);
-        }
+        cart.push(cartItem);
+        console.log('✅ 新商品加入購物車');
     }
+    
+    localStorage.setItem('ganxin_cart', JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
+    console.log('💾 購物車已保存到 localStorage:', cart);
+    
+    // 更新購物車數量顯示
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+        console.log('✅ 購物車數量已更新');
+    } else {
+        console.warn('⚠️ updateCartCount 函數未找到');
+    }
+    
+    // 顯示通知
+    if (typeof showNotification === 'function') {
+        showNotification('✅ 已加入購物車！');
+        console.log('✅ 通知已顯示 (使用 showNotification)');
+    } else {
+        console.log('⚠️ showNotification 未找到，使用簡易通知');
+        // 簡易通知
+        const notification = document.createElement('div');
+        notification.textContent = '✅ 已加入購物車！';
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            z-index: 99999;
+            box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
+            font-size: 16px;
+            font-weight: 600;
+            animation: slideDown 0.3s ease;
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(-50%) translateY(-20px)';
+            notification.style.transition = 'all 0.3s';
+            setTimeout(() => notification.remove(), 300);
+        }, 2500);
+    }
+    
+    console.log('🎉 quickAddToCart 完成');
 }

@@ -74,9 +74,13 @@ function calculatePrice() {
 
 // ========================================
 // 購物車商品列表渲染
-// ========================================
+// ========================================// 渲染購物車商品列表
 function renderCartItems() {
+    console.log('🎨 renderCartItems 被調用');
     const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    console.log('📦 從 localStorage 讀取的購物車:', cart);
+    console.log('📊 購物車商品數量:', cart.length);
+    
     const cartItemsList = document.getElementById('cartItemsList');
     const cartSummary = document.getElementById('cartSummary');
     const checkoutButton = document.getElementById('checkoutButton');
@@ -84,7 +88,12 @@ function renderCartItems() {
     const deliverySection = document.getElementById('deliverySection');
     const paymentSection = document.getElementById('paymentSection');
     
-    if (!cartItemsList) return;
+    if (!cartItemsList) {
+        console.warn('⚠️ cartItemsList 元素未找到');
+        return;
+    }
+    
+    console.log('✅ cartItemsList 元素已找到');
     
     if (cart.length === 0) {
         cartItemsList.innerHTML = `
@@ -292,8 +301,10 @@ function addToCart(productId, specId = null, quantity = 1) {
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    console.log('🔢 updateCartCount: 總商品數量 =', totalItems);
     
     const cartCounts = document.querySelectorAll('#cartCount, .cart-count, #floatingCartCount, .cart-badge');
+    console.log('🎯 找到', cartCounts.length, '個購物車數量顯示元素');
     cartCounts.forEach(el => {
         if (el) {
             el.textContent = totalItems;
@@ -387,11 +398,18 @@ function generateOrderNumber() {
 // 頁面初始化
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 cart.js DOMContentLoaded 事件觸發');
+    
     // 遷移舊的 cart 到新的 key
     const oldCart = localStorage.getItem('cart');
     if (oldCart && !localStorage.getItem(STORAGE_KEYS.CART)) {
+        console.log('🔄 遷移舊購物車數據到新 key');
         localStorage.setItem(STORAGE_KEYS.CART, oldCart);
     }
+    
+    // 檢查 localStorage 中的數據
+    console.log('📦 localStorage ganxin_cart:', localStorage.getItem('ganxin_cart'));
+    console.log('📦 localStorage cart:', localStorage.getItem('cart'));
     
     // 渲染購物車商品
     renderCartItems();
