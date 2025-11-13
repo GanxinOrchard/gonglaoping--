@@ -91,8 +91,11 @@ function renderCartItems() {
             <div class="cart-empty">
                 <i class="fas fa-shopping-cart"></i>
                 <h2>購物車是空的</h2>
-                <p>還沒有添加任何商品，快去選購吧！</p>
-                <a href="index.html" class="btn btn-checkout">開始購物</a>
+                <p>還沒有添加任何商品，快去選購優質水果吧！</p>
+                <a href="products.html" class="btn-shop-now">
+                    <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                    開始選購
+                </a>
             </div>
         `;
         if (cartSummary) cartSummary.style.display = 'none';

@@ -236,9 +236,13 @@ function renderProductCards(container, productsArray, showFullCard = true) {
             </div>
             ${showFullCard ? `
             <div class="product-actions">
-                <button class="btn-buy" onclick="event.preventDefault(); location.href='product-detail.html?id=${product.id}'">
+                <button class="btn-add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); quickAddToCart(${product.id})">
                     <i class="fas fa-shopping-cart"></i>
-                    立即購買
+                    加入購物車
+                </button>
+                <button class="btn-buy" onclick="event.preventDefault(); location.href='product-detail.html?id=${product.id}'">
+                    <i class="fas fa-info-circle"></i>
+                    查看詳情
                 </button>
             </div>
             ` : ''}
@@ -548,3 +552,91 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('=== 初始化完成 ===');
 });
+
+// ========================================
+// 快速加入購物車（從商品列表直接加入）
+// ========================================
+function quickAddToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    
+    if (!product) {
+        alert('找不到商品');
+        return;
+    }
+    
+    // 如果商品有規格選擇，跳轉到詳情頁
+    if (product.hasSpecs && product.specs && product.specs.length > 0) {
+        window.location.href = `product-detail.html?id=${productId}`;
+        return;
+    }
+    
+    // 無規格商品，直接加入購物車
+    const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        image: product.image,
+        selectedSpec: '',
+        selectedSpecId: null,
+        shippingType: product.shippingType || 'normal'
+    };
+    
+    // 使用 cart.js 的 addToCart 函數
+    if (typeof addToCart === 'function') {
+        addToCart(cartItem);
+    } else {
+        // 如果 cart.js 還沒載入，直接操作 localStorage
+        let cart = JSON.parse(localStorage.getItem('ganxin_cart') || localStorage.getItem('cart') || '[]');
+        
+        const existingItemIndex = cart.findIndex(item => 
+            item.id === cartItem.id && item.selectedSpecId === cartItem.selectedSpecId
+        );
+        
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            cart.push(cartItem);
+        }
+        
+        localStorage.setItem('ganxin_cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // 更新購物車數量
+        if (typeof updateCartCount === 'function') {
+            updateCartCount();
+        }
+        
+        // 顯示通知
+        if (typeof showNotification === 'function') {
+            showNotification('✅ 已加入購物車！');
+        } else {
+            // 簡易通知
+            const notification = document.createElement('div');
+            notification.textContent = '✅ 已加入購物車！';
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #27ae60, #2ecc71);
+                color: white;
+                padding: 16px 32px;
+                border-radius: 50px;
+                z-index: 99999;
+                box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
+                font-size: 16px;
+                font-weight: 600;
+                animation: slideDown 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(-50%) translateY(-20px)';
+                notification.style.transition = 'all 0.3s';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+    }
+}
