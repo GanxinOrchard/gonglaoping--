@@ -386,14 +386,6 @@ function generateOrderNumber() {
     return `${year}${month}${day}${random}`;
 }
 
-    const totalEl = document.querySelector('[data-total]');
-    
-    if (subtotalEl) subtotalEl.textContent = `NT$ ${subtotal.toLocaleString()}`;
-    if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : `NT$ ${shipping.toLocaleString()}`;
-    if (discountEl) discountEl.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
-    if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
-}
-
 // ========================================
 // 頁面初始化
 // ========================================
