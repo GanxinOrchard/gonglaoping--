@@ -87,17 +87,19 @@ function renderCartItems() {
         if (item.id && typeof item.id === 'object') {
             console.warn('⚠️ 偵測到錯誤的購物車數據結構，正在修復...', item);
             needsRepair = true;
-            // 將嵌套的物件展平
-            return {
-                id: item.id.id || item.id,
-                name: item.id.name || item.name,
-                price: item.id.price || item.price,
-                image: item.id.image || item.image,
-                selectedSpec: item.id.selectedSpec || item.selectedSpec,
-                selectedSpecId: item.id.selectedSpecId || item.selectedSpecId,
-                shippingType: item.id.shippingType || item.shippingType || 'normal',
-                quantity: item.quantity || 1
+            // 將嵌套的物件展平，優先使用外層的 quantity
+            const fixedItem = {
+                id: item.id.id,
+                name: item.id.name,
+                price: item.id.price,
+                image: item.id.image,
+                selectedSpec: item.id.selectedSpec || '',
+                selectedSpecId: item.id.selectedSpecId || null,
+                shippingType: item.id.shippingType || 'normal',
+                quantity: item.quantity || item.id.quantity || 1
             };
+            console.log('✅ 修復後的商品:', fixedItem);
+            return fixedItem;
         }
         return item;
     });
@@ -145,31 +147,35 @@ function renderCartItems() {
     
     // 渲染商品列表
     cartItemsList.innerHTML = cart.map(item => {
+        console.log('🛒 渲染商品:', item);
+        
         // 解析規格資訊
-        let specButtons = '';
-        if (item.selectedSpec) {
-            const specs = item.selectedSpec.split(' ');
-            specButtons = specs.map(spec => `<button class="spec-button">${spec}</button>`).join('');
+        let specDisplay = '';
+        if (item.selectedSpec && item.selectedSpec.trim()) {
+            specDisplay = `<div class="cart-item-spec">規格：${item.selectedSpec}</div>`;
         }
+        
+        // 確保 selectedSpecId 正確處理
+        const specIdParam = item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null';
         
         return `
         <div class="cart-item">
             <div class="cart-item-image" onclick="window.location.href='product-detail.html?id=${item.id}'">
-                <img src="${item.image}" alt="${item.name}">
+                <img src="${item.image}" alt="${item.name}" onerror="this.src='images/shared/logo/logo.png'">
             </div>
             <div class="cart-item-info">
                 <h3>${item.name}</h3>
-                ${specButtons ? `<div class="cart-item-spec">${specButtons}</div>` : ''}
+                ${specDisplay}
                 <div class="cart-item-price">NT$ ${item.price.toLocaleString()}</div>
             </div>
             <div class="cart-item-controls">
                 <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">-</button>
+                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1, ${specIdParam})">-</button>
                     <span class="qty-display">${item.quantity}</span>
-                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">+</button>
+                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1, ${specIdParam})">+</button>
                 </div>
-                <button class="remove-btn" onclick="removeCartItem(${item.id}, ${item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null'})">
-                    刪除
+                <button class="remove-btn" onclick="removeCartItem(${item.id}, ${specIdParam})">
+                    <i class="fas fa-trash"></i> 刪除
                 </button>
             </div>
         </div>
@@ -229,29 +235,71 @@ function updateAmounts() {
 
 // 更新購物車數量
 function updateCartQuantity(productId, change, specId = null) {
-    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
-    const itemIndex = cart.findIndex(item => item.id === productId && item.selectedSpecId === specId);
+    console.log('🔢 updateCartQuantity 調用:', { productId, change, specId });
+    
+    let cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    
+    // 處理 specId 字串
+    if (specId === 'null' || specId === 'undefined') {
+        specId = null;
+    }
+    
+    const itemIndex = cart.findIndex(item => {
+        const match = item.id === productId && item.selectedSpecId === specId;
+        console.log('檢查商品:', { itemId: item.id, itemSpecId: item.selectedSpecId, match });
+        return match;
+    });
+    
+    console.log('找到商品索引:', itemIndex);
     
     if (itemIndex !== -1) {
         cart[itemIndex].quantity += change;
+        console.log('更新後數量:', cart[itemIndex].quantity);
+        
         if (cart[itemIndex].quantity <= 0) {
+            console.log('數量 <= 0，移除商品');
             cart.splice(itemIndex, 1);
         }
+        
         localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-        localStorage.setItem('cart', JSON.stringify(cart)); // 同步舊 key
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
         renderCartItems();
         updateAmounts();
+        updateCartCount();
+    } else {
+        console.error('❌ 找不到要更新的商品');
     }
 }
 
 // 移除購物車商品
 function removeCartItem(productId, specId = null) {
+    console.log('🗑️ removeCartItem 調用:', { productId, specId });
+    
+    // 處理 specId 字串
+    if (specId === 'null' || specId === 'undefined') {
+        specId = null;
+    }
+    
     const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
-    const filtered = cart.filter(item => !(item.id === productId && item.selectedSpecId === specId));
+    const filtered = cart.filter(item => {
+        const keep = !(item.id === productId && item.selectedSpecId === specId);
+        return keep;
+    });
+    
+    console.log('移除前數量:', cart.length, '移除後數量:', filtered.length);
+    
     localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(filtered));
-    localStorage.setItem('cart', JSON.stringify(filtered)); // 同步舊 key
+    localStorage.setItem('cart', JSON.stringify(filtered));
+    
     renderCartItems();
     updateAmounts();
+    updateCartCount();
+    
+    // 顯示通知
+    if (typeof showNotification === 'function') {
+        showNotification('✅ 商品已移除');
+    }
 }
 
 // ========================================
@@ -350,15 +398,23 @@ function addToCart(productId, specId = null, quantity = 1) {
 // 更新購物車數量顯示
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    console.log('🔢 updateCartCount: 總商品數量 =', totalItems);
+    
+    // 確保正確計算總數量
+    const totalItems = cart.reduce((sum, item) => {
+        const qty = parseInt(item.quantity) || 0;
+        console.log('商品數量:', item.name, qty);
+        return sum + qty;
+    }, 0);
+    
+    console.log('🔢 updateCartCount: 購物車商品數 =', cart.length, '總數量 =', totalItems);
     
     const cartCounts = document.querySelectorAll('#cartCount, .cart-count, #floatingCartCount, .cart-badge');
     console.log('🎯 找到', cartCounts.length, '個購物車數量顯示元素');
+    
     cartCounts.forEach(el => {
         if (el) {
             el.textContent = totalItems;
-            el.style.display = totalItems > 0 ? 'block' : 'none';
+            el.style.display = totalItems > 0 ? 'flex' : 'none';
         }
     });
 }

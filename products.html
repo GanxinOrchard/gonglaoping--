@@ -93,6 +93,14 @@
             transform: translateY(-2px);
         }
         
+        /* 商品網格響應式 */
+        #productsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
         @media (max-width: 768px) {
             .product-actions {
                 flex-direction: column;
@@ -102,6 +110,21 @@
             .btn-add-to-cart,
             .btn-buy {
                 width: 100%;
+            }
+            
+            /* 手機版 2x2 顯示 */
+            #productsGrid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #productsGrid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 0 5px;
             }
         }
     </style>
@@ -182,7 +205,7 @@
             </div>
 
             <!-- 商品网格 -->
-            <div id="productsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-bottom: 40px;">
+            <div id="productsGrid">
                 <!-- 商品由JavaScript动态加载 -->
             </div>
 
