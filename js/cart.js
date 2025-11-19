@@ -77,9 +77,37 @@ function calculatePrice() {
 // ========================================// 渲染購物車商品列表
 function renderCartItems() {
     console.log('🎨 renderCartItems 被調用');
-    const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
+    let cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
     console.log('📦 從 localStorage 讀取的購物車:', cart);
     console.log('📊 購物車商品數量:', cart.length);
+    
+    // 🔧 修復錯誤的數據結構（id 欄位是物件的情況）
+    let needsRepair = false;
+    cart = cart.map(item => {
+        if (item.id && typeof item.id === 'object') {
+            console.warn('⚠️ 偵測到錯誤的購物車數據結構，正在修復...', item);
+            needsRepair = true;
+            // 將嵌套的物件展平
+            return {
+                id: item.id.id || item.id,
+                name: item.id.name || item.name,
+                price: item.id.price || item.price,
+                image: item.id.image || item.image,
+                selectedSpec: item.id.selectedSpec || item.selectedSpec,
+                selectedSpecId: item.id.selectedSpecId || item.selectedSpecId,
+                shippingType: item.id.shippingType || item.shippingType || 'normal',
+                quantity: item.quantity || 1
+            };
+        }
+        return item;
+    });
+    
+    // 如果修復了數據，保存回 localStorage
+    if (needsRepair) {
+        console.log('✅ 購物車數據已修復並保存:', cart);
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
     
     const cartItemsList = document.getElementById('cartItemsList');
     const cartSummary = document.getElementById('cartSummary');
@@ -233,12 +261,34 @@ function removeCartItem(productId, specId = null) {
 // 加入購物車
 function addToCart(productId, specId = null, quantity = 1) {
     if (typeof productId === 'object') {
-        const product = productId;
+        let product = productId;
+        
+        // 🔧 驗證並修復物件結構
+        if (product.id && typeof product.id === 'object') {
+            console.warn('⚠️ addToCart 收到錯誤的物件結構，正在修復...', product);
+            product = {
+                id: product.id.id || product.id,
+                name: product.id.name || product.name,
+                price: product.id.price || product.price,
+                image: product.id.image || product.image,
+                selectedSpec: product.id.selectedSpec || product.selectedSpec,
+                selectedSpecId: product.id.selectedSpecId || product.selectedSpecId,
+                shippingType: product.id.shippingType || product.shippingType || 'normal',
+                quantity: product.quantity || 1
+            };
+        }
+        
+        // 確保必要欄位存在
+        if (!product.id || !product.name || !product.price) {
+            console.error('❌ addToCart 收到不完整的商品資料:', product);
+            return;
+        }
+        
         const cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
         const existingItem = cart.find(item => item.id === product.id && item.selectedSpecId === product.selectedSpecId);
         
         if (existingItem) {
-            existingItem.quantity += product.quantity;
+            existingItem.quantity += (product.quantity || 1);
         } else {
             cart.push(product);
         }
@@ -642,3 +692,9 @@ if (document.readyState === 'loading') {
 } else {
     updateCartCount();
 }
+
+// 監聽 template 載入完成事件，再次更新購物車數量
+document.addEventListener('templatesLoaded', () => {
+    console.log('🔄 Template 載入完成，更新購物車數量');
+    updateCartCount();
+});
