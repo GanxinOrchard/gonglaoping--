@@ -202,6 +202,7 @@ function updateAmounts() {
     const discountEl = document.getElementById('discountAmount');
     const shippingEl = document.getElementById('shippingAmount');
     const totalEl = document.getElementById('totalAmount');
+    const discountRow = document.getElementById('discountRow');
     
     // 其他頁面ID(向後相容)
     const subtotalEl2 = document.getElementById('subtotal');
@@ -224,6 +225,11 @@ function updateAmounts() {
     if (discountEl2) discountEl2.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
     if (discountEl3) discountEl3.textContent = discount > 0 ? `-NT$ ${discount.toLocaleString()}` : 'NT$ 0';
     
+    // 顯示/隱藏折扣行
+    if (discountRow) {
+        discountRow.style.display = discount > 0 ? 'flex' : 'none';
+    }
+    
     if (shippingEl) shippingEl.textContent = shipping > 0 ? `NT$ ${shipping.toLocaleString()}` : '免運費';
     if (shippingEl2) shippingEl2.textContent = shipping > 0 ? `NT$ ${shipping.toLocaleString()}` : '免運費';
     if (shippingEl3) shippingEl3.textContent = shipping > 0 ? `NT$ ${shipping.toLocaleString()}` : '免運費';
@@ -231,6 +237,31 @@ function updateAmounts() {
     if (totalEl) totalEl.textContent = `NT$ ${total.toLocaleString()}`;
     if (totalEl2) totalEl2.textContent = `NT$ ${total.toLocaleString()}`;
     if (totalEl3) totalEl3.textContent = `NT$ ${total.toLocaleString()}`;
+    
+    // 更新免運進度條
+    updateShippingProgress(subtotal - discount);
+}
+
+// 更新免運進度條
+function updateShippingProgress(currentAmount) {
+    const progressBar = document.getElementById('progressBar');
+    const shippingText = document.getElementById('shippingText');
+    
+    if (!progressBar || !shippingText) return;
+    
+    const freeShippingThreshold = PRICING.FREE_SHIPPING_THRESHOLD; // 1800
+    const percentage = Math.min((currentAmount / freeShippingThreshold) * 100, 100);
+    
+    progressBar.style.width = `${percentage}%`;
+    
+    if (currentAmount >= freeShippingThreshold) {
+        shippingText.innerHTML = '<i class="fas fa-check-circle"></i> 恭喜！已達免運門檻';
+        shippingText.style.color = '#27ae60';
+    } else {
+        const remaining = freeShippingThreshold - currentAmount;
+        shippingText.innerHTML = `再 <strong>NT$ ${remaining.toLocaleString()}</strong> 即可免運`;
+        shippingText.style.color = '#2c3e50';
+    }
 }
 
 // 更新購物車數量
@@ -581,29 +612,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 折扣碼套用
-    const applyBtn = document.querySelector('[data-action="apply-coupon"]');
+    // 折扣碼套用（支援兩種選擇器）
+    const applyBtn = document.querySelector('[data-coupon-apply]') || document.querySelector('[data-action="apply-coupon"]') || document.getElementById('applyCouponBtn');
     if (applyBtn) {
         applyBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const input = document.querySelector('[data-coupon-input]');
-            const msg = document.querySelector('[data-coupon-msg]');
+            const input = document.querySelector('[data-coupon-input]') || document.getElementById('couponInput');
+            const msg = document.querySelector('[data-coupon-msg]') || document.getElementById('couponMessage');
+            
+            if (!input || !msg) {
+                console.error('找不到折扣碼輸入元素');
+                return;
+            }
+            
             const code = input.value.trim().toUpperCase();
             
             if (!code) {
-                msg.textContent = '請輸入折扣碼';
-                msg.style.display = 'block';
-                msg.style.background = '#fee';
-                msg.style.color = '#c33';
+                showCouponMessage(msg, '❌ 請輸入折扣碼', false);
                 return;
             }
             
             const discount = DISCOUNT_CODES[code];
             if (!discount) {
-                msg.textContent = '折扣碼無效';
-                msg.style.display = 'block';
-                msg.style.background = '#fee';
-                msg.style.color = '#c33';
+                showCouponMessage(msg, '❌ 折扣碼無效', false);
                 return;
             }
             
@@ -611,18 +642,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
             
             if (discount.validFrom && yearMonth < discount.validFrom) {
-                msg.textContent = '折扣碼尚未生效';
-                msg.style.display = 'block';
-                msg.style.background = '#fee';
-                msg.style.color = '#c33';
+                showCouponMessage(msg, '❌ 折扣碼尚未生效', false);
                 return;
             }
             
             if (discount.validTo && yearMonth > discount.validTo) {
-                msg.textContent = '折扣碼已過期';
-                msg.style.display = 'block';
-                msg.style.background = '#fee';
-                msg.style.color = '#c33';
+                showCouponMessage(msg, '❌ 折扣碼已過期', false);
                 return;
             }
             
@@ -630,19 +655,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
             
             if (discount.minAmount && subtotal < discount.minAmount) {
-                msg.textContent = `此折扣碼需消費滿 NT$ ${discount.minAmount.toLocaleString()}`;
-                msg.style.display = 'block';
-                msg.style.background = '#fee';
-                msg.style.color = '#c33';
+                showCouponMessage(msg, `❌ 此折扣碼需消費滿 NT$ ${discount.minAmount.toLocaleString()}`, false);
                 return;
             }
             
             localStorage.setItem(STORAGE_KEYS.COUPON, code);
-            msg.textContent = `✓ 已套用折扣碼：${code}`;
-            msg.style.display = 'block';
-            msg.style.background = '#efe';
-            msg.style.color = '#3c3';
+            showCouponMessage(msg, `✅ 已套用折扣碼：${code}`, true);
             updateAmounts();
+            
+            // 顯示通知
+            if (typeof showNotification === 'function') {
+                showNotification('✅ 折扣碼套用成功！');
+            }
         });
     }
     
@@ -741,6 +765,19 @@ document.addEventListener('DOMContentLoaded', () => {
         payRadio.dispatchEvent(new Event('change', { bubbles: true }));
     }
 });
+
+// 顯示折扣碼訊息
+function showCouponMessage(msgElement, message, isSuccess) {
+    msgElement.textContent = message;
+    msgElement.className = 'coupon-message ' + (isSuccess ? 'success' : 'error');
+    
+    // 3秒後淡出（僅對錯誤訊息）
+    if (!isSuccess) {
+        setTimeout(() => {
+            msgElement.className = 'coupon-message';
+        }, 3000);
+    }
+}
 
 // 頁面載入時立即更新購物車數量（不等待 DOMContentLoaded）
 if (document.readyState === 'loading') {
