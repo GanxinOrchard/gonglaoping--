@@ -148,33 +148,39 @@ function renderCartItems() {
     // 渲染商品列表
     cartItemsList.innerHTML = cart.map(item => {
         console.log('🛒 渲染商品:', item);
+        console.log('  📝 規格資訊:', item.selectedSpec);
+        console.log('  🔢 數量:', item.quantity);
         
-        // 解析規格資訊
+        // 解析規格資訊（確保安全處理）
         let specDisplay = '';
-        if (item.selectedSpec && item.selectedSpec.trim()) {
+        if (item.selectedSpec && typeof item.selectedSpec === 'string' && item.selectedSpec.trim()) {
             specDisplay = `<div class="cart-item-spec">規格：${item.selectedSpec}</div>`;
+            console.log('  ✅ 規格將顯示:', specDisplay);
+        } else {
+            console.log('  ⚠️ 無規格或規格為空');
         }
         
         // 確保 selectedSpecId 正確處理
         const specIdParam = item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null';
+        console.log('  🆔 規格ID參數:', specIdParam);
         
         return `
         <div class="cart-item">
-            <div class="cart-item-image" onclick="window.location.href='product-detail.html?id=${item.id}'">
+            <div class="cart-item-image" onclick="window.location.href='product-detail.html?id=${item.id}'" style="cursor: pointer;">
                 <img src="${item.image}" alt="${item.name}" onerror="this.src='images/shared/logo/logo.png'">
             </div>
             <div class="cart-item-info">
                 <h3>${item.name}</h3>
                 ${specDisplay}
-                <div class="cart-item-price">NT$ ${item.price.toLocaleString()}</div>
+                <div class="cart-item-price">NT$ ${(item.price || 0).toLocaleString()}</div>
             </div>
             <div class="cart-item-controls">
                 <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1, ${specIdParam})">-</button>
-                    <span class="qty-display">${item.quantity}</span>
-                    <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1, ${specIdParam})">+</button>
+                    <button class="qty-btn" onclick="window.updateCartQuantity(${item.id}, -1, ${specIdParam}); return false;">-</button>
+                    <span class="qty-display">${item.quantity || 1}</span>
+                    <button class="qty-btn" onclick="window.updateCartQuantity(${item.id}, 1, ${specIdParam}); return false;">+</button>
                 </div>
-                <button class="remove-btn" onclick="removeCartItem(${item.id}, ${specIdParam})">
+                <button class="remove-btn" onclick="window.removeCartItem(${item.id}, ${specIdParam}); return false;">
                     <i class="fas fa-trash"></i> 刪除
                 </button>
             </div>
@@ -264,8 +270,8 @@ function updateShippingProgress(currentAmount) {
     }
 }
 
-// 更新購物車數量
-function updateCartQuantity(productId, change, specId = null) {
+// 更新購物車數量（確保全局可訪問）
+window.updateCartQuantity = function updateCartQuantity(productId, change, specId = null) {
     console.log('🔢 updateCartQuantity 調用:', { productId, change, specId });
     
     let cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.CART) || localStorage.getItem('cart') || '[]');
@@ -303,8 +309,8 @@ function updateCartQuantity(productId, change, specId = null) {
     }
 }
 
-// 移除購物車商品
-function removeCartItem(productId, specId = null) {
+// 移除購物車商品（確保全局可訪問）
+window.removeCartItem = function removeCartItem(productId, specId = null) {
     console.log('🗑️ removeCartItem 調用:', { productId, specId });
     
     // 處理 specId 字串
@@ -337,8 +343,8 @@ function removeCartItem(productId, specId = null) {
 // 全域購物車函數（供其他頁面使用）
 // ========================================
 
-// 加入購物車
-function addToCart(productId, specId = null, quantity = 1) {
+// 加入購物車（確保全局可訪問）
+window.addToCart = function addToCart(productId, specId = null, quantity = 1) {
     if (typeof productId === 'object') {
         let product = productId;
         
@@ -778,6 +784,13 @@ function showCouponMessage(msgElement, message, isSuccess) {
         }, 3000);
     }
 }
+
+// 確認關鍵函數已掛載到全局
+console.log('🔧 購物車核心函數檢查:');
+console.log('  updateCartQuantity:', typeof window.updateCartQuantity);
+console.log('  removeCartItem:', typeof window.removeCartItem);
+console.log('  addToCart:', typeof window.addToCart);
+console.log('  renderCartItems:', typeof renderCartItems);
 
 // 頁面載入時立即更新購物車數量（不等待 DOMContentLoaded）
 if (document.readyState === 'loading') {
