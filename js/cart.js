@@ -160,13 +160,9 @@ function renderCartItems() {
             console.log('  ⚠️ 無規格或規格為空');
         }
         
-        // 確保 selectedSpecId 正確處理
-        const specIdParam = item.selectedSpecId ? `'${item.selectedSpecId}'` : 'null';
-        console.log('  🆔 規格ID參數:', specIdParam);
-        
         return `
-        <div class="cart-item">
-            <div class="cart-item-image" onclick="window.location.href='product-detail.html?id=${item.id}'" style="cursor: pointer;">
+        <div class="cart-item" data-product-id="${item.id}" data-spec-id="${item.selectedSpecId || ''}">
+            <div class="cart-item-image" style="cursor: pointer;" data-action="view-product">
                 <img src="${item.image}" alt="${item.name}" onerror="this.src='images/shared/logo/logo.png'">
             </div>
             <div class="cart-item-info">
@@ -176,11 +172,11 @@ function renderCartItems() {
             </div>
             <div class="cart-item-controls">
                 <div class="qty-controls">
-                    <button class="qty-btn" onclick="window.updateCartQuantity(${item.id}, -1, ${specIdParam}); return false;">-</button>
+                    <button class="qty-btn qty-decrease" data-action="decrease">-</button>
                     <span class="qty-display">${item.quantity || 1}</span>
-                    <button class="qty-btn" onclick="window.updateCartQuantity(${item.id}, 1, ${specIdParam}); return false;">+</button>
+                    <button class="qty-btn qty-increase" data-action="increase">+</button>
                 </div>
-                <button class="remove-btn" onclick="window.removeCartItem(${item.id}, ${specIdParam}); return false;">
+                <button class="remove-btn" data-action="remove">
                     <i class="fas fa-trash"></i> 刪除
                 </button>
             </div>
@@ -545,6 +541,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // 檢查 localStorage 中的數據
     console.log('📦 localStorage ganxin_cart:', localStorage.getItem('ganxin_cart'));
     console.log('📦 localStorage cart:', localStorage.getItem('cart'));
+    
+    // 設置事件委托 - 處理購物車商品的所有按鈕
+    const cartItemsList = document.getElementById('cartItemsList');
+    if (cartItemsList) {
+        cartItemsList.addEventListener('click', (e) => {
+            const target = e.target.closest('[data-action]');
+            if (!target) return;
+            
+            const action = target.dataset.action;
+            const cartItem = target.closest('.cart-item');
+            if (!cartItem) return;
+            
+            const productId = parseInt(cartItem.dataset.productId);
+            const specId = cartItem.dataset.specId || null;
+            
+            console.log('🎯 按鈕點擊:', { action, productId, specId });
+            
+            if (action === 'decrease') {
+                e.preventDefault();
+                window.updateCartQuantity(productId, -1, specId);
+            } else if (action === 'increase') {
+                e.preventDefault();
+                window.updateCartQuantity(productId, 1, specId);
+            } else if (action === 'remove') {
+                e.preventDefault();
+                if (confirm('確定要刪除這個商品嗎？')) {
+                    window.removeCartItem(productId, specId);
+                }
+            } else if (action === 'view-product') {
+                window.location.href = `product-detail.html?id=${productId}`;
+            }
+        });
+        console.log('✅ 購物車事件委托已設置');
+    }
     
     // 渲染購物車商品
     renderCartItems();

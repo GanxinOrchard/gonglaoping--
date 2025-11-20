@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物車調試工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #e55a25;
+        }
+        .log {
+            background: #1e1e1e;
+            color: #dcdcdc;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        .log-item {
+            margin: 3px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .warning { color: #fbbf24; }
+        .info { color: #60a5fa; }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .status-ok { background: #4ade80; color: white; }
+        .status-fail { background: #f87171; color: white; }
+    </style>
+</head>
+<body>
+    <h1>🛒 購物車功能調試工具</h1>
+    
+    <div class="test-section">
+        <h2>1. 函數可用性測試</h2>
+        <button onclick="testFunctions()">檢查所有函數</button>
+        <div id="functionTest" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. 添加測試商品</h2>
+        <button onclick="addTestProduct()">添加測試商品到購物車</button>
+        <button onclick="clearCart()">清空購物車</button>
+        <div id="addTest" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. 查看購物車內容</h2>
+        <button onclick="viewCart()">查看購物車數據</button>
+        <div id="cartView" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. 測試按鈕功能</h2>
+        <button onclick="testUpdateQuantity()">測試數量調整</button>
+        <button onclick="testRemoveItem()">測試刪除商品</button>
+        <div id="buttonTest" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5. 前往購物車頁面</h2>
+        <button onclick="window.location.href='cart.html'">打開購物車頁面</button>
+        <button onclick="window.open('cart.html', '_blank')">新視窗打開購物車</button>
+    </div>
+
+    <script>
+        function log(containerId, message, type = 'info') {
+            const container = document.getElementById(containerId);
+            const div = document.createElement('div');
+            div.className = `log-item ${type}`;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function testFunctions() {
+            const containerId = 'functionTest';
+            document.getElementById(containerId).innerHTML = '';
+            
+            log(containerId, '開始檢查函數...', 'info');
+            
+            const functions = [
+                'updateCartQuantity',
+                'removeCartItem', 
+                'addToCart',
+                'updateCartCount',
+                'renderCartItems'
+            ];
+            
+            functions.forEach(funcName => {
+                if (typeof window[funcName] === 'function') {
+                    log(containerId, `✅ ${funcName} - 可用`, 'success');
+                } else if (typeof eval(funcName) === 'function') {
+                    log(containerId, `⚠️  ${funcName} - 存在但不在 window 對象`, 'warning');
+                } else {
+                    log(containerId, `❌ ${funcName} - 不可用`, 'error');
+                }
+            });
+            
+            log(containerId, '檢查完成！', 'info');
+        }
+
+        function addTestProduct() {
+            const containerId = 'addTest';
+            document.getElementById(containerId).innerHTML = '';
+            
+            const testProduct = {
+                id: 999,
+                name: '測試商品 - 東勢茂谷柑',
+                price: 880,
+                image: 'images/products/murcott/gallery/茂谷柑1.png',
+                selectedSpec: '23A (測試規格)',
+                selectedSpecId: 'TEST-23A',
+                shippingType: 'normal',
+                quantity: 1
+            };
+            
+            log(containerId, '準備添加測試商品...', 'info');
+            log(containerId, JSON.stringify(testProduct, null, 2), 'info');
+            
+            try {
+                if (typeof window.addToCart === 'function') {
+                    window.addToCart(testProduct);
+                    log(containerId, '✅ 商品已添加！', 'success');
+                    log(containerId, '請打開購物車頁面查看效果', 'info');
+                } else {
+                    log(containerId, '❌ addToCart 函數不可用', 'error');
+                }
+            } catch (e) {
+                log(containerId, `❌ 錯誤: ${e.message}`, 'error');
+            }
+        }
+
+        function clearCart() {
+            const containerId = 'addTest';
+            try {
+                localStorage.removeItem('ganxin_cart');
+                localStorage.removeItem('cart');
+                log(containerId, '✅ 購物車已清空', 'success');
+            } catch (e) {
+                log(containerId, `❌ 錯誤: ${e.message}`, 'error');
+            }
+        }
+
+        function viewCart() {
+            const containerId = 'cartView';
+            document.getElementById(containerId).innerHTML = '';
+            
+            log(containerId, '讀取購物車數據...', 'info');
+            
+            try {
+                const cart1 = localStorage.getItem('ganxin_cart');
+                const cart2 = localStorage.getItem('cart');
+                
+                log(containerId, `ganxin_cart: ${cart1 ? '有數據' : '無數據'}`, cart1 ? 'success' : 'warning');
+                if (cart1) {
+                    const parsed = JSON.parse(cart1);
+                    log(containerId, `商品數量: ${parsed.length}`, 'info');
+                    parsed.forEach((item, index) => {
+                        log(containerId, `商品 ${index + 1}: ${item.name} x${item.quantity} (規格: ${item.selectedSpec || '無'})`, 'info');
+                    });
+                }
+                
+                log(containerId, `cart: ${cart2 ? '有數據' : '無數據'}`, cart2 ? 'success' : 'warning');
+                
+            } catch (e) {
+                log(containerId, `❌ 錯誤: ${e.message}`, 'error');
+            }
+        }
+
+        function testUpdateQuantity() {
+            const containerId = 'buttonTest';
+            document.getElementById(containerId).innerHTML = '';
+            
+            log(containerId, '測試數量調整功能...', 'info');
+            
+            try {
+                const cart = JSON.parse(localStorage.getItem('ganxin_cart') || '[]');
+                if (cart.length === 0) {
+                    log(containerId, '⚠️  購物車是空的，請先添加商品', 'warning');
+                    return;
+                }
+                
+                const item = cart[0];
+                log(containerId, `測試商品: ${item.name}`, 'info');
+                log(containerId, `當前數量: ${item.quantity}`, 'info');
+                
+                if (typeof window.updateCartQuantity === 'function') {
+                    window.updateCartQuantity(item.id, 1, item.selectedSpecId);
+                    log(containerId, '✅ 執行 +1 成功', 'success');
+                    
+                    const updatedCart = JSON.parse(localStorage.getItem('ganxin_cart') || '[]');
+                    const updatedItem = updatedCart.find(i => i.id === item.id);
+                    log(containerId, `更新後數量: ${updatedItem ? updatedItem.quantity : '找不到'}`, updatedItem ? 'success' : 'error');
+                } else {
+                    log(containerId, '❌ updateCartQuantity 函數不可用', 'error');
+                }
+            } catch (e) {
+                log(containerId, `❌ 錯誤: ${e.message}`, 'error');
+            }
+        }
+
+        function testRemoveItem() {
+            const containerId = 'buttonTest';
+            
+            log(containerId, '測試刪除功能...', 'info');
+            
+            try {
+                const cart = JSON.parse(localStorage.getItem('ganxin_cart') || '[]');
+                if (cart.length === 0) {
+                    log(containerId, '⚠️  購物車是空的', 'warning');
+                    return;
+                }
+                
+                const item = cart[cart.length - 1];
+                log(containerId, `準備刪除: ${item.name}`, 'info');
+                
+                if (typeof window.removeCartItem === 'function') {
+                    window.removeCartItem(item.id, item.selectedSpecId);
+                    log(containerId, '✅ 刪除成功', 'success');
+                    
+                    const updatedCart = JSON.parse(localStorage.getItem('ganxin_cart') || '[]');
+                    log(containerId, `剩餘商品數量: ${updatedCart.length}`, 'info');
+                } else {
+                    log(containerId, '❌ removeCartItem 函數不可用', 'error');
+                }
+            } catch (e) {
+                log(containerId, `❌ 錯誤: ${e.message}`, 'error');
+            }
+        }
+
+        // 頁面載入時自動檢查
+        window.onload = function() {
+            setTimeout(testFunctions, 500);
+        };
+    </script>
+</body>
+</html>
